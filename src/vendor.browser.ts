@@ -17,13 +17,3 @@ import 'lodash';
 import 'd3';
 import 'd3-tip';
 import 'bootstrap';
-
-if ('production' === ENV) {
-  // Production
-
-
-} else {
-  // Development
-  require('angular2-hmr');
-
-}

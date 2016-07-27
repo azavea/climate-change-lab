@@ -3,7 +3,6 @@
  * App Component
  */
 import { Component, ViewEncapsulation } from '@angular/core';
-import {HmrState} from 'angular2-hmr';
 
 /*
  * App Component
@@ -18,7 +17,6 @@ import {HmrState} from 'angular2-hmr';
   templateUrl: './app.template.html'
 })
 export class App {
-  @HmrState() localState = {};
   name = 'Climate Lab';
 
   ngOnInit() {

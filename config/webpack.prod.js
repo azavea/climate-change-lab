@@ -7,7 +7,6 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
  */
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
-const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
 const IgnorePlugin = require('webpack/lib/IgnorePlugin');
 const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
@@ -57,11 +56,6 @@ module.exports = webpackMerge(commonConfig, {
       compress: { screw_ie8: true },
       comments: false
     }),
-
-    new NormalModuleReplacementPlugin(
-      /angular2-hmr/,
-      helpers.root('config/modules/angular2-hmr-prod.js')
-    ),
   ],
 
   tslint: {

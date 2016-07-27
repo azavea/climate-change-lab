@@ -58,8 +58,7 @@
     "d3": "^4.1.1",
     "d3-tip": "^0.6.7",
     "ng2-bootstrap": "1.0.24",
-    "bootstrap": "^3.3.6",
-    "ng2-fontawesome": "^0.0.4"
+    "bootstrap": "^3.3.6"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.28",
@@ -72,7 +71,6 @@
     "@types/uglify-js": "^2.0.27",
     "@types/webpack": "^1.12.29",
 
-    "angular2-hmr": "~0.8.0",
     "gh-pages": "^0.11.0",
     "parse5": "^1.5.1",
     "rimraf": "^2.5.2",
