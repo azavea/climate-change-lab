@@ -8,7 +8,7 @@ Requires node.js 6.3.1+ and npm 3.10.3+ for angular compatibility.
 
 ### Setup
 
-Clone this repo and run `npm install`
+Clone this repo and run `npm install -g`
 
 Check that webpack and webpack-dev-server are globally accessible, otherwise `npm install -g webpack webpack-dev-server`
 
@@ -18,8 +18,12 @@ Check that webpack and webpack-dev-server are globally accessible, otherwise `np
 |------|---------|--------------|
 | `npm start` | Serve project normally | If you don't want hot module replacement |
 | `npm run server:dev:hmr` | Serve project using hot module replacement | For quick browser updating without refresh |
+| `npm run lint` | Run typscript linter | To clean up your angular and .ts files |
 | `npm test` | Run karma and jasmine tests | Before making a pull to ensure all tests pass |
 
+Navigate to http://localhost:3000 in your browser
+
+Additional less common use commands available in package.json
 
 ### Tech Stack
 
