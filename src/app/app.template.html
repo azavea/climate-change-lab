@@ -1,0 +1,255 @@
+  <div class="app-fullscreen">
+    <nav class="nav-primary">
+      <div class="nav-left">
+        <h1 class="h4 logo">
+          Climate Lab
+        </h1>
+      </div>
+    </nav>
+
+    <div class="flex-container">
+      <div class="sidebar-content scrollable">
+        <h2 class="h4">Precipitation</h2>
+        <button class="indicator">5 Day Rainfall</button>
+        <button class="indicator">Average Total Annual Precipitation</button>
+        <button class="indicator">Concecutive Dry Days</button>
+        <button class="indicator">Daily Rainfall</button>
+        <button class="indicator">Extremely Heavy 24-hr Precipitation Amount</button>
+        <button class="indicator">Largest 3-Day Precipitation Event</button>
+        <button class="indicator">Number of Dry Periods</button>
+        <button class="indicator">Number of Wet Days</button>
+        <button class="indicator">Total Precipitation</button>
+        <button class="indicator">Very Heavy 24-hr Precipitation Amount</button>
+        <button class="indicator">Wet Day Rainfall</button>
+        <button class="indicator">Wet Days </button>
+        <hr>
+        <h2 class="h4">Temperature</h2>
+        <button class="indicator">Average Low Temperature</button>
+        <button class="indicator">Coldest Temperature</button>
+        <button class="indicator">Number of Cold Nights</button>
+        <button class="indicator">Number of Frost Days</button>
+        <button class="indicator">Average High Temperature</button>
+        <button class="indicator">Cooling Degree Days</button>
+        <button class="indicator">Heat Wave Duration Index</button>
+        <button class="indicator">Heating Degree Days</button>
+        <button class="indicator">Hottest Temperature</button>
+        <button class="indicator">Number of Warm Days</button>
+        <button class="indicator">Average Annual Maximum Temperature</button>
+        <button class="indicator">Days above ___°F</button>
+        <button class="indicator">Days Below Freezing</button>
+        <button class="indicator">Times Temperatures Fluctuate around Freezing</button>
+        <button class="indicator">Average Temperature</button>
+        <button class="indicator">Extremely Cold Day Temperature</button>
+        <button class="indicator">Extremely Hot Day Temperature</button>
+        <button class="indicator">Highest 4-Day Average Summer Temperature</button>
+        <button class="indicator">Highest 7-Day Average Summer Temperature</button>
+        <button class="indicator">Lowest 4-Day Average Winter Temperatures</button>
+        <button class="indicator">Lowest 7-Day Average Winter Temperatures</button>
+        <button class="indicator">Consecutive Days above ___°F</button>
+      </div>
+      <div class="flex-expand">
+        <nav class="controls">
+          <div class="nav-left">
+            <div class="dropdown">
+              <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <i class="icon-globe"></i>
+                Philadelphia, PA
+                <i class="icon-angle-down caret"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <input type="text" name="" placeholder="Enter your city">
+              </ul>
+            </div>
+            <div class="dropdown">
+              <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <i class="icon-flash"></i>
+                RCP 4.5
+                <i class="icon-angle-down caret"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <i class="icon-flash"></i>
+                All Models
+                <i class="icon-angle-down caret"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li class="active"><a href="#">All Models</a></li>
+                <li><a href="#">Average</a></li>
+                <li><a href="#">1st Quartile</a></li>
+                <li><a href="#">2nd Quartile</a></li>
+                <li><a href="#">3rd Quartile</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#modelOptions">Select Models</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="nav-right">
+            <button class="button button-default">
+              Reset
+            </button>
+          </div>
+        </nav>
+        <div class="charts scrollable">
+          <div class="chart">
+            <div class="chart-heading">
+              <h2 class="chart-label">
+                Total Precipitation
+              </h2>
+              <div class="chart-actions">
+                <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Export"><i class="icon icon-export"></i></button>
+                <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Options"><i class="icon icon-cog"></i></button>
+              </div>
+            </div>
+            <div class="chart-body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal modal-small" id="modelOptions" tabindex="-1" role="dialog" aria-labelledby="modelOptions">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="button button-modal-close" data-dismiss="modal" aria-label="Close">
+            <span class="icon icon-cancel"></span>
+          </button>
+          <h4 class="modal-title">Select Models</h4>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 1
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 2
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 3
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 4
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 5
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 6
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 7
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 8
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 9
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 10
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 11
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 12
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 13
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 14
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 15
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 16
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 17
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 18
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 19
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" name="checkbox" value="value">
+              Model 20
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="button">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+
