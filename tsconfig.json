@@ -14,7 +14,6 @@
     ],
     "types": [
       "core-js",
-      "hammerjs",
       "jasmine",
       "node",
       "protractor",

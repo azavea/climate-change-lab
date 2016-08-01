@@ -14,7 +14,7 @@ import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
 * App Component
 * our top level component that holds all of our components
 */
-import { App } from './app';
+import { ClimateChangeLab } from './ccl';
 
 /*
  * Bootstrap our Angular app with a top level component `App` and inject
@@ -22,7 +22,7 @@ import { App } from './app';
  */
 export function main(initialHmrState?: any): Promise<any> {
 
-  return bootstrap(App, [
+  return bootstrap(ClimateChangeLab, [
     // To add more vendor providers please look in the platform/ folder
     ...PLATFORM_PROVIDERS,
     ...ENV_PROVIDERS

@@ -14,8 +14,8 @@ Clone this repo and run `npm install`
 
 | Command | Purpose | Use When ... |
 |------|---------|--------------|
-| `npm start` | Serve project normally | If you don't want hot module replacement |
-| `npm run server:dev:hmr` | Serve project using hot module replacement | For quick browser updating without refresh |
+| `npm start` | Serve project using hot module replacement | For quick browser updating without refresh |
+| `npm run server:dev` | Serve project normall, without hot module replacement | If you don't want hot module replacement |
 | `npm run lint --silent` | Run typscript linter | To clean up your angular and .ts files |
 
 Navigate to http://localhost:3100 in your browser

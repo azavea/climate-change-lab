@@ -72,9 +72,10 @@ module.exports = {
         loader: 'raw-loader',
         exclude: [helpers.root('src/index.html')]
       },
+      // TODO: Fonts loader below not compatible with css loader above
       {
-        test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loaders: ['url-loader?name=assets/fonts/[name]_[hash].[ext]']
+        test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
+        loader:  'url-loader?name=assets/fonts/[name]_[hash].[ext]'
       }
     ]
   },

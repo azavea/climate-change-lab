@@ -9,17 +9,14 @@ import { Component, ViewEncapsulation } from '@angular/core';
  * Top Level Component
  */
 @Component({
-  selector: 'app',
+  selector: 'ccl',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    './app.style.css'
+  '../assets/css/main.css',
   ],
-  templateUrl: './app.template.html'
+  templateUrl: './ccl.template.html'
 })
-export class App {
+export class ClimateChangeLab {
   name = 'Climate Lab';
-
-  ngOnInit() {
-  }
 
 }
