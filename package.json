@@ -8,7 +8,7 @@
     "lab",
     "Azavea"
   ],
-  "license": "MIT",
+  "license": "Apache 2",
   "scripts": {
     "tslint": "tslint",
     "webpack": "webpack",
