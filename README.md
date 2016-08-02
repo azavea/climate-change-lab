@@ -10,16 +10,17 @@ Requires node.js 6.3.1+ and npm 3.10.3+ for angular compatibility.
 
 Clone this repo and run `npm install`
 
-Check that webpack and webpack-dev-server are globally accessible, otherwise `npm install -g webpack webpack-dev-server`
-
 ### Getting started
 
 | Command | Purpose | Use When ... |
 |------|---------|--------------|
-| `npm start` | Serve project normally | If you don't want hot module replacement |
-| `npm run server:dev:hmr` | Serve project using hot module replacement | For quick browser updating without refresh |
-| `npm test` | Run karma and jasmine tests | Before making a pull to ensure all tests pass |
+| `npm start` | Serve project using hot module replacement | For quick browser updating without refresh |
+| `npm run server:dev` | Serve project normally, without hot module replacement | If you don't want hot module replacement |
+| `npm run lint --silent` | Run typscript linter | To clean up your angular and .ts files |
 
+Navigate to http://localhost:3100 in your browser
+
+Additional commands available in package.json
 
 ### Tech Stack
 
