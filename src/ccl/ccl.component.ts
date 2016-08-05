@@ -3,7 +3,8 @@
  * App Component
  */
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Sidebar} from './sidebar/sidebar.component';
+import { Sidebar } from './sidebar/sidebar.component';
+import { Chart } from './charts/chart.component';
 
 /*
  * App Component
@@ -11,7 +12,7 @@ import { Sidebar} from './sidebar/sidebar.component';
  */
 @Component({
   selector: 'ccl',
-  directives: [Sidebar],
+  directives: [Sidebar, Chart],
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
     '../assets/css/main.css',

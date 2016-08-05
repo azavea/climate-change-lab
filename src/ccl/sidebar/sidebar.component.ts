@@ -2,29 +2,35 @@
  * Climate Change Lab
  * Sidebar component
  */
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, EventEmitter, Input, Output } from '@angular/core';
 
 import { IndicatorsService } from '../services/indicators.service';
+import { ChartService } from '../services/chart.service';
 
 
 @Component({
   selector: 'sidebar',
-  providers: [IndicatorsService],
   encapsulation: ViewEncapsulation.None,
+  providers: [IndicatorsService, ChartService],
   styleUrls: [
-      '../../assets/css/main.css',
+      '../../assets/css/sidebar.css',
   ],
   templateUrl: './sidebar.template.html'
 })
 export class Sidebar {
+    private indicatorsList: string;
 
-    private indicatorsList;
+    // Pull data to populate sidebar
+    constructor(private chartService: ChartService, private indicatorService: IndicatorsService){};
 
-    constructor(indicators: IndicatorsService){
-        indicators.get()
-        .subscribe(data=>this.indicatorsList=data);
+    // Set up click event handlers
+    onIndicatorClicked(indicator) {
+        this.chartService.addChart(indicator);
     }
 
-    ngOnInit(){
+    ngOnInit() {
+      this.indicatorService.get()
+      .subscribe(data=>this.indicatorsList=data);
     }
+
 }
