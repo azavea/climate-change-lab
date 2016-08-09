@@ -4,11 +4,12 @@
       {{chart}}
     </h2>
     <div class="chart-actions">
-      <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Export"><i class="icon icon-export"></i></button>
-      <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Options"><i class="icon icon-cog"></i></button>
+      <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Export"><i class="icon icon-export"></i>=></button>
+      <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Options"><i class="icon icon-cog">i</i></button>
     </div>
   </div>
   <div class="chart-body">
+    <line-graph [config]="chartConfig" [indicator]="chart"></line-graph>
     <!-- TODO: Insert d3 chart here -->
   </div>
 </div>

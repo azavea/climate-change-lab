@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Subject} from "rxjs/Subject";
-
+import {Http, Response} from '@angular/http';
 
 @Injectable()
 export class ChartService {
-    // TODO rewrite as Subject type observable
+    constructor(private http: Http) { }
 
-    chartList = ["5 Day Rainfall"];
+    // TODO rewrite as Subject type observable
+    chartList = ["5 Day Rainfall", "Total Precipitation"];
 
     get() {
-    return this.chartList;
+        return this.chartList;
     }
 
     removeChart(indicator) {
@@ -25,5 +26,9 @@ export class ChartService {
         }
         console.log(this.chartList);
     }
-}
 
+    getChartData() {
+        return this.http.get('/assets/mockdata/d3_precip_graph_data.json')
+          .map(response => response.json());
+    }
+}
