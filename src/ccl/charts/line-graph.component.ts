@@ -1,20 +1,17 @@
 import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
 import * as D3 from 'd3';
 
-import { ChartConfig } from './chart-config.component';
-
 @Component({
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
-  inputs: [ 'config', 'indicator' ],
-  styleUrls: [ '../../assets/css/chart.css'],
-  directives: [ ChartConfig ],
+  inputs: [ 'data', 'indicator' ],
+  styleUrls: [ '../../assets/css/chart.css']
 })
 
 export class LineGraph {
 
-  public config: Object;
+  public data: Object;
   public indicator: String;
 
   private host;        // D3 object referebcing host dom object
@@ -28,7 +25,6 @@ export class LineGraph {
   private yAxis;       // D3 Y Axis
   private htmlElement; // Host HTMLElement
   private valueline;   // The charted line
-  private data;        // Isolated data
 
   /* We request angular for the element reference
   * and then we create a D3 Wrapper for our host element
@@ -40,7 +36,7 @@ export class LineGraph {
 
   /* Will Update on every @Input change */
   ngOnChanges(): void {
-    if (!this.config || this.config.length === 0) return;
+    if (!this.data || this.data.length === 0) return;
     this.filterData();
     this.setup();
     this.buildSVG();
@@ -52,7 +48,7 @@ export class LineGraph {
 
   private filterData(): void {
     var indicator = this.indicator;
-    this.data = _.find(this.config, function(obj){
+    this.data = _.find(this.data, function(obj){
       return obj["indicator"] == indicator;
     })["data"];
   }

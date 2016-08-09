@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, Inject } from '@angular/core';
 import { ChartService } from '../services/chart.service';
 import { LineGraph } from './line-graph.component';
-import { ChartConfig } from './chart-config.component';
 
 /*
  * Chart component
@@ -24,11 +23,11 @@ export class Chart {
     private getChartData;
 
     // Create graph
-    private chartConfig: Array<ChartConfig>;
+    private chartData;
 
     makeChart() {
       this.getChartData.subscribe(data=> {
-        this.chartConfig = data;
+        this.chartData = data;
       });
     }
 
