@@ -1,6 +1,11 @@
 import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
 import * as D3 from 'd3';
 
+/*
+ * Line graph component
+ * Contains all logic for drawing a line graph
+ */
+
 @Component({
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,

@@ -4,6 +4,7 @@ import { LineGraph } from './line-graph.component';
 
 /*
  * Chart component
+ * Management for the sections that appear in the chart container
  */
 
 @Component({
@@ -25,7 +26,7 @@ export class Chart {
     // Create graph
     private chartData;
 
-    makeChart() {
+    makeCharts() {
       this.getChartData.subscribe(data=> {
         this.chartData = data;
       });
@@ -34,7 +35,7 @@ export class Chart {
     constructor(@Inject(ChartService) chartService:ChartService){
       this.chartList = chartService.get();
       this.getChartData = chartService.getChartData();
-      this.makeChart();
+      this.makeCharts();
     }
 
 }

@@ -7,6 +7,10 @@ import { Component, ViewEncapsulation, EventEmitter, Input, Output } from '@angu
 import { IndicatorsService } from '../services/indicators.service';
 import { ChartService } from '../services/chart.service';
 
+/*
+ * Sidebar Component
+ * Populates sidebar with indicators and triggers adding charts
+ */
 
 @Component({
   selector: 'sidebar',
