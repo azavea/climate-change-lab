@@ -20,7 +20,7 @@ export class ChartService {
     }
 
     addChart(indicator){
-        // TODO: Only update chartList observable upon new indicator
+        // TODO: Only update chartList upon new indicator
         if (!this.chartList.includes(indicator)){
             this.chartList.push(indicator);
         }

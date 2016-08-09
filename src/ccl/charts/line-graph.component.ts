@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ElementRef, provide } from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
 import * as D3 from 'd3';
 
 import { ChartConfig } from './chart-config.component';
@@ -45,13 +45,9 @@ export class LineGraph {
     this.setup();
     this.buildSVG();
     this.setAxisScales();
-    this.populate();
     this.drawXAxis();
     this.drawYAxis();
-  }
-
-  onResize(event): void {
-    this.ngOnChanges();
+    this.populate();
   }
 
   private filterData(): void {
@@ -68,9 +64,12 @@ export class LineGraph {
     this.height = 200 - this.margin.top - this.margin.bottom;
     this.xScale = D3.scaleTime().range([0, this.width]);
     this.yScale = D3.scaleLinear().range([this.height, 0]);
+
+    var xscale = this.xScale;
+    var yscale = this.yScale;
     this.valueline = D3.line()
-      .x(function(d) { return this.xScale(d.date); })
-      .y(function(d) { return this.yScale(d.value); });
+      .x(function(d) { return xscale(d.date); })
+      .y(function(d) { return yscale(d.value); });
   }
 
   /* Will build the SVG Element */
@@ -111,5 +110,9 @@ export class LineGraph {
 
   /* Will populate datasets into areas*/
   private populate(): void {
+    this.svg.append("path")
+      .data([this.data])
+      .attr("class", "line")
+      .attr("d", this.valueline);
   }
 }
