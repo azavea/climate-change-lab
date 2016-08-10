@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Subject} from "rxjs/Subject";
 import {Http, Response} from '@angular/http';
 
 /*
@@ -9,10 +8,9 @@ import {Http, Response} from '@angular/http';
 
 @Injectable()
 export class ChartService {
-    constructor(private http: Http) { }
+    constructor(private http: Http) {}
 
-    // TODO rewrite as Subject type observable
-    chartList = ["5 Day Rainfall", "Total Precipitation"];
+    chartList = ["5 Day Rainfall"];
 
     get() {
         return this.chartList;
@@ -26,7 +24,7 @@ export class ChartService {
     }
 
     addChart(indicator){
-        // TODO: Only update chartList upon new indicator
+        // Only update chartList upon new indicator
         if (!this.chartList.includes(indicator)){
             this.chartList.push(indicator);
         }

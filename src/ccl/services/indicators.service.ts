@@ -8,7 +8,7 @@ import {Http, Response} from '@angular/http';
 
 @Injectable()
 export class IndicatorsService {
-  constructor(private http: Http) { }
+  constructor(private http: Http) {}
 
   get() {
     return this.http.get('/assets/indicators.json')

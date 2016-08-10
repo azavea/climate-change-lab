@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+
 import { ChartService } from '../services/chart.service';
 import { LineGraph } from './line-graph.component';
 
@@ -9,32 +10,29 @@ import { LineGraph } from './line-graph.component';
 
 @Component({
   selector: 'charts',
-  encapsulation: ViewEncapsulation.None,
-  providers: [ChartService],
   directives: [LineGraph],
   styleUrls: [
-  '../../assets/css/chart.css',
+    './chart.style.css',
   ],
   templateUrl: './chart.template.html'
 })
-export class Chart {
-    // Pull active chart data
-    public chartService: ChartService;
-    private chartList;
-    private getChartData;
+export class Chart extends OnInit {
 
-    // Create graph
+    private chartList;
     private chartData;
 
+    constructor(private chartService: ChartService){
+    }
+
     makeCharts() {
-      this.getChartData.subscribe(data=> {
+      this.chartService.getChartData().subscribe(data=> {
         this.chartData = data;
       });
     }
 
-    constructor(@Inject(ChartService) chartService:ChartService){
-      this.chartList = chartService.get();
-      this.getChartData = chartService.getChartData();
+    ngOnInit() {
+      // First, subscribe to chartList observable
+      this.chartList = this.chartService.get();
       this.makeCharts();
     }
 

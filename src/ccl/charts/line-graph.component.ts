@@ -11,7 +11,7 @@ import * as D3 from 'd3';
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
   inputs: [ 'data', 'indicator' ],
-  styleUrls: [ '../../assets/css/chart.css']
+  styleUrls: [ './chart.style.css']
 })
 
 export class LineGraph {
@@ -55,7 +55,8 @@ export class LineGraph {
     var indicator = this.indicator;
     this.data = _.find(this.data, function(obj){
       return obj["indicator"] == indicator;
-    })["data"];
+    });
+    _.has(this.data, "data")? this.data=this.data["data"] : this.data=[];
   }
 
   /* Will setup the chart container */
