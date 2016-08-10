@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
+import { ChartData, DataPoint } from '../models/chart.models';
 import * as D3 from 'd3';
 
 /*
@@ -11,12 +12,13 @@ import * as D3 from 'd3';
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
   inputs: [ 'data', 'indicator' ],
-  styleUrls: [ './chart.style.css']
+  styleUrls: [ './chart.component.css']
 })
 
 export class LineGraph {
 
-  public data: Object;
+  public data: ChartData;
+  public extractedData: Array<DataPoint>;
   public indicator: String;
 
   private host;        // D3 object referebcing host dom object
@@ -56,7 +58,7 @@ export class LineGraph {
     this.data = _.find(this.data, function(obj){
       return obj["indicator"] == indicator;
     });
-    _.has(this.data, "data")? this.data=this.data["data"] : this.data=[];
+    _.has(this.data, "data")? this.extractedData=this.data["data"] : this.extractedData=[];
   }
 
   /* Will setup the chart container */
@@ -87,11 +89,11 @@ export class LineGraph {
   // Set axis scales
   private setAxisScales(): void {
     var parseTime = D3.timeParse("%Y-%m-%d");
-    this.data.forEach(function(d) {
+    this.extractedData.forEach(function(d) {
       d.date = parseTime(d.date);
     });
-    this.xScale.domain(D3.extent(this.data, function(d) { return d.date; }));
-    this.yScale.domain([0, D3.max(this.data, function(d) { return d.value; })]);
+    this.xScale.domain(D3.extent(this.extractedData, function(d) { return d.date; }));
+    this.yScale.domain([0, D3.max(this.extractedData, function(d) { return d.value; })]);
   }
 
   /* Will draw the X Axis */
@@ -113,7 +115,7 @@ export class LineGraph {
   /* Will populate datasets into areas*/
   private populate(): void {
     this.svg.append("path")
-      .data([this.data])
+      .data([this.extractedData])
       .attr("class", "line")
       .attr("d", this.valueline);
   }

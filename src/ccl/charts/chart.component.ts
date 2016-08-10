@@ -12,9 +12,9 @@ import { LineGraph } from './line-graph.component';
   directives: [LineGraph],
   inputs: ['indicator', 'chartData'],
   styleUrls: [
-    './chart.style.css',
+    './chart.component.css',
   ],
-  templateUrl: './chart.template.html'
+  templateUrl: './chart.component.html'
 })
 export class Chart {
 }

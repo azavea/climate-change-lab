@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ChartData } from '../models/chart.models';
 import { ChartService } from '../services/chart.service';
 import { Chart } from './chart.component';
 
@@ -12,7 +13,7 @@ import { Chart } from './chart.component';
   selector: 'charts',
   directives: [Chart],
   styleUrls: [
-    './chart.style.css',
+    './chart.component.css',
   ],
   template: `<div class="chart" *ngFor="let chart of chartList">
                 <chart [indicator]="chart" [chartData]="chartData"></chart>
@@ -22,7 +23,7 @@ import { Chart } from './chart.component';
 export class Charts extends OnInit {
 
     private chartList: Array<String>;
-    private chartData: Object;
+    private chartData: ChartData;
 
     constructor(private chartService: ChartService){
       super();

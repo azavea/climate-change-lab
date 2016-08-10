@@ -12,9 +12,9 @@ import { Charts } from './charts/charts-container.component';
   directives: [Sidebar, Charts],
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    './ccl.style.css',
+    './ccl.component.css',
   ],
-  templateUrl: './ccl.template.html'
+  templateUrl: './ccl.component.html'
 })
 export class ClimateChangeLab {
   name = 'Climate Lab';

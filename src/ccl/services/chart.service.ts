@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 
+import { ChartData } from '../models/chart.models';
+
 /*
  * Chart Service
  * Data management and operations for charts
@@ -33,6 +35,6 @@ export class ChartService {
     getChartData() {
         // TODO: Rewrite to poll for API data
         return this.http.get('/assets/mockdata/d3_precip_graph_data.json')
-          .map(response => response.json());
+          .map(response => response.json() as ChartData);
     }
 }
