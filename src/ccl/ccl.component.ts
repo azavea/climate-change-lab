@@ -4,12 +4,12 @@
  */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Sidebar } from './sidebar/sidebar.component';
-import { Chart } from './charts/chart.component';
+import { Charts } from './charts/charts-container.component';
 
 
 @Component({
   selector: 'ccl',
-  directives: [Sidebar, Chart],
+  directives: [Sidebar, Charts],
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
     './ccl.style.css',

@@ -20,7 +20,9 @@ import { IndicatorsService } from '../services/indicators.service';
 export class Sidebar extends OnInit {
     private indicatorsList: string;
 
-    constructor(private chartService: ChartService, private indicatorService: IndicatorsService) {};
+    constructor(private chartService: ChartService, private indicatorsService: IndicatorsService) {
+      super();
+    };
 
     // Set up click event handlers
     onIndicatorClicked(indicator) {
@@ -28,7 +30,7 @@ export class Sidebar extends OnInit {
     }
 
     ngOnInit() {
-      this.indicatorService.get()
+      this.indicatorsService.get()
       .subscribe(data=>this.indicatorsList=data);
     }
 
