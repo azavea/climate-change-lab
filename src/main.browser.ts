@@ -15,6 +15,7 @@ import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
 * our top level component that holds all of our components
 */
 import { ClimateChangeLab } from './ccl';
+import { ChartService } from './ccl/services/chart.service';
 
 /*
  * Bootstrap our Angular app with a top level component `App` and inject
@@ -23,6 +24,7 @@ import { ClimateChangeLab } from './ccl';
 export function main(initialHmrState?: any): Promise<any> {
 
   return bootstrap(ClimateChangeLab, [
+    ChartService,
     // To add more vendor providers please look in the platform/ folder
     ...PLATFORM_PROVIDERS,
     ...ENV_PROVIDERS

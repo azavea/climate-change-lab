@@ -3,20 +3,19 @@
  * App Component
  */
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Sidebar } from './sidebar/sidebar.component';
+import { Charts } from './charts/charts-container.component';
 
-/*
- * App Component
- * Top Level Component
- */
+
 @Component({
   selector: 'ccl',
+  directives: [Sidebar, Charts],
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-  '../assets/css/main.css',
+    './ccl.component.css',
   ],
-  templateUrl: './ccl.template.html'
+  templateUrl: './ccl.component.html'
 })
 export class ClimateChangeLab {
   name = 'Climate Lab';
-
 }

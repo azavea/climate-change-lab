@@ -1,0 +1,40 @@
+sidebar {
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.sidebar-content {
+  width: 300px;
+}
+
+.sidebar-content hr {
+  border-top: 1px solid #ccc;
+}
+
+.sidebar-content hr,h2 {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.indicator {
+  margin-bottom: 0;
+  width: 100%;
+  padding: .5rem 3rem .5rem 1.5rem;
+  border: 0;
+  background-image: none;
+  background-color: transparent;
+  text-align: left;
+  position: relative;
+}
+
+.indicator:hover {
+  color: #1092d2;
+  cursor: pointer;
+}
+
+.indicator:hover:before {
+  content: "\e85e";
+  position: absolute;
+  font-family: mantle;
+  right: 1rem;
+}

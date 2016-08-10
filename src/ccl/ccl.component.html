@@ -8,45 +8,9 @@
     </nav>
 
     <div class="flex-container">
-      <div class="sidebar-content scrollable">
-        <h2 class="h4">Precipitation</h2>
-        <button class="indicator">5 Day Rainfall</button>
-        <button class="indicator">Average Total Annual Precipitation</button>
-        <button class="indicator">Concecutive Dry Days</button>
-        <button class="indicator">Daily Rainfall</button>
-        <button class="indicator">Extremely Heavy 24-hr Precipitation Amount</button>
-        <button class="indicator">Largest 3-Day Precipitation Event</button>
-        <button class="indicator">Number of Dry Periods</button>
-        <button class="indicator">Number of Wet Days</button>
-        <button class="indicator">Total Precipitation</button>
-        <button class="indicator">Very Heavy 24-hr Precipitation Amount</button>
-        <button class="indicator">Wet Day Rainfall</button>
-        <button class="indicator">Wet Days </button>
-        <hr>
-        <h2 class="h4">Temperature</h2>
-        <button class="indicator">Average Low Temperature</button>
-        <button class="indicator">Coldest Temperature</button>
-        <button class="indicator">Number of Cold Nights</button>
-        <button class="indicator">Number of Frost Days</button>
-        <button class="indicator">Average High Temperature</button>
-        <button class="indicator">Cooling Degree Days</button>
-        <button class="indicator">Heat Wave Duration Index</button>
-        <button class="indicator">Heating Degree Days</button>
-        <button class="indicator">Hottest Temperature</button>
-        <button class="indicator">Number of Warm Days</button>
-        <button class="indicator">Average Annual Maximum Temperature</button>
-        <button class="indicator">Days above ___°F</button>
-        <button class="indicator">Days Below Freezing</button>
-        <button class="indicator">Times Temperatures Fluctuate around Freezing</button>
-        <button class="indicator">Average Temperature</button>
-        <button class="indicator">Extremely Cold Day Temperature</button>
-        <button class="indicator">Extremely Hot Day Temperature</button>
-        <button class="indicator">Highest 4-Day Average Summer Temperature</button>
-        <button class="indicator">Highest 7-Day Average Summer Temperature</button>
-        <button class="indicator">Lowest 4-Day Average Winter Temperatures</button>
-        <button class="indicator">Lowest 7-Day Average Winter Temperatures</button>
-        <button class="indicator">Consecutive Days above ___°F</button>
-      </div>
+
+      <sidebar></sidebar>
+
       <div class="flex-expand">
         <nav class="controls">
           <div class="nav-left">
@@ -95,20 +59,7 @@
             </button>
           </div>
         </nav>
-        <div class="charts scrollable">
-          <div class="chart">
-            <div class="chart-heading">
-              <h2 class="chart-label">
-                Total Precipitation
-              </h2>
-              <div class="chart-actions">
-                <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Export"><i class="icon icon-export"></i></button>
-                <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Options"><i class="icon icon-cog"></i></button>
-              </div>
-            </div>
-            <div class="chart-body"></div>
-          </div>
-        </div>
+        <charts class="charts scrollable"></charts>
       </div>
     </div>
   </div>
