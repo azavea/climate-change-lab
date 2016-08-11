@@ -11,7 +11,7 @@ import * as D3 from 'd3';
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
-  inputs: [ 'data', 'indicator' ],
+  inputs: [ 'data', 'indicator', 'trendline' ],
   styleUrls: [ './chart.component.css']
 })
 
@@ -20,6 +20,7 @@ export class LineGraph {
   public data: ChartData;
   public extractedData: Array<DataPoint>;
   public indicator: String;
+  public trendline: Boolean;
 
   private host;        // D3 object referebcing host dom object
   private svg;         // SVG in which we will print our chart
@@ -28,8 +29,6 @@ export class LineGraph {
   private height;      // Component height
   private xScale;      // D3 scale in X
   private yScale;      // D3 scale in Y
-  private xAxis;       // D3 X Axis
-  private yAxis;       // D3 Y Axis
   private htmlElement; // Host HTMLElement
   private valueline;   // The charted line
 
@@ -51,29 +50,24 @@ export class LineGraph {
     this.drawXAxis();
     this.drawYAxis();
     this.populate();
+    this.drawTrendLine();
   }
 
   private filterData(): void {
     var indicator = this.indicator;
-    this.data = _.find(this.data, function(obj){
+    this.extractedData = _.cloneDeep(_.find(this.data, function(obj){
       return obj["indicator"] == indicator;
-    });
-    _.has(this.data, "data")? this.extractedData=this.data["data"] : this.extractedData=[];
+    }));
+    _.has(this.extractedData, "data")? this.extractedData=this.extractedData["data"] : this.extractedData=[];
   }
 
-  /* Will setup the chart container */
+  /* Will setup the chart basics */
   private setup(): void {
     this.margin = { top: 20, right: 20, bottom: 40, left: 40 };
     this.width = $(".chart").width() - this.margin.left - this.margin.right;
     this.height = 200 - this.margin.top - this.margin.bottom;
     this.xScale = D3.scaleTime().range([0, this.width]);
     this.yScale = D3.scaleLinear().range([this.height, 0]);
-
-    var xscale = this.xScale;
-    var yscale = this.yScale;
-    this.valueline = D3.line()
-      .x(function(d) { return xscale(d.date); })
-      .y(function(d) { return yscale(d.value); });
   }
 
   /* Will build the SVG Element */
@@ -89,9 +83,10 @@ export class LineGraph {
   // Set axis scales
   private setAxisScales(): void {
     var parseTime = D3.timeParse("%Y-%m-%d");
-    this.extractedData.forEach(function(d) {
-      d.date = parseTime(d.date);
-    });
+      this.extractedData.forEach(function(d) {
+        d.date = parseTime(d.date);
+      });
+
     this.xScale.domain(D3.extent(this.extractedData, function(d) { return d.date; }));
     this.yScale.domain([0, D3.max(this.extractedData, function(d) { return d.value; })]);
   }
@@ -112,11 +107,23 @@ export class LineGraph {
             .ticks(6));
   }
 
-  /* Will populate datasets into areas*/
+  /* Draw line */
   private populate(): void {
+    var xscale = this.xScale;
+    var yscale = this.yScale;
+    this.valueline = D3.line()
+      .x(function(d) { return xscale(d.date); })
+      .y(function(d) { return yscale(d.value); });
+
     this.svg.append("path")
       .data([this.extractedData])
       .attr("class", "line")
       .attr("d", this.valueline);
+  }
+
+  private drawTrendLine(): void {
+    if (this.trendline) {
+      console.log('yo');
+    }
   }
 }

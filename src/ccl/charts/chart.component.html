@@ -8,5 +8,6 @@
   </div>
 </div>
 <div class="chart-body">
-  <line-graph [data]="chartData" [indicator]="indicator"></line-graph>
+  <line-graph [data]="chartData" [indicator]="indicator" [trendline]="trendline"></line-graph>
+  <button (click)="toggleTrendline()">Trendline</button>
 </div>
