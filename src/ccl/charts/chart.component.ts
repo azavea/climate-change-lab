@@ -17,4 +17,13 @@ import { LineGraph } from './line-graph.component';
   templateUrl: './chart.component.html'
 })
 export class Chart {
+  private trendline: Boolean;
+
+  toggleTrendline() {
+    this.trendline = !this.trendline;
+  }
+
+  constructor() {
+    this.trendline = false;
+  }
 }

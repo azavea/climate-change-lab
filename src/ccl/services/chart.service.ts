@@ -12,7 +12,7 @@ import { ChartData } from '../models/chart.models';
 export class ChartService {
     constructor(private http: Http) {}
 
-    chartList = ["5 Day Rainfall"];
+    chartList = ["Total Precipitation"];
 
     get() {
         return this.chartList;

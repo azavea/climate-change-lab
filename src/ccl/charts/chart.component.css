@@ -70,3 +70,10 @@
   stroke: steelblue;
   stroke-width: 2px;
 }
+
+.trendline {
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
+  opacity: .7;
+}
