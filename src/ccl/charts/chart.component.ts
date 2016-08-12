@@ -20,10 +20,10 @@ export class Chart {
   private trendline: Boolean;
 
   toggleTrendline() {
-    if (this.trendline == true) {
-      this.trendline = false;
-    } else {
-      this.trendline = true;
-    }
+    this.trendline = !this.trendline;
+  }
+
+  constructor() {
+    this.trendline = false;
   }
 }
