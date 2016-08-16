@@ -74,6 +74,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "1.7.0",
     "node-sass": "^3.8.0",
+    "postcss-loader": "^0.10.0",
     "protractor": "^3.2.2",
     "raw-loader": "0.5.1",
     "sass-loader": "^4.0.0",

@@ -62,7 +62,7 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        loaders: ['style', 'css', 'sass'/*, 'postcss'*/]
+        loaders: ['style', 'css', 'postcss', 'sass']
       },
       {
         test: /\.html$/,
@@ -102,7 +102,7 @@ module.exports = {
       "window.Tether": "tether"
     })
   ],
-  //postcss: () => [autoprefixer],
+  postcss: () => [autoprefixer()],
 
   node: {
     global: 'window',
