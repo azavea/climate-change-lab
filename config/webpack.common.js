@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const helpers = require('./helpers');
+const autoprefixer = require('autoprefixer');
 var path = require('path');
 
 /*
@@ -60,22 +61,21 @@ module.exports = {
         loader: 'json-loader'
       },
       {
-        test: /\.css$/,
-        loaders: ['to-string-loader', 'css-loader']
-      },
-      {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'sass'],
+        test: /\.(css|scss)$/,
+        loaders: ['style', 'css', 'sass'/*, 'postcss'*/]
       },
       {
         test: /\.html$/,
         loader: 'raw-loader',
         exclude: [helpers.root('src/index.html')]
       },
-      // TODO: Fonts loader below not compatible with css loader above
       {
-        test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
-        loader:  'url-loader?name=assets/fonts/[name]_[hash].[ext]'
+        test: /\.(png|jpg|jpeg|svg)$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)/,
+        loader: 'file-loader'
       }
     ]
   },
@@ -102,6 +102,7 @@ module.exports = {
       "window.Tether": "tether"
     })
   ],
+  //postcss: () => [autoprefixer],
 
   node: {
     global: 'window',

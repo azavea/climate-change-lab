@@ -11,9 +11,6 @@ import { Charts } from './charts/charts-container.component';
   selector: 'ccl',
   directives: [Sidebar, Charts],
   encapsulation: ViewEncapsulation.None,
-  styleUrls: [
-    './ccl.component.css',
-  ],
   templateUrl: './ccl.component.html'
 })
 export class ClimateChangeLab {

@@ -9,6 +9,8 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 import { PLATFORM_PROVIDERS } from './platform/browser';
 import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
 
+import './assets/sass/main.scss';
+import './assets/fonts/fontello/css/mantle.css';
 
 /*
 * App Component

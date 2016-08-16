@@ -12,9 +12,6 @@ import { Chart } from './chart.component';
 @Component({
   selector: 'charts',
   directives: [Chart],
-  styleUrls: [
-    './chart.component.css',
-  ],
   template: `<div class="chart" *ngFor="let chart of chartList">
                 <chart [indicator]="chart" [chartData]="chartData"></chart>
             </div>`
