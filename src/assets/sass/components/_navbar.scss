@@ -1,0 +1,25 @@
+nav {
+  flex-shrink: 0;
+}
+
+.nav-primary {
+  background-color: #666;
+  height: $nav-height;
+  color: #fff;
+}
+
+.controls {
+  height: $nav-height;
+  color: #fff;
+  border-bottom: 1px solid $gray-2;
+}
+
+.nav-left {
+  float: left;
+  padding: 0.75rem 1.5rem 0;
+}
+
+.nav-right {
+  float: right;
+  padding: 0.75rem 1.5rem 0;
+}

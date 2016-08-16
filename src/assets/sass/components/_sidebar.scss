@@ -1,0 +1,42 @@
+.sidebar-with-nav-vertical {
+    display: flex;
+}
+
+.sidebar-nav {
+  width: 80px;
+}
+
+.sidebar-content {
+    width: 300px;
+    hr {
+      border-top: 1px solid $gray-2;
+      margin-left: 1.5rem;
+      margin-right: 1.5rem;
+    }
+}
+
+h2 {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.indicator {
+  margin-bottom: 0;
+  width: 100%;
+  padding: 0.5rem 3rem 0.5rem 1.5rem;
+  border: 0;
+  background-image: none;
+  background-color: transparent;
+  text-align: left;
+  position: relative;
+  &:hover {
+    color: $brand-primary;
+    cursor: pointer;
+    &:before {
+      content: "\e85e";
+      position: absolute;
+      font-family: mantle;
+      right: 1rem;
+    }
+  }
+}

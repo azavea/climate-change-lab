@@ -1,0 +1,10 @@
+.button-switch {
+  .button {
+    padding-left: .25rem;
+    padding-right: .25rem;
+    color: #666;
+    &.active {
+      color: $brand-primary;
+    }
+  }
+}
