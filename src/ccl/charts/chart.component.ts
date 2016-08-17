@@ -11,9 +11,6 @@ import { LineGraph } from './line-graph.component';
   selector: 'chart',
   directives: [LineGraph],
   inputs: ['indicator', 'chartData'],
-  styleUrls: [
-    './chart.component.css',
-  ],
   templateUrl: './chart.component.html'
 })
 export class Chart {

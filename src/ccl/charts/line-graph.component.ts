@@ -11,8 +11,7 @@ import * as D3 from 'd3';
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
-  inputs: [ 'data', 'indicator', 'trendline' ],
-  styleUrls: [ './chart.component.css']
+  inputs: [ 'data', 'indicator', 'trendline' ]
 })
 
 export class LineGraph {

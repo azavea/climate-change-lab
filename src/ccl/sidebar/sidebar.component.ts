@@ -12,9 +12,6 @@ import { IndicatorsService } from '../services/indicators.service';
   selector: 'sidebar',
   encapsulation: ViewEncapsulation.None,
   providers: [IndicatorsService],
-  styleUrls: [
-      './sidebar.component.css',
-  ],
   templateUrl: './sidebar.component.html'
 })
 export class Sidebar extends OnInit {

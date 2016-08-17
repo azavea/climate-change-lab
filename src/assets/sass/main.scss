@@ -1,0 +1,72 @@
+$demo-styles: true;
+
+/* * * *
+ * Utilities
+ * No css should output from these
+ * * * */
+@import
+  'utils/functions',
+	'utils/variables',
+	'utils/mixins',
+  'utils/clearfix',
+  'utils/utilities';
+
+
+@import url('../fonts/fontello/css/mantle.css');
+
+/* * * *
+ * Vendors imports
+ * * * */
+// @import Placeholder
+
+/* * * *
+ * Base boilerplate styling
+ * * * */
+@import
+  'base/normalize',
+	'base/base';
+
+/* * * *
+ * Layout and overall structure
+ * * * */
+@import
+  'layout/content',
+  'layout/typography';
+
+/* * * *
+ * Components styling
+ * * * */
+@import
+  'components/button-switch',
+  'components/charts',
+  'components/chart',
+  'components/grid',
+  'components/navbar',
+  'components/map-attribution',
+  'components/sidebar',
+  'components/dropdown',
+  'components/loading',
+  'components/alert',
+  'components/popover',
+  'components/tooltip',
+  'components/button',
+  'components/modal';
+
+/* * * *
+ * Page specific styling
+ * * * */
+// @import Placeholder
+
+@import
+  'pages/labs';
+
+/* * * *
+ * Demo styling
+ * * * */
+@mixin demo-everything($demo: true) {
+  @if $demo {
+    @include demo;
+  }
+}
+@import 'demo';
+@include demo-everything;
