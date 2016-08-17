@@ -47,3 +47,14 @@
             [(ngModel)]="maxVal">
     </div>
 </div>
+<div class="chart-options">
+  <button (click)="toggleTrendline()">Trendline</button>
+  <label class="checkbox-inline">
+    <input class="toggle" type="checkbox">Set Min
+    <input class="value" type="text" value="0">
+  </label>
+  <label class="checkbox-inline">
+    <input class="toggle" type="checkbox">Set Max
+    <input class="value" type="text" value="0">
+  </label>
+</div>

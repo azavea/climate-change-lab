@@ -15,6 +15,7 @@ import { LineGraphComponent } from './line-graph.component';
 })
 
 export class ChartComponent {
+
   private isCollapsed: boolean;
   private trendline: boolean;
   private min: boolean;
@@ -36,10 +37,13 @@ export class ChartComponent {
 
   constructor() {
     this.isCollapsed = false;
+  }
+
+  constructor() {
+    this.trendline = false;
     this.min = false;
     this.max = false;
     this.minVal = 0;
     this.maxVal = 0;
   }
 }
-

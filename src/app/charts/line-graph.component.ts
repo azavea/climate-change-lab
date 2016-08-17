@@ -49,6 +49,8 @@ export class LineGraphComponent {
   /* Will Update on every @Input change */
   ngOnChanges(): void {
     if (!this.data || this.data.length === 0) return;
+    // Temporarily here to show chart control statuses
+    console.log("Min: " + this.min, this.minVal + "; Max: " + this.max, this.maxVal);
     this.filterData();
     this.setup();
     this.buildSVG();
@@ -57,8 +59,7 @@ export class LineGraphComponent {
     this.drawYAxis();
     this.populate();
     this.drawTrendLine();
-    // Temporarily here to show chart control statuses
-    console.log("Min: " + this.min, this.minVal + "; Max: " + this.max, this.maxVal);
+    this.drawMin();
   }
 
   private filterData(): void {
@@ -182,4 +183,44 @@ export class LineGraphComponent {
     return [slope, intercept, rSquare];
   }
 
+  private drawMin(): void {
+    var x1 = this.xRange[1];
+    var x2 = this.xRange[0];
+    var y = D3.max(this.yData)/2 // TODO: Accept user input as value
+    var minData = [{"date":x1, "value":y},{"date": x2, "value":y}];
+
+    this.svg.append("path")
+      .data([minData])
+      .attr("class", "minline")
+      .attr("d", this.valueline);
+
+    var xscale = this.xScale;
+    var yscale = this.yScale;
+
+    var areaBelowLine = D3.area()
+    .x(function(d) { return xscale(d.date); })
+    .y1(function(d) { return yscale(d.value); })
+    .y0(this.height);
+
+    var areaBelowMin = D3.area()
+    .x(function(d) { return xscale(d.date); })
+    .y(function(d) { return yscale(d.value); });
+
+    this.svg.append("path")
+      .attr("class", "area")
+      .data([minData])
+      .attr("d", areaBelowMin);
+
+    this.svg.append("path")
+      .attr("id", "clip-below")
+      .data([this.extractedData])
+      .attr("d", areaBelowLine.y0(this.height));
+
+    this.svg.append("path")
+      .attr("class", "areabelow")
+      .data([this.extractedData])
+      .attr("clip-path", "url(#clip-below)")
+      .attr("d", areaBelowLine);
+
+  }
 }
