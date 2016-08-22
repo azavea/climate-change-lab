@@ -14,6 +14,16 @@
       <div class="flex-expand">
         <nav class="controls">
           <div class="nav-left">
+
+            <input auto-complete
+              [(ngModel)]="cityModel"
+              placeholder="Enter Address(min. 2 chars)"
+              source="apiCities"
+              display-property-name="name"
+              path-to-data="features"
+              min-chars="2" />selected: {{model4 | json}}
+
+          <!--
             <div class="dropdown">
               <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <i class="icon-globe"></i>
@@ -24,6 +34,8 @@
                 <input type="text" name="" placeholder="Enter your city">
               </ul>
             </div>
+            -->
+
             <div class="dropdown">
               <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <i class="icon-flash"></i>

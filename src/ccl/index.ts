@@ -1,1 +1,1 @@
-export * from './ccl.component';
+export * from './app.module';
