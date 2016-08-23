@@ -67,6 +67,7 @@ var module: any; // just to pass type check
   }
 
   .auto-complete ul li {
+    color: black;
     padding: 2px 5px;
     border-bottom: 1px solid #eee;
   }
