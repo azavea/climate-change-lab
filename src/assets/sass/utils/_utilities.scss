@@ -1,7 +1,6 @@
 /* * * *
  * Spacing
  * * * */
-
 @include generate-padding;
 @include generate-margin;
 
@@ -10,39 +9,39 @@
  * * * */
 
 .font-normal {
-  font-weight: normal;
+  font-weight: normal !important;
 }
 
 .font-bold {
-  font-weight: bold;
+  font-weight: $heading-font-weight !important;
 }
 
 .font-italic {
-  font-style: italic;
+  font-style: italic !important;
 }
 
 .text-uppercase {
-  text-transform: uppercase;
+  text-transform: uppercase !important;
 }
 
 .text-lowercase {
-  text-transform: lowercase;
+  text-transform: lowercase !important;
 }
 
 .text-capitalize {
-  text-transform: capitalize;
+  text-transform: capitalize !important;
 }
 
 .text-center {
-  text-align: center
+  text-align: center !important;
 }
 
 .text-left {
-  text-align: left;
+  text-align: left !important;
 }
 
 .text-right {
-  text-align: right;
+  text-align: right !important;
 }
 
 /* * * *
@@ -50,43 +49,43 @@
  * * * */
 
 .color-white {
-  color: #fff;
+  color: #fff !important;
 }
 
 .color-primary {
-  color: $brand-primary;
+  color: $brand-primary !important;
 }
 
 .color-secondary {
-  color: $brand-secondary;
+  color: $brand-secondary !important;
 }
 
 .color-warning {
-  color: $brand-warning;
+  color: $brand-warning !important;
 }
 
 .color-danger {
-  color: $brand-danger;
+  color: $brand-danger !important;
 }
 
 .background-white {
-  background-color: #fff;
+  background-color: #fff !important;
 }
 
 .background-primary {
-  background-color: $brand-primary;
+  background-color: $brand-primary !important;
 }
 
 .background-secondary {
-  background-color: $brand-secondary;
+  background-color: $brand-secondary !important;
 }
 
 .background-warning {
-  background-color: $brand-warning;
+  background-color: $brand-warning !important;
 }
 
 .background-danger {
-  background-color: $brand-danger;
+  background-color: $brand-danger !important;
 }
 
 /* * * *
@@ -94,13 +93,13 @@
  * * * */
 
 .float-left {
-  float: left;
+  float: left !important;
 }
 
 .float-right {
-  float: right;
+  float: right !important;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }

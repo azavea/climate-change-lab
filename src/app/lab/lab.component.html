@@ -4,12 +4,12 @@
 
     <div class="flex-container">
 
-      <sidebar></sidebar>
+      <sidebar class="sidebar-content scrollable"></sidebar>
 
       <div class="flex-expand">
         <nav class="controls">
           <div class="nav-left">
-            <div class="dropdown">
+            <div class="dropdown dropdown-location">
               <i class="icon-globe"></i>
               <label>City</label>
               <input auto-complete
@@ -25,7 +25,7 @@
             </div>
 
             <!-- scenario selector -->
-            <div dropdown class="dropdown">
+            <div dropdown class="dropdown dropdown-scenario">
               <button dropdownToggle class="button dropdown-toggle" type="button"
                 id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true">
@@ -45,7 +45,7 @@
             </div>
 
             <!-- climate model selector -->
-            <div class="dropdown">
+            <div class="dropdown dropdown-model">
               <button class="button" type="button" data-target="#modelOptions"
                 aria-haspopup="true" aria-expanded="true"
                 (click)="smModal.show()">
@@ -59,7 +59,7 @@
 
           </div>
           <div class="nav-right">
-            <button class="button button-default">
+            <button class="button button-secondary">
               Reset
             </button>
           </div>
