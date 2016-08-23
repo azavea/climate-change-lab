@@ -1,0 +1,8 @@
+/*
+ * Climate Change Lab
+ * Constant Values
+ */
+
+
+export const apiHost = "https://staging.api.futurefeelslike.com/api/";
+export const apiToken = "YOUR_API_TOKEN_HERE";
