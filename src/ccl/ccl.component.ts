@@ -32,4 +32,10 @@ export class ClimateChangeLab {
     html += data.properties.name ? `<span>${data.properties.name}, ${data.properties.admin}</span>`: data;
     return html;
   }
+
+  public onCitySelected(value: any): void {
+      // TODO: use selection
+      console.log('city changed:');
+      console.log(value);
+  }
 }
