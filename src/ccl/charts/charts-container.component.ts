@@ -27,7 +27,16 @@ export class Charts extends OnInit {
     }
 
     makeCharts() {
-      this.chartService.getChartData().subscribe(data=> {
+
+      // FIXME: using dummy options for API query
+      let options = {
+        cityId: 1,
+        scenario: 'RCP45',
+        variables: 'pr',
+        years: '2070'
+      };
+
+      this.chartService.getChartData(options).subscribe(data=> {
         this.chartData = data;
       });
     }
