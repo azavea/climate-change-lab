@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
 import { ChartData, DataPoint } from '../models/chart.models';
 import * as D3 from 'd3';
+import * as _ from 'lodash';
 
 /*
  * Line graph component
