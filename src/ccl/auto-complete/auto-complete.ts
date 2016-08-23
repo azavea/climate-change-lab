@@ -3,6 +3,8 @@ import {Headers, Http, RequestOptions, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import 'rxjs/Rx';
 
+import {apiToken} from "../constants";
+
 /**
  * provides auto-complete related utility functions
  */
@@ -48,14 +50,14 @@ export class AutoComplete {
 
     // append authorization header to request
     let headers = new Headers({
-      'Authorization': 'Token ' + 'fe8c0075461248e2e0e637485d9dedd10860e8e5'
+      'Authorization': 'Token ' + apiToken
     });
-    let options = new RequestOptions({headers: headers, withCredentials: true});
+    let options = new RequestOptions({headers: headers});
 
     return this.http.get(url, options)
       .map( resp => resp.json())
       .map( resp => {
-        var list = resp.data  || resp;
+        var list = resp.data || resp;
         if (this.pathToData) {
           var paths = this.pathToData.split('.');
           paths.forEach(function(el) {

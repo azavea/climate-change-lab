@@ -19,6 +19,7 @@
               [(ngModel)]="cityModel"
               placeholder="Enter Address(min. 2 chars)"
               [source]="apiCities"
+              [list-formatter]="cityListFormatter"
               display-property-name="name"
               path-to-data="features"
               min-chars="2" />selected: {{model4 | json}}
