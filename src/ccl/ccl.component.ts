@@ -10,7 +10,7 @@ import { ChartService } from './services/chart.service';
 import { AutoCompleteDirective } from "./auto-complete";
 import { AutoCompleteComponent } from "./auto-complete";
 
-import {apiHost} from "./constants";
+import { apiHost } from "./constants";
 
 @Component({
   selector: 'ccl',
@@ -33,9 +33,16 @@ export class ClimateChangeLab {
     return html;
   }
 
+  // custom formatter to display string for selected city as City, State
+  public cityValueFormatter(data: any): string {
+      let displayValue: string = "";
+      displayValue += data && data.properties ? data.properties.name + ', ' + data.properties.admin : data.toString();
+      return displayValue;
+  }
+
+  // callback invoked when user picks a city
   public onCitySelected(value: any): void {
-      // TODO: use selection
-      console.log('city changed:');
+      console.log('selected city changed to:');
       console.log(value);
   }
 }

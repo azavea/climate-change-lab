@@ -94,6 +94,7 @@ export class AutoCompleteComponent implements OnInit {
    * public variables
    */
   @Input('list-formatter') listFormatter: (arg: any) => void;
+  @Input('value-formatter') valueFormatter: (arg: any) => void;
   @Input('source') source: any;
   @Input('path-to-data') pathToData: string;
   @Input('min-chars') minChars: number = 0;

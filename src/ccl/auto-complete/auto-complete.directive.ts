@@ -26,6 +26,7 @@ export class AutoCompleteDirective implements OnInit {
   @Input('list-formatter') listFormatter: (arg: any) => void;
   //@Input('prefill-func') prefillFunc: function;
   @Input('value-changed') valueChanged: (value: any) => void;
+  @Input('value-formatter') valueFormatter: (arg: any) => string;
   @Input('source') source: any;
   @Input('path-to-data') pathToData: string;
   @Input('min-chars') minChars: number;
@@ -66,6 +67,7 @@ export class AutoCompleteDirective implements OnInit {
         let component = componentRef.instance;
 
         component.listFormatter = this.listFormatter;
+        component.valueFormatter = this.valueFormatter;
         //component.prefillFunc = this.prefillFunc;
         component.pathToData = this.pathToData;
         component.minChars = this.minChars;
@@ -74,7 +76,9 @@ export class AutoCompleteDirective implements OnInit {
         component.source = this.source;
         component.placeholder = this.placeholder;
         component.valueSelected.subscribe((val: any) => {
-          if (typeof val !== "string") {
+          if (component.valueFormatter) {
+            val.toString = function() {return component.valueFormatter(val);}
+          } else if (typeof val !== "string") {
             let displayVal = val[component.displayPropertyName];
             val.toString = function() {return displayVal;}
           }

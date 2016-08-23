@@ -52,9 +52,9 @@ export class AutoComplete {
     let headers = new Headers({
       'Authorization': 'Token ' + apiToken
     });
-    let options = new RequestOptions({headers: headers});
+    let requestOptions = new RequestOptions({headers: headers});
 
-    return this.http.get(url, options)
+    return this.http.get(url, requestOptions)
       .map( resp => resp.json())
       .map( resp => {
         var list = resp.data || resp;

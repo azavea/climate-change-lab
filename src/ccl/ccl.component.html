@@ -17,9 +17,10 @@
 
             <input auto-complete
               [(ngModel)]="cityModel"
-              placeholder="Enter Address(min. 2 chars)"
+              placeholder="Enter City"
               [source]="apiCities"
               [list-formatter]="cityListFormatter"
+              [value-formatter]="cityValueFormatter"
               display-property-name="name"
               path-to-data="features"
               [value-changed]="onCitySelected"
