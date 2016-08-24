@@ -40,7 +40,7 @@ export class ChartService {
         }
     }
 
-    getChartData(options: any): Observable<Response> {
+    getChartData(options: any): Observable<ChartData[]> {
 
         // query like:
         // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/?variables=pr&years=2050:2051
@@ -57,7 +57,9 @@ export class ChartService {
         return this.http.get(url, requestOptions)
             .map( resp => resp.json())
             .map( resp => {
-                return this.convertChartData(resp.data || {}) as ChartData;
+                //return this.convertChartData(resp.data || {});
+                let chartData: ChartData[] = this.convertChartData(resp.data || {});
+                return chartData;
             });
 
         /* FIXME: remove this test data fetch
@@ -78,10 +80,10 @@ export class ChartService {
     }
 
     // map array of daily readings to date for each reading and drop top-level year key
-    convertChartData(data: any): any {
+    convertChartData(data: any): ChartData[] {
         let me = this;
         let indicators = [];
-        let response = [];
+        let chartData: ChartData[] = [];
         _.each(_.keys(data), function(key) {
             let days: string[] = me.getDaysInYear(key);
             _.each(_.keys(data[key]), function(indicator) {
@@ -95,17 +97,17 @@ export class ChartService {
 
                 if (!_.includes(indicators, indicator)) {
                     indicators.push(indicator);
-                    response.push({
+                    chartData.push({
                         'indicator': indicator,
                         'data': indicatorData
-                    });
+                    } as ChartData);
                 } else {
                     // have multiple years; append to existing indicator data
-                    response[indicator]['data'].push(indicatorData);
+                    chartData[indicator]['data'].push(indicatorData);
                 }
             });
         });
 
-        return response;
+        return chartData;
     }
 }

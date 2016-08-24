@@ -20,7 +20,7 @@ import { Chart } from './chart.component';
 export class Charts extends OnInit {
 
     private chartList: Array<String>;
-    private chartData: ChartData;
+    private chartData: ChartData[];
 
     constructor(private chartService: ChartService){
       super();
@@ -31,7 +31,7 @@ export class Charts extends OnInit {
       // FIXME: using dummy options for API query
       let options = {
         cityId: 1,
-        scenario: 'RCP45',
+        scenario: 'RCP85',
         variables: 'pr',
         years: '2070'
       };
