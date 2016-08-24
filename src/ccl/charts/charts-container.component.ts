@@ -22,21 +22,13 @@ export class Charts extends OnInit {
     private chartList: Array<String>;
     private chartData: ChartData[];
 
-    constructor(private chartService: ChartService){
+    constructor(private chartService: ChartService) {
       super();
     }
 
     makeCharts() {
-
-      // FIXME: using dummy options for API query
-      let options = {
-        cityId: 1,
-        scenario: 'RCP85',
-        variables: 'pr',
-        years: '2070'
-      };
-
-      this.chartService.getChartData(options).subscribe(data=> {
+      this.chartService.loadChartData();
+      this.chartService.getChartData().subscribe(data=> {
         this.chartData = data;
       });
     }
@@ -46,6 +38,5 @@ export class Charts extends OnInit {
       this.chartList = this.chartService.get();
       this.makeCharts();
     }
-
 }
 

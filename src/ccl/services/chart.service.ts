@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
-import {Observable} from "rxjs";
+import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
-
 import { ChartData } from '../models/chart.models';
-import { apiHost, apiToken } from "../constants";
+import { apiHost, apiToken, defaultCity } from "../constants";
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -17,10 +16,24 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class ChartService {
-    constructor(private http: Http) {}
+
+    // FIXME: using dummy options for API query
+    dataQueryOptions: any = {
+      cityId: defaultCity.id,
+      scenario: 'RCP85',
+      variables: 'pr',
+      years: '2070'
+    };
 
     // TODO: pretty label
     chartList = ["pr"];
+
+    private chartData: Observable<ChartData[]>;
+    private chartDataObserver: Observer<ChartData[]>;
+
+    constructor(private http: Http) {
+        this.chartData = new Observable<ChartData[]>(observer => this.chartDataObserver = observer);
+    }
 
     get() {
         return this.chartList;
@@ -40,7 +53,13 @@ export class ChartService {
         }
     }
 
-    getChartData(options: any): Observable<ChartData[]> {
+    getChartData(): Observable<ChartData[]> {
+        return this.chartData;
+    }
+
+    loadChartData(): void {
+
+        let options = this.dataQueryOptions;
 
         // query like:
         // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/?variables=pr&years=2050:2051
@@ -56,20 +75,11 @@ export class ChartService {
             'Authorization': 'Token ' + apiToken
         });
         let requestOptions = new RequestOptions({headers: headers, search: searchParams});
-
-        let me = this;
-        return this.http.get(url, requestOptions)
+        this.http.get(url, requestOptions)
             .map( resp => resp.json())
-            .map( resp => {
-                //return this.convertChartData(resp.data || {});
-                let chartData: ChartData[] = this.convertChartData(resp.data || {});
-                return chartData;
+            .subscribe(resp => {
+                this.chartDataObserver.next(this.convertChartData(resp.data || {}));
             });
-
-        /* FIXME: remove this test data fetch
-        return this.http.get('/assets/mockdata/d3_precip_graph_data.json')
-          .map(response => response.json() as ChartData);
-        */
     }
 
     // return an array of date strings for each day in the given year
@@ -113,5 +123,10 @@ export class ChartService {
         });
 
         return chartData;
+    }
+
+    public updateCity(city: any): void {
+        this.dataQueryOptions.cityId = city.id;
+        this.loadChartData();
     }
 }
