@@ -5,7 +5,7 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { decorateComponentRef } from './platform/environment';
 
-import { ClimateChangeModule } from './ccl/app.module';
+import { ClimateChangeModule } from './ccl/ccl.module';
 
 import './assets/sass/main.scss';
 import './assets/fonts/fontello/css/mantle.css';
