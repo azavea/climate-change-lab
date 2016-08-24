@@ -1,14 +1,9 @@
 /*
- * Providers provided by Angular
- */
-import { bootstrap } from '@angular/platform-browser-dynamic';
-/*
 * Platform and Environment
 * our providers/directives/pipes
 */
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { PLATFORM_PROVIDERS } from './platform/browser';
-import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
+import { decorateComponentRef } from './platform/environment';
 
 import { ClimateChangeModule } from './ccl/app.module';
 
