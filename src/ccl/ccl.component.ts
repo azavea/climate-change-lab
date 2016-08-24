@@ -23,7 +23,7 @@ import { apiHost } from "./constants";
 export class ClimateChangeLab {
   name = 'Climate Lab';
 
-  public apiCities: string = apiHost + "city/?search=:keyword";
+  public apiCities: string = apiHost + "city/?search=:keyword&format=json";
   public cityModel;
 
   // custom formatter to display list of options as City, State
