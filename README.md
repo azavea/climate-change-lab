@@ -8,7 +8,10 @@ Requires node.js 6.3.1+ and npm 3.10.3+ for angular compatibility.
 
 ### Setup
 
-Clone this repo and run `npm install`
+  - Clone this repo and run `npm install`
+  - `cp example/constants.ts.example src/ccl/constants.ts`
+  - Edit `constants.ts` to set the API server name and API key
+
 
 ### Getting started
 

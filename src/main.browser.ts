@@ -1,13 +1,11 @@
 /*
- * Providers provided by Angular
- */
-import { bootstrap } from '@angular/platform-browser-dynamic';
-/*
 * Platform and Environment
 * our providers/directives/pipes
 */
-import { PLATFORM_PROVIDERS } from './platform/browser';
-import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { decorateComponentRef } from './platform/environment';
+
+import { ClimateChangeModule } from './ccl/ccl.module';
 
 import './assets/sass/main.scss';
 import './assets/fonts/fontello/css/mantle.css';
@@ -16,7 +14,6 @@ import './assets/fonts/fontello/css/mantle.css';
 * App Component
 * our top level component that holds all of our components
 */
-import { ClimateChangeLab } from './ccl';
 import { ChartService } from './ccl/services/chart.service';
 
 /*
@@ -25,11 +22,8 @@ import { ChartService } from './ccl/services/chart.service';
  */
 export function main(initialHmrState?: any): Promise<any> {
 
-  return bootstrap(ClimateChangeLab, [
-    ChartService,
-    // To add more vendor providers please look in the platform/ folder
-    ...PLATFORM_PROVIDERS,
-    ...ENV_PROVIDERS
+  return platformBrowserDynamic().bootstrapModule(ClimateChangeModule, [
+    ChartService
   ])
   .then(decorateComponentRef)
   .catch(err => console.error(err));

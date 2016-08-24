@@ -15,14 +15,17 @@
         <nav class="controls">
           <div class="nav-left">
             <div class="dropdown">
-              <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <i class="icon-globe"></i>
-                Philadelphia, PA
-                <i class="icon-angle-down caret"></i>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <input type="text" name="" placeholder="Enter your city">
-              </ul>
+              <i class="icon-globe"></i>
+              <input auto-complete
+                [(ngModel)]="cityModel"
+                placeholder="Enter your city"
+                [source]="apiCities"
+                [list-formatter]="cityListFormatter"
+                [value-formatter]="cityValueFormatter"
+                display-property-name="name"
+                path-to-data="features"
+                [value-changed]="onCitySelected"
+                min-chars="2" />selected: {{model4 | json}}
             </div>
             <div class="dropdown">
               <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
