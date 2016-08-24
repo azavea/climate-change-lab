@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
 import {Observable} from "rxjs";
 import 'rxjs/Rx';
 
@@ -45,13 +45,17 @@ export class ChartService {
         // query like:
         // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/?variables=pr&years=2050:2051
         let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/';
-        url += '?variables=' + options.variables + '&years=' + options.years;
+
+        let searchParams: URLSearchParams = new URLSearchParams();
+        searchParams.append('variables', options.variables);
+        searchParams.append('years', options.years);
+        searchParams.append('format', 'json');
 
         // append authorization header to request
         let headers = new Headers({
             'Authorization': 'Token ' + apiToken
         });
-        let requestOptions = new RequestOptions({headers: headers});
+        let requestOptions = new RequestOptions({headers: headers, search: searchParams});
 
         let me = this;
         return this.http.get(url, requestOptions)
