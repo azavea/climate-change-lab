@@ -10,7 +10,7 @@ import { ChartService } from './services/chart.service';
 import { AutoCompleteDirective } from "./auto-complete";
 import { AutoCompleteComponent } from "./auto-complete";
 
-import { apiHost } from "./constants";
+import { apiHost, defaultCity } from "./constants";
 
 @Component({
   selector: 'ccl',
@@ -22,6 +22,10 @@ import { apiHost } from "./constants";
 
 export class ClimateChangeLab {
   name = 'Climate Lab';
+
+  constructor(private chartService: ChartService) {
+    this.cityModel = this.cityValueFormatter(defaultCity);
+  }
 
   public apiCities: string = apiHost + "city/?search=:keyword&format=json";
   public cityModel;
@@ -35,14 +39,18 @@ export class ClimateChangeLab {
 
   // custom formatter to display string for selected city as City, State
   public cityValueFormatter(data: any): string {
-      let displayValue: string = "";
-      displayValue += data && data.properties ? data.properties.name + ', ' + data.properties.admin : data.toString();
-      return displayValue;
+    let displayValue: string = "";
+    displayValue += data && data.properties ? data.properties.name + ', ' + data.properties.admin : data.toString();
+    return displayValue;
   }
 
-  // callback invoked when user picks a city
-  public onCitySelected(value: any): void {
-      console.log('selected city changed to:');
-      console.log(value);
+  /* Factory that returns a callback invoked when user picks a city.
+   * Note that this is invoked rather than passed in the directive, to get the inner function.
+   * Using an arrow function to keep the current context, in order to reference the chart service.
+   */
+  public onCitySelected(value: any) {
+    return (value) => {
+      this.chartService.updateCity(value);
+    };
   }
 }

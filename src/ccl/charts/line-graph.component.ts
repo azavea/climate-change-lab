@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
 import { ChartData, DataPoint } from '../models/chart.models';
 import * as D3 from 'd3';
+import * as _ from 'lodash';
 
 /*
  * Line graph component
@@ -16,7 +17,7 @@ import * as D3 from 'd3';
 
 export class LineGraph {
 
-  public data: ChartData;
+  public data: ChartData[];
   public extractedData: Array<DataPoint>;
   public indicator: String;
   public trendline: Boolean;
@@ -59,7 +60,7 @@ export class LineGraph {
   private filterData(): void {
     var indicator = this.indicator;
     // Preserves parent data by fresh copying indicator data that will undergo processing
-    this.extractedData = _.cloneDeep(_.find(this.data, function(obj){
+    this.extractedData = _.cloneDeep(_.find(this.data, function(obj) {
       return obj["indicator"] == indicator;
     }));
     _.has(this.extractedData, "data")? this.extractedData=this.extractedData["data"] : this.extractedData=[];

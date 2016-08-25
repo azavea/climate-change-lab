@@ -20,13 +20,14 @@ import { Chart } from './chart.component';
 export class Charts extends OnInit {
 
     private chartList: Array<String>;
-    private chartData: ChartData;
+    private chartData: ChartData[];
 
-    constructor(private chartService: ChartService){
+    constructor(private chartService: ChartService) {
       super();
     }
 
     makeCharts() {
+      this.chartService.loadChartData();
       this.chartService.getChartData().subscribe(data=> {
         this.chartData = data;
       });
@@ -37,6 +38,5 @@ export class Charts extends OnInit {
       this.chartList = this.chartService.get();
       this.makeCharts();
     }
-
 }
 

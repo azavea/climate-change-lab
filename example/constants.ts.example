@@ -4,5 +4,6 @@
  */
 
 
+export const defaultCity = {"id":7, "properties":{"name":"Philadelphia","admin":"PA"}};
 export const apiHost = "https://staging.api.futurefeelslike.com/api/";
 export const apiToken = "YOUR_API_TOKEN_HERE";

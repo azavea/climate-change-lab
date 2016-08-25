@@ -66,5 +66,5 @@ export class AutoComplete {
         }
         return list;
       });
-  };
+  }
 }
