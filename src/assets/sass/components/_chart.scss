@@ -73,5 +73,15 @@ chart {
     stroke-width: 1px;
     opacity: .7;
   }
-}
 
+  .chart-controls {
+    form {
+
+      display: inline-block;
+
+      .form-control {
+        width: 50px;
+      }
+    }
+  }
+}

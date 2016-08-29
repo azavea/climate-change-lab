@@ -11,13 +11,17 @@ import * as _ from 'lodash';
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
-  inputs: [ 'data', 'indicator', 'trendline' ]
+  inputs: [ 'data', 'indicator', 'trendline', 'min', 'max', 'minVal', 'maxVal' ]
 })
 export class LineGraphComponent {
   public data: ChartData[];
   public extractedData: Array<DataPoint>;
   public indicator: String;
   public trendline: Boolean;
+  public min: Boolean;
+  public max: Boolean;
+  public minVal: any;
+  public maxVal: any;
 
   private host;                          // D3 object referebcing host dom object
   private svg;                           // SVG in which we will print our chart
@@ -65,6 +69,10 @@ export class LineGraphComponent {
     this.yData = _.map(this.extractedData, function(d) {
       return d.value;
     });
+
+    // Convert string input to numbers
+    this.minVal = Number(this.minVal);
+    this.maxVal = Number(this.maxVal);
   }
 
   /* Will setup the chart basics */

@@ -1,13 +1,48 @@
 <div class="chart-heading">
-  <h2 class="chart-label">
+    <h2 class="chart-label">
     {{indicator}}
-  </h2>
-  <div class="chart-actions">
-    <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Export"><i class="icon icon-export"></i></button>
-    <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Options"><i class="icon icon-cog"></i></button>
-  </div>
+    </h2>
+    <div class="chart-actions">
+        <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Export"><i class="icon icon-export"></i></button>
+        <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Options"><i class="icon icon-cog"></i></button>
+    </div>
 </div>
 <div class="chart-body">
-  <line-graph [data]="chartData" [indicator]="indicator" [trendline]="trendline"></line-graph>
-  <button (click)="toggleTrendline()">Trendline</button>
+    <line-graph
+        [data]="chartData"
+        [indicator]="indicator"
+        [trendline]="trendline"
+        [min]="min"
+        [max]="max"
+        [minVal]="minVal"
+        [maxVal]="maxVal">
+    </line-graph>
+</div>
+<div class="chart-controls">
+    <h5>Options</h5>
+    <button (click)="toggleTrendline()">Trendline</button>
+    <button (click)="toggleMin()">Min</button>
+    <form>
+      <div class="form-group">
+        <input
+        type="text"
+        class="form-control"
+        id="minValue"
+        placeholder="0"
+        [(ngModel)]="minVal"
+        [ngModelOptions]="{standalone: true}">
+      </div>
+    </form>
+    <button (click)="toggleMax()">Max</button>
+    <form>
+      <div class="form-group">
+        <input
+        type="text"
+        class="form-control"
+        id="maxValue"
+        placeholder="0"
+        [(ngModel)]="maxVal"
+        [ngModelOptions]="{standalone: true}">
+      </div>
+    </form>
 </div>
