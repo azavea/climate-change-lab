@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/">
 
   <title><%= webpackConfig.metadata.title %></title>
 
@@ -17,9 +18,7 @@
 
 <body>
 
-  <ccl>
-    Loading...
-  </ccl>
+  <cc-lab>Loading...</cc-lab>
 
   <% if (webpackConfig.metadata.isDevServer && webpackConfig.metadata.HMR !== true) { %>
   <!-- Webpack Dev Server reload -->

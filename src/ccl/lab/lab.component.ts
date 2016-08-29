@@ -3,24 +3,22 @@
  * App Component
  */
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Sidebar } from './sidebar/sidebar.component';
-import { Charts } from './charts/charts-container.component';
-import { ChartService } from './services/chart.service';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { Charts } from '../charts/charts-container.component';
+import { ChartService } from '../services/chart.service';
 
-import { AutoCompleteDirective } from "./auto-complete";
-import { AutoCompleteComponent } from "./auto-complete";
+import { AutoCompleteDirective } from "../auto-complete";
+import { AutoCompleteComponent } from "../auto-complete";
 
-import { apiHost, defaultCity } from "./constants";
+import { apiHost, defaultCity } from "../constants";
 
 @Component({
-  selector: 'ccl',
-  directives: [Sidebar, Charts, AutoCompleteComponent, AutoCompleteDirective],
+  selector: 'cc-lab',
+  directives: [SidebarComponent, Charts],
   encapsulation: ViewEncapsulation.None,
-  templateUrl: './ccl.component.html',
-  providers: [ ChartService ]
+  templateUrl: './lab.component.html'
 })
-
-export class ClimateChangeLab {
+export class LabComponent {
   name = 'Climate Lab';
 
   constructor(private chartService: ChartService) {

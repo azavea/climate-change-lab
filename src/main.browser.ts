@@ -5,16 +5,10 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { decorateComponentRef } from './platform/environment';
 
-import { ClimateChangeModule } from './ccl/ccl.module';
+import { AppModule } from './ccl/app.module';
 
 import './assets/sass/main.scss';
 import './assets/fonts/fontello/css/mantle.css';
-
-/*
-* App Component
-* our top level component that holds all of our components
-*/
-import { ChartService } from './ccl/services/chart.service';
 
 /*
  * Bootstrap our Angular app with a top level component `App` and inject
@@ -22,9 +16,7 @@ import { ChartService } from './ccl/services/chart.service';
  */
 export function main(initialHmrState?: any): Promise<any> {
 
-  return platformBrowserDynamic().bootstrapModule(ClimateChangeModule, [
-    ChartService
-  ])
+  return platformBrowserDynamic().bootstrapModule(AppModule)
   .then(decorateComponentRef)
   .catch(err => console.error(err));
 

@@ -11,10 +11,9 @@ import { IndicatorsService } from '../services/indicators.service';
 @Component({
   selector: 'sidebar',
   encapsulation: ViewEncapsulation.None,
-  providers: [IndicatorsService],
   templateUrl: './sidebar.component.html'
 })
-export class Sidebar extends OnInit {
+export class SidebarComponent extends OnInit {
     private indicatorsList: string;
 
     constructor(private chartService: ChartService, private indicatorsService: IndicatorsService) {
