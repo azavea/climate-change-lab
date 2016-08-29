@@ -16,8 +16,8 @@ export class ChartComponent {
   private trendline: boolean;
   private min: boolean;
   private max: boolean;
-  private minVal: string;
-  private maxVal: string;
+  private minVal: number;
+  private maxVal: number;
 
   toggleTrendline() {
     this.trendline = !this.trendline;
@@ -34,8 +34,8 @@ export class ChartComponent {
   constructor() {
     this.min = false;
     this.max = false;
-    this.minVal = null;
-    this.maxVal = null;
+    this.minVal = 0;
+    this.maxVal = 0;
   }
 }
 

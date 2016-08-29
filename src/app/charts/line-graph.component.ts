@@ -20,8 +20,8 @@ export class LineGraphComponent {
   public trendline: Boolean;
   public min: Boolean;
   public max: Boolean;
-  public minVal: any;
-  public maxVal: any;
+  public minVal: number;
+  public maxVal: number;
 
   private host;                          // D3 object referebcing host dom object
   private svg;                           // SVG in which we will print our chart
@@ -71,10 +71,6 @@ export class LineGraphComponent {
     this.yData = _.map(this.extractedData, function(d) {
       return d.value;
     });
-
-    // Convert string input to numbers
-    this.minVal = Number(this.minVal);
-    this.maxVal = Number(this.maxVal);
   }
 
   /* Will setup the chart basics */
