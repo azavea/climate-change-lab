@@ -20,8 +20,8 @@
 </div>
 <div class="chart-controls">
     <h5>Options</h5>
-    <button (click)="toggleTrendline()">Trendline</button>
-    <button (click)="toggleMin()">Min</button>
+    <ui-switch (change)="toggleTrendline()" size="small"></ui-switch>Show Trendline
+    <ui-switch (change)="toggleMin()" size="small"></ui-switch>Show Min
     <form>
       <div class="form-group">
         <input
@@ -33,7 +33,7 @@
         [ngModelOptions]="{standalone: true}">
       </div>
     </form>
-    <button (click)="toggleMax()">Max</button>
+    <ui-switch (change)="toggleMax()" size="small"></ui-switch>Show Max
     <form>
       <div class="form-group">
         <input

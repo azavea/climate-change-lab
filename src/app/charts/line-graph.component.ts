@@ -56,6 +56,8 @@ export class LineGraphComponent {
     this.drawYAxis();
     this.populate();
     this.drawTrendLine();
+    // Temporarily here to show chart control statuses
+    console.log("Min: " + this.min, this.minVal + "; Max: " + this.max, this.maxVal);
   }
 
   private filterData(): void {
