@@ -10,4 +10,5 @@ export class DataPoint {
 
 export class ClimateModel {
     name: String;
+    selected: boolean;
 }
