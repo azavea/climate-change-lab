@@ -157,8 +157,13 @@ export class ChartService {
         this.loadChartData();
     }
 
-    public updateClimateModels(models: String): void {
-        this.dataQueryOptions.models = models;
+    public updateClimateModels(models: String[]): void {
+        if (models.length) {
+            this.dataQueryOptions.models = models.join(',');
+        } else if (this.dataQueryOptions.models) {
+            // default to all by specifying none
+            delete this.dataQueryOptions.models;
+        }
         this.loadChartData();
     }
 }

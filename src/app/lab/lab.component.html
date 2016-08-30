@@ -43,7 +43,7 @@
               <i class="icon-flash"></i>
               <label>Models</label>
               <select multiple name="climateModels" [(ngModel)]="selectedClimateModels"
-                (change)="onClimateModelChange($event)" class="dropdown form-control">
+                (ngModelChange)="onClimateModelChange($event)" class="dropdown form-control">
                 <option *ngFor="let climateModel of climateModels" [(value)]="climateModel.name">
                   {{ climateModel.name }}
                 </option>
