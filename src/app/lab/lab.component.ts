@@ -2,10 +2,10 @@
  * Climate Change Lab
  * App Component
  */
-import { Component, ViewEncapsulation } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChartsContainerComponent } from '../charts/charts-container.component';
+import { ClimateModel } from '../models/chart.models';
 import { ChartService } from '../services/chart.service';
 
 import { AutoCompleteDirective } from "../auto-complete";
@@ -19,15 +19,17 @@ import { apiHost, defaultCity } from "../constants";
   encapsulation: ViewEncapsulation.None,
   templateUrl: './lab.component.html'
 })
-export class LabComponent {
+export class LabComponent extends OnInit {
   name = 'Climate Lab';
 
   constructor(private chartService: ChartService) {
-    this.cityModel = this.cityValueFormatter(defaultCity);
+    super();
   }
 
   public apiCities: string = apiHost + "city/?search=:keyword&format=json";
   public cityModel;
+  public selectedClimateModel: ClimateModel;
+  public climateModels: ClimateModel[];
 
   // custom formatter to display list of options as City, State
   public cityListFormatter(data: any): string {
@@ -51,5 +53,17 @@ export class LabComponent {
     return (value) => {
       this.chartService.updateCity(value);
     };
+  }
+
+  getClimateModels() {
+    this.chartService.loadClimateModels();
+    this.chartService.getClimateModels().subscribe(data => {
+      this.climateModels = data;
+    });
+  }
+
+  ngOnInit() {
+    this.cityModel = this.cityValueFormatter(defaultCity);
+    this.getClimateModels();
   }
 }

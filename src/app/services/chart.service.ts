@@ -3,7 +3,7 @@ import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular
 import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
-import { ChartData } from '../models/chart.models';
+import { ChartData, ClimateModel } from '../models/chart.models';
 import { apiHost, apiToken, defaultCity } from "../constants";
 
 import * as moment from 'moment';
@@ -31,8 +31,13 @@ export class ChartService {
     private chartData: Observable<ChartData[]>;
     private chartDataObserver: Observer<ChartData[]>;
 
+    private climateModels: Observable<ClimateModel[]>;
+    private climateModelObserver: Observer<ClimateModel[]>;
+
     constructor(private http: Http) {
         this.chartData = new Observable<ChartData[]>(observer => this.chartDataObserver = observer);
+        this.climateModels = new Observable<ClimateModel[]>(observer =>
+                                                            this.climateModelObserver = observer);
     }
 
     get() {
@@ -55,6 +60,10 @@ export class ChartService {
 
     getChartData(): Observable<ChartData[]> {
         return this.chartData;
+    }
+
+    getClimateModels(): Observable<ClimateModel[]> {
+        return this.climateModels;
     }
 
     loadChartData(): void {
@@ -82,6 +91,21 @@ export class ChartService {
             });
     }
 
+    loadClimateModels(): void {
+        let url = apiHost + 'climate-model/';
+
+        // append authorization header to request
+        let headers = new Headers({
+            'Authorization': 'Token ' + apiToken
+        });
+        let requestOptions = new RequestOptions({headers: headers});
+        this.http.get(url, requestOptions)
+            .map( resp => resp.json())
+            .subscribe(resp => {
+                this.climateModelObserver.next(resp || {} as ClimateModel[]);
+            });
+    }
+
     // return an array of date strings for each day in the given year
     getDaysInYear(year: number): string[] {
         var oneDate = moment.utc(+year + '-01-01', 'YYYY-MM-DD', true);
@@ -95,11 +119,11 @@ export class ChartService {
 
     // map array of daily readings to date for each reading and drop top-level year key
     convertChartData(data: any): ChartData[] {
-        let me = this;
+        let self = this;
         let indicators = [];
         let chartData: ChartData[] = [];
         _.each(_.keys(data), function(key) {
-            let days: string[] = me.getDaysInYear(key);
+            let days: string[] = self.getDaysInYear(key);
             _.each(_.keys(data[key]), function(indicator) {
                 // make array of [date, value] pairs with zip, then convert to keyed object
                 var indicatorData = _.map(_.zip(days, data[key][indicator]), function(arr) {

@@ -11,6 +11,7 @@
           <div class="nav-left">
             <div class="dropdown">
               <i class="icon-globe"></i>
+              <label>City</label>
               <input auto-complete
                 [(ngModel)]="cityModel"
                 placeholder="Enter your city"
@@ -22,6 +23,7 @@
                 [value-changed]="onCitySelected()"
                 min-chars="2" />
             </div>
+            <!-- TODO: change to scenarios model -->
             <div class="dropdown">
               <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <i class="icon-flash"></i>
@@ -35,10 +37,20 @@
                 <li><a href="#">Separated link</a></li>
               </ul>
             </div>
+            <div>
+              <i class="icon-flash"></i>
+              <label>Models</label>
+              <select multiple name="climateModels" [(ngModel)]="climateModels">
+                <option *ngFor="let climateModel of climateModels" [value]="climateModel">
+                  {{ climateModel.name }}
+                </option>
+              </select>
+            </div>
+            <!--
             <div class="dropdown">
-              <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <button class="button dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <i class="icon-flash"></i>
-                All Models
+                {{ climateModel.name }}
                 <i class="icon-angle-down caret"></i>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -50,6 +62,7 @@
                 <li><a href="#" data-toggle="modal" data-target="#modelOptions">Select Models</a></li>
               </ul>
             </div>
+            -->
           </div>
           <div class="nav-right">
             <button class="button button-default">
@@ -59,7 +72,6 @@
         </nav>
         <charts class="charts scrollable"></charts>
       </div>
-    </div>
   </div>
   <div class="modal modal-small" id="modelOptions" tabindex="-1" role="dialog" aria-labelledby="modelOptions">
     <div class="modal-dialog" role="document">

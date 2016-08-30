@@ -7,3 +7,7 @@ export class DataPoint {
   date: String;
   value: Number;
 }
+
+export class ClimateModel {
+    name: String;
+}
