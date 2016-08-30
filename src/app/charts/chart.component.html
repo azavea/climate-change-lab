@@ -22,29 +22,15 @@
     <h5>Options</h5>
     <ui-switch (change)="toggleTrendline()" size="small"></ui-switch>Show Trendline
     <ui-switch (change)="toggleMin()" size="small"></ui-switch>Show Min
-    <form>
-      <div class="form-group">
-        <input
+    <input
         type="number"
         step="any"
-        class="form-control"
-        id="minValue"
         placeholder="0"
-        [(ngModel)]="minVal"
-        [ngModelOptions]="{standalone: true}">
-      </div>
-    </form>
+        [(ngModel)]="minVal">
     <ui-switch (change)="toggleMax()" size="small"></ui-switch>Show Max
-    <form>
-      <div class="form-group">
-        <input
+    <input
         type="number"
         step="any"
-        class="form-control"
-        id="maxValue"
         placeholder="0"
-        [(ngModel)]="maxVal"
-        [ngModelOptions]="{standalone: true}">
-      </div>
-    </form>
+        [(ngModel)]="maxVal">
 </div>

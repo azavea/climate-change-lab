@@ -77,12 +77,8 @@ chart {
   .chart-controls {
     color: black;
 
-    form {
-      display: inline-block;
-
-      .form-control {
-        width: 50px;
-      }
+    input {
+      width: 50px;
     }
   }
 }
