@@ -19,18 +19,27 @@
     </line-graph>
 </div>
 <div class="chart-controls">
-    <h5>Options</h5>
-    <ui-switch (change)="toggleTrendline()" size="small"></ui-switch>Show Trendline
-    <ui-switch (change)="toggleMin()" size="small"></ui-switch>Show Min
-    <input
-        type="number"
-        step="any"
-        placeholder="0"
-        [(ngModel)]="minVal">
-    <ui-switch (change)="toggleMax()" size="small"></ui-switch>Show Max
-    <input
-        type="number"
-        step="any"
-        placeholder="0"
-        [(ngModel)]="maxVal">
+    <div class="controls-header">
+        <h5 class="controls-label">Options</h5>
+        <div class="options-icon" (click)="isCollapsed = !isCollapsed">
+            <i class="icon-minus" *ngIf="!isCollapsed"></i>
+            <i class="icon-plus" *ngIf="isCollapsed"></i>
+        </div>
+
+    </div>
+    <div class="controls-body" [collapse]="isCollapsed">
+        <ui-switch (change)="toggleTrendline()" size="small"></ui-switch>Show Trendline
+        <ui-switch (change)="toggleMin()" size="small"></ui-switch>Show Min
+        <input
+            type="number"
+            step="any"
+            placeholder="0"
+            [(ngModel)]="minVal">
+        <ui-switch (change)="toggleMax()" size="small"></ui-switch>Show Max
+        <input
+            type="number"
+            step="any"
+            placeholder="0"
+            [(ngModel)]="maxVal">
+    </div>
 </div>

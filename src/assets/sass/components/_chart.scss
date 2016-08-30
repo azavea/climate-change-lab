@@ -77,8 +77,20 @@ chart {
   .chart-controls {
     color: black;
 
-    input {
-      width: 50px;
+    .controls-header {
+      .controls-label {
+       display: inline-block;
+      }
+
+      .options-icon {
+        display: inline-block;
+      }
+    }
+
+    .controls-body {
+      input {
+        width: 50px;
+      }
     }
   }
 }
