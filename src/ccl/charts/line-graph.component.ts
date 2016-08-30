@@ -7,16 +7,13 @@ import * as _ from 'lodash';
  * Line graph component
  * Contains all logic for drawing a line graph
  */
-
 @Component({
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
   inputs: [ 'data', 'indicator', 'trendline' ]
 })
-
-export class LineGraph {
-
+export class LineGraphComponent {
   public data: ChartData[];
   public extractedData: Array<DataPoint>;
   public indicator: String;

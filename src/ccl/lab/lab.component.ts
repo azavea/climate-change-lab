@@ -4,7 +4,7 @@
  */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { Charts } from '../charts/charts-container.component';
+import { ChartsContainerComponent } from '../charts/charts-container.component';
 import { ChartService } from '../services/chart.service';
 
 import { AutoCompleteDirective } from "../auto-complete";
@@ -14,7 +14,7 @@ import { apiHost, defaultCity } from "../constants";
 
 @Component({
   selector: 'cc-lab',
-  directives: [SidebarComponent, Charts],
+  directives: [SidebarComponent, ChartsContainerComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './lab.component.html'
 })

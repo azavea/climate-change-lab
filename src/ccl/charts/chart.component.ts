@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 
-import { LineGraph } from './line-graph.component';
+import { LineGraphComponent } from './line-graph.component';
 
 /*
  * Chart component
  * Container for each individual chart plus controls
  */
-
 @Component({
   selector: 'chart',
-  directives: [LineGraph],
+  directives: [LineGraphComponent],
   inputs: ['indicator', 'chartData'],
   templateUrl: './chart.component.html'
 })
-export class Chart {
+export class ChartComponent {
   private trendline: Boolean;
 
   toggleTrendline() {
