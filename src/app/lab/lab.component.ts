@@ -13,6 +13,8 @@ import { AutoCompleteComponent } from "../auto-complete";
 
 import { apiHost, defaultCity } from "../constants";
 
+import * as _ from 'lodash';
+
 
 @Component({
   selector: 'cc-lab',
@@ -30,8 +32,6 @@ export class LabComponent extends OnInit {
   public apiCities: string = apiHost + "city/?search=:keyword&format=json";
   public cityModel;
   public climateModels: ClimateModel[];
-
-  public selectedClimateModels;
 
   // custom formatter to display list of options as City, State
   public cityListFormatter(data: any): string {
@@ -57,12 +57,14 @@ export class LabComponent extends OnInit {
     };
   }
 
-  public onClimateModelChange(models: String[]) {
-    this.chartService.updateClimateModels(models);
-  }
-
   public updateClimateModels() {
-    console.log('hey!');
+    let models: String[] = this.climateModels.filter(function(model) {
+      return model.selected;
+    }).map(function(model) {
+      return model.name;
+    });
+
+    this.chartService.updateClimateModels(models);
   }
 
   getClimateModels() {

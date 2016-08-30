@@ -79,22 +79,10 @@
             <span class="icon icon-cancel"></span>
           </button>
           <h4 class="modal-title">Select Models</h4>
-          <div>
+          <div *ngFor="let climateModel of climateModels">
             <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 1
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 2
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 3
+              <input type="checkbox" name="checkbox" value="value" [(ngModel)]="climateModel.selected">
+              {{ climateModel.name }}
             </label>
           </div>
         </div>
