@@ -40,5 +40,4 @@ import { IndicatorsService } from './services/indicators.service';
     IndicatorsService
   ]
 })
-export class AppModule {
-}
+export class AppModule {}
