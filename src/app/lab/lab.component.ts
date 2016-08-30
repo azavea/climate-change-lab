@@ -13,6 +13,8 @@ import { AutoCompleteComponent } from "../auto-complete";
 
 import { apiHost, defaultCity } from "../constants";
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'cc-lab',
   directives: [NavbarComponent, SidebarComponent, ChartsContainerComponent],
@@ -28,8 +30,21 @@ export class LabComponent extends OnInit {
 
   public apiCities: string = apiHost + "city/?search=:keyword&format=json";
   public cityModel;
-  public selectedClimateModel: ClimateModel;
   public climateModels: ClimateModel[];
+
+  public selectedClimateModels;
+
+  public onClimateModelChange(event: any) {
+    console.log('changed climate model');
+    // selectedClimateModels at this point reports the *last* value, so look at event instead
+    //TODO: something less horrible
+    var selections = '';
+    _.each(event.target.selectedOptions, function(sel) {
+      selections += selections.length ? ',' : '';
+      selections += sel.text
+    });
+    this.chartService.updateClimateModels(selections);
+  }
 
   // custom formatter to display list of options as City, State
   public cityListFormatter(data: any): string {

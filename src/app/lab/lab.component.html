@@ -37,21 +37,26 @@
                 <li><a href="#">Separated link</a></li>
               </ul>
             </div>
+
+            <h2>{{ selectedClimateModels }}</h2>
             <div>
               <i class="icon-flash"></i>
               <label>Models</label>
-              <select multiple name="climateModels" [(ngModel)]="climateModels">
-                <option *ngFor="let climateModel of climateModels" [value]="climateModel">
+              <select multiple name="climateModels" [(ngModel)]="selectedClimateModels"
+                (change)="onClimateModelChange($event)" class="dropdown form-control">
+                <option *ngFor="let climateModel of climateModels" [(value)]="climateModel.name">
                   {{ climateModel.name }}
                 </option>
               </select>
             </div>
+
             <!--
             <div class="dropdown">
               <button class="button dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <i class="icon-flash"></i>
                 {{ climateModel.name }}
                 <i class="icon-angle-down caret"></i>
+                <label>Models</label>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li class="active"><a href="#">All Models</a></li>

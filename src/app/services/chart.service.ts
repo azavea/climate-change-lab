@@ -78,6 +78,9 @@ export class ChartService {
         searchParams.append('variables', options.variables);
         searchParams.append('years', options.years);
         searchParams.append('format', 'json');
+        if (options.models) {
+            searchParams.append('models', options.models);
+        }
 
         // append authorization header to request
         let headers = new Headers({
@@ -151,6 +154,11 @@ export class ChartService {
 
     public updateCity(city: any): void {
         this.dataQueryOptions.cityId = city.id;
+        this.loadChartData();
+    }
+
+    public updateClimateModels(models: String): void {
+        this.dataQueryOptions.models = models;
         this.loadChartData();
     }
 }
