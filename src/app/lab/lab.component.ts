@@ -61,6 +61,10 @@ export class LabComponent extends OnInit {
     this.chartService.updateClimateModels(models);
   }
 
+  public updateClimateModels() {
+    console.log('hey!');
+  }
+
   getClimateModels() {
     this.chartService.loadClimateModels();
     this.chartService.getClimateModels().subscribe(data => {

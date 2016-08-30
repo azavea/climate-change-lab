@@ -38,6 +38,7 @@
               </ul>
             </div>
 
+            <!--
             <h2>{{ selectedClimateModels }}</h2>
             <div>
               <i class="icon-flash"></i>
@@ -49,25 +50,17 @@
                 </option>
               </select>
             </div>
-
-            <!--
-            <div class="dropdown">
-              <button class="button dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <i class="icon-flash"></i>
-                {{ climateModel.name }}
-                <i class="icon-angle-down caret"></i>
-                <label>Models</label>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="active"><a href="#">All Models</a></li>
-                <li><a href="#">Average</a></li>
-                <li><a href="#">1st Quartile</a></li>
-                <li><a href="#">2nd Quartile</a></li>
-                <li><a href="#">3rd Quartile</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#modelOptions">Select Models</a></li>
-              </ul>
-            </div>
             -->
+
+            <div class="dropdown">
+              <button class="button dropdown-toggle" type="button" data-target="#modelOptions"data-toggle="modal" aria-haspopup="true" aria-expanded="true">
+                <i class="icon-flash"></i>
+                {{ selectedClimateModels }}
+                <label>
+                  <a href="#" data-toggle="modal" >Select Models</a>
+                </label>
+              </button>
+            </div>
           </div>
           <div class="nav-right">
             <button class="button button-default">
@@ -104,111 +97,9 @@
               Model 3
             </label>
           </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 4
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 5
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 6
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 7
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 8
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 9
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 10
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 11
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 12
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 13
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 14
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 15
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 16
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 17
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 18
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 19
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 20
-            </label>
-          </div>
         </div>
         <div class="modal-footer">
-          <button class="button">Update</button>
+          <button class="button" (click)="updateClimateModels()" data-dismiss="modal">Update</button>
         </div>
       </div>
     </div>
