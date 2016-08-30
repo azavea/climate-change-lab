@@ -3,6 +3,7 @@
  * App Component
  */
 import { Component, ViewEncapsulation } from '@angular/core';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChartsContainerComponent } from '../charts/charts-container.component';
 import { ChartService } from '../services/chart.service';
@@ -14,7 +15,7 @@ import { apiHost, defaultCity } from "../constants";
 
 @Component({
   selector: 'cc-lab',
-  directives: [SidebarComponent, ChartsContainerComponent],
+  directives: [NavbarComponent, SidebarComponent, ChartsContainerComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './lab.component.html'
 })
