@@ -5,7 +5,7 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { decorateComponentRef } from './platform/environment';
 
-import { AppModule } from './ccl/app.module';
+import { AppModule } from './app/app.module';
 
 import './assets/sass/main.scss';
 import './assets/fonts/fontello/css/mantle.css';
