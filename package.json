@@ -51,8 +51,8 @@
   "devDependencies": {
     "@types/core-js": "^0.9.28",
     "@types/jasmine": "^2.2.29",
+    "@types/jquery": "^1.10.31",
     "@types/node": "^4.0.29",
-    "@types/protractor": "^1.5.16",
     "@types/selenium-webdriver": "^2.44.26",
     "@types/source-map": "^0.1.26",
     "@types/uglify-js": "^2.0.27",
@@ -77,7 +77,6 @@
     "karma-webpack": "1.7.0",
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.10.0",
-    "protractor": "^3.2.2",
     "raw-loader": "0.5.1",
     "sass-loader": "^4.0.0",
     "source-map-loader": "^0.1.5",

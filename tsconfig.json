@@ -15,8 +15,8 @@
     "types": [
       "core-js",
       "jasmine",
+      "jquery",
       "node",
-      "protractor",
       "selenium-webdriver",
       "source-map",
       "uglify-js",

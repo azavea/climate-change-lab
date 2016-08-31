@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
 import { ChartData, DataPoint } from '../models/chart.models';
 import * as D3 from 'd3';
 import * as _ from 'lodash';
+import * as $ from 'jquery';
 
 /*
  * Line graph component
@@ -70,7 +71,7 @@ export class LineGraphComponent {
   /* Will setup the chart basics */
   private setup(): void {
     this.margin = { top: 20, right: 20, bottom: 40, left: 40 };
-    this.width = $(".chart").width() - this.margin.left - this.margin.right;
+    this.width = $('.chart').width() - this.margin.left - this.margin.right;
     this.height = 200 - this.margin.top - this.margin.bottom;
     this.xScale = D3.scaleTime().range([0, this.width]);
     this.yScale = D3.scaleLinear().range([this.height, 0]);
