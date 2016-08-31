@@ -49,8 +49,6 @@ export class LineGraphComponent {
   /* Will Update on every @Input change */
   ngOnChanges(): void {
     if (!this.data || this.data.length === 0) return;
-    // Temporarily here to show chart control statuses
-    console.log("Min: " + this.min, this.minVal + "; Max: " + this.max, this.maxVal);
     this.filterData();
     this.setup();
     this.buildSVG();
@@ -59,7 +57,7 @@ export class LineGraphComponent {
     this.drawYAxis();
     this.populate();
     this.drawTrendLine();
-    this.drawMin();
+    this.drawMinMax();
   }
 
   private filterData(): void {
@@ -70,8 +68,8 @@ export class LineGraphComponent {
     }));
     _.has(this.extractedData, "data")? this.extractedData=this.extractedData["data"] : this.extractedData=[];
     // Remove empty day in non-leap years
-    if this.extractedData[365] && this.extractedData[365]['date'] == null {
-      this.extractedData.pop(365);
+    if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
+        this.extractedData.pop(365);
     }
     // Parse out data by axis for ease of use later
     this.yData = _.map(this.extractedData, function(d) {
@@ -92,10 +90,10 @@ export class LineGraphComponent {
   private buildSVG(): void {
     this.host.html('');
     this.svg = this.host.append('svg')
-      .attr('width', this.width + this.margin.left + this.margin.right)
-      .attr('height', this.height + this.margin.top + this.margin.bottom)
-      .append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+                .attr('width', this.width + this.margin.left + this.margin.right)
+                .attr('height', this.height + this.margin.top + this.margin.bottom)
+                .append('g')
+                .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
   // Set axis scales
@@ -115,15 +113,15 @@ export class LineGraphComponent {
     this.svg.append('g')
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(D3.axisBottom(this.xScale)
-            .ticks(5)
-            .tickFormat(D3.timeFormat("%m-%Y")));
+      .ticks(5)
+      .tickFormat(D3.timeFormat("%m-%Y")));
   }
 
   /* Will draw the Y Axis */
   private drawYAxis(): void {
     this.svg.append('g')
       .call(D3.axisLeft(this.yScale)
-            .ticks(6));
+      .ticks(6));
   }
 
   /* Draw line */
@@ -131,13 +129,10 @@ export class LineGraphComponent {
     var xscale = this.xScale;
     var yscale = this.yScale;
     this.valueline = D3.line()
-      .x(function(d) { return xscale(d.date); })
-      .y(function(d) { return yscale(d.value); });
+                      .x(function(d) { return xscale(d.date); })
+                      .y(function(d) { return yscale(d.value); });
 
-    this.svg.append("path")
-      .data([this.extractedData])
-      .attr("class", "line")
-      .attr("d", this.valueline);
+    this.drawLine(this.extractedData, "line");
   }
 
   private drawTrendLine(): void {
@@ -155,13 +150,10 @@ export class LineGraphComponent {
         var y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
         var x2 = this.xRange[0];
         var y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
-        this.trendData = [{"date":x1, "value":y1},{"date": x2, "value":y2}];
+        this.trendData = [{"date":x1, "value":y1}, {"date": x2, "value":y2}];
       }
       // Add trendline
-      this.svg.append("path")
-        .data([this.trendData])
-        .attr("class", "trendline")
-        .attr("d", this.valueline);
+      this.drawLine(this.trendData, "trendline");
     }
   }
 
@@ -172,13 +164,13 @@ export class LineGraphComponent {
     var xBar = xData.reduce(reduceSumFunc) * 1.0 / xData.length;
     var yBar = yData.reduce(reduceSumFunc) * 1.0 / yData.length;
     var ssXX = xData.map(function(d) { return Math.pow(d - xBar, 2); })
-      .reduce(reduceSumFunc);
+                .reduce(reduceSumFunc);
 
     var ssYY = yData.map(function(d) { return Math.pow(d - yBar, 2); })
-      .reduce(reduceSumFunc);
+                .reduce(reduceSumFunc);
 
     var ssXY = xData.map(function(d, i) { return (d - xBar) * (yData[i] - yBar); })
-      .reduce(reduceSumFunc);
+                .reduce(reduceSumFunc);
 
     var slope = ssXY / ssXX;
     var intercept = yBar - (xBar * slope);
@@ -187,79 +179,74 @@ export class LineGraphComponent {
     return [slope, intercept, rSquare];
   }
 
-  private drawMin(): void {
-    var x1 = this.xRange[1];
-    var x2 = this.xRange[0];
-    var y = D3.max(this.yData)/2 // TODO: Accept user input as value
-    var minData = [{"date":x1, "value":y},{"date": x2, "value":y}];
+  private drawMinMax(): void {
+    if (this.min || this.max) {
+      // Prepare standard variables
+      var x1 = this.xRange[1];
+      var x2 = this.xRange[0];
+      var y = D3.max(this.yData)/2;
+      var height = this.height;
+      var xscale = D3.scaleBand()
+                    .range([0, this.width])
+                    .padding(0)
+                    .domain(this.extractedData.map(function(d) { return d.date; }));
+      var yscale = this.yScale;
 
-    this.svg.append("path")
-      .data([minData])
-      .attr("class", "minline")
-      .attr("d", this.valueline);
+      if (this.min && this.minVal) {
+        // Draw min threshold line
+        var minVal = this.minVal;
+        var minData = [{"date":x1, "value": this.minVal }, {"date": x2, "value": this.minVal }];
+        this.drawLine(minData, "minline");
 
-    var xscale = D3.scaleBand()
-          .range([0, this.width])
-          .padding(0)
-          .domain(this.extractedData.map(function(d) { return d.date; });
-    var yscale = this.yScale;
+        // Prepare data for bar graph
+        var minBars = this.extractedData.map(function(datum) {
+            var val;
+            minVal > datum["value"]? val = y*2 : val = 0;
+            return { "date": datum["date"], "value": val }
+        });
 
-    var areaBelowLine = D3.area()
-    .x(function(d) { return xscale(d.date); })
-    .y1(function(d) { return yscale(d.value); })
-    .y0(this.height);
-
-    var areaBelowMin = D3.area()
-    .x(function(d) { return xscale(d.date); })
-    .y(function(d) { return yscale(d.value); });
-
-    this.svg.append("path")
-      .attr("class", "area")
-      .data([minData])
-      .attr("d", areaBelowMin);
-
-    var height = this.height
-
-    this.minBars = this.extractedData.map(function(datum) {
-        var val;
-        y > datum["value"]? val = y*2 : val = 0;
-        return { "date": datum["date"], "value": val }
-    })
-
-    this.maxBars = this.extractedData.map(function(datum) {
-        var val;
-        y < datum["value"]? val = y*2 : val = 0;
-        return { "date": datum["date"], "value": val }
-    })
-
-    this.svg.selectAll(".min-bar")
-          .data(this.minBars)
-        .enter().append("rect")
+        // Add bar graph
+        this.svg.selectAll(".min-bar")
+          .data(minBars)
+          .enter().append("rect")
           .attr("class", "min-bar")
           .attr("x", function(d) { return xscale(d.date); })
           .attr("width", xscale.bandwidth())
           .attr("y", function(d) { return yscale(d.value); })
           .attr("height", function(d) { return height - yscale(d.value); });
+      }
 
-    this.svg.selectAll(".max-bar")
-          .data(this.maxBars)
-        .enter().append("rect")
+      if (this.max && this.maxVal) {
+        // Draw max threshold line
+        var maxVal = this.maxVal;
+        var maxData = [{"date":x1, "value": maxVal }, {"date": x2, "value": maxVal}];
+        this.drawLine(maxData, "maxline");
+
+        // Prepare data for bar graph
+        var maxBars = this.extractedData.map(function(datum) {
+            var val;
+            maxVal < datum["value"]? val = y*2 : val = 0;
+            return { "date": datum["date"], "value": val }
+        })
+
+        // Add bar graph
+        this.svg.selectAll(".max-bar")
+          .data(maxBars)
+          .enter().append("rect")
           .attr("class", "max-bar")
           .attr("x", function(d) { return xscale(d.date); })
           .attr("width", xscale.bandwidth())
           .attr("y", function(d) { return yscale(d.value); })
           .attr("height", function(d) { return height - yscale(d.value); });
-
-    /*this.svg.append("path")
-      .attr("id", "clip-below")
-      .data([this.extractedData])
-      .attr("d", areaBelowLine.y0(this.height));
-*/
-/*    this.svg.append("path")
-      .attr("class", "areabelow")
-      .data([this.extractedData])
-      .attr("clip-path", "url(#clip-below)")
-      .attr("d", areaBelowLine);*/
-
+      }
+    }
   }
+
+  private drawLine(data: [], className: String): void {
+    this.svg.append("path")
+      .data([data])
+      .attr("class", className)
+      .attr("d", this.valueline);
+  }
+
 }

@@ -64,7 +64,7 @@ chart {
   .line {
     fill: none;
     stroke: steelblue;
-    stroke-width: 2px;
+    stroke-width: 1.5px;
   }
 
   .trendline {
@@ -76,7 +76,15 @@ chart {
 
   .minline {
     fill: none;
-    stroke: orange;
+    stroke: green;
+    stroke-width: .7px;
+    opacity: .7;
+    stroke-dasharray: 5 5;
+  }
+
+  .maxline {
+    fill: none;
+    stroke: red;
     stroke-width: .7px;
     opacity: .7;
     stroke-dasharray: 5 5;
@@ -84,12 +92,12 @@ chart {
 
   .min-bar{
     fill: green;
-    opacity: .2;
+    opacity: .4;
   }
 
   .max-bar{
     fill: red;
-    opacity: .2;
+    opacity: .4;
   }
 
   .chart-controls {
@@ -107,7 +115,7 @@ chart {
 
     .controls-body {
       input {
-        width: 50px;
+        width: 75px;
       }
     }
   }

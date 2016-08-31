@@ -37,9 +37,6 @@ export class ChartComponent {
 
   constructor() {
     this.isCollapsed = false;
-  }
-
-  constructor() {
     this.trendline = false;
     this.min = false;
     this.max = false;
