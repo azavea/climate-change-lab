@@ -29,7 +29,6 @@
             <i class="icon-minus" *ngIf="!isCollapsed"></i>
             <i class="icon-plus" *ngIf="isCollapsed"></i>
         </div>
-
     </div>
     <div class="controls-body" [collapse]="isCollapsed">
         <ui-switch (change)="toggleTrendline()" size="small"></ui-switch>Show Trendline
@@ -46,15 +45,4 @@
             placeholder="0"
             [(ngModel)]="maxVal">
     </div>
-</div>
-<div class="chart-options">
-  <button (click)="toggleTrendline()">Trendline</button>
-  <label class="checkbox-inline">
-    <input class="toggle" type="checkbox">Set Min
-    <input class="value" type="text" value="0">
-  </label>
-  <label class="checkbox-inline">
-    <input class="toggle" type="checkbox">Set Max
-    <input class="value" type="text" value="0">
-  </label>
 </div>

@@ -69,6 +69,10 @@ export class LineGraphComponent {
       return obj["indicator"] == indicator;
     }));
     _.has(this.extractedData, "data")? this.extractedData=this.extractedData["data"] : this.extractedData=[];
+    // Remove empty day in non-leap years
+    if this.extractedData[365] && this.extractedData[365]['date'] == null {
+      this.extractedData.pop(365);
+    }
     // Parse out data by axis for ease of use later
     this.yData = _.map(this.extractedData, function(d) {
       return d.value;
@@ -194,7 +198,10 @@ export class LineGraphComponent {
       .attr("class", "minline")
       .attr("d", this.valueline);
 
-    var xscale = this.xScale;
+    var xscale = D3.scaleBand()
+          .range([0, this.width])
+          .padding(0)
+          .domain(this.extractedData.map(function(d) { return d.date; });
     var yscale = this.yScale;
 
     var areaBelowLine = D3.area()
@@ -211,16 +218,48 @@ export class LineGraphComponent {
       .data([minData])
       .attr("d", areaBelowMin);
 
-    this.svg.append("path")
+    var height = this.height
+
+    this.minBars = this.extractedData.map(function(datum) {
+        var val;
+        y > datum["value"]? val = y*2 : val = 0;
+        return { "date": datum["date"], "value": val }
+    })
+
+    this.maxBars = this.extractedData.map(function(datum) {
+        var val;
+        y < datum["value"]? val = y*2 : val = 0;
+        return { "date": datum["date"], "value": val }
+    })
+
+    this.svg.selectAll(".min-bar")
+          .data(this.minBars)
+        .enter().append("rect")
+          .attr("class", "min-bar")
+          .attr("x", function(d) { return xscale(d.date); })
+          .attr("width", xscale.bandwidth())
+          .attr("y", function(d) { return yscale(d.value); })
+          .attr("height", function(d) { return height - yscale(d.value); });
+
+    this.svg.selectAll(".max-bar")
+          .data(this.maxBars)
+        .enter().append("rect")
+          .attr("class", "max-bar")
+          .attr("x", function(d) { return xscale(d.date); })
+          .attr("width", xscale.bandwidth())
+          .attr("y", function(d) { return yscale(d.value); })
+          .attr("height", function(d) { return height - yscale(d.value); });
+
+    /*this.svg.append("path")
       .attr("id", "clip-below")
       .data([this.extractedData])
       .attr("d", areaBelowLine.y0(this.height));
-
-    this.svg.append("path")
+*/
+/*    this.svg.append("path")
       .attr("class", "areabelow")
       .data([this.extractedData])
       .attr("clip-path", "url(#clip-below)")
-      .attr("d", areaBelowLine);
+      .attr("d", areaBelowLine);*/
 
   }
 }
