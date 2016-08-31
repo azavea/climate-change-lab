@@ -4,7 +4,7 @@ import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
 import { ChartData, ClimateModel } from '../models/chart.models';
-import { apiHost, apiToken, defaultCity } from "../constants";
+import { apiHost, apiToken, defaultCity, defaultScenario, defaultVariable, defaultYears } from "../constants";
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -17,16 +17,15 @@ import * as _ from 'lodash';
 @Injectable()
 export class ChartService {
 
-    // FIXME: using dummy options for API query
-    dataQueryOptions: any = {
+    dataQueryOptions = {
       cityId: defaultCity.id,
-      scenario: 'RCP85',
-      variables: 'pr',
-      years: '2070'
+      scenario: defaultScenario,
+      variables: defaultVariable,
+      years: defaultYears
     };
 
-    // TODO: pretty label
-    chartList = ["pr"];
+    // TODO: pretty label for variable name?
+    chartList = [defaultVariable];
 
     private chartData: Observable<ChartData[]>;
     private chartDataObserver: Observer<ChartData[]>;
