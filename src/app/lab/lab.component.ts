@@ -33,7 +33,6 @@ export class LabComponent extends OnInit {
   constructor(viewContainerRef: ViewContainerRef, private chartService: ChartService) {
     super();
 
-    // TODO: does not work
     // necessary to catch application root view container ref. see:
     // https://valor-software.com/ng2-bootstrap/#/modals
     this.viewContainerRef = viewContainerRef;
@@ -42,6 +41,7 @@ export class LabComponent extends OnInit {
   public apiCities: string = apiHost + "city/?search=:keyword&format=json";
   public cityModel;
   public climateModels: ClimateModel[];
+  public allModels: boolean;
 
   public scenarios: Scenario[];
   public selectedScenario: string;
@@ -72,13 +72,24 @@ export class LabComponent extends OnInit {
     };
   }
 
-  public updateClimateModels() {
-    let models: string[] = this.climateModels.filter(function(model) {
-      return model.selected;
-    }).map(function(model) {
-      return model.name;
+  // unselect all model checkboxes when option to use all models selected
+  public clearClimateModels() {
+    _.each(this.climateModels, function(model) {
+      model.selected = false;
     });
+  }
 
+  // deselect option to use all models when one or more model is checked; will also enable the
+  // checkbox to use all models (use-all checkbox can only be deselected by selecting a model)
+  public deselectUseAllModels() {
+    this.allModels = false;
+  }
+
+  public updateClimateModels() {
+    let models = this.getSelectedClimateModels();
+    if (!models.length) {
+      this.allModels = true;
+    }
     this.chartService.updateClimateModels(models);
   }
 
@@ -87,10 +98,20 @@ export class LabComponent extends OnInit {
     this.chartService.updateScenario(scenario.name);
   }
 
-  getClimateModels() {
+  // subscribe to list of available models from API endpoint
+  getAvailableClimateModels() {
     this.chartService.loadClimateModels();
     this.chartService.getClimateModels().subscribe(data => {
       this.climateModels = data;
+    });
+  }
+
+  // Returns names of the models currently selected by the user
+  getSelectedClimateModels(): string[] {
+    return this.climateModels.filter(function(model) {
+      return model.selected;
+    }).map(function(model) {
+      return model.name;
     });
   }
 
@@ -106,7 +127,9 @@ export class LabComponent extends OnInit {
   ngOnInit() {
     this.cityModel = this.cityValueFormatter(defaultCity);
     this.selectedScenario = defaultScenario;
+    this.allModels = true;
+
     this.getScenarios();
-    this.getClimateModels();
+    this.getAvailableClimateModels();
   }
 }
