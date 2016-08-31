@@ -25,14 +25,15 @@
             </div>
 
             <!-- scenario selector -->
-            <div class="dropdown">
-              <button class="button dropdown-toggle" type="button" id="scenarioDropdown"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <div dropdown class="dropdown">
+              <button dropdownToggle class="button dropdown-toggle" type="button"
+                id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="true">
                 <i class="icon-flash"></i>
                 {{ selectedScenario }}
                 <i class="icon-angle-down caret"></i>
               </button>
-              <ul class="dropdown-menu" aria-labelledby="scenarioDropdown">
+              <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
                 <li *ngFor="let scenario of scenarios">
                   <a href="#" (click)="updateScenario(scenario)">{{ scenario.name }}</a>
                 </li>
@@ -41,12 +42,13 @@
 
             <!-- climate model selector -->
             <div class="dropdown">
-              <button class="button dropdown-toggle" type="button" data-target="#modelOptions"
-                data-toggle="modal" aria-haspopup="true" aria-expanded="true">
+              <button class="button" type="button" data-target="#modelOptions"
+                aria-haspopup="true" aria-expanded="true"
+                (click)="smModal.show()">
                 <i class="icon-flash"></i>
                 {{ selectedClimateModels }}
                 <label>
-                  <a href="#" data-toggle="modal" >Select Models</a>
+                  <a href="#">Select Models</a>
                 </label>
               </button>
             </div>
@@ -61,11 +63,13 @@
         <charts class="charts scrollable"></charts>
       </div>
   </div>
-  <div class="modal modal-small" id="modelOptions" tabindex="-1" role="dialog" aria-labelledby="modelOptions">
-    <div class="modal-dialog" role="document">
+  <div bsModal #smModal="bs-modal" class="modal modal-small" id="modelOptions" tabindex="-1"
+    role="dialog" aria-labelledby="modelOptions" aria-hidden="true" [config]="{backdrop: false}">
+    <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="button button-modal-close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="button button-modal-close" data-dismiss="bs-modal"
+            (click)="updateClimateModels(); smModal.hide()" aria-label="Close">
             <span class="icon icon-cancel"></span>
           </button>
           <h4 class="modal-title">Select Models</h4>
@@ -77,7 +81,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button class="button" (click)="updateClimateModels()" data-dismiss="modal">Update</button>
+          <button class="button" (click)="updateClimateModels(); smModal.hide();" data-dismiss="bs-modal">Update</button>
         </div>
       </div>
     </div>

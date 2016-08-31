@@ -2,7 +2,7 @@
  * Climate Change Lab
  * App Component
  */
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewContainerRef } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChartsContainerComponent } from '../charts/charts-container.component';
 import { ClimateModel, Scenario } from '../models/chart.models';
@@ -10,6 +10,8 @@ import { ChartService } from '../services/chart.service';
 
 import { AutoCompleteDirective } from "../auto-complete";
 import { AutoCompleteComponent } from "../auto-complete";
+
+import { DROPDOWN_DIRECTIVES, MODAL_DIRECTIVES, BS_VIEW_PROVIDERS } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { apiHost, defaultCity, defaultScenario } from "../constants";
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -19,15 +21,22 @@ import * as _ from 'lodash';
 
 @Component({
   selector: 'cc-lab',
-  directives: [NavbarComponent, SidebarComponent, ChartsContainerComponent],
+  directives: [DROPDOWN_DIRECTIVES, MODAL_DIRECTIVES,
+               NavbarComponent, SidebarComponent, ChartsContainerComponent],
   encapsulation: ViewEncapsulation.None,
-  templateUrl: './lab.component.html'
+  templateUrl: './lab.component.html',
+  viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class LabComponent extends OnInit {
   name = 'Climate Lab';
 
-  constructor(private chartService: ChartService) {
+  constructor(viewContainerRef: ViewContainerRef, private chartService: ChartService) {
     super();
+
+    // TODO: does not work
+    // necessary to catch application root view container ref. see:
+    // https://valor-software.com/ng2-bootstrap/#/modals
+    this.viewContainerRef = viewContainerRef;
   }
 
   public apiCities: string = apiHost + "city/?search=:keyword&format=json";
@@ -36,6 +45,8 @@ export class LabComponent extends OnInit {
 
   public scenarios: Scenario[];
   public selectedScenario: string;
+
+  public viewContainerRef: ViewContainerRef;
 
   // custom formatter to display list of options as City, State
   public cityListFormatter(data: any): string {
