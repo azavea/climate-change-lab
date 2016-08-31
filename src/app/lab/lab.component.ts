@@ -70,6 +70,11 @@ export class LabComponent extends OnInit {
     this.chartService.updateClimateModels(models);
   }
 
+  public updateScenario(scenario: Scenario) {
+    this.selectedScenario = scenario.name;
+    this.chartService.updateScenario(scenario.name);
+  }
+
   getClimateModels() {
     this.chartService.loadClimateModels();
     this.chartService.getClimateModels().subscribe(data => {
@@ -80,9 +85,9 @@ export class LabComponent extends OnInit {
   getScenarios() {
     this.chartService.loadScenarios();
     this.chartService.getScenarios().subscribe(data => {
+      // TODO: it would be nice to populate a tooltip for the scenario list items with their
+      // descriptions once angular2-bootstrap is in place
       this.scenarios = data;
-      console.log('got scenarios:');
-      console.log(this.scenarios);
     });
   }
 

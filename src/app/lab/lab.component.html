@@ -33,10 +33,9 @@
                 <i class="icon-angle-down caret"></i>
               </button>
               <ul class="dropdown-menu" aria-labelledby="scenarioDropdown">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li><a href="#">Separated link</a></li>
+                <li *ngFor="let scenario of scenarios">
+                  <a href="#" (click)="updateScenario(scenario)">{{ scenario.name }}</a>
+                </li>
               </ul>
             </div>
 
