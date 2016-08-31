@@ -12,6 +12,7 @@ import { AutoCompleteDirective } from "../auto-complete";
 import { AutoCompleteComponent } from "../auto-complete";
 
 import { apiHost, defaultCity, defaultScenario } from "../constants";
+import { NavbarComponent } from '../navbar/navbar.component';
 
 import * as _ from 'lodash';
 
@@ -34,7 +35,7 @@ export class LabComponent extends OnInit {
   public climateModels: ClimateModel[];
 
   public scenarios: Scenario[];
-  public selectedScenario: String;
+  public selectedScenario: string;
 
   // custom formatter to display list of options as City, State
   public cityListFormatter(data: any): string {
@@ -61,7 +62,7 @@ export class LabComponent extends OnInit {
   }
 
   public updateClimateModels() {
-    let models: String[] = this.climateModels.filter(function(model) {
+    let models: string[] = this.climateModels.filter(function(model) {
       return model.selected;
     }).map(function(model) {
       return model.name;

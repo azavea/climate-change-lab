@@ -19,6 +19,7 @@ export class ChartService {
 
     dataQueryOptions = {
       cityId: defaultCity.id,
+      models: null, // default to all
       scenario: defaultScenario,
       variables: defaultVariable,
       years: defaultYears
@@ -179,17 +180,17 @@ export class ChartService {
         this.loadChartData();
     }
 
-    public updateClimateModels(models: String[]): void {
+    public updateClimateModels(models: string[]): void {
         if (models.length) {
             this.dataQueryOptions.models = models.join(',');
         } else if (this.dataQueryOptions.models) {
             // default to all by specifying none
-            delete this.dataQueryOptions.models;
+            this.dataQueryOptions.models = null;
         }
         this.loadChartData();
     }
 
-    public updateScenario(scenario: String): void {
+    public updateScenario(scenario: string): void {
         this.dataQueryOptions.scenario = scenario;
         this.loadChartData();
     }
