@@ -16,4 +16,3 @@ import 'jquery';
 import 'lodash';
 import 'd3';
 import 'd3-tip';
-import 'ng2-bootstrap';
