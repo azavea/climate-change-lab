@@ -17,7 +17,7 @@ import * as $ from 'jquery';
 export class LineGraphComponent {
   public data: ChartData[];
   public extractedData: Array<DataPoint>;
-  public indicator: String;
+  public indicator: string;
   public trendline: Boolean;
   public min: Boolean;
   public max: Boolean;
@@ -33,7 +33,7 @@ export class LineGraphComponent {
   private yScale;                        // D3 scale in Y
   private htmlElement;                   // Host HTMLElement
   private valueline;                     // Base for a chart line
-  private xRange: Array<String>;         // Min, max date range
+  private xRange: Array<string>;         // Min, max date range
   private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
   private yData: Array<number>;          // Stores just y axis data, multi-use
   private trendData: Array<DataPoint>;   // Formatted data for the trendline

@@ -3,8 +3,8 @@ import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular
 import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
-import { ChartData } from '../models/chart.models';
-import { apiHost, apiToken, defaultCity } from "../constants";
+import { ChartData, ClimateModel, Scenario } from '../models/chart.models';
+import { apiHost, apiToken, defaultCity, defaultScenario, defaultVariable, defaultYears } from "../constants";
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -17,22 +17,31 @@ import * as _ from 'lodash';
 @Injectable()
 export class ChartService {
 
-    // FIXME: using dummy options for API query
-    dataQueryOptions: any = {
+    dataQueryOptions = {
       cityId: defaultCity.id,
-      scenario: 'RCP85',
-      variables: 'pr',
-      years: '2070'
+      models: null, // default to all
+      scenario: defaultScenario,
+      variables: defaultVariable,
+      years: defaultYears
     };
 
-    // TODO: pretty label
-    chartList = ["pr"];
+    // TODO: pretty label for variable name?
+    chartList = [defaultVariable];
 
     private chartData: Observable<ChartData[]>;
     private chartDataObserver: Observer<ChartData[]>;
 
+    private climateModels: Observable<ClimateModel[]>;
+    private climateModelObserver: Observer<ClimateModel[]>;
+
+    private scenarios: Observable<Scenario[]>;
+    private scenarioObserver: Observer<Scenario[]>;
+
     constructor(private http: Http) {
         this.chartData = new Observable<ChartData[]>(observer => this.chartDataObserver = observer);
+        this.climateModels = new Observable<ClimateModel[]>(observer =>
+                                                            this.climateModelObserver = observer);
+        this.scenarios = new Observable<Scenario[]>(observer => this.scenarioObserver = observer);
     }
 
     get() {
@@ -57,6 +66,14 @@ export class ChartService {
         return this.chartData;
     }
 
+    getClimateModels(): Observable<ClimateModel[]> {
+        return this.climateModels;
+    }
+
+    getScenarios(): Observable<Scenario[]> {
+        return this.scenarios;
+    }
+
     loadChartData(): void {
 
         let options = this.dataQueryOptions;
@@ -69,6 +86,9 @@ export class ChartService {
         searchParams.append('variables', options.variables);
         searchParams.append('years', options.years);
         searchParams.append('format', 'json');
+        if (options.models) {
+            searchParams.append('models', options.models);
+        }
 
         // append authorization header to request
         let headers = new Headers({
@@ -79,6 +99,36 @@ export class ChartService {
             .map( resp => resp.json())
             .subscribe(resp => {
                 this.chartDataObserver.next(this.convertChartData(resp.data || {}));
+            });
+    }
+
+    loadClimateModels(): void {
+        let url = apiHost + 'climate-model/';
+
+        // append authorization header to request
+        let headers = new Headers({
+            'Authorization': 'Token ' + apiToken
+        });
+        let requestOptions = new RequestOptions({headers: headers});
+        this.http.get(url, requestOptions)
+            .map( resp => resp.json())
+            .subscribe(resp => {
+                this.climateModelObserver.next(resp || {} as ClimateModel[]);
+            });
+    }
+
+    loadScenarios(): void {
+        let url = apiHost + 'scenario/';
+
+        // append authorization header to request
+        let headers = new Headers({
+            'Authorization': 'Token ' + apiToken
+        });
+        let requestOptions = new RequestOptions({headers: headers});
+        this.http.get(url, requestOptions)
+            .map( resp => resp.json())
+            .subscribe(resp => {
+                this.scenarioObserver.next(resp || {} as Scenario[]);
             });
     }
 
@@ -95,11 +145,11 @@ export class ChartService {
 
     // map array of daily readings to date for each reading and drop top-level year key
     convertChartData(data: any): ChartData[] {
-        let me = this;
+        let self = this;
         let indicators = [];
         let chartData: ChartData[] = [];
         _.each(_.keys(data), function(key) {
-            let days: string[] = me.getDaysInYear(key);
+            let days: string[] = self.getDaysInYear(key);
             _.each(_.keys(data[key]), function(indicator) {
                 // make array of [date, value] pairs with zip, then convert to keyed object
                 var indicatorData = _.map(_.zip(days, data[key][indicator]), function(arr) {
@@ -127,6 +177,21 @@ export class ChartService {
 
     public updateCity(city: any): void {
         this.dataQueryOptions.cityId = city.id;
+        this.loadChartData();
+    }
+
+    public updateClimateModels(models: string[]): void {
+        if (models.length) {
+            this.dataQueryOptions.models = models.join(',');
+        } else if (this.dataQueryOptions.models) {
+            // default to all by specifying none
+            this.dataQueryOptions.models = null;
+        }
+        this.loadChartData();
+    }
+
+    public updateScenario(scenario: string): void {
+        this.dataQueryOptions.scenario = scenario;
         this.loadChartData();
     }
 }

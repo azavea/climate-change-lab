@@ -11,6 +11,7 @@
           <div class="nav-left">
             <div class="dropdown">
               <i class="icon-globe"></i>
+              <label>City</label>
               <input auto-complete
                 [(ngModel)]="cityModel"
                 placeholder="Enter your city"
@@ -22,34 +23,36 @@
                 [value-changed]="onCitySelected()"
                 min-chars="2" />
             </div>
-            <div class="dropdown">
-              <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+            <!-- scenario selector -->
+            <div dropdown class="dropdown">
+              <button dropdownToggle class="button dropdown-toggle" type="button"
+                id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="true">
                 <i class="icon-flash"></i>
-                RCP 4.5
+                {{ selectedScenario }}
                 <i class="icon-angle-down caret"></i>
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li><a href="#">Separated link</a></li>
+              <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
+                <li *ngFor="let scenario of scenarios">
+                  <a href="#" (click)="updateScenario(scenario)">{{ scenario.name }}</a>
+                </li>
               </ul>
             </div>
+
+            <!-- climate model selector -->
             <div class="dropdown">
-              <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <button class="button" type="button" data-target="#modelOptions"
+                aria-haspopup="true" aria-expanded="true"
+                (click)="smModal.show()">
                 <i class="icon-flash"></i>
-                All Models
-                <i class="icon-angle-down caret"></i>
+                {{ selectedClimateModels }}
+                <label>
+                  <a href="#">Select Models</a>
+                </label>
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="active"><a href="#">All Models</a></li>
-                <li><a href="#">Average</a></li>
-                <li><a href="#">1st Quartile</a></li>
-                <li><a href="#">2nd Quartile</a></li>
-                <li><a href="#">3rd Quartile</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#modelOptions">Select Models</a></li>
-              </ul>
             </div>
+
           </div>
           <div class="nav-right">
             <button class="button button-default">
@@ -59,139 +62,26 @@
         </nav>
         <charts class="charts scrollable"></charts>
       </div>
-    </div>
   </div>
-  <div class="modal modal-small" id="modelOptions" tabindex="-1" role="dialog" aria-labelledby="modelOptions">
-    <div class="modal-dialog" role="document">
+  <div bsModal #smModal="bs-modal" class="modal modal-small" id="modelOptions" tabindex="-1"
+    role="dialog" aria-labelledby="modelOptions" aria-hidden="true" [config]="{backdrop: false}">
+    <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="button button-modal-close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="button button-modal-close" data-dismiss="bs-modal"
+            (click)="updateClimateModels(); smModal.hide()" aria-label="Close">
             <span class="icon icon-cancel"></span>
           </button>
           <h4 class="modal-title">Select Models</h4>
-          <div>
+          <div *ngFor="let climateModel of climateModels">
             <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 1
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 2
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 3
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 4
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 5
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 6
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 7
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 8
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 9
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 10
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 11
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 12
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 13
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 14
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 15
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 16
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 17
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 18
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 19
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="checkbox" name="checkbox" value="value">
-              Model 20
+              <input type="checkbox" name="checkbox" value="value" [(ngModel)]="climateModel.selected">
+              {{ climateModel.name }}
             </label>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="button">Update</button>
+          <button class="button" (click)="updateClimateModels(); smModal.hide();" data-dismiss="bs-modal">Update</button>
         </div>
       </div>
     </div>
