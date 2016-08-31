@@ -1,3 +1,8 @@
+sidebar {
+  overflow-y: auto;
+  width: 320px;
+}
+
 .sidebar-with-nav-vertical {
     display: flex;
 }
@@ -7,7 +12,6 @@
 }
 
 .sidebar-content {
-    width: 300px;
     hr {
       border-top: 1px solid $gray-2;
       margin-left: 1.5rem;
