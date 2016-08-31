@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CollapseDirective } from 'ng2-bootstrap/ng2-bootstrap';
+import { CollapseDirective, TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { LineGraphComponent } from './line-graph.component';
 
@@ -9,7 +9,7 @@ import { LineGraphComponent } from './line-graph.component';
  */
 @Component({
   selector: 'chart',
-  directives: [LineGraphComponent, CollapseDirective],
+  directives: [LineGraphComponent, CollapseDirective, TOOLTIP_DIRECTIVES],
   inputs: ['indicator', 'chartData'],
   templateUrl: './chart.component.html'
 })
