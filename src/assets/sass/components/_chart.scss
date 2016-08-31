@@ -73,5 +73,24 @@ chart {
     stroke-width: 1px;
     opacity: .7;
   }
-}
 
+  .chart-controls {
+    color: black;
+
+    .controls-header {
+      .controls-label {
+       display: inline-block;
+      }
+
+      .options-icon {
+        display: inline-block;
+      }
+    }
+
+    .controls-body {
+      input {
+        width: 50px;
+      }
+    }
+  }
+}

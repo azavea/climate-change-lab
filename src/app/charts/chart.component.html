@@ -1,13 +1,45 @@
 <div class="chart-heading">
-  <h2 class="chart-label">
+    <h2 class="chart-label">
     {{indicator}}
-  </h2>
-  <div class="chart-actions">
-    <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Export"><i class="icon icon-export"></i></button>
-    <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Options"><i class="icon icon-cog"></i></button>
-  </div>
+    </h2>
+    <div class="chart-actions">
+        <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Export"><i class="icon icon-export"></i></button>
+        <button class="button button-link" data-toggle="tooltip" data-placement="bottom" data-delay="300" title="" data-original-title="Options"><i class="icon icon-cog"></i></button>
+    </div>
 </div>
 <div class="chart-body">
-  <line-graph [data]="chartData" [indicator]="indicator" [trendline]="trendline"></line-graph>
-  <button (click)="toggleTrendline()">Trendline</button>
+    <line-graph
+        [data]="chartData"
+        [indicator]="indicator"
+        [trendline]="trendline"
+        [min]="min"
+        [max]="max"
+        [minVal]="minVal"
+        [maxVal]="maxVal">
+    </line-graph>
+</div>
+<div class="chart-controls">
+    <div class="controls-header">
+        <h5 class="controls-label">Options</h5>
+        <div class="options-icon" (click)="isCollapsed = !isCollapsed">
+            <i class="icon-minus" *ngIf="!isCollapsed"></i>
+            <i class="icon-plus" *ngIf="isCollapsed"></i>
+        </div>
+
+    </div>
+    <div class="controls-body" [collapse]="isCollapsed">
+        <ui-switch (change)="toggleTrendline()" size="small"></ui-switch>Show Trendline
+        <ui-switch (change)="toggleMin()" size="small"></ui-switch>Show Min
+        <input
+            type="number"
+            step="any"
+            placeholder="0"
+            [(ngModel)]="minVal">
+        <ui-switch (change)="toggleMax()" size="small"></ui-switch>Show Max
+        <input
+            type="number"
+            step="any"
+            placeholder="0"
+            [(ngModel)]="maxVal">
+    </div>
 </div>

@@ -13,7 +13,6 @@ import 'rxjs/add/operator/mergeMap';
 
 // 3rd Party Libraries
 import 'jquery';
-import 'bootstrap';
 import 'lodash';
 import 'd3';
 import 'd3-tip';

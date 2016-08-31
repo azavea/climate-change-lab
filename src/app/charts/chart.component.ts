@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CollapseDirective } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { LineGraphComponent } from './line-graph.component';
 
@@ -8,18 +9,37 @@ import { LineGraphComponent } from './line-graph.component';
  */
 @Component({
   selector: 'chart',
-  directives: [LineGraphComponent],
+  directives: [LineGraphComponent, CollapseDirective],
   inputs: ['indicator', 'chartData'],
   templateUrl: './chart.component.html'
 })
+
 export class ChartComponent {
-  private trendline: Boolean;
+  private isCollapsed: boolean;
+  private trendline: boolean;
+  private min: boolean;
+  private max: boolean;
+  private minVal: number;
+  private maxVal: number;
 
   toggleTrendline() {
     this.trendline = !this.trendline;
   }
 
+  toggleMin() {
+    this.min = !this.min;
+  }
+
+  toggleMax() {
+    this.max = !this.max;
+  }
+
   constructor() {
-    this.trendline = false;
+    this.isCollapsed = false;
+    this.min = false;
+    this.max = false;
+    this.minVal = 0;
+    this.maxVal = 0;
   }
 }
+

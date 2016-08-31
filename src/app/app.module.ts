@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 // 3rd party modules
 import { Ng2AutoCompleteModule } from './auto-complete/ng2AutoComplete.module';
+import { UiSwitchModule } from 'angular2-ui-switch';
 
 // Platform and Environment providers/directives/pipes
 import { PLATFORM_PROVIDERS } from '../platform/browser';
@@ -30,7 +31,8 @@ import { IndicatorsService } from './services/indicators.service';
     FormsModule,
     HttpModule,
     routing,
-    Ng2AutoCompleteModule
+    Ng2AutoCompleteModule,
+    UiSwitchModule
   ],
   providers: [
     appRoutingProviders,
