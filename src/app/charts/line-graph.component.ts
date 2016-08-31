@@ -242,11 +242,10 @@ export class LineGraphComponent {
     }
   }
 
-  private drawLine(data: [], className: String): void {
+  private drawLine(data: Array<DataPoint>, className: String): void {
     this.svg.append("path")
       .data([data])
       .attr("class", className)
       .attr("d", this.valueline);
   }
-
 }
