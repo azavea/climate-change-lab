@@ -13,13 +13,17 @@ import { ENV_PROVIDERS } from '../platform/environment';
 // Top-level app includes
 import { routing, appRoutingProviders } from './app.routing';
 import { AppComponent } from './app.component';
+import { LabComponent } from './lab/lab.component';
+import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { ChartService } from './services/chart.service';
 import { IndicatorsService } from './services/indicators.service';
 
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [
-    AppComponent
+    AppComponent,
+    LabComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -36,5 +40,4 @@ import { IndicatorsService } from './services/indicators.service';
     IndicatorsService
   ]
 })
-export class AppModule {
-}
+export class AppModule {}
