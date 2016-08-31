@@ -11,7 +11,7 @@ import { ChartService } from '../services/chart.service';
 import { AutoCompleteDirective } from "../auto-complete";
 import { AutoCompleteComponent } from "../auto-complete";
 
-import { DROPDOWN_DIRECTIVES, MODAL_DIRECTIVES, BS_VIEW_PROVIDERS } from 'ng2-bootstrap/ng2-bootstrap';
+import { DROPDOWN_DIRECTIVES, MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { apiHost, defaultCity, defaultScenario } from "../constants";
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -21,7 +21,7 @@ import * as _ from 'lodash';
 
 @Component({
   selector: 'cc-lab',
-  directives: [DROPDOWN_DIRECTIVES, MODAL_DIRECTIVES,
+  directives: [DROPDOWN_DIRECTIVES, MODAL_DIRECTIVES, TOOLTIP_DIRECTIVES,
                NavbarComponent, SidebarComponent, ChartsContainerComponent],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './lab.component.html',
@@ -118,8 +118,6 @@ export class LabComponent extends OnInit {
   getScenarios() {
     this.chartService.loadScenarios();
     this.chartService.getScenarios().subscribe(data => {
-      // TODO: it would be nice to populate a tooltip for the scenario list items with their
-      // descriptions once angular2-bootstrap is in place
       this.scenarios = data;
     });
   }

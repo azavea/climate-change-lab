@@ -35,7 +35,11 @@
               </button>
               <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
                 <li *ngFor="let scenario of scenarios">
-                  <a href="#" (click)="updateScenario(scenario)">{{ scenario.name }}</a>
+                  <a href="#" (click)="updateScenario(scenario)"
+                    tooltip="{{ scenario.description }}"
+                    tooltipPlacement="bottom"
+                    tooltipTrigger="mouseenter"
+                    tooltipPopupDelay="300">{{ scenario.name }}</a>
                 </li>
               </ul>
             </div>
@@ -99,3 +103,4 @@
       </div>
     </div>
   </div>
+
