@@ -3,7 +3,7 @@ import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular
 import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
-import { ChartData, ClimateModel } from '../models/chart.models';
+import { ChartData, ClimateModel, Scenario } from '../models/chart.models';
 import { apiHost, apiToken, defaultCity, defaultScenario, defaultVariable, defaultYears } from "../constants";
 
 import * as moment from 'moment';
@@ -33,10 +33,14 @@ export class ChartService {
     private climateModels: Observable<ClimateModel[]>;
     private climateModelObserver: Observer<ClimateModel[]>;
 
+    private scenarios: Observable<Scenario[]>;
+    private scenarioObserver: Observer<Scenario[]>;
+
     constructor(private http: Http) {
         this.chartData = new Observable<ChartData[]>(observer => this.chartDataObserver = observer);
         this.climateModels = new Observable<ClimateModel[]>(observer =>
                                                             this.climateModelObserver = observer);
+        this.scenarios = new Observable<Scenario[]>(observer => this.scenarioObserver = observer);
     }
 
     get() {
@@ -63,6 +67,10 @@ export class ChartService {
 
     getClimateModels(): Observable<ClimateModel[]> {
         return this.climateModels;
+    }
+
+    getScenarios(): Observable<Scenario[]> {
+        return this.scenarios;
     }
 
     loadChartData(): void {
@@ -105,6 +113,21 @@ export class ChartService {
             .map( resp => resp.json())
             .subscribe(resp => {
                 this.climateModelObserver.next(resp || {} as ClimateModel[]);
+            });
+    }
+
+    loadScenarios(): void {
+        let url = apiHost + 'scenario/';
+
+        // append authorization header to request
+        let headers = new Headers({
+            'Authorization': 'Token ' + apiToken
+        });
+        let requestOptions = new RequestOptions({headers: headers});
+        this.http.get(url, requestOptions)
+            .map( resp => resp.json())
+            .subscribe(resp => {
+                this.scenarioObserver.next(resp || {} as Scenario[]);
             });
     }
 
@@ -163,6 +186,11 @@ export class ChartService {
             // default to all by specifying none
             delete this.dataQueryOptions.models;
         }
+        this.loadChartData();
+    }
+
+    public updateScenario(scenario: String): void {
+        this.dataQueryOptions.scenario = scenario;
         this.loadChartData();
     }
 }

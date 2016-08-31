@@ -24,22 +24,26 @@
                 min-chars="2" />
             </div>
 
+            <!-- scenario selector -->
             <div class="dropdown">
-              <button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <button class="button dropdown-toggle" type="button" id="scenarioDropdown"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <i class="icon-flash"></i>
-                RCP 4.5
+                {{ selectedScenario }}
                 <i class="icon-angle-down caret"></i>
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <ul class="dropdown-menu" aria-labelledby="scenarioDropdown">
                 <li><a href="#">Action</a></li>
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li><a href="#">Separated link</a></li>
               </ul>
             </div>
-            
+
+            <!-- climate model selector -->
             <div class="dropdown">
-              <button class="button dropdown-toggle" type="button" data-target="#modelOptions"data-toggle="modal" aria-haspopup="true" aria-expanded="true">
+              <button class="button dropdown-toggle" type="button" data-target="#modelOptions"
+                data-toggle="modal" aria-haspopup="true" aria-expanded="true">
                 <i class="icon-flash"></i>
                 {{ selectedClimateModels }}
                 <label>
@@ -47,6 +51,7 @@
                 </label>
               </button>
             </div>
+
           </div>
           <div class="nav-right">
             <button class="button button-default">

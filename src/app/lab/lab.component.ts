@@ -5,13 +5,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChartsContainerComponent } from '../charts/charts-container.component';
-import { ClimateModel } from '../models/chart.models';
+import { ClimateModel, Scenario } from '../models/chart.models';
 import { ChartService } from '../services/chart.service';
 
 import { AutoCompleteDirective } from "../auto-complete";
 import { AutoCompleteComponent } from "../auto-complete";
 
-import { apiHost, defaultCity } from "../constants";
+import { apiHost, defaultCity, defaultScenario } from "../constants";
 
 import * as _ from 'lodash';
 
@@ -32,6 +32,9 @@ export class LabComponent extends OnInit {
   public apiCities: string = apiHost + "city/?search=:keyword&format=json";
   public cityModel;
   public climateModels: ClimateModel[];
+
+  public scenarios: Scenario[];
+  public selectedScenario: String;
 
   // custom formatter to display list of options as City, State
   public cityListFormatter(data: any): string {
@@ -74,8 +77,19 @@ export class LabComponent extends OnInit {
     });
   }
 
+  getScenarios() {
+    this.chartService.loadScenarios();
+    this.chartService.getScenarios().subscribe(data => {
+      this.scenarios = data;
+      console.log('got scenarios:');
+      console.log(this.scenarios);
+    });
+  }
+
   ngOnInit() {
     this.cityModel = this.cityValueFormatter(defaultCity);
+    this.selectedScenario = defaultScenario;
+    this.getScenarios();
     this.getClimateModels();
   }
 }

@@ -12,3 +12,8 @@ export class ClimateModel {
     name: String;
     selected: boolean;
 }
+
+export class Scenario {
+    name: String,
+    description: String
+}
