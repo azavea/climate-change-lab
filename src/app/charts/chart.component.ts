@@ -16,31 +16,31 @@ import { LineGraphComponent } from './line-graph.component';
 
 export class ChartComponent {
 
-  private isCollapsed: boolean;
-  private trendline: boolean;
-  private min: boolean;
-  private max: boolean;
-  private minVal: number;
-  private maxVal: number;
+    private isCollapsed: boolean;
+    private trendline: boolean;
+    private min: boolean;
+    private max: boolean;
+    private minVal: number;
+    private maxVal: number;
 
-  toggleTrendline() {
-    this.trendline = !this.trendline;
-  }
+    toggleTrendline () {
+        this.trendline = !this.trendline;
+    }
 
-  toggleMin() {
-    this.min = !this.min;
-  }
+    toggleMin () {
+        this.min = !this.min;
+    }
 
-  toggleMax() {
-    this.max = !this.max;
-  }
+    toggleMax () {
+        this.max = !this.max;
+    }
 
-  constructor() {
-    this.isCollapsed = false;
-    this.trendline = false;
-    this.min = false;
-    this.max = false;
-    this.minVal = 0;
-    this.maxVal = 0;
-  }
+    constructor () {
+        this.isCollapsed = false;
+        this.trendline = false;
+        this.min = false;
+        this.max = false;
+        this.minVal = 0;
+        this.maxVal = 0;
+    }
 }
