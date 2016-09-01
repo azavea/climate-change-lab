@@ -35,7 +35,11 @@
               </button>
               <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
                 <li *ngFor="let scenario of scenarios">
-                  <a href="#" (click)="updateScenario(scenario)">{{ scenario.name }}</a>
+                  <a href="#" (click)="updateScenario(scenario)"
+                    tooltip="{{ scenario.description }}"
+                    tooltipPlacement="bottom"
+                    tooltipTrigger="mouseenter"
+                    tooltipPopupDelay="300">{{ scenario.name }}</a>
                 </li>
               </ul>
             </div>
@@ -63,6 +67,9 @@
         <charts class="charts scrollable"></charts>
       </div>
   </div>
+
+  <!-- TODO: remove config option to not display modal background once issue fixed:
+       valor-software/ng2-bootstrap#854 -->
   <div bsModal #smModal="bs-modal" class="modal modal-small" id="modelOptions" tabindex="-1"
     role="dialog" aria-labelledby="modelOptions" aria-hidden="true" [config]="{backdrop: false}">
     <div class="modal-dialog modal-sm" role="document">
@@ -73,22 +80,27 @@
             <span class="icon icon-cancel"></span>
           </button>
           <h4 class="modal-title">Select Models</h4>
+          <div>
+            <label>
+              <input type="checkbox" name="allModelsCheckbox"
+                value="value" [(ngModel)]="allModels" [disabled]="allModels"
+                (ngModelChange)="clearClimateModels()">Use all models
+            </label>
+          </div>
+          <hr />
           <div *ngFor="let climateModel of climateModels">
             <label>
-              <input type="checkbox" name="checkbox" value="value" [(ngModel)]="climateModel.selected">
+              <input type="checkbox" name="modelCheckbox" (click)="deselectUseAllModels()"
+                value="value" [(ngModel)]="climateModel.selected">
               {{ climateModel.name }}
             </label>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="button" (click)="updateClimateModels(); smModal.hide();" data-dismiss="bs-modal">Update</button>
+          <button class="button" (click)="updateClimateModels(); smModal.hide();"
+            data-dismiss="bs-modal">Update</button>
         </div>
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    $(function() {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-  </script>
 
