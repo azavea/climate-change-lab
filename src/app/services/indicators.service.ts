@@ -1,5 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
+import {Observable, Observer} from "rxjs";
+import 'rxjs/Rx';
+
+import { Indicator } from '../models/indicator.models';
+import { apiHost, apiToken } from "../constants";
 
 /*
  * Indicators Service
@@ -8,10 +13,28 @@ import {Http, Response} from '@angular/http';
 
 @Injectable()
 export class IndicatorsService {
-  constructor(private http: Http) {}
+    private indicators: Observable<Indicator[]>;
+    private indicatorObserver: Observer<Indicator[]>;
 
-  get() {
-    return this.http.get('/assets/indicators.json')
-      .map(response => response.json());
-  }
+    constructor(private http: Http) {
+        this.indicators = new Observable<Indicator[]>(observer => this.indicatorObserver = observer);
+    }
+
+    get() {
+        return this.indicators;
+    }
+
+    public loadIndicators() {
+        let url = apiHost + 'indicator/';
+
+        // append authorization header to request
+        let headers = new Headers({
+            'Authorization': 'Token ' + apiToken
+        });
+        let requestOptions = new RequestOptions({headers: headers});
+        this.http.get(url, requestOptions)
+            .map( resp => resp.json())
+            .subscribe(resp => this.indicatorObserver.next(resp.results || {} as Indicator[]));
+
+    }
 }

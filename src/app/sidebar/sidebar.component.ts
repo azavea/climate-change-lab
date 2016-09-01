@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 import { ChartService } from '../services/chart.service';
 import { IndicatorsService } from '../services/indicators.service';
+import { Indicator } from '../models/indicator.models';
 
 /*
  * Sidebar Component
@@ -14,7 +15,7 @@ import { IndicatorsService } from '../services/indicators.service';
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent extends OnInit {
-    private indicatorsList: string;
+    private indicators: Indicator[];
 
     constructor(private chartService: ChartService, private indicatorsService: IndicatorsService) {
       super();
@@ -22,12 +23,12 @@ export class SidebarComponent extends OnInit {
 
     // Set up click event handlers
     onIndicatorClicked(indicator) {
-        this.chartService.addChart(indicator);
+        this.chartService.addChart(indicator.name);
     }
 
     ngOnInit() {
-      this.indicatorsService.get()
-      .subscribe(data=>this.indicatorsList=data);
+      this.indicatorsService.loadIndicators();
+      this.indicatorsService.get().subscribe(data => this.indicators = data);
     }
 
 }
