@@ -104,7 +104,7 @@
     "url": "https://github.com/azavea/climate-change-lab"
   },
   "engines": {
-    "node": ">= 4.2.1",
-    "npm": ">= 3"
+    "node": ">= 6.2.0",
+    "npm": ">= 3.8"
   }
 }
