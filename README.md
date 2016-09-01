@@ -4,12 +4,12 @@
 
 ### Requirements
 
-Requires node.js 6.3.1+ and npm 3.10.3+ for angular compatibility.
+Requires node.js 6.2.0+ and npm 3.8+ for angular compatibility.
 
 ### Setup
 
   - Clone this repo and run `npm install`
-  - `cp example/constants.ts.example src/ccl/constants.ts`
+  - `cp example/constants.ts.example src/app/constants.ts`
   - Edit `constants.ts` to set the API server name and API key
 
 
@@ -31,6 +31,6 @@ Webpack -- is a module bundler for the browser.
 
 Webpack-dev-server -- serves project and watches changes to webpack bundles. Runs with project's npm commands. With hot module reload, changes are reloaded in browser without refresh.
 
-Angular -- still in development, using Angular 2.0.0-rc.4 as the front-end framework
+Angular -- still in development, using Angular 2.0.0-rc.5 as the front-end framework
 
 D3 -- javascript library for creating sharp, interactive data analysis visualizations.
