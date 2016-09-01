@@ -1,4 +1,8 @@
 <div class="sidebar-content scrollable">
     <button class="indicator" *ngFor="let indicator of indicators"
-        (click)="onIndicatorClicked(indicator)">{{indicator.label}}</button>
+        (click)="onIndicatorClicked(indicator)"
+        tooltip="{{ indicator.description }}"
+        tooltipPlacement="right"
+        tooltipTrigger="mouseenter"
+        tooltipPopupDelay="300">{{indicator.label}}</button>
 </div>
