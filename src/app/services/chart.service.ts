@@ -4,7 +4,7 @@ import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
 import { ChartData, ClimateModel, Scenario } from '../models/chart.models';
-import { apiHost, apiToken, defaultCity, defaultScenario, defaultVariable, defaultYears } from "../constants";
+import { apiHost, apiToken, defaultCity, defaultScenario, defaultVariable, defaultIndicator, defaultYears } from "../constants";
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -21,6 +21,7 @@ export class ChartService {
       cityId: defaultCity.id,
       models: null, // default to all
       scenario: defaultScenario,
+      indicator: defaultIndicator,
       variables: defaultVariable,
       years: defaultYears
     };
@@ -83,7 +84,11 @@ export class ChartService {
         let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/';
 
         let searchParams: URLSearchParams = new URLSearchParams();
-        searchParams.append('variables', options.variables);
+        if (options.indicator) {
+            url += 'indicator/' + options.indicator + '/';
+        } else if (options.variables) {
+            searchParams.append('variables', options.variables);
+        }
         searchParams.append('years', options.years);
         searchParams.append('format', 'json');
         if (options.models) {
