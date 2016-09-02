@@ -117,9 +117,7 @@ export class LabComponent extends OnInit {
 
   getScenarios() {
     this.chartService.loadScenarios();
-    this.chartService.getScenarios().subscribe(data => {
-      this.scenarios = data;
-    });
+    this.chartService.getScenarios().subscribe(data => this.scenarios = data);
   }
 
   ngOnInit() {

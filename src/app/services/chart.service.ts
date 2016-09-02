@@ -145,11 +145,10 @@ export class ChartService {
 
     // map array of daily readings to date for each reading and drop top-level year key
     convertChartData(data: any): ChartData[] {
-        let self = this;
         let indicators = [];
         let chartData: ChartData[] = [];
-        _.each(_.keys(data), function(key) {
-            let days: string[] = self.getDaysInYear(key);
+        _.each(_.keys(data), (key) => {
+            let days: string[] = this.getDaysInYear(key);
             _.each(_.keys(data[key]), function(indicator) {
                 // make array of [date, value] pairs with zip, then convert to keyed object
                 var indicatorData = _.map(_.zip(days, data[key][indicator]), function(arr) {
