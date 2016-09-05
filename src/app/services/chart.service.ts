@@ -4,7 +4,7 @@ import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
 import { ChartData, ClimateModel, Scenario } from '../models/chart.models';
-import { apiHost, apiToken, defaultCity, defaultScenario, defaultVariable, defaultIndicator, defaultYears } from "../constants";
+import { apiHost, apiToken, defaultCity, defaultScenario, defaultYears } from "../constants";
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -21,13 +21,12 @@ export class ChartService {
       cityId: defaultCity.id,
       models: null, // default to all
       scenario: defaultScenario,
-      indicator: defaultIndicator,
-      variables: defaultVariable,
+      indicator: null,
       years: defaultYears
     };
 
     // TODO: pretty label for variable name?
-    chartList = [defaultVariable];
+    chartList = [];
 
     private chartData: Observable<ChartData[]>;
     private chartDataObserver: Observer<ChartData[]>;
@@ -57,9 +56,10 @@ export class ChartService {
     }
 
     addChart(indicator) {
-        // Only update chartList upon new indicator
+        // Only update chartList upon new indicator; query for data
         if (!this.chartList.includes(indicator)) {
             this.chartList.push(indicator);
+            this.loadChartData(indicator);
         }
     }
 
@@ -75,20 +75,16 @@ export class ChartService {
         return this.scenarios;
     }
 
-    loadChartData(): void {
-
+    loadChartData(indicator): void {
+        if (!indicator) { return; }
+        this.dataQueryOptions.indicator = indicator.name;
         let options = this.dataQueryOptions;
 
         // query like:
-        // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/?variables=pr&years=2050:2051
-        let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/';
+        // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/indicator/yearly_average_max_temperature/?years=2050:2051
+        let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/indicator/' + options.indicator + '/';
 
         let searchParams: URLSearchParams = new URLSearchParams();
-        if (options.indicator) {
-            url += 'indicator/' + options.indicator + '/';
-        } else if (options.variables) {
-            searchParams.append('variables', options.variables);
-        }
         searchParams.append('years', options.years);
         searchParams.append('format', 'json');
         if (options.models) {
@@ -151,7 +147,30 @@ export class ChartService {
     // map array of daily readings to date for each reading and drop top-level year key
     convertChartData(data: any): ChartData[] {
         let indicators = [];
+        let indicator = this.dataQueryOptions.indicator;
         let chartData: ChartData[] = [];
+        let indicatorData = [];
+         // make array of [date, value] pairs with zip, then convert to keyed object
+        _.each(_.keys(data), (key) => {
+            indicatorData.push({
+                'date': key,
+                'value': data[key]
+            });
+        });
+
+        if (!_.includes(indicators, indicator)) {
+            indicators.push(indicator);
+            chartData.push({
+                'indicator': indicator,
+                'data': indicatorData
+            } as ChartData);
+        } else {
+            // have multiple years; append to existing indicator data
+            chartData[indicator]['data'].push(indicatorData);
+        }
+
+        /* For daily value conversions
+
         _.each(_.keys(data), (key) => {
             let days: string[] = this.getDaysInYear(key);
             _.each(_.keys(data[key]), function(indicator) {
@@ -174,7 +193,7 @@ export class ChartService {
                     chartData[indicator]['data'].push(indicatorData);
                 }
             });
-        });
+        }); */
 
         return chartData;
     }

@@ -63,11 +63,11 @@ export class LineGraphComponent {
     }
 
     private filterData(): void {
-        let indicator = this.indicator;
+        let indicator = this.indicator.name;
         // Preserves parent data by fresh copying indicator data that will undergo processing
         this.extractedData = _.cloneDeep(_.find(this.data, obj => obj['indicator'] === indicator));
         _.has(this.extractedData, 'data') ? this.extractedData = this.extractedData['data'] : this.extractedData = [];
-        // Remove empty day in non-leap years
+        // Remove empty day in non-leap years (affects only daily data)
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
             this.extractedData.pop();
         }
@@ -96,11 +96,12 @@ export class LineGraphComponent {
 
     // Set axis scales
     private setAxisScales(): void {
-        var parseTime = D3.timeParse('%Y-%m-%d');
+        // Time scales only recognize annual and daily data
+        var parseTime = this.time === "annual"? D3.timeParse('%Y') : D3.timeParse('%Y-%m-%d');
         this.extractedData.forEach(d => d.date = parseTime(d.date));
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
-        this.yScale.domain([0, D3.max(this.yData)]);
+        this.yScale.domain([D3.min(this.yData) - 10, D3.max(this.yData) + 10]);
     }
 
     /* Will draw the X Axis */
