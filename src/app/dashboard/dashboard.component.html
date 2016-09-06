@@ -7,13 +7,13 @@
             <h2>Lab</h2>
         </div>
         <div class="dash-right">
-            <button type="button" class="btn btn-primary">New Project</button>
+            <a class="button button-default" [routerLink]="['/lab']">New Project</a>
         </div>
     </div>
     <div class="dash-body">
         <div *ngIf="!isProject">
             <i class="icon-cloud"></i>
-            <div>To explore climate change data, <a href="#/lab">start a new project.</a></div>
+            <div>To explore climate change data, <a [routerLink]="['/lab']">start a new project.</a></div>
         </div>
         <div *ngIf="isProject">
             <!-- TODO: Populate a table with eventual projects-->
