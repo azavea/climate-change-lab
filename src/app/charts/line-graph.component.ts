@@ -65,7 +65,7 @@ export class LineGraphComponent {
 
     private filterData(): void {
         // Preserves parent data by fresh copying indicator data that will undergo processing
-        this.extractedData = _.cloneDeep(_.find(this.data, obj => obj['indicator']['name'] === this.indicator.name));
+        this.extractedData = _.cloneDeep(_.find(this.data, obj => obj.indicator.name === this.indicator.name));
         _.has(this.extractedData, 'data') ? this.extractedData = this.extractedData['data'] : this.extractedData = [];
         // Remove empty day in non-leap years (affects only daily data)
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {

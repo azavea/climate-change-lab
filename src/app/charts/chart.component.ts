@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CollapseDirective, TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
-import { ChartData } from '../models/chart.models';
 import { Indicator } from '../models/indicator.models';
-import { ChartService } from '../services/chart.service';
 import { LineGraphComponent } from './line-graph.component';
 
 /*
@@ -17,7 +15,7 @@ import { LineGraphComponent } from './line-graph.component';
   templateUrl: './chart.component.html'
 })
 
-export class ChartComponent extends OnInit {
+export class ChartComponent {
 
     private indicator: Indicator;
     private isCollapsed: boolean;
@@ -39,11 +37,7 @@ export class ChartComponent extends OnInit {
         this.max = !this.max;
     }
 
-    ngOnInit() {
-    }
-
-    constructor(private chartService: ChartService) {
-        super();
+    constructor() {
         this.isCollapsed = false;
         this.trendline = false;
         this.min = false;

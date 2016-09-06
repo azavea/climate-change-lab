@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ChartData } from '../models/chart.models';
 import { ChartService } from '../services/chart.service';
 import { ChartComponent } from './chart.component';
 
@@ -16,7 +17,7 @@ import { ChartComponent } from './chart.component';
 })
 export class ChartsContainerComponent extends OnInit {
     private chartList: Array<String>;
-    private chartData;
+    private chartData: Array<ChartData>;
 
     constructor(private chartService: ChartService) {
       super();

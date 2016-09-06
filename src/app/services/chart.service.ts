@@ -92,7 +92,7 @@ export class ChartService {
         });
         let requestOptions = new RequestOptions({headers: headers, search: searchParams});
 
-        // Set up query for each indicator
+        // Collect a query for each indicator
         _.each(this.chartList, indic => {
             options.indicator = indic.name;
             // query like:
@@ -101,6 +101,7 @@ export class ChartService {
             queries.push(this.http.get(url, requestOptions).map( resp => resp.json()));
         });
 
+        // Multi-observable that updates subscribers only after all queries return
         Observable.forkJoin(queries).subscribe(resp => {
             this.chartDataObserver.next(this.convertChartData(resp || {}));
         });
