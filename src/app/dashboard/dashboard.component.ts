@@ -8,7 +8,8 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class DashboardComponent {
 
-    private projects: [];
+    // TODO: replace any type with a project model
+    private projects: any[];
 
     constructor() {
         // TODO: Eventually query for saved projects
