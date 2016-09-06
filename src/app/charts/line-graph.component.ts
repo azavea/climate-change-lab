@@ -40,6 +40,8 @@ export class LineGraphComponent {
     private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
     private yData: Array<number>;          // Stores just y axis data, multi-use
     private trendData: Array<DataPoint>;   // Formatted data for the trendline
+    private timeOptions: any;
+    private timeFormat: string;
 
     /* We request angular for the element reference
     * and then we create a D3 Wrapper for our host element
@@ -47,6 +49,10 @@ export class LineGraphComponent {
     constructor(private element: ElementRef) {
         this.htmlElement = this.element.nativeElement;
         this.host = D3.select(this.element.nativeElement);
+        this.timeOptions = {
+          'Yearly': '%Y',
+          'Daily': '%Y-%m-%d'
+        }
     }
 
     /* Will Update on every @Input change */
@@ -65,8 +71,11 @@ export class LineGraphComponent {
 
     private filterData(): void {
         // Preserves parent data by fresh copying indicator data that will undergo processing
-        this.extractedData = _.cloneDeep(_.find(this.data, obj => obj.indicator.name === this.indicator.name));
-        _.has(this.extractedData, 'data') ? this.extractedData = this.extractedData['data'] : this.extractedData = [];
+        let clippedData = _.cloneDeep(_.find(this.data, obj => obj.indicator.name === this.indicator.name));
+        if (clippedData) {
+            this.timeFormat = this.timeOptions[clippedData.time_agg[0]];
+        }
+        _.has(clippedData, 'data') ? this.extractedData = clippedData['data'] : this.extractedData = [];
         // Remove empty day in non-leap years (affects only daily data)
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
             this.extractedData.pop();
@@ -97,7 +106,7 @@ export class LineGraphComponent {
     // Set axis scales
     private setAxisScales(): void {
         // Time scales only recognize annual and daily data
-        var parseTime = D3.timeParse('%Y'); //D3.timeParse('%Y-%m-%d');
+        var parseTime = D3.timeParse(this.timeFormat);
         this.extractedData.forEach(d => d.date = parseTime(d.date));
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
@@ -112,7 +121,7 @@ export class LineGraphComponent {
           .attr('transform', 'translate(0,' + this.height + ')')
           .call(D3.axisBottom(this.xScale)
           .ticks(3)
-          .tickFormat(D3.timeFormat('%Y')));
+          .tickFormat(D3.timeFormat(this.timeFormat)));
     }
 
     /* Will draw the Y Axis */

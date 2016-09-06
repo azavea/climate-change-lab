@@ -168,7 +168,8 @@ export class ChartService {
                 indicators.push(indicator);
                 chartData.push({
                     'indicator': indicator,
-                    'data': indicatorData
+                    'data': indicatorData,
+                    'time_agg': indicator.label.match(/Daily/) || indicator.label.match(/Yearly/)
                 } as ChartData);
             }
         });
