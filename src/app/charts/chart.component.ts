@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CollapseDirective, TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { ChartData } from '../models/chart.models';
+import { Indicator } from '../models/indicator.models';
 import { ChartService } from '../services/chart.service';
 import { LineGraphComponent } from './line-graph.component';
 
@@ -18,13 +19,13 @@ import { LineGraphComponent } from './line-graph.component';
 
 export class ChartComponent extends OnInit {
 
+    private indicator: Indicator;
     private isCollapsed: boolean;
     private trendline: boolean;
     private min: boolean;
     private max: boolean;
     private minVal: number;
     private maxVal: number;
-    private chartData: ChartData[];
 
     toggleTrendline () {
         this.trendline = !this.trendline;
@@ -38,16 +39,7 @@ export class ChartComponent extends OnInit {
         this.max = !this.max;
     }
 
-    makeChart() {
-      this.chartService.loadChartData();
-      this.chartService.getChartData().subscribe(data=> {
-        this.chartData = data;
-      });
-      console.log(this.chartData);
-    }
-
     ngOnInit() {
-        this.makeChart();
     }
 
     constructor(private chartService: ChartService) {

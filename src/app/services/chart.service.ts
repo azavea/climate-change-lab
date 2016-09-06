@@ -4,6 +4,7 @@ import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
 import { ChartData, ClimateModel, Scenario } from '../models/chart.models';
+import { Indicator } from '../models/indicator.models';
 import { apiHost, apiToken, defaultCity, defaultScenario, defaultYears } from "../constants";
 
 import * as moment from 'moment';
@@ -55,11 +56,11 @@ export class ChartService {
         });
     }
 
-    addChart(indicator) {
+    addChart(indicator: Indicator) {
         // Only update chartList upon new indicator; query for data
         if (!this.chartList.includes(indicator)) {
             this.chartList.push(indicator);
-            this.loadChartData(indicator);
+            this.loadChartData();
         }
     }
 
@@ -75,32 +76,34 @@ export class ChartService {
         return this.scenarios;
     }
 
-    loadChartData(indicator): void {
-        if (!indicator) { return; }
-        this.dataQueryOptions.indicator = indicator.name;
+    loadChartData(): void {
+        let queries = [];
+
         let options = this.dataQueryOptions;
-
-        // query like:
-        // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/indicator/yearly_average_max_temperature/?years=2050:2051
-        let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/indicator/' + options.indicator + '/';
-
         let searchParams: URLSearchParams = new URLSearchParams();
         searchParams.append('years', options.years);
         searchParams.append('format', 'json');
         if (options.models) {
             searchParams.append('models', options.models);
         }
-
         // append authorization header to request
         let headers = new Headers({
             'Authorization': 'Token ' + apiToken
         });
         let requestOptions = new RequestOptions({headers: headers, search: searchParams});
-        this.http.get(url, requestOptions)
-            .map( resp => resp.json())
-            .subscribe(resp => {
-                this.chartDataObserver.next(this.convertChartData(resp.data || {}));
-            });
+
+        // Set up query for each indicator
+        _.each(this.chartList, indic => {
+            options.indicator = indic.name;
+            // query like:
+            // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/indicator/yearly_average_max_temperature/?years=2050:2051
+            let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/indicator/' + options.indicator + '/';
+            queries.push(this.http.get(url, requestOptions).map( resp => resp.json()));
+        });
+
+        Observable.forkJoin(queries).subscribe(resp => {
+            this.chartDataObserver.next(this.convertChartData(resp || {}));
+        });
     }
 
     loadClimateModels(): void {
@@ -147,27 +150,27 @@ export class ChartService {
     // map array of daily readings to date for each reading and drop top-level year key
     convertChartData(data: any): ChartData[] {
         let indicators = [];
-        let indicator = this.dataQueryOptions.indicator;
         let chartData: ChartData[] = [];
-        let indicatorData = [];
-         // make array of [date, value] pairs with zip, then convert to keyed object
-        _.each(_.keys(data), (key) => {
-            indicatorData.push({
-                'date': key,
-                'value': data[key]
-            });
-        });
 
-        if (!_.includes(indicators, indicator)) {
-            indicators.push(indicator);
-            chartData.push({
-                'indicator': indicator,
-                'data': indicatorData
-            } as ChartData);
-        } else {
-            // have multiple years; append to existing indicator data
-            chartData[indicator]['data'].push(indicatorData);
-        }
+         // make array of [date, value] pairs with zip, then convert to keyed object
+        _.each(data, obj => {
+            let indicatorData = [];
+            let indicator = obj.indicator;
+            _.each(obj.data, (value, key) => {
+                indicatorData.push({
+                    'date': key,
+                    'value': value
+                });
+            });
+
+            if (!_.includes(indicators, indicator)) {
+                indicators.push(indicator);
+                chartData.push({
+                    'indicator': indicator,
+                    'data': indicatorData
+                } as ChartData);
+            }
+        });
 
         /* For daily value conversions
 
@@ -210,6 +213,7 @@ export class ChartService {
             // default to all by specifying none
             this.dataQueryOptions.models = null;
         }
+
         this.loadChartData();
     }
 
