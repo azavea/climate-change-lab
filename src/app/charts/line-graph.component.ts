@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
 import { ChartData, DataPoint } from '../models/chart.models';
+import { Indicator } from '../models/indicator.models';
 import * as D3 from 'd3';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
@@ -19,7 +20,7 @@ export class LineGraphComponent {
 
     public data: ChartData[];
     public extractedData: Array<DataPoint>;
-    public indicator: string;
+    public indicator: Indicator;
     public trendline: Boolean;
     public min: Boolean;
     public max: Boolean;
@@ -63,9 +64,8 @@ export class LineGraphComponent {
     }
 
     private filterData(): void {
-        let indicator = this.indicator.name;
         // Preserves parent data by fresh copying indicator data that will undergo processing
-        this.extractedData = _.cloneDeep(_.find(this.data, obj => obj['indicator'] === indicator));
+        this.extractedData = _.cloneDeep(_.find(this.data, obj => obj['indicator']['name'] === this.indicator.name));
         _.has(this.extractedData, 'data') ? this.extractedData = this.extractedData['data'] : this.extractedData = [];
         // Remove empty day in non-leap years (affects only daily data)
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
@@ -97,11 +97,11 @@ export class LineGraphComponent {
     // Set axis scales
     private setAxisScales(): void {
         // Time scales only recognize annual and daily data
-        var parseTime = this.time === "annual"? D3.timeParse('%Y') : D3.timeParse('%Y-%m-%d');
+        var parseTime = D3.timeParse('%Y'); //D3.timeParse('%Y-%m-%d');
         this.extractedData.forEach(d => d.date = parseTime(d.date));
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
-        this.yScale.domain([D3.min(this.yData) - 10, D3.max(this.yData) + 10]);
+        this.yScale.domain([D3.min(this.yData) - 5, D3.max(this.yData) + 5]);
     }
 
     /* Will draw the X Axis */
@@ -109,8 +109,8 @@ export class LineGraphComponent {
         this.svg.append('g')
           .attr('transform', 'translate(0,' + this.height + ')')
           .call(D3.axisBottom(this.xScale)
-          .ticks(5)
-          .tickFormat(D3.timeFormat('%m-%Y')));
+          .ticks(3)
+          .tickFormat(D3.timeFormat('%Y')));
     }
 
     /* Will draw the Y Axis */
@@ -132,22 +132,19 @@ export class LineGraphComponent {
     private drawTrendLine(): void {
         // Only draw if data and add trendline flag
         if (this.trendline && this.extractedData.length) {
-          // Set up if first time
-          if (!this.trendData) {
-              this.xData = D3.range(1, this.yData.length + 1)
+            this.xData = D3.range(1, this.yData.length + 1)
 
-              // Calculate linear regression variables
-              var leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
+            // Calculate linear regression variables
+            var leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
 
-              // Apply the results of the regression
-              var x1 = this.xRange[1];
-              var y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
-              var x2 = this.xRange[0];
-              var y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
-              this.trendData = [{'date': x1, 'value': y1}, {'date': x2, 'value': y2}];
-          }
-          // Add trendline
-          this.drawLine(this.trendData, 'trendline');
+            // Apply the results of the regression
+            var x1 = this.xRange[1];
+            var y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
+            var x2 = this.xRange[0];
+            var y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
+            this.trendData = [{'date': x1, 'value': y1}, {'date': x2, 'value': y2}];
+            // Add trendline
+            this.drawLine(this.trendData, 'trendline');
         }
     }
 
@@ -178,7 +175,7 @@ export class LineGraphComponent {
             // Prepare standard variables
             let x1 = this.xRange[1];
             let x2 = this.xRange[0];
-            let y = D3.max(this.yData) / 2;
+            let y = D3.max(this.yData);
 
             if (this.min && this.minVal) {
                 // Draw min threshold line
