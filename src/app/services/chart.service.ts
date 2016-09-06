@@ -172,33 +172,6 @@ export class ChartService {
                 } as ChartData);
             }
         });
-
-        /* For daily value conversions
-
-        _.each(_.keys(data), (key) => {
-            let days: string[] = this.getDaysInYear(key);
-            _.each(_.keys(data[key]), function(indicator) {
-                // make array of [date, value] pairs with zip, then convert to keyed object
-                var indicatorData = _.map(_.zip(days, data[key][indicator]), function(arr) {
-                    return {
-                        'date': arr[0],
-                        'value': arr[1]
-                    };
-                });
-
-                if (!_.includes(indicators, indicator)) {
-                    indicators.push(indicator);
-                    chartData.push({
-                        'indicator': indicator,
-                        'data': indicatorData
-                    } as ChartData);
-                } else {
-                    // have multiple years; append to existing indicator data
-                    chartData[indicator]['data'].push(indicatorData);
-                }
-            });
-        }); */
-
         return chartData;
     }
 

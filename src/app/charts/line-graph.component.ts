@@ -102,7 +102,7 @@ export class LineGraphComponent {
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
         // Adjust y scale, prettify graph
-        let yPad = Math.abs((D3.max(this.yData) - D3.min(this.yData)) * 2/3);
+        const yPad = Math.abs((D3.max(this.yData) - D3.min(this.yData)) * 2/3);
         this.yScale.domain([D3.min(this.yData) - yPad, D3.max(this.yData) + yPad]);
     }
 
