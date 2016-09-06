@@ -87,15 +87,13 @@ export class ChartService {
         let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/';
 
         let searchParams: URLSearchParams = new URLSearchParams();
-        searchParams.append('variables', options.variables);
-        searchParams.append('years', options.years);
+        searchParams.append('years', options.years.join(','));
         searchParams.append('format', 'json');
         if (options.models) {
             searchParams.append('models', options.models);
         }
 
-        
-	 let requestOptions = new RequestOptions({search: searchParams});
+	    let requestOptions = new RequestOptions({search: searchParams});
         // Collect a query for each indicator
         _.each(this.chartList, indic => {
             options.indicator = indic.name;

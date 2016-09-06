@@ -44,7 +44,7 @@ export class ApiHttp extends Http {
         if (options.headers == null) {
             options.headers = new Headers();
         }
-        options.headers.append('Authorization', 'Token ' + apiToken);
+        options.headers.set('Authorization', 'Token ' + apiToken);
         return options;
     }
 
