@@ -27,7 +27,7 @@ export class SidebarComponent extends OnInit {
     // Set up click event handlers
     onIndicatorClicked(indicator) {
       // TODO: once indicator in place for raw data queries, change to pass Indicator object
-      this.chartService.addChart(indicator.variables[0]);
+      this.chartService.addChart(indicator);
     }
 
     ngOnInit() {

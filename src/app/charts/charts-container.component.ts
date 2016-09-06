@@ -17,7 +17,7 @@ import { ChartComponent } from './chart.component';
 })
 export class ChartsContainerComponent extends OnInit {
     private chartList: Array<String>;
-    private chartData: ChartData[];
+    private chartData: Array<ChartData>;
 
     constructor(private chartService: ChartService) {
       super();

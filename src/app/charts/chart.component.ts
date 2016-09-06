@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CollapseDirective, TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
+import { Indicator } from '../models/indicator.models';
 import { LineGraphComponent } from './line-graph.component';
 
 /*
@@ -16,6 +17,7 @@ import { LineGraphComponent } from './line-graph.component';
 
 export class ChartComponent {
 
+    private indicator: Indicator;
     private isCollapsed: boolean;
     private trendline: boolean;
     private min: boolean;
@@ -35,7 +37,7 @@ export class ChartComponent {
         this.max = !this.max;
     }
 
-    constructor () {
+    constructor() {
         this.isCollapsed = false;
         this.trendline = false;
         this.min = false;
