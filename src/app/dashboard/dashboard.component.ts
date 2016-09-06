@@ -8,10 +8,10 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class DashboardComponent {
 
-    private isProject: boolean;
+    private projects: [];
 
     constructor() {
         // TODO: Eventually query for saved projects
-        this.isProject = false;
+        this.projects = [];
     }
 }

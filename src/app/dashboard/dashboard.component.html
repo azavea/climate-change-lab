@@ -11,11 +11,11 @@
         </div>
     </div>
     <div class="dash-body">
-        <div *ngIf="!isProject">
+        <div *ngIf="!projects.length">
             <i class="icon-cloud"></i>
             <div>To explore climate change data, <a [routerLink]="['/lab']">start a new project.</a></div>
         </div>
-        <div *ngIf="isProject">
+        <div *ngIf="projects.length">
             <!-- TODO: Populate a table with eventual projects-->
         </div>
     </div>
