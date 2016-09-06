@@ -101,7 +101,9 @@ export class LineGraphComponent {
         this.extractedData.forEach(d => d.date = parseTime(d.date));
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
-        this.yScale.domain([D3.min(this.yData) - 5, D3.max(this.yData) + 5]);
+        // Adjust y scale, prettify graph
+        let yPad = Math.abs((D3.max(this.yData) - D3.min(this.yData)) * 2/3);
+        this.yScale.domain([D3.min(this.yData) - yPad, D3.max(this.yData) + yPad]);
     }
 
     /* Will draw the X Axis */
@@ -142,7 +144,7 @@ export class LineGraphComponent {
             var y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
             var x2 = this.xRange[0];
             var y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
-            this.trendData = [{'date': x1, 'value': y1}, {'date': x2, 'value': y2}];
+            this.trendData = [{'date': x1, 'value': y2}, {'date': x2, 'value': y1}];
             // Add trendline
             this.drawLine(this.trendData, 'trendline');
         }
