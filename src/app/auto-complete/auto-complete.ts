@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
 import {Observable} from "rxjs";
+import {Response} from '@angular/http';
 import 'rxjs/Rx';
 
-import {apiToken} from "../constants";
+import {ApiHttp} from "../auth/api.http";
 
 /**
  * provides auto-complete related utility functions
@@ -14,7 +14,7 @@ export class AutoComplete {
   public source: string;
   public pathToData: string;
 
-  constructor(private http: Http) {
+  constructor(private apiHttp: ApiHttp) {
     // ...
   }
 
@@ -48,15 +48,9 @@ export class AutoComplete {
       url += url.match(/\?[a-z]/i) ? qs : ('?' + qs);
     }
 
-    // append authorization header to request
-    let headers = new Headers({
-      'Authorization': 'Token ' + apiToken
-    });
-    let requestOptions = new RequestOptions({headers: headers});
-
-    return this.http.get(url, requestOptions)
-      .map( resp => resp.json())
-      .map( resp => {
+    return this.apiHttp.get(url)
+      .map(resp => resp.json())
+      .map(resp => {
         var list = resp.data || resp;
         if (this.pathToData) {
           var paths = this.pathToData.split('.');
