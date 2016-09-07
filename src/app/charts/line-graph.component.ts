@@ -38,7 +38,9 @@ export class LineGraphComponent {
     private valueline;                     // Base for a chart line
     private xRange: Array<string>;         // Min, max date range
     private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
-    private yData: Array<number>;          // Stores just y axis data, multi-use
+    private yAvgData: Array<number>;       // Stores primary y axis data, multi-use
+    private yMinData: Array<number>;       // Stores minimum y axis data, multi-use
+    private yMaxData: Array<number>;       // Stores maxiumum y axis data, multi-use
     private trendData: Array<DataPoint>;   // Formatted data for the trendline
     private timeOptions: any;
     private timeFormat: string;
@@ -86,7 +88,9 @@ export class LineGraphComponent {
             this.extractedData.pop();
         }
         // Parse out data by axis for ease of use later
-        this.yData = _.map(this.extractedData, d => d.value);
+        this.yAvgData = _.map(this.extractedData, d => d.values.avg);
+        this.yMinData = _.map(this.extractedData, d => d.values.min);
+        this.yMaxData = _.map(this.extractedData, d => d.values.max);
     }
 
     /* Will setup the chart basics */
@@ -116,8 +120,8 @@ export class LineGraphComponent {
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
         // Adjust y scale, prettify graph
-        const yPad = ((D3.max(this.yData) - D3.min(this.yData)) > 0) ? ((D3.max(this.yData) - D3.min(this.yData)) * 2/3) : 5;
-        this.yScale.domain([D3.min(this.yData) - yPad, D3.max(this.yData) + yPad]);
+        const yPad = ((D3.max(this.yMaxData) - D3.min(this.yMinData)) > 0) ? ((D3.max(this.yMaxData) - D3.min(this.yMinData)) * 2/3) : 5;
+        this.yScale.domain([D3.min(this.yMinData) - yPad, D3.max(this.yMaxData) + yPad]);
     }
 
     /* Will draw the X Axis */
@@ -148,10 +152,10 @@ export class LineGraphComponent {
     private drawTrendLine(): void {
         // Only draw if data and add trendline flag
         if (this.trendline && this.extractedData.length) {
-            this.xData = D3.range(1, this.yData.length + 1)
+            this.xData = D3.range(1, this.yAvgData.length + 1)
 
             // Calculate linear regression variables
-            var leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
+            var leastSquaresCoeff = this.leastSquares(this.xData, this.yAvgData);
 
             // Apply the results of the regression
             var x1 = this.xRange[1];
@@ -191,7 +195,7 @@ export class LineGraphComponent {
             // Prepare standard variables
             let x1 = this.xRange[1];
             let x2 = this.xRange[0];
-            let y = D3.max(this.yData);
+            let y = D3.max(this.yAvgData);
 
             if (this.min && this.minVal) {
                 // Draw min threshold line
