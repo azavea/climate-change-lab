@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
 import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
 import { Indicator } from '../models/indicator.models';
-import { apiHost, apiToken } from "../constants";
-
+import { ApiHttp } from '../auth/api.http'
+import { apiHost } from "../constants";
 /*
  * Indicators Service
  * Returns climate indicators. Used by the sidebar.
@@ -16,7 +15,7 @@ export class IndicatorsService {
     private indicators: Observable<Indicator[]>;
     private indicatorObserver: Observer<Indicator[]>;
 
-    constructor(private http: Http) {
+    constructor(private apiHttp: ApiHttp) {
         this.indicators = new Observable<Indicator[]>(observer => this.indicatorObserver = observer);
     }
 
@@ -26,15 +25,8 @@ export class IndicatorsService {
 
     public loadIndicators() {
         let url = apiHost + 'indicator/';
-
-        // append authorization header to request
-        let headers = new Headers({
-            'Authorization': 'Token ' + apiToken
-        });
-        let requestOptions = new RequestOptions({headers: headers});
-        this.http.get(url, requestOptions)
-            .map( resp => resp.json())
+        this.apiHttp.get(url)
+            .map(resp => resp.json())
             .subscribe(resp => this.indicatorObserver.next(resp.results || {} as Indicator[]));
-
     }
 }

@@ -5,7 +5,8 @@ import 'rxjs/Rx';
 
 import { ChartData, ClimateModel, Scenario } from '../models/chart.models';
 import { Indicator } from '../models/indicator.models';
-import { apiHost, apiToken, defaultCity, defaultScenario, defaultYears } from "../constants";
+import { apiHost, defaultCity, defaultScenario, defaultYears } from "../constants";
+import { ApiHttp } from "../auth/api.http";
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -38,7 +39,7 @@ export class ChartService {
     private scenarios: Observable<Scenario[]>;
     private scenarioObserver: Observer<Scenario[]>;
 
-    constructor(private http: Http) {
+    constructor(private apiHttp: ApiHttp) {
         this.chartData = new Observable<ChartData[]>(observer => this.chartDataObserver = observer);
         this.climateModels = new Observable<ClimateModel[]>(observer =>
                                                             this.climateModelObserver = observer);
@@ -80,25 +81,26 @@ export class ChartService {
         let queries = [];
 
         let options = this.dataQueryOptions;
+
+        // query like:
+        // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/?variables=pr&years=2050:2051
+        let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/';
+
         let searchParams: URLSearchParams = new URLSearchParams();
-        searchParams.append('years', options.years);
+        searchParams.append('years', options.years.join(','));
         searchParams.append('format', 'json');
         if (options.models) {
             searchParams.append('models', options.models);
         }
-        // append authorization header to request
-        let headers = new Headers({
-            'Authorization': 'Token ' + apiToken
-        });
-        let requestOptions = new RequestOptions({headers: headers, search: searchParams});
 
+	    let requestOptions = new RequestOptions({search: searchParams});
         // Collect a query for each indicator
         _.each(this.chartList, indic => {
             options.indicator = indic.name;
             // query like:
             // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/indicator/yearly_average_max_temperature/?years=2050:2051
             let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/indicator/' + options.indicator + '/';
-            queries.push(this.http.get(url, requestOptions).map( resp => resp.json()));
+            queries.push(this.apiHttp.get(url, requestOptions).map( resp => resp.json()));
         });
 
         // Multi-observable that updates subscribers only after all queries return
@@ -109,14 +111,8 @@ export class ChartService {
 
     loadClimateModels(): void {
         let url = apiHost + 'climate-model/';
-
-        // append authorization header to request
-        let headers = new Headers({
-            'Authorization': 'Token ' + apiToken
-        });
-        let requestOptions = new RequestOptions({headers: headers});
-        this.http.get(url, requestOptions)
-            .map( resp => resp.json())
+        this.apiHttp.get(url)
+            .map(resp => resp.json())
             .subscribe(resp => {
                 this.climateModelObserver.next(resp || {} as ClimateModel[]);
             });
@@ -124,14 +120,8 @@ export class ChartService {
 
     loadScenarios(): void {
         let url = apiHost + 'scenario/';
-
-        // append authorization header to request
-        let headers = new Headers({
-            'Authorization': 'Token ' + apiToken
-        });
-        let requestOptions = new RequestOptions({headers: headers});
-        this.http.get(url, requestOptions)
-            .map( resp => resp.json())
+        this.apiHttp.get(url)
+            .map(resp => resp.json())
             .subscribe(resp => {
                 this.scenarioObserver.next(resp || {} as Scenario[]);
             });
@@ -173,6 +163,7 @@ export class ChartService {
                 } as ChartData);
             }
         });
+
         return chartData;
     }
 
