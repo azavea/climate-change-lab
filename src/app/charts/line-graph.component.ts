@@ -72,8 +72,9 @@ export class LineGraphComponent {
         this.drawXAxis();
         this.drawYAxis();
         this.populate();
-        this.drawTrendLine();
         this.drawMinMax();
+        this.drawTrendLine();
+        this.drawThresholds();
     }
 
     private filterData(): void {
@@ -191,6 +192,11 @@ export class LineGraphComponent {
     }
 
     private drawMinMax(): void {
+        this.drawLine(this.yMinData, 'line');
+        this.drawLine(this.yMaxData, 'line');
+    }
+
+    private drawThresholds(): void {
         if (this.min || this.max) {
             // Prepare standard variables
             let x1 = this.xRange[1];
