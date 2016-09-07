@@ -33,6 +33,10 @@ export class AuthService {
         }
     }
 
+    getToken(): string {
+        return this.token || '';
+    }
+
     isAuthenticated() {
         return !!this.token;
     }

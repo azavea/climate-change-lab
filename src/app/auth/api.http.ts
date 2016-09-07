@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ConnectionBackend, Http, Headers, Request, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { apiToken } from "../constants";
+import { AuthService } from './auth.service';
 
 import * as _ from 'lodash';
 
@@ -13,7 +13,9 @@ import * as _ from 'lodash';
 @Injectable()
 export class ApiHttp extends Http {
 
-    constructor(protected _backend: ConnectionBackend, protected _defaultOptions: RequestOptions) {
+    constructor(protected _backend: ConnectionBackend,
+                protected _defaultOptions: RequestOptions,
+                protected authService: AuthService) {
         super(_backend, _defaultOptions);
     }
 
@@ -44,7 +46,7 @@ export class ApiHttp extends Http {
         if (options.headers == null) {
             options.headers = new Headers();
         }
-        options.headers.set('Authorization', 'Token ' + apiToken);
+        options.headers.set('Authorization', 'Token ' + this.authService.getToken());
         return options;
     }
 }

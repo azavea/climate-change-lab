@@ -9,6 +9,7 @@ import {provide} from '@angular/core';
 import { HTTP_PROVIDERS, Http, RequestOptions, XHRBackend } from '@angular/http';
 // Custom Http wrapper for authentication
 import { ApiHttp } from '../app/auth/api.http';
+import { AuthService } from '../app/auth/auth.service';
 
 /*
 * Application Providers/Directives/Pipes
@@ -18,8 +19,8 @@ export const APPLICATION_PROVIDERS = [
     ...HTTP_PROVIDERS,
     provide(LocationStrategy, {useClass: HashLocationStrategy}),
     provide(ApiHttp, {
-        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions) => new ApiHttp(xhrBackend, requestOptions),
-        deps: [XHRBackend, RequestOptions]
+        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, authService: AuthService) => new ApiHttp(xhrBackend, requestOptions, authService),
+        deps: [XHRBackend, RequestOptions, AuthService]
     })
 ];
 
