@@ -20,6 +20,8 @@ import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { ChartService } from './services/chart.service';
 import { IndicatorsService } from './services/indicators.service';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   bootstrap: [ AppComponent ],
@@ -43,7 +45,9 @@ import { IndicatorsService } from './services/indicators.service';
     PLATFORM_PROVIDERS,
     ENV_PROVIDERS,
     ChartService,
-    IndicatorsService
+    IndicatorsService,
+    AuthService,
+    AuthGuard
   ]
 })
 export class AppModule {}

@@ -84,7 +84,7 @@ export class ChartService {
 
         // query like:
         // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/?variables=pr&years=2050:2051
-        let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/';
+        let url = apiHost + '/api/climate-data/' + options.cityId + '/' + options.scenario + '/';
 
         let searchParams: URLSearchParams = new URLSearchParams();
         searchParams.append('years', options.years.join(','));
@@ -99,7 +99,7 @@ export class ChartService {
             options.indicator = indic.name;
             // query like:
             // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/indicator/yearly_average_max_temperature/?years=2050:2051
-            let url = apiHost + 'climate-data/' + options.cityId + '/' + options.scenario + '/indicator/' + options.indicator + '/';
+            let url = apiHost + '/api/climate-data/' + options.cityId + '/' + options.scenario + '/indicator/' + options.indicator + '/';
             queries.push(this.apiHttp.get(url, requestOptions).map( resp => resp.json()));
         });
 
@@ -110,7 +110,7 @@ export class ChartService {
     }
 
     loadClimateModels(): void {
-        let url = apiHost + 'climate-model/';
+        let url = apiHost + '/api/climate-model/';
         this.apiHttp.get(url)
             .map(resp => resp.json())
             .subscribe(resp => {
@@ -119,7 +119,7 @@ export class ChartService {
     }
 
     loadScenarios(): void {
-        let url = apiHost + 'scenario/';
+        let url = apiHost + '/api/scenario/';
         this.apiHttp.get(url)
             .map(resp => resp.json())
             .subscribe(resp => {

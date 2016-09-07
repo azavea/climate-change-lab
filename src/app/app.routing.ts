@@ -6,9 +6,11 @@ import { LabComponent } from './lab/lab.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 
+import { AuthGuard } from './auth/auth.guard';
+
 const appRoutes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'lab', component: LabComponent },
+  { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'lab', component: LabComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
