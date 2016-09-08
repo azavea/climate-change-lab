@@ -20,8 +20,18 @@ export class LoginComponent {
 
     onSubmit() {
         this.authService.login(this.model.username, this.model.password)
-            .subscribe(() => this.router.navigate(['/']), error => console.error(error));
+            .subscribe(() => this.onLoginSuccess(), error => this.onLoginError(error));
     }
 
-    get diagnostic() { return JSON.stringify(this.model); }
+    onLoginSuccess() {
+        this.router.navigate(['/']);
+    }
+
+    onLoginError(error: any) {
+        if (console && console.error) {
+            console.error(error);
+        }
+        this.model.username = '';
+        this.model.password = '';
+    }
 }
