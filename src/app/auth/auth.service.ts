@@ -8,9 +8,19 @@ import { apiHost } from '../constants';
 @Injectable()
 export class AuthService {
 
-    private token: string;
+    private LOCALSTORAGE_KEY: string = 'auth.api.token';
 
+    // TODO: Inject a window or localStorage service here to abstract implicit
+    //       dependency on window
     constructor(protected http: Http, protected router: Router) {}
+
+    getToken(): string {
+        return window.localStorage.getItem(this.LOCALSTORAGE_KEY) || null;
+    }
+
+    isAuthenticated() {
+        return !!this.getToken();
+    }
 
     login(username: string, password: string): Observable<any> {
         let body = JSON.stringify({
@@ -22,22 +32,18 @@ export class AuthService {
         let url = `${apiHost}/api-token-auth/`;
         return this.http.post(url, body, options).map(response => {
             let token = response.json().token;
-            this.token = token;
+            this.setToken(token);
         });
     }
 
     logout(redirectTo: string = '/login') {
-        this.token = null;
+        this.setToken(null);
         if (redirectTo) {
             this.router.navigate([redirectTo]);
         }
     }
 
-    getToken(): string {
-        return this.token || '';
-    }
-
-    isAuthenticated() {
-        return !!this.token;
+    private setToken(token) {
+        window.localStorage.setItem(this.LOCALSTORAGE_KEY, token);
     }
 }
