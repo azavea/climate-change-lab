@@ -10,18 +10,20 @@
         <nav class="controls">
           <div class="nav-left">
             <div class="dropdown dropdown-location">
-              <i class="icon-globe"></i>
-              <label>City</label>
-              <input auto-complete
-                [(ngModel)]="cityModel"
-                placeholder="Enter your city"
-                [source]="apiCities"
-                [list-formatter]="cityListFormatter"
-                [value-formatter]="cityValueFormatter"
-                display-property-name="name"
-                path-to-data="features"
-                [value-changed]="onCitySelected()"
-                min-chars="2" />
+              <div class="input">
+                <i class="icon-globe"></i>
+                <input auto-complete
+                    [(ngModel)]="cityModel"
+                    placeholder="Enter your city"
+                    [source]="apiCities"
+                    [list-formatter]="cityListFormatter"
+                    [value-formatter]="cityValueFormatter"
+                    display-property-name="name"
+                    path-to-data="features"
+                    [value-changed]="onCitySelected()"
+                    min-chars="2" />
+
+              </div>
             </div>
 
             <!-- scenario selector -->

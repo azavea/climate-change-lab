@@ -19,6 +19,13 @@
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
+
+    // TODO: Remove hack for input box once this control is reworked
+    .input {
+      margin: 0.5rem 1.5rem 0;
+      line-height: 3.2rem;
+      color: $heading-font-color;
+    }
   }
   .dropdown-menu {
     border: 1px solid #cccccc;
