@@ -24,7 +24,7 @@ export class IndicatorsService {
     }
 
     public loadIndicators() {
-        let url = apiHost + 'indicator/';
+        let url = apiHost + '/api/indicator/';
         this.apiHttp.get(url)
             .map(resp => resp.json())
             .subscribe(resp => this.indicatorObserver.next(resp.results || {} as Indicator[]));

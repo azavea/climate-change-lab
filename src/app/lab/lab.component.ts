@@ -38,7 +38,7 @@ export class LabComponent extends OnInit {
     this.viewContainerRef = viewContainerRef;
   }
 
-  public apiCities: string = apiHost + "city/?search=:keyword&format=json";
+  public apiCities: string = apiHost + "/api/city/?search=:keyword&format=json";
   public cityModel;
   public climateModels: ClimateModel[];
   public allModels: boolean;

@@ -16,9 +16,12 @@ import { routing, appRoutingProviders } from './app.routing';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LabComponent } from './lab/lab.component';
+import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { ChartService } from './services/chart.service';
 import { IndicatorsService } from './services/indicators.service';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   bootstrap: [ AppComponent ],
@@ -26,6 +29,7 @@ import { IndicatorsService } from './services/indicators.service';
     AppComponent,
     DashboardComponent,
     LabComponent,
+    LoginComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -41,7 +45,9 @@ import { IndicatorsService } from './services/indicators.service';
     PLATFORM_PROVIDERS,
     ENV_PROVIDERS,
     ChartService,
-    IndicatorsService
+    IndicatorsService,
+    AuthService,
+    AuthGuard
   ]
 })
 export class AppModule {}
