@@ -1,9 +1,47 @@
 .controls {
   .dropdown {
-    display: inline-block;
+    display: block;
+    float: left;
+    height: 100%;
   }
   .button-switch {
     display: inline-block;
+  }
+  .nav-left {
+    padding: 0;
+    height: 100%;
+
+    .button {
+      height: 100%;
+      border-radius: 0;
+      border-width: 0 1px 0 0;
+      background-color: transparent;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    // TODO: Remove hack for input box once this control is reworked
+    .input {
+      margin: 0.5rem 1.5rem 0;
+      line-height: 3.2rem;
+      color: $heading-font-color;
+    }
+  }
+  .dropdown-menu {
+    border: 1px solid #cccccc;
+    margin: 0 0 0 -1px;
+    border-radius: 0;
+    & > .active > a {
+      font-weight: 800;
+    }
+  }
+
+}
+
+.dropdown-location {
+  .dropdown-menu {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
@@ -11,34 +49,9 @@
   margin: 0;
   color: #fff;
   padding-top: 0.5rem;
-}
-
-.charts {
-  padding: 2rem 1.5rem;
-}
-
-.chart {
-  background-color: #fff;
-  padding: 2rem;
-  box-shadow: 2px 2px 10px rgba(0,0,0,.05);
-  margin-bottom: 2rem;
-}
-
-.chart-label {
-  font-size: $font-size-h4;
-  margin: 0;
-}
-
-.chart-heading {
-  display: flex;
-  align-items: flex-start;
-}
-
-.chart-label {
-
-}
-
-.chart-actions {
-  flex: 1;
-  text-align: right;
+  & > img {
+    height: 1.6rem;
+    position: relative;
+    top: 0.3rem;
+  }
 }

@@ -10,21 +10,71 @@ chart {
   display:block;
 
   .chart-label {
-    font-size: 2.34375rem;
+    font-size: $font-size-h5;
     margin: 0;
+    flex: 1;
+    font-weight: 800;
+    padding-top: 1.6rem;
   }
 
+  .chart-options {
+    border-top: 1px solid $gray-2;
+    margin: 0 -2rem -2rem;
+    padding: 2rem;
+    color: $heading-font-color;
+
+    .chart-options-body {
+      display: flex;
+
+      .chart-options-group {
+        display: flex;
+        align-items: center;
+        padding-right: 2rem;
+
+        span {
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+        }
+
+        input {
+          width: 60px;
+        }
+      }
+    }
+  }
+
+
   .chart-heading {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-align: start;
     align-items: flex-start;
+    border-bottom: 1px solid $gray-2;
+    margin: -2rem -2rem 2rem;
+    padding: 0 0 0 2rem;
   }
 
   .chart-actions {
-    -ms-flex: 1;
-    flex: 1;
     text-align: right;
+    padding: 1rem 0;
+    .button {
+      position: relative;
+      float: left;
+      margin-right: 7px;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+      &:after {
+        content: "";
+        border-right: 1px solid $gray-2;
+        position: absolute;
+        top: -3px;
+        right: -4px;
+        bottom: -3px;
+      }
+      &:last-child {
+        &:after {
+          border-width: 0;
+        }
+      }
+    }
   }
 
   .axis path,
@@ -63,8 +113,8 @@ chart {
 
   .line {
     fill: none;
-    stroke: steelblue;
-    stroke-width: 1.5px;
+    stroke: #7b0ccf;
+    stroke-width: 2px;
   }
 
   .trendline {

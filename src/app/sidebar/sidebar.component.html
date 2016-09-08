@@ -1,4 +1,6 @@
 <div class="sidebar-content scrollable">
+    <h2 class="sidebar-title">Indicators</h2>
+    <h3 class="sidebar-category">All Indicators</h3>
     <button class="indicator" *ngFor="let indicator of indicators"
         (click)="onIndicatorClicked(indicator)"
         tooltip="{{ indicator.description }}"

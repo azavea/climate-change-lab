@@ -31,22 +31,22 @@
  * Generate Padding Utility Classes
  * * * */
 @mixin generate-padding($i: 1) {
-  @for $i from (1 + 1) through 5 {
+  @for $i from ($i) through 5 {
     $padding: $i * 1rem;
     .padding-#{$i} {
-      padding: $padding;
+      padding: $padding !important;
     }
     .padding-bottom-#{$i} {
-      padding-bottom: $padding;
+      padding-bottom: $padding !important;
     }
     .padding-top-#{$i} {
-      padding-top: $padding;
+      padding-top: $padding !important;
     }
     .padding-left-#{$i} {
-      padding-left: $padding;
+      padding-left: $padding !important;
     }
     .padding-right-#{$i} {
-      padding-right: $padding;
+      padding-right: $padding !important;
     }
   }
 }
@@ -55,22 +55,22 @@
  * Generate Margin Utility Classes
  * * * */
 @mixin generate-margin($i: 0) {
-  @for $i from (1 + 1) through 5 {
+  @for $i from ($i) through 5 {
     $margin: $i * 1rem;
     .margin-#{$i} {
-      margin: $margin;
+      margin: $margin !important;
     }
     .margin-bottom-#{$i} {
-      margin-bottom: $margin;
+      margin-bottom: $margin !important;
     }
     .margin-top-#{$i} {
-      margin-top: $margin;
+      margin-top: $margin !important;
     }
     .margin-left-#{$i} {
-      margin-left: $margin;
+      margin-left: $margin !important;
     }
     .margin-right-#{$i} {
-      margin-right: $margin;
+      margin-right: $margin !important;
     }
   }
 }

@@ -6,8 +6,20 @@
         <button class="button button-link" tooltipPlacement="bottom" tooltipTrigger="mouseenter"
             tooltipPopupDelay="300" title="" tooltip="Export"><i class="icon icon-export"></i>
         </button>
-        <button class="button button-link" tooltipPlacement="bottom" tooltipTrigger="mouseenter"
-            tooltipPopupDelay="300" title="" tooltip="Options"><i class="icon icon-cog"></i>
+        <button class="button button-link"
+                tooltipPlacement="bottom"
+                tooltipTrigger="mouseenter"
+                tooltipPopupDelay="300"
+                title=""
+                tooltip="Options"
+                (click)="isCollapsed = !isCollapsed"><i class="icon icon-cog"></i>
+        </button>
+        <button class="button button-link"
+                tooltipPlacement="bottom"
+                tooltipTrigger="mouseenter"
+                tooltipPopupDelay="300"
+                title=""
+                tooltip="Remove"><i class="icon icon-cancel"></i>
         </button>
     </div>
 </div>
@@ -21,28 +33,31 @@
         [minVal]="minVal"
         [maxVal]="maxVal">
     </line-graph>
-</div>
-<div class="chart-controls">
-    <div class="controls-header">
-        <h5 class="controls-label">Options</h5>
-        <div class="options-icon" (click)="isCollapsed = !isCollapsed">
-            <i class="icon-minus" *ngIf="!isCollapsed"></i>
-            <i class="icon-plus" *ngIf="isCollapsed"></i>
+    <div class="chart-options" *ngIf="isCollapsed">
+        <h4 class="margin-top-0 h5">Options</h4>
+        <div class="chart-options-body">
+            <div class="chart-options-group">
+                <ui-switch (change)="toggleTrendline()" size="small"></ui-switch>
+                <span>Show Trendline</span>
+            </div>
+            <div class="chart-options-group">
+                <ui-switch (change)="toggleMin()" size="small"></ui-switch>
+                <span>Show Min</span>
+                <input
+                    type="number"
+                    step="any"
+                    placeholder="0"
+                    [(ngModel)]="minVal">
+            </div>
+            <div class="chart-options-group">
+                <ui-switch (change)="toggleMax()" size="small"></ui-switch>
+                <span>Show Max</span>
+                <input
+                    type="number"
+                    step="any"
+                    placeholder="0"
+                    [(ngModel)]="maxVal">
+            </div>
         </div>
-    </div>
-    <div class="controls-body" [collapse]="isCollapsed">
-        <ui-switch (change)="toggleTrendline()" size="small"></ui-switch>Show Trendline
-        <ui-switch (change)="toggleMin()" size="small"></ui-switch>Show Min
-        <input
-            type="number"
-            step="any"
-            placeholder="0"
-            [(ngModel)]="minVal">
-        <ui-switch (change)="toggleMax()" size="small"></ui-switch>Show Max
-        <input
-            type="number"
-            step="any"
-            placeholder="0"
-            [(ngModel)]="maxVal">
     </div>
 </div>

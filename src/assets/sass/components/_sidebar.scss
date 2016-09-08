@@ -1,6 +1,7 @@
 sidebar {
   overflow-y: auto;
   width: 320px;
+  padding: 2.5rem 0;
 }
 
 .sidebar-with-nav-vertical {
@@ -19,20 +20,16 @@ sidebar {
     }
 }
 
-h2 {
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-}
-
 .indicator {
   margin-bottom: 0;
   width: 100%;
-  padding: 0.5rem 3rem 0.5rem 1.5rem;
+  padding: 0.3rem 3rem 0.3rem 1.5rem;
   border: 0;
   background-image: none;
   background-color: transparent;
   text-align: left;
   position: relative;
+  color: #555;
   &:hover {
     color: $brand-primary;
     cursor: pointer;
@@ -41,6 +38,27 @@ h2 {
       position: absolute;
       font-family: mantle;
       right: 1rem;
+      font-size: 1.1rem;
+      top: 1rem;
     }
   }
+}
+
+.sidebar-category {
+  border-bottom: 1px solid $gray-2;
+  color: #70a6c0;
+  font-size: $font-size-h6;
+  letter-spacing: 1px;
+  margin: 2.5rem 1.5rem 1rem 1.5rem;
+  padding-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.sidebar-title {
+  font-size: $font-size-h4;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin: 0 1.5rem -.25rem;
 }

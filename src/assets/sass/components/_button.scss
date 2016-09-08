@@ -33,7 +33,7 @@
   overflow: visible;
   font-size: 1.4rem;
   line-height: 1.5;
-  padding: 0.75rem;
+  padding: 0.6rem 0.7rem;
   border-radius: 3px;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -107,12 +107,13 @@
 .button-link {
   background-color: transparent;
   border: none;
+  color: $gray-5;
 
   &:hover, &.hover,
   &:active, &.active,
   &:focus, &.focus,
   &:focus:active {
     box-shadow: none;
-    color: darken($brand-primary, 5%);
+    color: $brand-primary;
   }
 }

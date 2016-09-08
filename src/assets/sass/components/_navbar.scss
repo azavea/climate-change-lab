@@ -3,23 +3,29 @@ nav {
 }
 
 .nav-primary {
-  background-color: #666;
+  background-color: $color-header;
   height: $nav-height;
   color: #fff;
+
+  & > .nav-left {
+    float: left;
+    padding: 0.6rem 1.5rem 0;
+  }
 }
 
 .controls {
   height: $nav-height;
   color: #fff;
   border-bottom: 1px solid $gray-2;
+
+  & > .nav-left {
+    float: left;
+    padding: 0.6rem 1.5rem 0;
+  }
+
+  & > .nav-right {
+    float: right;
+    padding: 0.7rem 1.5rem 0;
+  }
 }
 
-.nav-left {
-  float: left;
-  padding: 0.75rem 1.5rem 0;
-}
-
-.nav-right {
-  float: right;
-  padding: 0.75rem 1.5rem 0;
-}
