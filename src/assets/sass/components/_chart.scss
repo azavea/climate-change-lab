@@ -21,7 +21,28 @@ chart {
     border-top: 1px solid $gray-2;
     margin: 0 -2rem -2rem;
     padding: 2rem;
+    color: $heading-font-color;
+
+    .chart-options-body {
+      display: flex;
+
+      .chart-options-group {
+        display: flex;
+        align-items: center;
+        padding-right: 2rem;
+
+        span {
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+        }
+
+        input {
+          width: 60px;
+        }
+      }
+    }
   }
+
 
   .chart-heading {
     display: flex;
