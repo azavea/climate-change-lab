@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 import { ChartData, ClimateModel, Scenario } from '../models/chart.models';
 import { Indicator } from '../models/indicator.models';
 import { apiHost, defaultCity, defaultScenario, defaultYears } from "../constants";
-import { ApiHttp } from "../auth/api.http";
+import { ApiHttp } from "../auth/api-http.service";
 
 import * as moment from 'moment';
 import * as _ from 'lodash';

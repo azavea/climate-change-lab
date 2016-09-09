@@ -3,8 +3,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'dashboard',
-  templateUrl: './dashboard.component.html',
-  directives: [ NavbarComponent ]
+  templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent {
 

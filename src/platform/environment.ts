@@ -1,12 +1,8 @@
+// Decorates the angular bootstrapping process depending on the environment selected
+// Disables debug tools and enables prod mode if ENV is production
 
-// Angular 2
-// rc2 workaround
-import { enableDebugTools, disableDebugTools } from '@angular/platform-browser';
 import { enableProdMode } from '@angular/core';
-// Environment Providers
-let PROVIDERS = [
-  // common env directives
-];
+import { enableDebugTools, disableDebugTools } from '@angular/platform-browser';
 
 // Angular debug tools in the dev console
 // https://github.com/angular/angular/blob/86405345b781a9dc2438c0fbe3e9409245647019/TOOLS_JS.md
@@ -16,14 +12,7 @@ if ('production' === ENV) {
   // Production
   disableDebugTools();
   enableProdMode();
-
-  PROVIDERS = [
-    ...PROVIDERS,
-    // custom providers in production
-  ];
-
 } else {
-
   _decorateComponentRef = (cmpRef) => {
     let _ng = (<any>window).ng;
     enableDebugTools(cmpRef);
@@ -31,17 +20,6 @@ if ('production' === ENV) {
     (<any>window).ng.coreTokens = _ng.coreTokens;
     return cmpRef;
   };
-
-  // Development
-  PROVIDERS = [
-    ...PROVIDERS,
-    // custom providers in development
-  ];
-
 }
 
 export const decorateComponentRef = _decorateComponentRef;
-
-export const ENV_PROVIDERS = [
-  ...PROVIDERS
-];

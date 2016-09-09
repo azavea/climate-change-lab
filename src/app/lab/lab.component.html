@@ -12,15 +12,9 @@
             <div class="dropdown dropdown-location">
               <div class="input">
                 <i class="icon-globe"></i>
-                <input auto-complete
-                    [(ngModel)]="cityModel"
+                <input
+                    type="text"
                     placeholder="Enter your city"
-                    [source]="apiCities"
-                    [list-formatter]="cityListFormatter"
-                    [value-formatter]="cityValueFormatter"
-                    display-property-name="name"
-                    path-to-data="features"
-                    [value-changed]="onCitySelected()"
                     min-chars="2" />
 
               </div>

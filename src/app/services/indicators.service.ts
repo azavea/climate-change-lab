@@ -3,7 +3,7 @@ import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
 import { Indicator } from '../models/indicator.models';
-import { ApiHttp } from '../auth/api.http'
+import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from "../constants";
 /*
  * Indicators Service

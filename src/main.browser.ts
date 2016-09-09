@@ -3,9 +3,9 @@
 * our providers/directives/pipes
 */
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { decorateComponentRef } from './platform/environment';
 
 import { AppModule } from './app/app.module';
+import { decorateComponentRef } from './platform/environment';
 
 import './assets/sass/main.scss';
 import './assets/fonts/fontello/css/mantle.css';
