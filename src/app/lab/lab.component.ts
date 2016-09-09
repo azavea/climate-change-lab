@@ -113,7 +113,7 @@ export class LabComponent extends OnInit {
   }
 
   ngOnInit() {
-    this.cityModel = this.cityValueFormatter(defaultCity);
+    this.cityModel = defaultCity;
     this.selectedScenario = defaultScenario;
     this.allModels = true;
 

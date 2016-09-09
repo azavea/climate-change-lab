@@ -17,6 +17,9 @@ import { UiSwitchModule } from 'angular2-ui-switch';
 // App routing
 import { routing, appRoutingProviders } from './app.routing';
 
+// App Modules
+import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.module';
+
 // App Components
 import { AppComponent } from './app.component';
 import { ChartComponent } from './charts/chart.component';
@@ -72,6 +75,7 @@ let ApiHttpProvider = {
     DropdownModule,
     ModalModule,
     TooltipModule,
+    Ng2AutoCompleteModule,
     UiSwitchModule
   ],
   providers: [
