@@ -147,10 +147,10 @@ export class ChartService {
         _.each(data, obj => {
             let indicatorData = [];
             let indicator = obj.indicator;
-            _.each(obj.data, (value, key) => {
+            _.each(obj.data, (values, key) => {
                 indicatorData.push({
                     'date': key,
-                    'value': value
+                    'value': values.avg
                 });
             });
 
