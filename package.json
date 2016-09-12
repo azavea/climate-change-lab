@@ -15,6 +15,7 @@
     "webpack-dev-server": "webpack-dev-server",
     "protractor": "protractor",
     "build": "npm run build:dev",
+    "clean:dist": "rm -rf dist",
     "prebuild:dev": "npm run clean:dist",
     "build:dev": "webpack --config config/webpack.dev.js --progress --profile --colors --display-error-details --display-cached",
     "prebuild:prod": "npm run clean:dist",
