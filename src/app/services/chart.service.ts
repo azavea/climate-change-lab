@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 import { ChartData, ClimateModel, Scenario } from '../models/chart.models';
 import { Indicator } from '../models/indicator.models';
 import { apiHost, defaultCity, defaultScenario, defaultYears } from "../constants";
-import { ApiHttp } from "../auth/api.http";
+import { ApiHttp } from "../auth/api-http.service";
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -147,10 +147,10 @@ export class ChartService {
         _.each(data, obj => {
             let indicatorData = [];
             let indicator = obj.indicator;
-            _.each(obj.data, (value, key) => {
+            _.each(obj.data, (values, key) => {
                 indicatorData.push({
                     'date': key,
-                    'value': value
+                    'value': values.avg
                 });
             });
 

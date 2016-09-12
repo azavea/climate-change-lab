@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {Response} from '@angular/http';
 import 'rxjs/Rx';
 
-import {ApiHttp} from "../auth/api.http";
+import { ApiHttp } from '../auth/api-http.service';
 
 /**
  * provides auto-complete related utility functions

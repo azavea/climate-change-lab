@@ -14,13 +14,14 @@
                 <i class="icon-globe"></i>
                 <input auto-complete
                     [(ngModel)]="cityModel"
-                    placeholder="Enter your city"
                     [source]="apiCities"
                     [list-formatter]="cityListFormatter"
                     [value-formatter]="cityValueFormatter"
                     display-property-name="name"
                     path-to-data="features"
                     [value-changed]="onCitySelected()"
+                    type="text"
+                    placeholder="Enter your city"
                     min-chars="2" />
 
               </div>
