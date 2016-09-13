@@ -72,7 +72,7 @@ export class LineGraphComponent {
         this.drawXAxis();
         this.drawYAxis();
         this.populate();
-        this.drawMinMax();
+        //this.drawMinMax();
         this.drawTrendLine();
         this.drawThresholds();
     }

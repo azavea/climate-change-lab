@@ -123,7 +123,7 @@ export class ChartService {
             _.each(obj.data, (values, key) => {
                 indicatorData.push({
                     'date': key,
-                    'value': values.avg
+                    'values': values
                 });
             });
 
