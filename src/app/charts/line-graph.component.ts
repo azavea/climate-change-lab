@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef, HostListener } from '@angular/core';
 import { ChartData, DataPoint } from '../models/chart.models';
 import { Indicator } from '../models/indicator.models';
 import * as D3 from 'd3';
@@ -53,6 +53,11 @@ export class LineGraphComponent {
           'Yearly': '%Y',
           'Daily': '%Y-%m-%d'
         }
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+      this.ngOnChanges();
     }
 
     /* Will Update on every @Input change */
