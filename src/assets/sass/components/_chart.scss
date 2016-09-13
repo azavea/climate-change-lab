@@ -140,18 +140,15 @@ chart {
     stroke-dasharray: 5 5;
   }
 
-  .minline {
-    fill: none;
-    stroke: gray;
-    stroke-width: .9px;
+  .area {
+    fill: gray;
     opacity: .7;
+    z-index: -1;
   }
 
-  .maxline {
-    fill: none;
-    stroke: gray;
-    stroke-width: .9px;
-    opacity: .7;
+  .above-area {
+    fill: white;
+    opacity: 1;
   }
 
   .min-bar{

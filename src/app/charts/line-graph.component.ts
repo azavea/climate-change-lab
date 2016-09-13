@@ -72,7 +72,7 @@ export class LineGraphComponent {
         this.drawXAxis();
         this.drawYAxis();
         this.populate();
-        this.drawMinMax();
+        this.drawMinMaxBand();
         this.drawTrendLine();
         this.drawThresholds();
     }
@@ -192,9 +192,22 @@ export class LineGraphComponent {
         return [slope, intercept, rSquare];
     }
 
-    private drawMinMax(): void {
-        this.drawLine(this.prepareLineData(this.yMinData), 'minline');
-        this.drawLine(this.prepareLineData(this.yMaxData), 'maxline');
+    private drawMinMaxBand(): void {
+        let area = D3.area()
+            .x(d => this.xScale(d.date))
+            .y1(d => this.yScale(d.value));
+
+        // Draw area above minline
+        this.svg.append('path')
+          .data([this.prepareLineData(this.yMinData)])
+          .attr('class', "area")
+          .attr('d', area);
+
+        // Draw area above maxline (not ideal, but visually clips the band)
+        this.svg.append('path')
+          .data([this.prepareLineData(this.yMaxData)])
+          .attr('class', "above-area")
+          .attr('d', area);
     }
 
     private drawThresholds(): void {
