@@ -1,0 +1,11 @@
+---
+- hosts: app
+  become: true
+
+  pre_tasks:
+    - name: Update APT cache
+      apt: update_cache=yes
+
+  roles:
+    - { role: "azavea.nodejs" }
+    - { role: "climate-change-lab.app" }

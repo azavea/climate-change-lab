@@ -7,3 +7,9 @@ node_modules/
 
 coverage/
 dist/
+
+# Vagrant
+.vagrant/
+ansible/*.retry
+ansible/roles/azavea.*
+
