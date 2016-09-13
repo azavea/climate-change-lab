@@ -72,7 +72,7 @@ export class LineGraphComponent {
         this.drawXAxis();
         this.drawYAxis();
         this.populate();
-        //this.drawMinMax();
+        this.drawMinMax();
         this.drawTrendLine();
         this.drawThresholds();
     }
@@ -143,11 +143,12 @@ export class LineGraphComponent {
 
     /* Draw line */
     private populate(): void {
+        // Expects line data format as {'date': x , 'value': ""}
         this.valueline = D3.line()
           .x(d => this.xScale(d.date))
           .y(d => this.yScale(d.value));
 
-        this.drawLine(this.extractedData, 'line');
+        this.drawLine(this.prepareLineData(this.yAvgData), 'line');
     }
 
     private drawTrendLine(): void {
@@ -192,8 +193,8 @@ export class LineGraphComponent {
     }
 
     private drawMinMax(): void {
-        this.drawLine(this.yMinData, 'line');
-        this.drawLine(this.yMaxData, 'line');
+        this.drawLine(this.prepareLineData(this.yMinData), 'minline');
+        this.drawLine(this.prepareLineData(this.yMaxData), 'maxline');
     }
 
     private drawThresholds(): void {
@@ -206,11 +207,12 @@ export class LineGraphComponent {
             if (this.min && this.minVal) {
                 // Draw min threshold line
                 let minData = [{'date': x1, 'value': this.minVal}, {'date': x2, 'value': this.minVal}];
-                this.drawLine(minData, 'minline');
+                this.drawLine(minData, 'min-threshold');
 
                 // Prepare data for bar graph
+                let yAvgDataCopy = _.cloneDeep(this.yAvgData);
                 let minBars = _.map(this.extractedData, datum => {
-                    let val = this.minVal > datum['value'] ? y * 2 : 0;
+                    let val = this.minVal >  yAvgDataCopy.shift() ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val };
                 });
 
@@ -221,11 +223,12 @@ export class LineGraphComponent {
             if (this.max && this.maxVal) {
                 // Draw max threshold line
                 let maxData = [{'date': x1, 'value': this.maxVal}, {'date': x2, 'value': this.maxVal}];
-                this.drawLine(maxData, 'maxline');
+                this.drawLine(maxData, 'max-threshold');
 
                 // Prepare data for bar graph
+                let yAvgDataCopy = _.cloneDeep(this.yAvgData);
                 let maxBars = _.map(this.extractedData, datum => {
-                    let val = this.maxVal < datum['value'] ? y * 2 : 0;
+                    let val = this.maxVal < yAvgDataCopy.shift() ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val }
                 });
 
@@ -233,6 +236,12 @@ export class LineGraphComponent {
                 this.drawBarGraph(maxBars, 'max-bar');
             }
         }
+    }
+
+    private prepareLineData(data: Array<number>): Array<DataPoint> {
+        // Returns line data in the expected format {'date': x , 'value': ""}
+        let copy = _.cloneDeep(data);
+        return _.map(this.extractedData, d => ({'date': d.date, 'value': copy.shift()}));
     }
 
     private drawLine(data: Array<DataPoint>, className: string): void {
