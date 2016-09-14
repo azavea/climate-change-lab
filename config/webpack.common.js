@@ -71,12 +71,8 @@ module.exports = {
         exclude: [helpers.root('src/index.html')]
       },
       {
-        test: /\.(png|jpg|jpeg|svg)$/,
-        loader: 'file-loader'
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)/,
-        loader: 'file-loader'
+        test: /\.(png|jpg|jpeg|svg|eot|ttf|woff|woff2)/,
+        loader: 'file-loader',
       }
     ]
   },
