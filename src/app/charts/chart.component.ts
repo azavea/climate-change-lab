@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { WaveComponent } from '../ng2-spin-kit/wave.component';
+
 import { Indicator } from '../models/indicator.models';
 import { LineGraphComponent } from './line-graph.component';
 
