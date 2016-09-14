@@ -79,8 +79,12 @@ export class ChartService {
 
     loadChartData(): void {
         let queries = [];
-
         let options = this.dataQueryOptions;
+
+        // send an empty notification to indicate that data is currently loading
+        if (this.chartDataObserver) {
+            this.chartDataObserver.next([]);
+        }
 
         // query like:
         // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/?variables=pr&years=2050:2051

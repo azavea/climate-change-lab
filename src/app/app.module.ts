@@ -31,6 +31,7 @@ import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { WaveComponent } from './ng2-spin-kit/wave.component';
 
 // App services
 import { ApiHttp } from './auth/api-http.service';
@@ -56,6 +57,7 @@ let ApiHttpProvider = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
+    WaveComponent,
     ChartComponent,
     ChartsContainerComponent,
     DashboardComponent,
