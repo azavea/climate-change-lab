@@ -76,6 +76,7 @@ Vagrant.configure("2") do |config|
       ansible.raw_arguments = ["--timeout=60"]
     end
 
+    app.vm.network "forwarded_port", guest: 3100, host: 3100
     app.ssh.forward_x11 = true
 
     app.vm.provider :virtualbox do |v|
