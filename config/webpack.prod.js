@@ -5,6 +5,7 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 /**
  * Webpack Plugins
  */
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const IgnorePlugin = require('webpack/lib/IgnorePlugin');
@@ -18,6 +19,7 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
+const BUILD_PATH = 'dist';
 const METADATA = webpackMerge(commonConfig.metadata, {
   host: HOST,
   port: PORT,
@@ -29,13 +31,19 @@ module.exports = webpackMerge(commonConfig, {
   debug: false,
   devtool: 'source-map',
   output: {
-    path: helpers.root('dist'),
+    path: helpers.root(BUILD_PATH),
+    // TODO: Change to url of deployed application when we have one
+    publicPath: '/',
     filename: '[name].[chunkhash].bundle.js',
     sourceMapFilename: '[name].[chunkhash].bundle.map',
     chunkFilename: '[id].[chunkhash].chunk.js'
   },
 
   plugins: [
+    new CleanWebpackPlugin([BUILD_PATH], {
+        root: helpers.root()
+    }),
+
     new WebpackMd5Hash(),
 
     new DedupePlugin(),

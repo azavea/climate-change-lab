@@ -5,12 +5,14 @@ const webpack = require('webpack');
 /**
  * Webpack Plugins
  */
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 
 /**
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
+const BUILD_PATH = 'build';
 const METADATA = webpackMerge(commonConfig.metadata, {
   host: '0.0.0.0',
   port: 3100,
@@ -24,7 +26,8 @@ module.exports = webpackMerge(commonConfig, {
   debug: true,
   devtool: 'cheap-module-source-map',
   output: {
-    path: helpers.root('dist'),
+    path: helpers.root(BUILD_PATH),
+    publicPath: '/',
     filename: '[name].bundle.js',
     sourceMapFilename: '[name].map',
     chunkFilename: '[id].chunk.js',
@@ -33,6 +36,10 @@ module.exports = webpackMerge(commonConfig, {
   },
 
   plugins: [
+    new CleanWebpackPlugin([BUILD_PATH], {
+        root: helpers.root()
+    }),
+
     new DefinePlugin({
       'ENV': JSON.stringify(METADATA.ENV),
       'HMR': METADATA.HMR,

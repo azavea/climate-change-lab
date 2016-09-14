@@ -7,7 +7,6 @@ var path = require('path');
  * Webpack Plugins
  */
 
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
@@ -71,22 +70,14 @@ module.exports = {
         exclude: [helpers.root('src/index.html')]
       },
       {
-        test: /\.(png|jpg|jpeg|svg)$/,
-        loader: 'file-loader'
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)/,
-        loader: 'file-loader'
+        test: /\.(png|jpg|jpeg|svg|eot|ttf|woff|woff2)/,
+        loader: 'file-loader',
       }
     ]
   },
 
   plugins: [
     new ForkCheckerPlugin(),
-
-    new CleanWebpackPlugin(['dist'], {
-        root: helpers.root()
-    }),
 
     new webpack.optimize.OccurenceOrderPlugin(true),
 
