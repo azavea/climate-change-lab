@@ -1,0 +1,16 @@
+---
+
+  - name: "Install node dependencies"
+    npm: path={{ app_dir }}
+    become_user: "{{ ansible_ssh_user }}"
+
+  # necessary for Mac hosts
+  - name "Rebuild SASS"
+    command: "npm rebuild node-sass"
+    become_user: "{{ ansible_ssh_user }}"
+
+  - name: "Production build"
+    command: "npm run build:prod"
+    args:
+      chdir: "{{ app_dir }}"
+    become_user: "{{ ansible_ssh_user }}"

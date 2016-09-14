@@ -1,0 +1,4 @@
+---
+
+  root_dir: /opt
+  app_dir: "{{ root_dir }}/climate-change-lab"
