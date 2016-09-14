@@ -52,8 +52,10 @@ Additional commands available in package.json.
 
 ### Deployment
 
+_All deployment steps should be done within the vagrant vm provided with this project. The vm is provisioned with the tools necessary to deploy_
+
 First, build the application via `npm run build:prod`. The static site will be built in the `dist/` directory.
 
-Then, copy the dist folder to whatever webserver you want to serve the application from.
+Copy the environment file with `cp .env.example .env` and add your AWS access/secret keys and CloudFront distribution ID to it.
 
-TODO: Add s3_website how-to
+Push changes to the site with `s3_website push`

@@ -3,6 +3,8 @@
 
 Vagrant.require_version ">= 1.6"
 
+require "yaml"
+
 # Deserialize Ansible Galaxy installation metadata for a role
 def galaxy_install_info(role_name)
   role_path = File.join("deployment", "ansible", "roles", role_name)

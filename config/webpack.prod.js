@@ -34,9 +34,7 @@ module.exports = webpackMerge(commonConfig, {
     path: helpers.root(BUILD_PATH),
     // TODO: Change to url of deployed application when we have one
     publicPath: '/',
-    filename: '[name].[chunkhash].bundle.js',
-    sourceMapFilename: '[name].[chunkhash].bundle.map',
-    chunkFilename: '[id].[chunkhash].chunk.js'
+    filename: '[name].[chunkhash].bundle.js'
   },
 
   plugins: [

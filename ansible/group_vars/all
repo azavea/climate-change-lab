@@ -1,2 +1,6 @@
 nodejs_version: 6.5.0
 nodejs_npm_version: 3.10.3
+
+ruby_version: 2.2
+
+java_version: '7u111-*'

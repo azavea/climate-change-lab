@@ -14,3 +14,6 @@
     args:
       chdir: "{{ app_dir }}"
     become_user: "{{ ansible_ssh_user }}"
+
+  - name: "Install s3_website gem"
+    gem: name=s3_website user_install=no state=latest

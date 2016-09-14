@@ -8,4 +8,6 @@
 
   roles:
     - { role: "azavea.nodejs" }
+    - { role: "azavea.ruby" }
+    - { role: "azavea.java" }
     - { role: "climate-change-lab.app" }
