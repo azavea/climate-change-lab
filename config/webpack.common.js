@@ -7,7 +7,6 @@ var path = require('path');
  * Webpack Plugins
  */
 
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
@@ -79,10 +78,6 @@ module.exports = {
 
   plugins: [
     new ForkCheckerPlugin(),
-
-    new CleanWebpackPlugin(['dist'], {
-        root: helpers.root()
-    }),
 
     new webpack.optimize.OccurenceOrderPlugin(true),
 
