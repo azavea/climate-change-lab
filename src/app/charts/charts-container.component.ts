@@ -11,7 +11,7 @@ import { ChartComponent } from './chart.component';
 @Component({
   selector: 'charts',
   template: `<div class="chart" *ngFor="let chart of chartList">
-                <chart [indicator]="chart" [chartData]="chartData"></chart>
+                <chart [indicator]="chart" [chartData]="chartData" (onRemoveChart)="removeChart($event)"></chart>
             </div>`
 })
 export class ChartsContainerComponent extends OnInit {
@@ -22,7 +22,13 @@ export class ChartsContainerComponent extends OnInit {
       super();
     }
 
+    removeChart(indicator) {
+      this.chartService.removeChart(indicator);
+      this.chartList = this.chartService.get();
+    }
+
     makeCharts() {
+      this.chartList = this.chartService.get();
       this.chartService.loadChartData();
       this.chartService.getChartData().subscribe(data=> {
         this.chartData = data;
@@ -30,8 +36,6 @@ export class ChartsContainerComponent extends OnInit {
     }
 
     ngOnInit() {
-      // First, subscribe to chartList observable
-      this.chartList = this.chartService.get();
       this.makeCharts();
     }
 }

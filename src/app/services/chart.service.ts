@@ -52,7 +52,7 @@ export class ChartService {
 
     removeChart(indicator) {
         // TODO: Hook up to chart delete button
-        this.chartList.filter(function(i) {
+        this.chartList = this.chartList.filter(function(i) {
             return i !== indicator;
         });
     }

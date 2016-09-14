@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 import { Indicator } from '../models/indicator.models';
 import { LineGraphComponent } from './line-graph.component';
@@ -14,6 +14,8 @@ import { LineGraphComponent } from './line-graph.component';
 })
 
 export class ChartComponent {
+
+    @Output() onRemoveChart = new EventEmitter<Indicator>();
 
     private indicator: Indicator;
     private isCollapsed: boolean;
@@ -33,6 +35,10 @@ export class ChartComponent {
 
     toggleMax () {
         this.max = !this.max;
+    }
+
+    removeChart(indicator) {
+        this.onRemoveChart.emit(indicator);
     }
 
     constructor() {
