@@ -27,7 +27,6 @@ export class ChartService {
       years: defaultYears
     };
 
-    // TODO: pretty label for variable name?
     chartList = [];
 
     private chartData: Observable<ChartData[]>;
@@ -51,8 +50,7 @@ export class ChartService {
     }
 
     removeChart(indicator) {
-        // TODO: Hook up to chart delete button
-        this.chartList.filter(function(i) {
+        this.chartList = this.chartList.filter(function(i) {
             return i !== indicator;
         });
     }

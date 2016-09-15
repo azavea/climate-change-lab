@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 import { WaveComponent } from '../ng2-spin-kit/wave.component';
 
@@ -16,6 +16,8 @@ import { LineGraphComponent } from './line-graph.component';
 })
 
 export class ChartComponent {
+
+    @Output() onRemoveChart = new EventEmitter<Indicator>();
 
     private indicator: Indicator;
     private isCollapsed: boolean;
@@ -35,6 +37,10 @@ export class ChartComponent {
 
     toggleMax () {
         this.max = !this.max;
+    }
+
+    removeChart(indicator) {
+        this.onRemoveChart.emit(indicator);
     }
 
     constructor() {
