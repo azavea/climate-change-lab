@@ -15,7 +15,7 @@ import { Indicator } from '../models/indicator.models';
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent extends OnInit {
-    private indicators: Indicator[];
+    private yearlyIndicators: Indicator[];
 
     constructor(private chartService: ChartService, private indicatorsService: IndicatorsService) {
       super();
@@ -29,7 +29,8 @@ export class SidebarComponent extends OnInit {
 
     ngOnInit() {
       this.indicatorsService.loadIndicators();
-      this.indicatorsService.get().subscribe(data => this.indicators = data);
+      this.indicatorsService.get().subscribe(data => {
+          this.yearlyIndicators = data.filter(i => i.time_aggregation === 'yearly');
+      });
     }
-
 }
