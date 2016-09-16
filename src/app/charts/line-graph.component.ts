@@ -68,13 +68,13 @@ export class LineGraphComponent {
         this.filterData();
         this.setup();
         this.buildSVG();
-        this.setAxisScales();
-        this.drawXAxis();
-        this.drawYAxis();
-        this.populate();
+        this.setLineScales();
         this.drawMinMaxBand();
         this.drawTrendLine();
         this.drawThresholds();
+        this.drawXAxis();
+        this.drawYAxis();
+        this.drawAvgLine();
     }
 
     private filterData(): void {
@@ -113,16 +113,20 @@ export class LineGraphComponent {
           .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
     }
 
-    // Set axis scales
-    private setAxisScales(): void {
+    // Set axis and line scales
+    private setLineScales(): void {
         // Time scales only recognize annual and daily data
         var parseTime = D3.timeParse(this.timeFormat);
         this.extractedData.forEach(d => d.date = parseTime(d.date));
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
         // Adjust y scale, prettify graph
-        const yPad = ((D3.max(this.yMaxData) - D3.min(this.yMinData)) > 0) ? ((D3.max(this.yMaxData) - D3.min(this.yMinData)) * 2/3) : 5;
+        const yPad = ((D3.max(this.yMaxData) - D3.min(this.yMinData)) > 0) ? ((D3.max(this.yMaxData) - D3.min(this.yMinData)) * 1/3) : 5;
         this.yScale.domain([D3.min(this.yMinData) - yPad, D3.max(this.yMaxData) + yPad]);
+        // Expects line data format as {'date': x , 'value': ""}
+        this.valueline = D3.line()
+          .x(d => this.xScale(d.date))
+          .y(d => this.yScale(d.value));
     }
 
     /* Will draw the X Axis */
@@ -130,7 +134,7 @@ export class LineGraphComponent {
         this.svg.append('g')
           .attr('transform', 'translate(0,' + this.height + ')')
           .call(D3.axisBottom(this.xScale)
-          .ticks(3)
+          .ticks(5)
           .tickFormat(D3.timeFormat(this.timeFormat)));
     }
 
@@ -138,16 +142,11 @@ export class LineGraphComponent {
     private drawYAxis(): void {
         this.svg.append('g')
           .call(D3.axisLeft(this.yScale)
-          .ticks(6));
+          .ticks(5));
     }
 
     /* Draw line */
-    private populate(): void {
-        // Expects line data format as {'date': x , 'value': ""}
-        this.valueline = D3.line()
-          .x(d => this.xScale(d.date))
-          .y(d => this.yScale(d.value));
-
+    private drawAvgLine(): void {
         this.drawLine(this.prepareLineData(this.yAvgData), 'line');
     }
 
