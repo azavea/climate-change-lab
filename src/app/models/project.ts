@@ -15,11 +15,15 @@ export class Project {
     visibility: ProjectVisibility = ProjectVisibility.Private;
     city: City;
     scenario: Scenario;
+    allModels: boolean = true;
     models: ClimateModel[] = [];
     charts: Chart[] = [];
 
     constructor(object: Object) {
         Object.assign(this, object);
+        if (!this.id) {
+            this.id = this.generateUUID();
+        }
     }
 
     public toJSON() {
@@ -30,6 +34,7 @@ export class Project {
             visibility: this.visibility,
             city: this.city,
             scenario: this.scenario,
+            allModels: this.allModels,
             models: this.models,
             charts: this.charts
         };
@@ -37,5 +42,15 @@ export class Project {
 
     static fromJSON(object: Object) {
         return new this(object);
+    }
+
+    private generateUUID(): string {
+        // TODO: Remove when UUID generated via POST to API
+        // Pulled this temporary implementation from:
+        //  https://stackoverflow.com/a/2117523
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
     }
 }

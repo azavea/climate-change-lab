@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, ElementRef, HostListener } from '@angular/core';
-import { ChartData, DataPoint } from '../models/chart.models';
+import { ChartData, DataPoint } from '../models/chart';
 import { Indicator } from '../models/indicator.models';
 import * as D3 from 'd3';
 import * as _ from 'lodash';

@@ -23,7 +23,6 @@ import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.modul
 // App Components
 import { AppComponent } from './app.component';
 import { ChartComponent } from './charts/chart.component';
-import { ChartsContainerComponent } from './charts/charts-container.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LabComponent } from './lab/lab.component';
 import { LineGraphComponent } from './charts/line-graph.component';
@@ -41,6 +40,7 @@ import { ChartService } from './services/chart.service';
 import { ClimateModelService } from './services/climate-model.service';
 import { IndicatorService } from './services/indicator.service';
 import { ScenarioService } from './services/scenario.service';
+import { ProjectService } from './services/project.service';
 
 // Custom app providers
 let LocationStrategyProvider = {
@@ -61,7 +61,6 @@ let ApiHttpProvider = {
     AppComponent,
     WaveComponent,
     ChartComponent,
-    ChartsContainerComponent,
     DashboardComponent,
     LabComponent,
     LineGraphComponent,
@@ -91,7 +90,8 @@ let ApiHttpProvider = {
     ChartService,
     ClimateModelService,
     IndicatorService,
-    ScenarioService
+    ScenarioService,
+    ProjectService
   ]
 })
 export class AppModule {}

@@ -9,6 +9,7 @@ import { ClimateModel } from '../models/climate-model';
 import { Scenario } from '../models/scenario';
 import { apiHost, defaultCity, defaultScenario, defaultYears } from "../constants";
 import { ApiHttp } from "../auth/api-http.service";
+import { ProjectService } from "../services/project.service";
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -34,12 +35,16 @@ export class ChartService {
     private chartData: Observable<ChartData[]>;
     private chartDataObserver: Observer<ChartData[]>;
 
-    constructor(private apiHttp: ApiHttp) {
+    constructor(private apiHttp: ApiHttp, private projectService: ProjectService) {
         this.chartData = new Observable<ChartData[]>(observer => this.chartDataObserver = observer);
     }
 
     get() {
         return this.chartList;
+    }
+
+    set(charts: Chart[]) {
+        this.chartList = charts;
     }
 
     removeChart(chart) {

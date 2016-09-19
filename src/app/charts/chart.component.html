@@ -24,43 +24,42 @@
         </button>
     </div>
 </div>
-<sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
-<div *ngIf="chartData && chartData.length">
-    <div class="chart-body">
-        <line-graph
-            [data]="chartData"
-            [indicator]="chart.indicator"
-            [trendline]="chart.showTrendline"
-            [min]="chart.showMinimum"
-            [max]="chart.showMaximum"
-            [minVal]="chart.minimumValue"
-            [maxVal]="chart.maximumValue">
-        </line-graph>
-        <div class="chart-options" *ngIf="chart.showSettings">
-            <h4 class="margin-top-0 h5">Options</h4>
-            <div class="chart-options-body">
-                <div class="chart-options-group">
-                    <ui-switch [(ngModel)]="chart.showTrendline" size="small"></ui-switch>
-                    <span>Show Trendline</span>
-                </div>
-                <div class="chart-options-group">
-                    <ui-switch [(ngModel)]="chart.showMinimum" size="small"></ui-switch>
-                    <span>Show Min</span>
-                    <input
-                        type="number"
-                        step="any"
-                        placeholder="0"
-                        [(ngModel)]="chart.minimumValue">
-                </div>
-                <div class="chart-options-group">
-                    <ui-switch [(ngModel)]="chart.showMaximum" size="small"></ui-switch>
-                    <span>Show Max</span>
-                    <input
-                        type="number"
-                        step="any"
-                        placeholder="0"
-                        [(ngModel)]="chart.maximumValue">
-                </div>
+<div class="chart-body">
+    <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
+    <line-graph
+        *ngIf="chartData && chartData.length"
+        [data]="chartData"
+        [indicator]="chart.indicator"
+        [trendline]="chart.showTrendline"
+        [min]="chart.showMinimum"
+        [max]="chart.showMaximum"
+        [minVal]="chart.minimumValue"
+        [maxVal]="chart.maximumValue">
+    </line-graph>
+    <div class="chart-options" *ngIf="chart.showSettings">
+        <h4 class="margin-top-0 h5">Options</h4>
+        <div class="chart-options-body">
+            <div class="chart-options-group">
+                <ui-switch [(ngModel)]="chart.showTrendline" size="small"></ui-switch>
+                <span>Show Trendline</span>
+            </div>
+            <div class="chart-options-group">
+                <ui-switch [(ngModel)]="chart.showMinimum" size="small"></ui-switch>
+                <span>Show Min</span>
+                <input
+                    type="number"
+                    step="any"
+                    placeholder="0"
+                    [(ngModel)]="chart.minimumValue">
+            </div>
+            <div class="chart-options-group">
+                <ui-switch [(ngModel)]="chart.showMaximum" size="small"></ui-switch>
+                <span>Show Max</span>
+                <input
+                    type="number"
+                    step="any"
+                    placeholder="0"
+                    [(ngModel)]="chart.maximumValue">
             </div>
         </div>
     </div>

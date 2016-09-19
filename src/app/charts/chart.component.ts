@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { WaveComponent } from '../ng2-spin-kit/wave.component';
 
@@ -17,13 +17,15 @@ import { LineGraphComponent } from './line-graph.component';
   templateUrl: './chart.component.html'
 })
 
-export class ChartComponent {
+export class ChartComponent implements OnInit {
 
     @Output() onRemoveChart = new EventEmitter<Chart>();
 
     private chart: Chart;
 
-    constructor() {
+
+    ngOnInit() {
+
     }
 
     removeChart(chart) {
