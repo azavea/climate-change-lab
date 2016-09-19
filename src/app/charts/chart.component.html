@@ -1,6 +1,6 @@
 <div class="chart-heading">
     <h2 class="chart-label">
-    {{indicator.label}}
+    {{chart.indicator.label}}
     </h2>
     <div class="chart-actions">
         <button class="button button-link" tooltipPlacement="bottom" tooltipTrigger="mouseenter"
@@ -12,7 +12,7 @@
                 tooltipPopupDelay="300"
                 title=""
                 tooltip="Options"
-                (click)="isCollapsed = !isCollapsed"><i class="icon icon-cog"></i>
+                (click)="chart.showSettings = !chart.showSettings"><i class="icon icon-cog"></i>
         </button>
         <button class="button button-link"
                 tooltipPlacement="bottom"
@@ -20,7 +20,7 @@
                 tooltipPopupDelay="300"
                 title=""
                 tooltip="Remove"
-                (click)="removeChart(indicator)"><i class="icon icon-cancel"></i>
+                (click)="removeChart(chart)"><i class="icon icon-cancel"></i>
         </button>
     </div>
 </div>
@@ -29,37 +29,37 @@
     <div class="chart-body">
         <line-graph
             [data]="chartData"
-            [indicator]="indicator"
-            [trendline]="trendline"
-            [min]="min"
-            [max]="max"
-            [minVal]="minVal"
-            [maxVal]="maxVal">
+            [indicator]="chart.indicator"
+            [trendline]="chart.showTrendline"
+            [min]="chart.showMinimum"
+            [max]="chart.showMaximum"
+            [minVal]="chart.minimumValue"
+            [maxVal]="chart.maximumValue">
         </line-graph>
-        <div class="chart-options" *ngIf="isCollapsed">
+        <div class="chart-options" *ngIf="chart.showSettings">
             <h4 class="margin-top-0 h5">Options</h4>
             <div class="chart-options-body">
                 <div class="chart-options-group">
-                    <ui-switch (change)="toggleTrendline()" size="small"></ui-switch>
+                    <ui-switch [(ngModel)]="chart.showTrendline" size="small"></ui-switch>
                     <span>Show Trendline</span>
                 </div>
                 <div class="chart-options-group">
-                    <ui-switch (change)="toggleMin()" size="small"></ui-switch>
+                    <ui-switch [(ngModel)]="chart.showMinimum" size="small"></ui-switch>
                     <span>Show Min</span>
                     <input
                         type="number"
                         step="any"
                         placeholder="0"
-                        [(ngModel)]="minVal">
+                        [(ngModel)]="chart.minimumValue">
                 </div>
                 <div class="chart-options-group">
-                    <ui-switch (change)="toggleMax()" size="small"></ui-switch>
+                    <ui-switch [(ngModel)]="chart.showMaximum" size="small"></ui-switch>
                     <span>Show Max</span>
                     <input
                         type="number"
                         step="any"
                         placeholder="0"
-                        [(ngModel)]="maxVal">
+                        [(ngModel)]="chart.maximumValue">
                 </div>
             </div>
         </div>

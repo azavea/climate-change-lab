@@ -11,6 +11,7 @@ import { ScenarioService } from '../services/scenario.service';
 
 import { Scenario } from '../models/scenario';
 import { ClimateModel } from '../models/climate-model';
+import { Project, ProjectVisibility } from '../models/project';
 
 import { apiHost, defaultCity, defaultScenario } from "../constants";
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -43,7 +44,7 @@ export class LabComponent extends OnInit {
   public allModels: boolean;
 
   public scenarios: Scenario[];
-  public selectedScenario: string;
+  public selectedScenario: Scenario;
 
   public viewContainerRef: ViewContainerRef;
 
@@ -93,7 +94,7 @@ export class LabComponent extends OnInit {
   }
 
   public updateScenario(scenario: Scenario) {
-    this.selectedScenario = scenario.name;
+    this.selectedScenario = scenario;
     this.chartService.updateScenario(scenario.name);
   }
 
@@ -119,7 +120,7 @@ export class LabComponent extends OnInit {
 
   ngOnInit() {
     this.cityModel = defaultCity;
-    this.selectedScenario = defaultScenario;
+    this.selectedScenario = {name: defaultScenario, description: ''};
     this.allModels = true;
 
     this.getScenarios();

@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
+import { Chart } from '../models/chart';
 import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
 import { Indicator } from '../models/indicator.models';
@@ -23,8 +24,8 @@ export class SidebarComponent extends OnInit {
 
     // Set up click event handlers
     onIndicatorClicked(indicator) {
-      // TODO: once indicator in place for raw data queries, change to pass Indicator object
-      this.chartService.addChart(indicator);
+      let chart = new Chart({indicator: indicator, showTrendline: true});
+      this.chartService.addChart(chart);
     }
 
     ngOnInit() {

@@ -3,7 +3,7 @@ import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular
 import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
-import { ChartData } from '../models/chart.models';
+import { Chart, ChartData } from '../models/chart';
 import { Indicator } from '../models/indicator.models';
 import { ClimateModel } from '../models/climate-model';
 import { Scenario } from '../models/scenario';
@@ -29,7 +29,7 @@ export class ChartService {
       years: defaultYears
     };
 
-    chartList = [];
+    chartList: Chart[] = [];
 
     private chartData: Observable<ChartData[]>;
     private chartDataObserver: Observer<ChartData[]>;
@@ -42,16 +42,16 @@ export class ChartService {
         return this.chartList;
     }
 
-    removeChart(indicator) {
-        this.chartList = this.chartList.filter(function(i) {
-            return i !== indicator;
+    removeChart(chart) {
+        this.chartList = this.chartList.filter(function(c) {
+            return c !== chart;
         });
     }
 
-    addChart(indicator: Indicator) {
+    addChart(chart: Chart) {
         // Only update chartList upon new indicator; query for data
-        if (!this.chartList.includes(indicator)) {
-            this.chartList.push(indicator);
+        if (!this.chartList.includes(chart)) {
+            this.chartList.push(chart);
             this.loadChartData();
         }
     }
@@ -82,8 +82,8 @@ export class ChartService {
 
 	    let requestOptions = new RequestOptions({search: searchParams});
         // Collect a query for each indicator
-        _.each(this.chartList, indic => {
-            options.indicator = indic.name;
+        _.each(this.chartList, chart => {
+            options.indicator = chart.indicator.name;
             // query like:
             // https://staging.api.futurefeelslike.com/api/climate-data/1/RCP85/indicator/yearly_average_max_temperature/?years=2050:2051
             let url = apiHost + '/api/climate-data/' + options.cityId + '/' + options.scenario + '/indicator/' + options.indicator + '/';

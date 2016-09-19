@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ChartData } from '../models/chart.models';
+import { Chart, ChartData } from '../models/chart';
 import { ChartService } from '../services/chart.service';
 import { ChartComponent } from './chart.component';
 
@@ -11,19 +11,19 @@ import { ChartComponent } from './chart.component';
 @Component({
   selector: 'charts',
   template: `<div class="chart" *ngFor="let chart of chartList">
-                <chart [indicator]="chart" [chartData]="chartData" (onRemoveChart)="removeChart($event)"></chart>
+                <chart [chart]="chart" [chartData]="chartData" (onRemoveChart)="removeChart($event)"></chart>
             </div>`
 })
 export class ChartsContainerComponent extends OnInit {
-    private chartList: Array<String>;
-    private chartData: Array<ChartData>;
+    private chartList: Chart[];
+    private chartData: ChartData[];
 
     constructor(private chartService: ChartService) {
       super();
     }
 
-    removeChart(indicator) {
-      this.chartService.removeChart(indicator);
+    removeChart(chart: Chart) {
+      this.chartService.removeChart(chart);
       this.chartList = this.chartService.get();
     }
 
