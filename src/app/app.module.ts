@@ -38,7 +38,7 @@ import { ApiHttp } from './auth/api-http.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ChartService } from './services/chart.service';
-import { IndicatorsService } from './services/indicators.service';
+import { IndicatorService } from './services/indicator.service';
 
 // Custom app providers
 let LocationStrategyProvider = {
@@ -87,7 +87,7 @@ let ApiHttpProvider = {
     AuthService,
     AuthGuard,
     ChartService,
-    IndicatorsService
+    IndicatorService
   ]
 })
 export class AppModule {}

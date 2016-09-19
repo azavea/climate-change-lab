@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 import { ChartService } from '../services/chart.service';
-import { IndicatorsService } from '../services/indicators.service';
+import { IndicatorService } from '../services/indicator.service';
 import { Indicator } from '../models/indicator.models';
 
 /*
@@ -17,7 +17,7 @@ import { Indicator } from '../models/indicator.models';
 export class SidebarComponent extends OnInit {
     private yearlyIndicators: Indicator[];
 
-    constructor(private chartService: ChartService, private indicatorsService: IndicatorsService) {
+    constructor(private chartService: ChartService, private indicatorService: IndicatorService) {
       super();
     };
 
@@ -28,7 +28,7 @@ export class SidebarComponent extends OnInit {
     }
 
     ngOnInit() {
-      this.indicatorsService.list().subscribe(data => {
+      this.indicatorService.list().subscribe(data => {
           this.yearlyIndicators = data.filter(i => i.time_aggregation === 'yearly');
       });
     }

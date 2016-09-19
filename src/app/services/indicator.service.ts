@@ -6,12 +6,12 @@ import { Indicator } from '../models/indicator.models';
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from "../constants";
 /*
- * Indicators Service
+ * Indicator Service
  * Returns climate indicators. Used by the sidebar.
  */
 
 @Injectable()
-export class IndicatorsService {
+export class IndicatorService {
     constructor(private apiHttp: ApiHttp) {}
 
     public list(): Observable<Indicator[]> {
