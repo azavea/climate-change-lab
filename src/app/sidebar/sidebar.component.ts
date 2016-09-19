@@ -28,8 +28,7 @@ export class SidebarComponent extends OnInit {
     }
 
     ngOnInit() {
-      this.indicatorsService.loadIndicators();
-      this.indicatorsService.get().subscribe(data => {
+      this.indicatorsService.list().subscribe(data => {
           this.yearlyIndicators = data.filter(i => i.time_aggregation === 'yearly');
       });
     }

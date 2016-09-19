@@ -12,21 +12,11 @@ import { apiHost } from "../constants";
 
 @Injectable()
 export class IndicatorsService {
-    private indicators: Observable<Indicator[]>;
-    private indicatorObserver: Observer<Indicator[]>;
+    constructor(private apiHttp: ApiHttp) {}
 
-    constructor(private apiHttp: ApiHttp) {
-        this.indicators = new Observable<Indicator[]>(observer => this.indicatorObserver = observer);
-    }
-
-    get() {
-        return this.indicators;
-    }
-
-    public loadIndicators() {
+    public list(): Observable<Indicator[]> {
         let url = apiHost + '/api/indicator/';
-        this.apiHttp.get(url)
-            .map(resp => resp.json())
-            .subscribe(resp => this.indicatorObserver.next(resp.results || {} as Indicator[]));
+        return this.apiHttp.get(url)
+            .map(resp => resp.json().results || []);
     }
 }
