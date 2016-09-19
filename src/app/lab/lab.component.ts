@@ -5,8 +5,12 @@
 import { Component, OnInit, ViewEncapsulation, ViewContainerRef } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChartsContainerComponent } from '../charts/charts-container.component';
-import { ClimateModel, Scenario } from '../models/chart.models';
 import { ChartService } from '../services/chart.service';
+import { ClimateModelService } from '../services/climate-model.service';
+import { ScenarioService } from '../services/scenario.service';
+
+import { Scenario } from '../models/scenario';
+import { ClimateModel } from '../models/climate-model';
 
 import { apiHost, defaultCity, defaultScenario } from "../constants";
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -22,7 +26,10 @@ import * as _ from 'lodash';
 export class LabComponent extends OnInit {
   name = 'Climate Lab';
 
-  constructor(viewContainerRef: ViewContainerRef, private chartService: ChartService) {
+  constructor(viewContainerRef: ViewContainerRef,
+              private chartService: ChartService,
+              private climateModelService: ClimateModelService,
+              private scenarioService: ScenarioService) {
     super();
 
     // necessary to catch application root view container ref. see:
@@ -92,8 +99,7 @@ export class LabComponent extends OnInit {
 
   // subscribe to list of available models from API endpoint
   getAvailableClimateModels() {
-    this.chartService.loadClimateModels();
-    this.chartService.getClimateModels().subscribe(data => {
+    this.climateModelService.list().subscribe(data => {
       this.climateModels = data;
     });
   }
@@ -108,8 +114,7 @@ export class LabComponent extends OnInit {
   }
 
   getScenarios() {
-    this.chartService.loadScenarios();
-    this.chartService.getScenarios().subscribe(data => this.scenarios = data);
+    this.scenarioService.list().subscribe(data => this.scenarios = data);
   }
 
   ngOnInit() {

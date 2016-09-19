@@ -3,8 +3,10 @@ import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular
 import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
-import { ChartData, ClimateModel, Scenario } from '../models/chart.models';
+import { ChartData } from '../models/chart.models';
 import { Indicator } from '../models/indicator.models';
+import { ClimateModel } from '../models/climate-model';
+import { Scenario } from '../models/scenario';
 import { apiHost, defaultCity, defaultScenario, defaultYears } from "../constants";
 import { ApiHttp } from "../auth/api-http.service";
 
@@ -32,17 +34,8 @@ export class ChartService {
     private chartData: Observable<ChartData[]>;
     private chartDataObserver: Observer<ChartData[]>;
 
-    private climateModels: Observable<ClimateModel[]>;
-    private climateModelObserver: Observer<ClimateModel[]>;
-
-    private scenarios: Observable<Scenario[]>;
-    private scenarioObserver: Observer<Scenario[]>;
-
     constructor(private apiHttp: ApiHttp) {
         this.chartData = new Observable<ChartData[]>(observer => this.chartDataObserver = observer);
-        this.climateModels = new Observable<ClimateModel[]>(observer =>
-                                                            this.climateModelObserver = observer);
-        this.scenarios = new Observable<Scenario[]>(observer => this.scenarioObserver = observer);
     }
 
     get() {
@@ -65,14 +58,6 @@ export class ChartService {
 
     getChartData(): Observable<ChartData[]> {
         return this.chartData;
-    }
-
-    getClimateModels(): Observable<ClimateModel[]> {
-        return this.climateModels;
-    }
-
-    getScenarios(): Observable<Scenario[]> {
-        return this.scenarios;
     }
 
     loadChartData(): void {
@@ -109,24 +94,6 @@ export class ChartService {
         Observable.forkJoin(queries).subscribe(resp => {
             this.chartDataObserver.next(this.convertChartData(resp || {}));
         });
-    }
-
-    loadClimateModels(): void {
-        let url = apiHost + '/api/climate-model/';
-        this.apiHttp.get(url)
-            .map(resp => resp.json())
-            .subscribe(resp => {
-                this.climateModelObserver.next(resp || {} as ClimateModel[]);
-            });
-    }
-
-    loadScenarios(): void {
-        let url = apiHost + '/api/scenario/';
-        this.apiHttp.get(url)
-            .map(resp => resp.json())
-            .subscribe(resp => {
-                this.scenarioObserver.next(resp || {} as Scenario[]);
-            });
     }
 
     // return an array of date strings for each day in the given year
