@@ -3,7 +3,11 @@ import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular
 import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
+<<<<<<< HEAD
 import { Chart, ChartData } from '../models/chart';
+=======
+import { ChartData, MultiDataPoint, ClimateModel, Scenario } from '../models/chart.models';
+>>>>>>> Replace D3 area overlay with true area object and clean up
 import { Indicator } from '../models/indicator.models';
 import { ClimateModel } from '../models/climate-model';
 import { Scenario } from '../models/scenario';
@@ -118,13 +122,13 @@ export class ChartService {
 
          // make array of [date, value] pairs with zip, then convert to keyed object
         _.each(data, obj => {
-            let indicatorData = [];
+            let indicatorData: MultiDataPoint[] = [];
             let indicator = obj.indicator;
             _.each(obj.data, (values, key) => {
                 indicatorData.push({
                     'date': key,
                     'values': values
-                });
+                } as MultiDataPoint);
             });
 
             if (!_.includes(indicators, indicator)) {

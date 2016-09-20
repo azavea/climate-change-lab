@@ -38,9 +38,7 @@ export class LineGraphComponent {
     private valueline;                     // Base for a chart line
     private xRange: Array<string>;         // Min, max date range
     private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
-    private yAvgData: Array<number>;       // Stores primary y axis data, multi-use
-    private yMinData: Array<number>;       // Stores minimum y axis data, multi-use
-    private yMaxData: Array<number>;       // Stores maxiumum y axis data, multi-use
+    private yData: Array<number>;       // Stores primary y axis data, multi-use
     private trendData: Array<DataPoint>;   // Formatted data for the trendline
     private timeOptions: any;
     private timeFormat: string;
@@ -88,10 +86,8 @@ export class LineGraphComponent {
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
             this.extractedData.pop();
         }
-        // Parse out data by axis for ease of use later
-        this.yAvgData = _.map(this.extractedData, d => d.values.avg);
-        this.yMinData = _.map(this.extractedData, d => d.values.min);
-        this.yMaxData = _.map(this.extractedData, d => d.values.max);
+        // Parse out avg data for ease of use later
+        this.yData = _.map(this.extractedData, d => d.values.avg);
     }
 
     /* Will setup the chart basics */
@@ -120,10 +116,14 @@ export class LineGraphComponent {
         this.extractedData.forEach(d => d.date = parseTime(d.date));
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
+
         // Adjust y scale, prettify graph
-        const yPad = ((D3.max(this.yMaxData) - D3.min(this.yMinData)) > 0) ? ((D3.max(this.yMaxData) - D3.min(this.yMinData)) * 1/3) : 5;
-        this.yScale.domain([D3.min(this.yMinData) - yPad, D3.max(this.yMaxData) + yPad]);
-        // Expects line data format as {'date': x , 'value': ""}
+        const minY = D3.min(_.map(this.extractedData, d => d.values.min));
+        const maxY = D3.max(_.map(this.extractedData, d => d.values.max));
+        const yPad = (maxY - minY) > 0 ? (maxY - minY) * 1/3 : 5; // Note: 5 as default is arbitrary
+        this.yScale.domain([minY - yPad, maxY + yPad]);
+
+        // Expects line data as DataPoint[]
         this.valueline = D3.line()
           .x(d => this.xScale(d.date))
           .y(d => this.yScale(d.value));
@@ -147,16 +147,17 @@ export class LineGraphComponent {
 
     /* Draw line */
     private drawAvgLine(): void {
-        this.drawLine(this.prepareLineData(this.yAvgData), 'line');
+        let data = _.map(this.extractedData, d => ({'date': d.date, 'value': d.values.avg }));
+        this.drawLine(data, 'line');
     }
 
     private drawTrendLine(): void {
         // Only draw if data and add trendline flag
         if (this.trendline && this.extractedData.length) {
-            this.xData = D3.range(1, this.yAvgData.length + 1)
+            this.xData = D3.range(1, this.yData.length + 1)
 
             // Calculate linear regression variables
-            var leastSquaresCoeff = this.leastSquares(this.xData, this.yAvgData);
+            var leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
 
             // Apply the results of the regression
             var x1 = this.xRange[1];
@@ -194,18 +195,17 @@ export class LineGraphComponent {
     private drawMinMaxBand(): void {
         let area = D3.area()
             .x(d => this.xScale(d.date))
-            .y1(d => this.yScale(d.value));
+            .y0(d => this.yScale(d.min))
+            .y1(d => this.yScale(d.max));
 
-        // Draw area above minline
+        let minMaxData = _.map(this.extractedData, d => ({'date': d.date,
+                                                          'min': d.values.min,
+                                                          'max': d.values.max}));
+
+        // Draw min/max area
         this.svg.append('path')
-          .data([this.prepareLineData(this.yMinData)])
+          .data([minMaxData])
           .attr('class', "area")
-          .attr('d', area);
-
-        // Draw area above maxline (not ideal, but visually clips the band)
-        this.svg.append('path')
-          .data([this.prepareLineData(this.yMaxData)])
-          .attr('class', "above-area")
           .attr('d', area);
     }
 
@@ -214,7 +214,7 @@ export class LineGraphComponent {
             // Prepare standard variables
             let x1 = this.xRange[1];
             let x2 = this.xRange[0];
-            let y = D3.max(this.yAvgData);
+            let y = D3.max(this.yData);
 
             if (this.min && this.minVal) {
                 // Draw min threshold line
@@ -222,9 +222,9 @@ export class LineGraphComponent {
                 this.drawLine(minData, 'min-threshold');
 
                 // Prepare data for bar graph
-                let yAvgDataCopy = _.cloneDeep(this.yAvgData);
+                let yDataCopy = _.cloneDeep(this.yData);
                 let minBars = _.map(this.extractedData, datum => {
-                    let val = this.minVal >  yAvgDataCopy.shift() ? y * 2 : 0;
+                    let val = this.minVal >  yDataCopy.shift() ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val };
                 });
 
@@ -238,9 +238,9 @@ export class LineGraphComponent {
                 this.drawLine(maxData, 'max-threshold');
 
                 // Prepare data for bar graph
-                let yAvgDataCopy = _.cloneDeep(this.yAvgData);
+                let yDataCopy = _.cloneDeep(this.yData);
                 let maxBars = _.map(this.extractedData, datum => {
-                    let val = this.maxVal < yAvgDataCopy.shift() ? y * 2 : 0;
+                    let val = this.maxVal < yDataCopy.shift() ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val }
                 });
 
@@ -248,12 +248,6 @@ export class LineGraphComponent {
                 this.drawBarGraph(maxBars, 'max-bar');
             }
         }
-    }
-
-    private prepareLineData(data: Array<number>): Array<DataPoint> {
-        // Returns line data in the expected format {'date': x , 'value': ""}
-        let copy = _.cloneDeep(data);
-        return _.map(this.extractedData, d => ({'date': d.date, 'value': copy.shift()}));
     }
 
     private drawLine(data: Array<DataPoint>, className: string): void {

@@ -40,3 +40,12 @@ export class DataPoint {
   date: string;
   value: number;
 }
+
+export class MultiDataPoint {
+    date: string;
+    values: {
+        'avg': Number,
+        'min': Number,
+        'max': Number
+    };
+}
