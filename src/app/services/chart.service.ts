@@ -3,11 +3,7 @@ import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular
 import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
-<<<<<<< HEAD
-import { Chart, ChartData } from '../models/chart';
-=======
-import { ChartData, MultiDataPoint, ClimateModel, Scenario } from '../models/chart.models';
->>>>>>> Replace D3 area overlay with true area object and clean up
+import { Chart, ChartData, MultiDataPoint } from '../models/chart';
 import { Indicator } from '../models/indicator.models';
 import { ClimateModel } from '../models/climate-model';
 import { Scenario } from '../models/scenario';

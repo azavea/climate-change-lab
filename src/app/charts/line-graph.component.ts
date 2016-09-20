@@ -38,7 +38,7 @@ export class LineGraphComponent {
     private valueline;                     // Base for a chart line
     private xRange: Array<string>;         // Min, max date range
     private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
-    private yData: Array<number>;       // Stores primary y axis data, multi-use
+    private yData: Array<number>;          // Stores primary y axis data, multi-use
     private trendData: Array<DataPoint>;   // Formatted data for the trendline
     private timeOptions: any;
     private timeFormat: string;
@@ -120,7 +120,7 @@ export class LineGraphComponent {
         // Adjust y scale, prettify graph
         const minY = D3.min(_.map(this.extractedData, d => d.values.min));
         const maxY = D3.max(_.map(this.extractedData, d => d.values.max));
-        const yPad = (maxY - minY) > 0 ? (maxY - minY) * 1/3 : 5; // Note: 5 as default is arbitrary
+        const yPad = (maxY - minY) > 0 ? (maxY - minY) * 1/3 : 10; // Note: 5 as default is arbitrary
         this.yScale.domain([minY - yPad, maxY + yPad]);
 
         // Expects line data as DataPoint[]
@@ -222,9 +222,8 @@ export class LineGraphComponent {
                 this.drawLine(minData, 'min-threshold');
 
                 // Prepare data for bar graph
-                let yDataCopy = _.cloneDeep(this.yData);
-                let minBars = _.map(this.extractedData, datum => {
-                    let val = this.minVal >  yDataCopy.shift() ? y * 2 : 0;
+                let minBars = _.map(this.extractedData, (datum, index) => {
+                    let val = this.minVal >  this.yData[index] ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val };
                 });
 
@@ -238,9 +237,8 @@ export class LineGraphComponent {
                 this.drawLine(maxData, 'max-threshold');
 
                 // Prepare data for bar graph
-                let yDataCopy = _.cloneDeep(this.yData);
-                let maxBars = _.map(this.extractedData, datum => {
-                    let val = this.maxVal < yDataCopy.shift() ? y * 2 : 0;
+                let minBars = _.map(this.extractedData, (datum, index) => {
+                    let val = this.minVal <  this.yData[index] ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val }
                 });
 
