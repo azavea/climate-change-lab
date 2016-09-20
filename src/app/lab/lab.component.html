@@ -13,7 +13,7 @@
               <div class="input">
                 <i class="icon-globe"></i>
                 <input auto-complete
-                    [(ngModel)]="cityModel"
+                    [(ngModel)]="project.city"
                     [source]="apiCities"
                     [list-formatter]="cityListFormatter"
                     [value-formatter]="cityValueFormatter"
@@ -33,7 +33,7 @@
                 id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true">
                 <i class="icon-flash"></i>
-                {{ selectedScenario }}
+                {{ project.scenario.name }}
                 <i class="icon-angle-down caret"></i>
               </button>
               <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
@@ -63,7 +63,11 @@
           </div>
           <div class="nav-right"></div>
         </nav>
-        <charts class="charts scrollable"></charts>
+        <div class="charts scrollable">
+          <div class="chart" *ngFor="let chart of project.charts">
+            <chart [chart]="chart" [chartData]="chartData" (onRemoveChart)="removeChart($event)"></chart>
+          </div>
+        </div>
       </div>
   </div>
 
@@ -82,12 +86,12 @@
           <div>
             <label>
               <input type="checkbox" name="allModelsCheckbox"
-                value="value" [(ngModel)]="allModels" [disabled]="allModels"
+                value="value" [(ngModel)]="project.allModels" [disabled]="project.allModels"
                 (ngModelChange)="clearClimateModels()">Use all models
             </label>
           </div>
           <hr />
-          <div *ngFor="let climateModel of climateModels">
+          <div *ngFor="let climateModel of project.models">
             <label>
               <input type="checkbox" name="modelCheckbox" (click)="deselectUseAllModels()"
                 value="value" [(ngModel)]="climateModel.selected">

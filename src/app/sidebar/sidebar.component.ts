@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
+import { Chart } from '../models/chart';
 import { ChartService } from '../services/chart.service';
-import { IndicatorsService } from '../services/indicators.service';
+import { IndicatorService } from '../services/indicator.service';
 import { Indicator } from '../models/indicator.models';
 
 /*
@@ -17,19 +18,18 @@ import { Indicator } from '../models/indicator.models';
 export class SidebarComponent extends OnInit {
     private yearlyIndicators: Indicator[];
 
-    constructor(private chartService: ChartService, private indicatorsService: IndicatorsService) {
+    constructor(private chartService: ChartService, private indicatorService: IndicatorService) {
       super();
     };
 
     // Set up click event handlers
     onIndicatorClicked(indicator) {
-      // TODO: once indicator in place for raw data queries, change to pass Indicator object
-      this.chartService.addChart(indicator);
+      let chart = new Chart({indicator: indicator, showTrendline: true});
+      this.chartService.addChart(chart);
     }
 
     ngOnInit() {
-      this.indicatorsService.loadIndicators();
-      this.indicatorsService.get().subscribe(data => {
+      this.indicatorService.list().subscribe(data => {
           this.yearlyIndicators = data.filter(i => i.time_aggregation === 'yearly');
       });
     }

@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { WaveComponent } from '../ng2-spin-kit/wave.component';
 
+import { Chart } from '../models/chart';
 import { Indicator } from '../models/indicator.models';
+
 import { LineGraphComponent } from './line-graph.component';
 
 /*
@@ -11,44 +13,22 @@ import { LineGraphComponent } from './line-graph.component';
  */
 @Component({
   selector: 'chart',
-  inputs: ['indicator', 'chartData'],
+  inputs: ['chart', 'chartData'],
   templateUrl: './chart.component.html'
 })
 
-export class ChartComponent {
+export class ChartComponent implements OnInit {
 
-    @Output() onRemoveChart = new EventEmitter<Indicator>();
+    @Output() onRemoveChart = new EventEmitter<Chart>();
 
-    private indicator: Indicator;
-    private isCollapsed: boolean;
-    private trendline: boolean;
-    private min: boolean;
-    private max: boolean;
-    private minVal: number;
-    private maxVal: number;
+    private chart: Chart;
 
-    toggleTrendline () {
-        this.trendline = !this.trendline;
+
+    ngOnInit() {
+
     }
 
-    toggleMin () {
-        this.min = !this.min;
-    }
-
-    toggleMax () {
-        this.max = !this.max;
-    }
-
-    removeChart(indicator) {
-        this.onRemoveChart.emit(indicator);
-    }
-
-    constructor() {
-        this.isCollapsed = false;
-        this.trendline = false;
-        this.min = false;
-        this.max = false;
-        this.minVal = 0;
-        this.maxVal = 0;
+    removeChart(chart) {
+        this.onRemoveChart.emit(chart);
     }
 }
