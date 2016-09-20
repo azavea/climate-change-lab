@@ -80,7 +80,6 @@ export class ChartService {
 
         let searchParams: URLSearchParams = new URLSearchParams();
         searchParams.append('years', options.years.join(','));
-        searchParams.append('format', 'json');
         if (options.models) {
             searchParams.append('models', options.models);
         }

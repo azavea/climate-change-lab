@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ConnectionBackend, Http, Headers, Request, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
+import { ConnectionBackend, Http, Headers, Request, RequestOptions, RequestOptionsArgs,
+         Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs';
 
 import { AuthService } from './auth.service';
@@ -20,26 +21,26 @@ export class ApiHttp extends Http {
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-        return super.request(url, this.appendAuthHeader(options));
+        return super.request(url, this.appendAPIHeaders(options));
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return super.get(url, this.appendAuthHeader(options));
+        return super.get(url, this.appendAPIHeaders(options));
     }
 
     post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-        return super.post(url, body, this.appendAuthHeader(options));
+        return super.post(url, body, this.appendAPIHeaders(options));
     }
 
     put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-        return super.put(url, body, this.appendAuthHeader(options));
+        return super.put(url, body, this.appendAPIHeaders(options));
     }
 
     delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return super.delete(url, this.appendAuthHeader(options));
+        return super.delete(url, this.appendAPIHeaders(options));
     }
 
-    appendAuthHeader(options?: RequestOptionsArgs) : RequestOptionsArgs {
+    private appendAPIHeaders(options?: RequestOptionsArgs) : RequestOptionsArgs {
         if (options == null) {
             options = new RequestOptions();
         }
@@ -47,6 +48,17 @@ export class ApiHttp extends Http {
             options.headers = new Headers();
         }
         options.headers.set('Authorization', 'Token ' + this.authService.getToken());
+
+        if (options.search == null) {
+            options.search = new URLSearchParams();
+        }
+        // Switch params to instance of URLSeachParams if options.search is string
+        //  so that we can always safely use the URLSearchParams.append() method to add 'format'
+        if (typeof options.search === 'string') {
+            options.search = new URLSearchParams(options.search);
+        }
+        options.search.append('format', 'json');
+
         return options;
     }
 }
