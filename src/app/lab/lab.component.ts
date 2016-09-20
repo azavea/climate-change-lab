@@ -12,6 +12,7 @@ import { ProjectService } from '../services/project.service';
 import { Chart, ChartData } from '../models/chart';
 import { Scenario } from '../models/scenario';
 import { ClimateModel } from '../models/climate-model';
+import { Indicator } from '../models/indicator.models';
 import { Project, ProjectVisibility } from '../models/project';
 
 import { apiHost, defaultCity, defaultScenario } from "../constants";
@@ -26,7 +27,12 @@ import * as _ from 'lodash';
   templateUrl: './lab.component.html'
 })
 export class LabComponent implements OnInit, OnDestroy {
-  name = 'Climate Lab';
+
+  public apiCities: string = apiHost + "/api/city/?search=:keyword&format=json";
+  public climateModels: ClimateModel[] = [];
+  public scenarios: Scenario[] = [];
+  public project: Project;
+  public viewContainerRef: ViewContainerRef;
 
   constructor(viewContainerRef: ViewContainerRef,
               private chartService: ChartService,
@@ -38,14 +44,33 @@ export class LabComponent implements OnInit, OnDestroy {
     this.viewContainerRef = viewContainerRef;
   }
 
-  public project: Project;
+  ngOnInit() {
+    // Initialize a project if it doesn't exist, otherwise just use an existing one
+    // TODO: This logic should be replaced with actual project handling code
+    //       once the feature exists
+    let projects = this.projectService.list();
+    if (projects.length) {
+      this.project = projects[0];
+    } else {
+      this.project = new Project({
+        id: 'test',
+        name: 'Test Project',
+        description: 'Placeholder for projects feature',
+        scenario: {name: defaultScenario, description: ''},
+        city: defaultCity
+      });
+      this.projectService.add(this.project);
+    }
+    console.log('LabComponent.ngOnInit', this.project);
 
-  public apiCities: string = apiHost + "/api/city/?search=:keyword&format=json";
+    this.getClimateModels();
+    this.getScenarios();
+  }
 
-  private chartData: ChartData[];
-  public scenarios: Scenario[];
-
-  public viewContainerRef: ViewContainerRef;
+  ngOnDestroy() {
+    console.log('LabComponent.ngOnDestroy', this.project);
+    this.projectService.update(this.project);
+  }
 
   // custom formatter to display list of options as City, State
   public cityListFormatter(data: any): string {
@@ -68,94 +93,47 @@ export class LabComponent implements OnInit, OnDestroy {
   public onCitySelected(value: any) {
     return (value) => {
       this.project.city = value;
-      this.chartService.updateCity(value);
     };
   }
 
   // unselect all model checkboxes when option to use all models selected
   public clearClimateModels() {
-    _.each(this.project.models, function(model) {
-      model.selected = false;
-    });
+      this.climateModels.forEach(model => model.selected = false);
   }
 
-  // deselect option to use all models when one or more model is checked; will also enable the
-  // checkbox to use all models (use-all checkbox can only be deselected by selecting a model)
-  public deselectUseAllModels() {
-    this.project.allModels = false;
+  public selectAllClimateModels() {
+      this.climateModels.forEach(model => model.selected = true);
   }
 
-  public updateClimateModels() {
-    let models = this.getSelectedClimateModels();
-    if (!models.length) {
-      this.project.allModels = true;
-    }
-    this.chartService.updateClimateModels(models);
+  public updateProjectClimateModels() {
+    this.project.models = this.climateModels.filter(model => model.selected);
+    this.projectService.update(this.project);
   }
 
   public updateScenario(scenario: Scenario) {
     this.project.scenario = scenario;
-    this.chartService.updateScenario(scenario.name);
   }
 
   public removeChart(chart: Chart) {
-    this.chartService.removeChart(chart);
-    this.project.charts = this.chartService.get();
+    this.project.charts = this.project.charts.filter(c => c !== chart);
+    this.projectService.update(this.project);
+  }
+
+  public indicatorSelected(indicator: Indicator) {
+    let chart = new Chart({indicator: indicator});
+    this.project.charts.push(chart);
+    this.projectService.update(this.project);
   }
 
   // subscribe to list of available models from API endpoint
-  getAvailableClimateModels() {
+  private getClimateModels() {
     this.climateModelService.list().subscribe(data => {
-      this.project.models = data;
+      this.climateModels = data;
     });
   }
 
-  // Returns names of the models currently selected by the user
-  getSelectedClimateModels(): string[] {
-    return this.project.models.filter(function(model) {
-      return model.selected;
-    }).map(function(model) {
-      return model.name;
-    });
-  }
-
-  getScenarios() {
+  private getScenarios() {
     this.scenarioService.list().subscribe(data => this.scenarios = data);
   }
 
-  ngOnInit() {
-    // Initialize a project if it doesn't exist, otherwise just use an existing one
-    // TODO: This logic should be replaced with actual project handling code
-    //       once the feature exists
-    let projects = this.projectService.list();
-    if (projects.length) {
-      this.project = projects[0];
-    } else {
-      this.project = new Project({
-        id: 'test',
-        name: 'Test Project',
-        description: 'Placeholder for projects feature',
-        scenario: {name: defaultScenario, description: ''},
-        city: defaultCity
-      });
-      this.projectService.add(this.project);
-    }
-    this.chartService.set(this.project.charts);
-    console.log('LabComponent.ngOnInit', this.project);
-
-    this.getScenarios();
-    if (!this.project.models.length) {
-      this.getAvailableClimateModels();
-    }
-
-    this.chartService.loadChartData();
-    this.chartService.getChartData().subscribe(data=> {
-      this.chartData = data;
-    });
-  }
-
-  ngOnDestroy() {
-    console.log('LabComponent.ngOnDestroy', this.project);
-    this.projectService.update(this.project);
-  }
 }

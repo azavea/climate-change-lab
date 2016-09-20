@@ -4,7 +4,7 @@
 
     <div class="flex-container">
 
-      <sidebar class="sidebar-content scrollable"></sidebar>
+      <sidebar class="sidebar-content scrollable" (onIndicatorSelected)="indicatorSelected($event)"></sidebar>
 
       <div class="flex-expand">
         <nav class="controls">
@@ -65,7 +65,11 @@
         </nav>
         <div class="charts scrollable">
           <div class="chart" *ngFor="let chart of project.charts">
-            <chart [chart]="chart" [chartData]="chartData" (onRemoveChart)="removeChart($event)"></chart>
+            <chart [chart]="chart"
+                   [city]="project.city"
+                   [models]="project.models"
+                   [scenario]="project.scenario"
+                   (onRemoveChart)="removeChart($event)"></chart>
           </div>
         </div>
       </div>
@@ -85,22 +89,27 @@
           <h4 class="modal-title">Select Models</h4>
           <div>
             <label>
-              <input type="checkbox" name="allModelsCheckbox"
-                value="value" [(ngModel)]="project.allModels" [disabled]="project.allModels"
-                (ngModelChange)="clearClimateModels()">Use all models
+              <button type="button" (click)="selectAllClimateModels()">
+                Use all models
+              </button>
+              <button type="button" (click)="clearClimateModels()">
+                Clear all models
+              </button>
             </label>
           </div>
           <hr />
-          <div *ngFor="let climateModel of project.models">
+          <div *ngFor="let climateModel of climateModels">
             <label>
-              <input type="checkbox" name="modelCheckbox" (click)="deselectUseAllModels()"
-                value="value" [(ngModel)]="climateModel.selected">
+              <input type="checkbox"
+                     name="modelCheckbox"
+                     value="value"
+                     [(ngModel)]="climateModel.selected">
               {{ climateModel.name }}
             </label>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="button" (click)="updateClimateModels(); smModal.hide();"
+          <button class="button" (click)="updateProjectClimateModels(); smModal.hide();"
             data-dismiss="bs-modal">Update</button>
         </div>
       </div>
