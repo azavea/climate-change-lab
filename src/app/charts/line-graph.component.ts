@@ -237,7 +237,7 @@ export class LineGraphComponent {
                 this.drawLine(maxData, 'max-threshold');
 
                 // Prepare data for bar graph
-                let minBars = _.map(this.extractedData, (datum, index) => {
+                let maxBars = _.map(this.extractedData, (datum, index) => {
                     let val = this.minVal <  this.yData[index] ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val }
                 });
