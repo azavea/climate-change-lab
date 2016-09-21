@@ -238,7 +238,7 @@ export class LineGraphComponent {
 
                 // Prepare data for bar graph
                 let maxBars = _.map(this.extractedData, (datum, index) => {
-                    let val = this.minVal <  this.yData[index] ? y * 2 : 0;
+                    let val = this.maxVal <  this.yData[index] ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val }
                 });
 
