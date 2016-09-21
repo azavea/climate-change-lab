@@ -1,17 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
-import { WaveComponent } from '../ng2-spin-kit/wave.component';
-
 import { Chart, ChartData } from '../models/chart';
 import { City } from '../models/city';
 import { ClimateModel } from '../models/climate-model';
 import { Scenario } from '../models/scenario';
-import { Indicator } from '../models/indicator.models';
 
 import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
-
-import { LineGraphComponent } from './line-graph.component';
 
 /*
  * Chart component

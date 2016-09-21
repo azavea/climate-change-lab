@@ -1,13 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
-import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
-import { Chart, ChartData, MultiDataPoint } from '../models/chart';
-import { Indicator } from '../models/indicator.models';
-import { ClimateModel } from '../models/climate-model';
-import { Scenario } from '../models/scenario';
-import { apiHost, defaultCity, defaultScenario, defaultYears } from "../constants";
+import { ChartData, MultiDataPoint } from '../models/chart';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -16,7 +10,6 @@ import * as _ from 'lodash';
  * Chart Service
  * Data management and operations for charts
  */
-
 @Injectable()
 export class ChartService {
 

@@ -1,7 +1,5 @@
 import { Component, EventEmitter, ViewEncapsulation, OnInit, Output } from '@angular/core';
 
-import { Chart } from '../models/chart';
-import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
 import { Indicator } from '../models/indicator.models';
 
@@ -21,7 +19,7 @@ export class SidebarComponent extends OnInit {
 
     private yearlyIndicators: Indicator[];
 
-    constructor(private chartService: ChartService, private indicatorService: IndicatorService) {
+    constructor(private indicatorService: IndicatorService) {
       super();
     }
 

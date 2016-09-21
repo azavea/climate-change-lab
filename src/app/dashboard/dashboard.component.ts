@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+
+import { Project } from '../models/project';
 
 @Component({
   selector: 'dashboard',
@@ -8,7 +9,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class DashboardComponent {
 
     // TODO: replace any type with a project model
-    private projects: any[];
+    private projects: Project[];
 
     constructor() {
         // TODO: Eventually query for saved projects

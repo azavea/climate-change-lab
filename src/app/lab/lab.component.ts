@@ -9,14 +9,13 @@ import { ClimateModelService } from '../services/climate-model.service';
 import { ScenarioService } from '../services/scenario.service';
 import { ProjectService } from '../services/project.service';
 
-import { Chart, ChartData } from '../models/chart';
+import { Chart } from '../models/chart';
 import { Scenario } from '../models/scenario';
 import { ClimateModel } from '../models/climate-model';
 import { Indicator } from '../models/indicator.models';
-import { Project, ProjectVisibility } from '../models/project';
+import { Project } from '../models/project';
 
 import { apiHost, defaultCity, defaultScenario } from "../constants";
-import { NavbarComponent } from '../navbar/navbar.component';
 
 import * as _ from 'lodash';
 
