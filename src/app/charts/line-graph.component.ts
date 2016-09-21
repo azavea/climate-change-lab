@@ -38,7 +38,7 @@ export class LineGraphComponent {
     private valueline;                     // Base for a chart line
     private xRange: Array<string>;         // Min, max date range
     private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
-    private yData: Array<number>;          // Stores just y axis data, multi-use
+    private yData: Array<number>;          // Stores primary y axis data, multi-use
     private trendData: Array<DataPoint>;   // Formatted data for the trendline
     private timeOptions: any;
     private timeFormat: string;
@@ -66,12 +66,13 @@ export class LineGraphComponent {
         this.filterData();
         this.setup();
         this.buildSVG();
-        this.setAxisScales();
+        this.setLineScales();
+        this.drawMinMaxBand();
+        this.drawTrendLine();
+        this.drawThresholds();
         this.drawXAxis();
         this.drawYAxis();
-        this.populate();
-        this.drawTrendLine();
-        this.drawMinMax();
+        this.drawAvgLine();
     }
 
     private filterData(): void {
@@ -85,8 +86,8 @@ export class LineGraphComponent {
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
             this.extractedData.pop();
         }
-        // Parse out data by axis for ease of use later
-        this.yData = _.map(this.extractedData, d => d.value);
+        // Parse out avg data for ease of use later
+        this.yData = _.map(this.extractedData, d => d.values.avg);
     }
 
     /* Will setup the chart basics */
@@ -108,16 +109,24 @@ export class LineGraphComponent {
           .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
     }
 
-    // Set axis scales
-    private setAxisScales(): void {
+    // Set axis and line scales
+    private setLineScales(): void {
         // Time scales only recognize annual and daily data
         var parseTime = D3.timeParse(this.timeFormat);
         this.extractedData.forEach(d => d.date = parseTime(d.date));
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
+
         // Adjust y scale, prettify graph
-        const yPad = ((D3.max(this.yData) - D3.min(this.yData)) > 0) ? ((D3.max(this.yData) - D3.min(this.yData)) * 2/3) : 5;
-        this.yScale.domain([D3.min(this.yData) - yPad, D3.max(this.yData) + yPad]);
+        const minY = D3.min(_.map(this.extractedData, d => d.values.min));
+        const maxY = D3.max(_.map(this.extractedData, d => d.values.max));
+        const yPad = (maxY - minY) > 0 ? (maxY - minY) * 1/3 : 10; // Note: 5 as default is arbitrary
+        this.yScale.domain([minY - yPad, maxY + yPad]);
+
+        // Expects line data as DataPoint[]
+        this.valueline = D3.line()
+          .x(d => this.xScale(d.date))
+          .y(d => this.yScale(d.value));
     }
 
     /* Will draw the X Axis */
@@ -125,7 +134,7 @@ export class LineGraphComponent {
         this.svg.append('g')
           .attr('transform', 'translate(0,' + this.height + ')')
           .call(D3.axisBottom(this.xScale)
-          .ticks(3)
+          .ticks(5)
           .tickFormat(D3.timeFormat(this.timeFormat)));
     }
 
@@ -133,16 +142,13 @@ export class LineGraphComponent {
     private drawYAxis(): void {
         this.svg.append('g')
           .call(D3.axisLeft(this.yScale)
-          .ticks(6));
+          .ticks(5));
     }
 
     /* Draw line */
-    private populate(): void {
-        this.valueline = D3.line()
-          .x(d => this.xScale(d.date))
-          .y(d => this.yScale(d.value));
-
-        this.drawLine(this.extractedData, 'line');
+    private drawAvgLine(): void {
+        let data = _.map(this.extractedData, d => ({'date': d.date, 'value': d.values.avg }));
+        this.drawLine(data, 'line');
     }
 
     private drawTrendLine(): void {
@@ -186,7 +192,24 @@ export class LineGraphComponent {
         return [slope, intercept, rSquare];
     }
 
-    private drawMinMax(): void {
+    private drawMinMaxBand(): void {
+        let area = D3.area()
+            .x(d => this.xScale(d.date))
+            .y0(d => this.yScale(d.min))
+            .y1(d => this.yScale(d.max));
+
+        let minMaxData = _.map(this.extractedData, d => ({'date': d.date,
+                                                          'min': d.values.min,
+                                                          'max': d.values.max}));
+
+        // Draw min/max area
+        this.svg.append('path')
+          .data([minMaxData])
+          .attr('class', "area")
+          .attr('d', area);
+    }
+
+    private drawThresholds(): void {
         if (this.min || this.max) {
             // Prepare standard variables
             let x1 = this.xRange[1];
@@ -196,11 +219,11 @@ export class LineGraphComponent {
             if (this.min && this.minVal) {
                 // Draw min threshold line
                 let minData = [{'date': x1, 'value': this.minVal}, {'date': x2, 'value': this.minVal}];
-                this.drawLine(minData, 'minline');
+                this.drawLine(minData, 'min-threshold');
 
                 // Prepare data for bar graph
-                let minBars = _.map(this.extractedData, datum => {
-                    let val = this.minVal > datum['value'] ? y * 2 : 0;
+                let minBars = _.map(this.extractedData, (datum, index) => {
+                    let val = this.minVal >  this.yData[index] ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val };
                 });
 
@@ -211,11 +234,11 @@ export class LineGraphComponent {
             if (this.max && this.maxVal) {
                 // Draw max threshold line
                 let maxData = [{'date': x1, 'value': this.maxVal}, {'date': x2, 'value': this.maxVal}];
-                this.drawLine(maxData, 'maxline');
+                this.drawLine(maxData, 'max-threshold');
 
                 // Prepare data for bar graph
-                let maxBars = _.map(this.extractedData, datum => {
-                    let val = this.maxVal < datum['value'] ? y * 2 : 0;
+                let minBars = _.map(this.extractedData, (datum, index) => {
+                    let val = this.minVal <  this.yData[index] ? y * 2 : 0;
                     return { 'date': datum['date'], 'value': val }
                 });
 

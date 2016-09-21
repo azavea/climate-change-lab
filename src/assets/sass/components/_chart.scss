@@ -124,7 +124,7 @@ chart {
     opacity: .7;
   }
 
-  .minline {
+  .min-threshold {
     fill: none;
     stroke: green;
     stroke-width: .7px;
@@ -132,12 +132,18 @@ chart {
     stroke-dasharray: 5 5;
   }
 
-  .maxline {
+  .max-threshold {
     fill: none;
     stroke: red;
     stroke-width: .7px;
     opacity: .7;
     stroke-dasharray: 5 5;
+  }
+
+  .area {
+    fill: gray;
+    opacity: .7;
+    z-index: -1;
   }
 
   .min-bar{

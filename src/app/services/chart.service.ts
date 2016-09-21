@@ -3,7 +3,7 @@ import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular
 import {Observable, Observer} from "rxjs";
 import 'rxjs/Rx';
 
-import { Chart, ChartData } from '../models/chart';
+import { Chart, ChartData, MultiDataPoint } from '../models/chart';
 import { Indicator } from '../models/indicator.models';
 import { ClimateModel } from '../models/climate-model';
 import { Scenario } from '../models/scenario';
@@ -118,13 +118,13 @@ export class ChartService {
 
          // make array of [date, value] pairs with zip, then convert to keyed object
         _.each(data, obj => {
-            let indicatorData = [];
+            let indicatorData: MultiDataPoint[] = [];
             let indicator = obj.indicator;
             _.each(obj.data, (values, key) => {
                 indicatorData.push({
                     'date': key,
-                    'value': values.avg
-                });
+                    'values': values
+                } as MultiDataPoint);
             });
 
             if (!_.includes(indicators, indicator)) {

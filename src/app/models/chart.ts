@@ -32,11 +32,20 @@ export class Chart {
 
 export class ChartData {
   indicator: string;
-  data: DataPoint[];
+  data: MultiDataPoint[];
   time_agg: string[];
 }
 
 export class DataPoint {
   date: string;
   value: number;
+}
+
+export class MultiDataPoint {
+    date: string;
+    values: {
+        'avg': Number,
+        'min': Number,
+        'max': Number
+    };
 }
