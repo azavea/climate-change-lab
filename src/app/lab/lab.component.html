@@ -69,7 +69,8 @@
                    [city]="project.city"
                    [models]="project.models"
                    [scenario]="project.scenario"
-                   (onRemoveChart)="removeChart($event)"></chart>
+                   (onRemoveChart)="removeChart($event)"
+                   (onChartSettingChanged)="chartSettingChanged()"></chart>
           </div>
         </div>
       </div>
@@ -83,7 +84,7 @@
       <div class="modal-content">
         <div class="modal-body">
           <button type="button" class="button button-modal-close" data-dismiss="bs-modal"
-            (click)="updateClimateModels(); smModal.hide()" aria-label="Close">
+            (click)="updateProjectClimateModels(); smModal.hide()" aria-label="Close">
             <span class="icon icon-cancel"></span>
           </button>
           <h4 class="modal-title">Select Models</h4>

@@ -21,10 +21,10 @@ import { LineGraphComponent } from './line-graph.component';
   selector: 'chart',
   templateUrl: './chart.component.html'
 })
-
 export class ChartComponent implements OnChanges {
 
     @Output() onRemoveChart = new EventEmitter<Chart>();
+    @Output() onChartSettingChanged = new EventEmitter<Chart>();
 
     @Input() chart: Chart;
     @Input() scenario: Scenario;
@@ -44,6 +44,15 @@ export class ChartComponent implements OnChanges {
             city: this.city,
             climateModels: this.models
         }).subscribe(data => this.chartData = this.chartService.convertChartData([data]));
+    }
+
+    onSettingsToggleClicked() {
+        this.chart.showSettings = !this.chart.showSettings;
+        this.onChartSettingChanged.emit(this.chart);
+    }
+
+    onSettingChange() {
+        this.onChartSettingChanged.emit(this.chart);
     }
 
     removeChart(chart: Chart) {

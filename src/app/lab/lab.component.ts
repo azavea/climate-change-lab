@@ -61,14 +61,12 @@ export class LabComponent implements OnInit, OnDestroy {
       });
       this.projectService.add(this.project);
     }
-    console.log('LabComponent.ngOnInit', this.project);
 
     this.getClimateModels();
     this.getScenarios();
   }
 
   ngOnDestroy() {
-    console.log('LabComponent.ngOnDestroy', this.project);
     this.projectService.update(this.project);
   }
 
@@ -93,16 +91,21 @@ export class LabComponent implements OnInit, OnDestroy {
   public onCitySelected(value: any) {
     return (value) => {
       this.project.city = value;
+      this.projectService.update(this.project);
     };
+  }
+
+  public chartSettingChanged() {
+    this.projectService.update(this.project);
   }
 
   // unselect all model checkboxes when option to use all models selected
   public clearClimateModels() {
-      this.climateModels.forEach(model => model.selected = false);
+    this.climateModels.forEach(model => model.selected = false);
   }
 
   public selectAllClimateModels() {
-      this.climateModels.forEach(model => model.selected = true);
+    this.climateModels.forEach(model => model.selected = true);
   }
 
   public updateProjectClimateModels() {
@@ -112,6 +115,7 @@ export class LabComponent implements OnInit, OnDestroy {
 
   public updateScenario(scenario: Scenario) {
     this.project.scenario = scenario;
+    this.projectService.update(this.project);
   }
 
   public removeChart(chart: Chart) {
@@ -129,6 +133,20 @@ export class LabComponent implements OnInit, OnDestroy {
   private getClimateModels() {
     this.climateModelService.list().subscribe(data => {
       this.climateModels = data;
+
+      // Initialize 'selected' attributes with models in project
+      if (this.project.models.length === 0) {
+        this.selectAllClimateModels();
+        this.updateProjectClimateModels();
+      } else {
+        this.project.models.forEach(projectModel => {
+          this.climateModels.forEach(model => {
+            if (projectModel.name === model.name) {
+              model.selected = projectModel.selected;
+            }
+          })
+        })
+      }
     });
   }
 

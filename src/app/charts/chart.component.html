@@ -12,7 +12,7 @@
                 tooltipPopupDelay="300"
                 title=""
                 tooltip="Options"
-                (click)="chart.showSettings = !chart.showSettings"><i class="icon icon-cog"></i>
+                (click)="onSettingsToggleClicked()"><i class="icon icon-cog"></i>
         </button>
         <button class="button button-link"
                 tooltipPlacement="bottom"
@@ -40,26 +40,34 @@
         <h4 class="margin-top-0 h5">Options</h4>
         <div class="chart-options-body">
             <div class="chart-options-group">
-                <ui-switch [(ngModel)]="chart.showTrendline" size="small"></ui-switch>
+                <ui-switch [(ngModel)]="chart.showTrendline"
+                           (ngModelChanges)="onSettingChanged()"
+                           size="small"></ui-switch>
                 <span>Show Trendline</span>
             </div>
             <div class="chart-options-group">
-                <ui-switch [(ngModel)]="chart.showMinimum" size="small"></ui-switch>
+                <ui-switch [(ngModel)]="chart.showMinimum"
+                           (ngModelChanges)="onSettingChanged()"
+                           size="small"></ui-switch>
                 <span>Show Min</span>
                 <input
                     type="number"
                     step="any"
                     placeholder="0"
-                    [(ngModel)]="chart.minimumValue">
+                    [(ngModel)]="chart.minimumValue"
+                    (ngModelChanges)="onSettingChanged()">
             </div>
             <div class="chart-options-group">
-                <ui-switch [(ngModel)]="chart.showMaximum" size="small"></ui-switch>
+                <ui-switch [(ngModel)]="chart.showMaximum"
+                           (ngModelChanges)="onSettingChanged()"
+                           size="small"></ui-switch>
                 <span>Show Max</span>
                 <input
                     type="number"
                     step="any"
                     placeholder="0"
-                    [(ngModel)]="chart.maximumValue">
+                    [(ngModel)]="chart.maximumValue"
+                    (ngModelChanges)="onSettingChanged()">
             </div>
         </div>
     </div>
