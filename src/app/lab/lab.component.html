@@ -78,15 +78,18 @@
 
   <!-- TODO: remove config option to not display modal background once issue fixed:
        valor-software/ng2-bootstrap#854 -->
-  <div bsModal #smModal="bs-modal" class="modal modal-small" id="modelOptions" tabindex="-1"
-    role="dialog" aria-labelledby="modelOptions" aria-hidden="true" [config]="{backdrop: false}">
+  <div class="modal modal-small fade"
+       id="modelOptions"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="modelOptions"
+       aria-hidden="true"
+       bsModal #smModal="bs-modal"
+       [config]="{backdrop: 'static'}"
+       (onHide)="modalHide()">
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="button button-modal-close" data-dismiss="bs-modal"
-            (click)="updateProjectClimateModels(); smModal.hide()" aria-label="Close">
-            <span class="icon icon-cancel"></span>
-          </button>
           <h4 class="modal-title">Select Models</h4>
           <div>
             <label>
@@ -110,8 +113,10 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button class="button" (click)="updateProjectClimateModels(); smModal.hide();"
-            data-dismiss="bs-modal">Update</button>
+          <button class="button"
+                  data-dismiss="bs-modal"
+                  (click)="smModal.hide();"
+                  [disabled]="isModalUpdateButtonDisabled()">Update</button>
         </div>
       </div>
     </div>

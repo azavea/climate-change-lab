@@ -2,7 +2,7 @@
  * Climate Change Lab
  * App Component
  */
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChartService } from '../services/chart.service';
 import { ClimateModelService } from '../services/climate-model.service';
@@ -32,16 +32,11 @@ export class LabComponent implements OnInit, OnDestroy {
   public climateModels: ClimateModel[] = [];
   public scenarios: Scenario[] = [];
   public project: Project;
-  public viewContainerRef: ViewContainerRef;
 
-  constructor(viewContainerRef: ViewContainerRef,
-              private chartService: ChartService,
+  constructor(private chartService: ChartService,
               private climateModelService: ClimateModelService,
               private scenarioService: ScenarioService,
               private projectService: ProjectService) {
-    // necessary to catch application root view container ref. see:
-    // https://valor-software.com/ng2-bootstrap/#/modals
-    this.viewContainerRef = viewContainerRef;
   }
 
   ngOnInit() {
@@ -104,12 +99,16 @@ export class LabComponent implements OnInit, OnDestroy {
     this.climateModels.forEach(model => model.selected = false);
   }
 
+  public isModalUpdateButtonDisabled() {
+      return this.climateModels.filter(model => model.selected).length === 0;
+  }
+
   public selectAllClimateModels() {
     this.climateModels.forEach(model => model.selected = true);
   }
 
   public updateProjectClimateModels() {
-    this.project.models = this.climateModels.filter(model => model.selected);
+    this.project.models = this.filterSelectedClimateModels();
     this.projectService.update(this.project);
   }
 
@@ -127,6 +126,18 @@ export class LabComponent implements OnInit, OnDestroy {
     let chart = new Chart({indicator: indicator});
     this.project.charts.push(chart);
     this.projectService.update(this.project);
+  }
+
+  public modalHide() {
+    let models = this.filterSelectedClimateModels();
+    if (models.length < 1) {
+      this.selectAllClimateModels()
+    }
+    this.updateProjectClimateModels();
+  }
+
+  private filterSelectedClimateModels(isSelected: boolean = true) {
+    return this.climateModels.filter(model => model.selected === isSelected);
   }
 
   // subscribe to list of available models from API endpoint
