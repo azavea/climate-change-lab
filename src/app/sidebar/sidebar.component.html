@@ -1,10 +1,13 @@
 <div class="sidebar-content scrollable">
     <h2 class="sidebar-title">Indicators</h2>
-    <h3 class="sidebar-category">Yearly Indicators</h3>
-    <button class="indicator" *ngFor="let indicator of yearlyIndicators"
-        (click)="onIndicatorClicked(indicator)"
-        tooltip="{{ indicator.description }}"
-        tooltipPlacement="right"
-        tooltipTrigger="mouseenter"
-        tooltipPopupDelay="300">{{indicator.label}}</button>
+    <h3 class="sidebar-category">Temperature</h3>
+    <indicator-list
+        [indicators]="tempIndicators"
+        (indicatorClicked)="onIndicatorClicked($event)">
+    </indicator-list>
+    <h3 class="sidebar-category">Precipitation</h3>
+    <indicator-list
+        [indicators]="precipIndicators"
+        (indicatorClicked)="onIndicatorClicked($event)">
+    </indicator-list>
 </div>
