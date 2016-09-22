@@ -11,6 +11,11 @@ nav {
     float: left;
     padding: 0.6rem 1.5rem 0;
   }
+
+  & > .nav-right {
+    float: right;
+    padding: 0.7rem 1.5rem 0;
+  }
 }
 
 .controls {
@@ -26,6 +31,22 @@ nav {
   & > .nav-right {
     float: right;
     padding: 0.7rem 1.5rem 0;
+  }
+
+  .button-link {
+    color: #fff;
+    &:hover, &.hover,
+    &:active, &.active,
+    &:focus, &.focus,
+    &:focus:active {
+      box-shadow: none;
+      background-color: transparent;
+      color: #fff;
+    }
+  }
+
+  li > a.dropdown-item {
+    cursor: pointer;
   }
 }
 
