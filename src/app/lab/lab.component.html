@@ -4,7 +4,7 @@
 
     <div class="flex-container">
 
-      <sidebar class="sidebar-content scrollable"></sidebar>
+      <sidebar class="sidebar-content scrollable" (onIndicatorSelected)="indicatorSelected($event)"></sidebar>
 
       <div class="flex-expand">
         <nav class="controls">
@@ -65,7 +65,12 @@
         </nav>
         <div class="charts scrollable">
           <div class="chart" *ngFor="let chart of project.charts">
-            <chart [chart]="chart" [chartData]="chartData" (onRemoveChart)="removeChart($event)"></chart>
+            <chart [chart]="chart"
+                   [city]="project.city"
+                   [models]="project.models"
+                   [scenario]="project.scenario"
+                   (onRemoveChart)="removeChart($event)"
+                   (onChartSettingChanged)="chartSettingChanged()"></chart>
           </div>
         </div>
       </div>
@@ -73,35 +78,45 @@
 
   <!-- TODO: remove config option to not display modal background once issue fixed:
        valor-software/ng2-bootstrap#854 -->
-  <div bsModal #smModal="bs-modal" class="modal modal-small" id="modelOptions" tabindex="-1"
-    role="dialog" aria-labelledby="modelOptions" aria-hidden="true" [config]="{backdrop: false}">
+  <div class="modal modal-small fade"
+       id="modelOptions"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="modelOptions"
+       aria-hidden="true"
+       bsModal #smModal="bs-modal"
+       [config]="{backdrop: 'static'}"
+       (onHide)="modalHide()">
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="button button-modal-close" data-dismiss="bs-modal"
-            (click)="updateClimateModels(); smModal.hide()" aria-label="Close">
-            <span class="icon icon-cancel"></span>
-          </button>
           <h4 class="modal-title">Select Models</h4>
           <div>
             <label>
-              <input type="checkbox" name="allModelsCheckbox"
-                value="value" [(ngModel)]="project.allModels" [disabled]="project.allModels"
-                (ngModelChange)="clearClimateModels()">Use all models
+              <button type="button" (click)="selectAllClimateModels()">
+                Use all models
+              </button>
+              <button type="button" (click)="clearClimateModels()">
+                Clear all models
+              </button>
             </label>
           </div>
           <hr />
-          <div *ngFor="let climateModel of project.models">
+          <div *ngFor="let climateModel of climateModels">
             <label>
-              <input type="checkbox" name="modelCheckbox" (click)="deselectUseAllModels()"
-                value="value" [(ngModel)]="climateModel.selected">
+              <input type="checkbox"
+                     name="modelCheckbox"
+                     value="value"
+                     [(ngModel)]="climateModel.selected">
               {{ climateModel.name }}
             </label>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="button" (click)="updateClimateModels(); smModal.hide();"
-            data-dismiss="bs-modal">Update</button>
+          <button class="button"
+                  data-dismiss="bs-modal"
+                  (click)="smModal.hide();"
+                  [disabled]="isModalUpdateButtonDisabled()">Update</button>
         </div>
       </div>
     </div>

@@ -1,11 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
-import { WaveComponent } from '../ng2-spin-kit/wave.component';
+import { Chart, ChartData } from '../models/chart';
+import { City } from '../models/city';
+import { ClimateModel } from '../models/climate-model';
+import { Scenario } from '../models/scenario';
 
-import { Chart } from '../models/chart';
-import { Indicator } from '../models/indicator.models';
-
-import { LineGraphComponent } from './line-graph.component';
+import { ChartService } from '../services/chart.service';
+import { IndicatorService } from '../services/indicator.service';
 
 /*
  * Chart component
@@ -13,22 +14,43 @@ import { LineGraphComponent } from './line-graph.component';
  */
 @Component({
   selector: 'chart',
-  inputs: ['chart', 'chartData'],
   templateUrl: './chart.component.html'
 })
-
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnChanges {
 
     @Output() onRemoveChart = new EventEmitter<Chart>();
+    @Output() onChartSettingChanged = new EventEmitter<Chart>();
 
-    private chart: Chart;
+    @Input() chart: Chart;
+    @Input() scenario: Scenario;
+    @Input() models: ClimateModel[];
+    @Input() city: City;
 
+    private chartData: ChartData[];
 
-    ngOnInit() {
+    constructor(private chartService: ChartService,
+                private indicatorService: IndicatorService) {}
 
+    ngOnChanges() {
+        this.chartData = [];
+        this.indicatorService.getData({
+            indicator: this.chart.indicator,
+            scenario: this.scenario,
+            city: this.city,
+            climateModels: this.models
+        }).subscribe(data => this.chartData = this.chartService.convertChartData([data]));
     }
 
-    removeChart(chart) {
+    onSettingsToggleClicked() {
+        this.chart.showSettings = !this.chart.showSettings;
+        this.onChartSettingChanged.emit(this.chart);
+    }
+
+    onSettingChange() {
+        this.onChartSettingChanged.emit(this.chart);
+    }
+
+    removeChart(chart: Chart) {
         this.onRemoveChart.emit(chart);
     }
 }
