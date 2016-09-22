@@ -24,6 +24,7 @@ import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.modul
 import { AppComponent } from './app.component';
 import { ChartComponent } from './charts/chart.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { IndicatorListComponent } from './sidebar/indicator-list.component';
 import { LabComponent } from './lab/lab.component';
 import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
@@ -62,6 +63,7 @@ let ApiHttpProvider = {
     WaveComponent,
     ChartComponent,
     DashboardComponent,
+    IndicatorListComponent,
     LabComponent,
     LineGraphComponent,
     LoginComponent,

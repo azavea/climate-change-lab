@@ -13,23 +13,34 @@ import { Indicator } from '../models/indicator.models';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './sidebar.component.html'
 })
-export class SidebarComponent extends OnInit {
+export class SidebarComponent implements OnInit {
 
     @Output() onIndicatorSelected = new EventEmitter<Indicator>();
 
-    private yearlyIndicators: Indicator[];
+    private tempIndicators: Indicator[];
+    private precipIndicators: Indicator[];
 
-    constructor(private indicatorService: IndicatorService) {
-      super();
-    }
+    constructor(private indicatorService: IndicatorService) {}
 
     onIndicatorClicked(indicator: Indicator) {
         this.onIndicatorSelected.emit(indicator);
     }
 
     ngOnInit() {
-      this.indicatorService.list().subscribe(data => {
-          this.yearlyIndicators = data.filter(i => i.time_aggregation === 'yearly');
-      });
+        this.indicatorService.list().subscribe(data => this.groupIndicators(data));
+    }
+
+    private groupIndicators(indicators: Indicator[]) {
+        this.tempIndicators = indicators.filter(i => {
+            return this.isValidIndicator(i) &&
+                   (i.variables.indexOf('tasmax') !== -1 || i.variables.indexOf('tasmin') !== -1);
+        });
+        this.precipIndicators = indicators.filter(i => {
+            return this.isValidIndicator(i) && i.variables.indexOf('pr') !== -1;
+        });
+    }
+
+    private isValidIndicator(indicator: Indicator): boolean {
+        return indicator.time_aggregation !== 'daily';
     }
 }
