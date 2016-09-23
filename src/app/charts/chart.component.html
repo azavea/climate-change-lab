@@ -12,6 +12,7 @@
                 tooltipPopupDelay="300"
                 title=""
                 tooltip="Options"
+                [ngClass]="{'active': chart.showSettings}"
                 (click)="onSettingsToggleClicked()"><i class="icon icon-cog"></i>
         </button>
         <button class="button button-link"
