@@ -7,13 +7,13 @@
             <h2>Lab</h2>
         </div>
         <div class="dash-right">
-            <a class="button button-default" [routerLink]="['/lab']">New Project</a>
+            <a class="button button-default" [routerLink]="['/new']">New Project</a>
         </div>
     </div>
     <div class="dash-body">
         <div *ngIf="!projects.length">
             <i class="icon-cloud"></i>
-            <div>To explore climate change data, <a [routerLink]="['/lab']">start a new project.</a></div>
+            <div>To explore climate change data, <a [routerLink]="['/new']">start a new project.</a></div>
         </div>
         <div *ngIf="projects.length">
             <!-- TODO: Populate a table with eventual projects-->
