@@ -21,6 +21,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.module';
 
 // App Components
+import { AddEditProjectComponent } from './project/add-edit-project.component';
 import { AppComponent } from './app.component';
 import { ChartComponent } from './charts/chart.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -69,7 +70,8 @@ let ApiHttpProvider = {
     LoginComponent,
     NavbarComponent,
     SidebarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AddEditProjectComponent
   ],
   imports: [
     BrowserModule,
