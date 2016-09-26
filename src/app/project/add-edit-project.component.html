@@ -22,6 +22,8 @@
                          name="project.description"
                          [(ngModel)]="model.project.description"></textarea>
                   <!-- TODO: Add city dropdown -->
+                  <label for="project.city">City</label>
+                  <city-dropdown [project]="model.project"></city-dropdown>
                   <label for="project.scenario">Scenario</label>
                   <scenario-dropdown class="form-control" [project]="model.project"></scenario-dropdown>
                   <label for="project.models">Models</label>

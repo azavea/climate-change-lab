@@ -24,6 +24,7 @@ import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.modul
 import { AppComponent } from './app.component';
 import { AddEditProjectComponent } from './project/add-edit-project.component';
 import { ChartComponent } from './charts/chart.component';
+import { CityDropdownComponent } from './lab/dropdowns/city-dropdown.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
 import { LabComponent } from './lab/lab.component';
@@ -75,7 +76,8 @@ let ApiHttpProvider = {
     PageNotFoundComponent,
     AddEditProjectComponent,
     ScenarioDropdownComponent,
-    ModelDropdownComponent
+    ModelDropdownComponent,
+    CityDropdownComponent
   ],
   imports: [
     BrowserModule,

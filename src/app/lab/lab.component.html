@@ -9,23 +9,10 @@
       <div class="flex-expand">
         <nav class="controls">
           <div class="nav-left">
-            <div class="dropdown dropdown-location">
-              <div class="input">
-                <i class="icon-globe"></i>
-                <input auto-complete
-                    [(ngModel)]="project.city"
-                    [source]="apiCities"
-                    [list-formatter]="cityListFormatter"
-                    [value-formatter]="cityValueFormatter"
-                    display-property-name="name"
-                    path-to-data="features"
-                    [value-changed]="onCitySelected()"
-                    type="text"
-                    placeholder="Enter your city"
-                    min-chars="2" />
-
-              </div>
-            </div>
+            <!-- city selector -->
+            <city-dropdown
+                    [project]="project">
+            </city-dropdown>
 
             <!-- scenario selector -->
             <scenario-dropdown [project]="project"></scenario-dropdown>

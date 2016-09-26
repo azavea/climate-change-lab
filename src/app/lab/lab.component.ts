@@ -8,15 +8,17 @@ import { Router, ActivatedRoute }     from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ScenarioDropdownComponent } from './dropdowns/scenario-dropdown.component';
 import { ModelDropdownComponent } from './dropdowns/model-dropdown.component';
+import { CityDropdownComponent } from './dropdowns/city-dropdown.component';
 import { ChartService } from '../services/chart.service';
 import { ProjectService } from '../services/project.service';
 
 import { Chart } from '../models/chart';
+import { City } from '../models/city';
 import { Scenario } from '../models/scenario';
 import { Indicator } from '../models/indicator.models';
 import { Project } from '../models/project';
 
-import { apiHost, defaultCity, defaultScenario } from "../constants";
+import { defaultCity, defaultScenario } from "../constants";
 
 import * as _ from 'lodash';
 
@@ -28,7 +30,6 @@ import * as _ from 'lodash';
 })
 export class LabComponent implements OnInit, OnDestroy {
 
-  public apiCities: string = apiHost + "/api/city/?search=:keyword";
   public project: Project;
 
   constructor(private chartService: ChartService,
@@ -53,29 +54,13 @@ export class LabComponent implements OnInit, OnDestroy {
     this.projectService.update(this.project);
   }
 
-  // custom formatter to display list of options as City, State
-  public cityListFormatter(data: any): string {
-    let html: string = "";
-    html += data.properties.name ? `<span>${data.properties.name}, ${data.properties.admin}</span>`: data;
-    return html;
-  }
-
-  // custom formatter to display string for selected city as City, State
-  public cityValueFormatter(data: any): string {
-    let displayValue: string = "";
-    displayValue += data && data.properties ? data.properties.name + ', ' + data.properties.admin : data.toString();
-    return displayValue;
-  }
-
   /* Factory that returns a callback invoked when user picks a city.
    * Note that this is invoked rather than passed in the directive, to get the inner function.
    * Using an arrow function to keep the current context, in order to reference the chart service.
    */
-  public onCitySelected(value: any) {
-    return (value) => {
-      this.project.city = value;
-      this.projectService.update(this.project);
-    };
+  public updateCity(city: City) {
+    this.project.city = city;
+    this.projectService.update(this.project);
   }
 
   public chartSettingChanged() {

@@ -2,8 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Project } from '../models/project';
+import { Scenario } from '../models/scenario';
+import { City } from '../models/city';
 import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
+import { CityDropdownComponent } from '../lab/dropdowns/city-dropdown.component';
 import { ScenarioDropdownComponent } from '../lab/dropdowns/scenario-dropdown.component';
 import { ModelDropdownComponent } from '../lab/dropdowns/model-dropdown.component';
 
@@ -29,7 +32,6 @@ export class AddEditProjectComponent implements OnInit {
             this.model = new ProjectForm(new Project({}));
         }
     }
-
 
     onSubmit() {
         if (this.edit) {
