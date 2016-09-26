@@ -18,6 +18,10 @@ export class ProjectService {
         this.save();
     }
 
+    get(id: string) {
+        return this.projects.find(project => project.id === id);
+    }
+
     list(): Project[] {
         return this.projects;
     }

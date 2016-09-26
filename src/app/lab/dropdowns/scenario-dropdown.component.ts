@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Scenario } from '../../models/scenario';
 import { Project } from '../../models/project';
@@ -8,11 +8,9 @@ import { ProjectService } from '../../services/project.service';
 /*  Scenario Dropdown Component
 
     -- Requires project input
-    -- Emits selected scenario
     Expected use:
         <scenario-dropdown
-            [project]="your_project"
-            (scenarioClicked)="your_handler_event">
+            [project]="your_project">
 */
 
 @Component({
@@ -22,7 +20,7 @@ import { ProjectService } from '../../services/project.service';
                 id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true">
                 <i class="icon-flash"></i>
-                {{ project.scenario.name }}
+                {{ project.scenario.name || "Select Scenario" }}
                 <i class="icon-angle-down caret"></i>
               </button>
               <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
@@ -39,7 +37,6 @@ import { ProjectService } from '../../services/project.service';
 export class ScenarioDropdownComponent implements OnInit {
 
     @Input() project: Project;
-    @Output() scenarioClicked = new EventEmitter<Scenario>();
     public scenarios: Scenario[] = [];
 
     constructor(private scenarioService: ScenarioService,
@@ -50,7 +47,7 @@ export class ScenarioDropdownComponent implements OnInit {
     }
 
     public onScenarioClicked(scenario: Scenario) {
-        this.scenarioClicked.emit(scenario);
+        this.project.scenario = scenario;
     }
 
     private getScenarios() {

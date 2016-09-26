@@ -1,32 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Project } from '../models/project';
 import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
 import { ScenarioDropdownComponent } from '../lab/dropdowns/scenario-dropdown.component';
+import { ModelDropdownComponent } from '../lab/dropdowns/model-dropdown.component';
 
 
 @Component({
   selector: 'add-edit-project',
   templateUrl: './add-edit-project.component.html'
 })
-export class AddEditProjectComponent {
+export class AddEditProjectComponent implements OnInit {
 
-    constructor(private router: Router, private projectService: ProjectService) {}
+    @Input() project: Project;
+    public edit: boolean;
+    public model;
 
-    model = new ProjectForm(new Project({}));
-
-    onSubmit() {
-        this.projectService.add(this.model.project);
-        this.onSuccess();
+    constructor(private router: Router, private projectService: ProjectService) {
+        this.edit = this.project? true: false;
     }
 
-    updateScenario(scenario) {
-        this.model.project.scenario = scenario;
+    ngOnInit() {
+        if (this.edit) {
+            this.model.project = this.project;
+        } else {
+            this.model = new ProjectForm(new Project({}));
+        }
+    }
+
+
+    onSubmit() {
+        if (this.edit) {
+            this.projectService.update(this.model.project);
+        } else {
+            this.projectService.add(this.model.project);
+            this.onSuccess();
+        }
     }
 
     onSuccess() {
-        this.router.navigate(['/lab']);
+        this.router.navigate(['/lab', this.model.project.id]);
     }
 }
