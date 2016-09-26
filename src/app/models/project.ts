@@ -13,8 +13,8 @@ export class Project {
     name: string;
     description: string;
     visibility: ProjectVisibility = ProjectVisibility.Private;
-    city: City;
-    scenario: Scenario;
+    city: City = {} as City;
+    scenario: Scenario = {} as Scenario;
     allModels: boolean = true;
     models: ClimateModel[] = [];
     charts: Chart[] = [];

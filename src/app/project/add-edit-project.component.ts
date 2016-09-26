@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Project } from '../models/project';
 import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
+import { ScenarioDropdownComponent } from '../lab/dropdowns/scenario-dropdown.component';
 
 
 @Component({
@@ -19,6 +20,10 @@ export class AddEditProjectComponent {
     onSubmit() {
         this.projectService.add(this.model.project);
         this.onSuccess();
+    }
+
+    updateScenario(scenario) {
+        this.model.project.scenario = scenario;
     }
 
     onSuccess() {

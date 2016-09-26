@@ -21,8 +21,8 @@ import { routing, appRoutingProviders } from './app.routing';
 import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.module';
 
 // App Components
-import { AddEditProjectComponent } from './project/add-edit-project.component';
 import { AppComponent } from './app.component';
+import { AddEditProjectComponent } from './project/add-edit-project.component';
 import { ChartComponent } from './charts/chart.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
@@ -31,6 +31,7 @@ import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
+import { ScenarioDropdownComponent} from './lab/dropdowns/scenario-dropdown.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
 
@@ -71,7 +72,8 @@ let ApiHttpProvider = {
     NavbarComponent,
     SidebarComponent,
     PageNotFoundComponent,
-    AddEditProjectComponent
+    AddEditProjectComponent,
+    ScenarioDropdownComponent
   ],
   imports: [
     BrowserModule,

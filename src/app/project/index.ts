@@ -1,1 +1,1 @@
-export * from './project.component';
+export * from './add-edit-project.component';

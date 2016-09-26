@@ -4,9 +4,9 @@
  */
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { ScenarioDropdownComponent } from './dropdowns/scenario-dropdown.component';
 import { ChartService } from '../services/chart.service';
 import { ClimateModelService } from '../services/climate-model.service';
-import { ScenarioService } from '../services/scenario.service';
 import { ProjectService } from '../services/project.service';
 
 import { Chart } from '../models/chart';
@@ -29,12 +29,10 @@ export class LabComponent implements OnInit, OnDestroy {
 
   public apiCities: string = apiHost + "/api/city/?search=:keyword";
   public climateModels: ClimateModel[] = [];
-  public scenarios: Scenario[] = [];
   public project: Project;
 
   constructor(private chartService: ChartService,
               private climateModelService: ClimateModelService,
-              private scenarioService: ScenarioService,
               private projectService: ProjectService) {
   }
 
@@ -57,7 +55,6 @@ export class LabComponent implements OnInit, OnDestroy {
     }
 
     this.getClimateModels();
-    this.getScenarios();
   }
 
   ngOnDestroy() {
@@ -159,9 +156,4 @@ export class LabComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  private getScenarios() {
-    this.scenarioService.list().subscribe(data => this.scenarios = data);
-  }
-
 }

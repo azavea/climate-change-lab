@@ -28,24 +28,10 @@
             </div>
 
             <!-- scenario selector -->
-            <div dropdown class="dropdown dropdown-scenario">
-              <button dropdownToggle class="button dropdown-toggle" type="button"
-                id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="true">
-                <i class="icon-flash"></i>
-                {{ project.scenario.name }}
-                <i class="icon-angle-down caret"></i>
-              </button>
-              <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
-                <li *ngFor="let scenario of scenarios">
-                  <a (click)="updateScenario(scenario)"
-                    tooltip="{{ scenario.description }}"
-                    tooltipPlacement="bottom"
-                    tooltipTrigger="mouseenter"
-                    tooltipPopupDelay="300">{{ scenario.name }}</a>
-                </li>
-              </ul>
-            </div>
+            <scenario-dropdown
+                    [project]="project"
+                    (scenarioClicked)="updateScenario($event)">
+            </scenario-dropdown>
 
             <!-- climate model selector -->
             <div class="dropdown dropdown-model">

@@ -23,6 +23,9 @@
                      placeholder="Description"
                      [(ngModel)]="model.project.description">
               <!-- TODO: Add other fields-->
+              <scenario-dropdown
+                     [project]="model.project"
+                     (scenarioClicked)="updateScenario($event)"></scenario-dropdown>
               <button type="submit"
                       class="btn btn-default"
                       [disabled]="!projectForm.form.valid">Create Project</button>
