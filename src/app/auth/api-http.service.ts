@@ -48,6 +48,7 @@ export class ApiHttp extends Http {
             options.headers = new Headers();
         }
         options.headers.set('Authorization', 'Token ' + this.authService.getToken());
+        options.headers.set('Accept', 'application/json')
 
         if (options.search == null) {
             options.search = new URLSearchParams();
@@ -57,7 +58,6 @@ export class ApiHttp extends Http {
         if (typeof options.search === 'string') {
             options.search = new URLSearchParams(options.search);
         }
-        options.search.append('format', 'json');
 
         return options;
     }
