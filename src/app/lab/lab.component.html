@@ -10,15 +10,13 @@
         <nav class="controls">
           <div class="nav-left">
             <!-- city selector -->
-            <city-dropdown
-                    [project]="project">
-            </city-dropdown>
+            <city-dropdown [project]="project"></city-dropdown>
 
             <!-- scenario selector -->
             <scenario-dropdown [project]="project"></scenario-dropdown>
 
             <!-- climate model selector -->
-            <model-dropdown [project]="project"></model-dropdown>
+            <model-modal [project]="project"></model-modal>
 
           </div>
           <div class="nav-right"></div>

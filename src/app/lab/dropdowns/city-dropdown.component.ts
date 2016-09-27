@@ -41,6 +41,10 @@ export class CityDropdownComponent {
 
     constructor() {}
 
+   /* Factory that returns a callback invoked when user picks a city.
+   * Note that this is invoked rather than passed in the directive, to get the inner function.
+   * Using an arrow function to keep the current context, in order to reference the chart service.
+   */
     public onCityClicked(value: any) {
         return (value) => {
             this.project.city = value;

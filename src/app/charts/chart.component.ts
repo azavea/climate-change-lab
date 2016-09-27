@@ -32,6 +32,7 @@ export class ChartComponent implements OnChanges {
                 private indicatorService: IndicatorService) {}
 
     ngOnChanges() {
+        if (!this.scenario || !this.city || !this.models) { return; }
         this.chartData = [];
         this.indicatorService.getData({
             indicator: this.chart.indicator,

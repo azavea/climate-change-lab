@@ -4,19 +4,19 @@ import { ClimateModel } from '../../models/climate-model';
 import { Project } from '../../models/project';
 import { ClimateModelService } from '../../services/climate-model.service';
 
-/*  Model Dropdown Component
+/*  Model Modal Component
     -- Requires project input
     -- Emits selected model
     Expected use:
-        <scenario-dropdown
+        <model-modal
             [project]="your_project">
 */
 
 @Component({
-  selector: 'model-dropdown',
-  templateUrl: './model-dropdown.component.html'
+  selector: 'model-modal',
+  templateUrl: './model-modal.component.html'
 })
-export class ModelDropdownComponent implements OnInit {
+export class ModelModalComponent implements OnInit {
 
     @Input() project: Project;
 

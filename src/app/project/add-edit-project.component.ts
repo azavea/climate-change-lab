@@ -8,8 +8,11 @@ import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
 import { CityDropdownComponent } from '../lab/dropdowns/city-dropdown.component';
 import { ScenarioDropdownComponent } from '../lab/dropdowns/scenario-dropdown.component';
-import { ModelDropdownComponent } from '../lab/dropdowns/model-dropdown.component';
+import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
 
+/* Add/Edit Project Component
+    -- optionally accepts existing project, useful for edit mode
+*/
 
 @Component({
   selector: 'add-edit-project',

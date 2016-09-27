@@ -30,7 +30,7 @@ import { IndicatorListComponent } from './sidebar/indicator-list.component';
 import { LabComponent } from './lab/lab.component';
 import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
-import { ModelDropdownComponent} from './lab/dropdowns/model-dropdown.component';
+import { ModelModalComponent} from './lab/dropdowns/model-modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { ScenarioDropdownComponent} from './lab/dropdowns/scenario-dropdown.component';
@@ -76,7 +76,7 @@ let ApiHttpProvider = {
     PageNotFoundComponent,
     AddEditProjectComponent,
     ScenarioDropdownComponent,
-    ModelDropdownComponent,
+    ModelModalComponent,
     CityDropdownComponent
   ],
   imports: [

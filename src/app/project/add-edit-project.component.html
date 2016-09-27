@@ -26,10 +26,15 @@
                   <label for="project.scenario">Scenario</label>
                   <scenario-dropdown class="form-control" [project]="model.project"></scenario-dropdown>
                   <label for="project.models">Models</label>
-                  <model-dropdown class="form-control" [project]="model.project"></model-dropdown>
+                  <model-modal class="form-control" [project]="model.project"></model-modal>
                   <button type="submit"
-                          class="btn btn-default"
-                          [disabled]="!projectForm.form.valid">Create Project</button>
+                          class="submit btn btn-default"
+                          [disabled]="!projectForm.form.valid"
+                          *ngIf="!edit">Create Project</button>
+                  <button type="submit"
+                          class="submit btn btn-default"
+                          [disabled]="!projectForm.form.valid"
+                          *ngIf="edit">Update Project</button>
               </form>
         </div>
     </div>
