@@ -19,7 +19,7 @@ export class LoginComponent {
     model = new LoginForm('', '');
 
     onSubmit() {
-        this.authService.login(this.model.username, this.model.password)
+        this.authService.login(this.model.email, this.model.password)
             .subscribe(() => this.onLoginSuccess(), error => this.onLoginError(error));
     }
 
@@ -31,7 +31,7 @@ export class LoginComponent {
         if (console && console.error) {
             console.error(error);
         }
-        this.model.username = '';
+        this.model.email = '';
         this.model.password = '';
     }
 }

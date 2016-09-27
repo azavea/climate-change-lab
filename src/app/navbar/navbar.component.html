@@ -14,7 +14,7 @@
            [(isOpen)]="isSettingsDropdownOpen">
         <button id="settings-dropdown" type="button" class="button button-link" dropdownToggle>
           <i class="icon-user"></i>
-          {{ authService.getUsername() }}
+          {{ authService.getEmail() }}
           <i [ngClass]="{'icon-angle-down': !isSettingsDropdownOpen, 'icon-angle-up': isSettingsDropdownOpen}"></i>
         </button>
         <ul dropdownMenu class="dropdown-menu-right" role="menu" aria-labelledby="settings-dropdown">

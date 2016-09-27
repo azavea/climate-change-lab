@@ -7,14 +7,14 @@
             <h3>Login</h3>
 
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-                <label for="username">Username</label>
+                <label for="email">E-mail</label>
                 <input type="text"
                        class="form-control"
-                       id="username"
-                       name="username"
+                       id="email"
+                       name="email"
                        required
-                       placeholder="Username"
-                       [(ngModel)]="model.username">
+                       placeholder="E-mail"
+                       [(ngModel)]="model.email">
                 <label for="password">Password</label>
                 <input type="password"
                        class="form-control"
