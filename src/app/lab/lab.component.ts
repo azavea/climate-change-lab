@@ -39,12 +39,14 @@ export class LabComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Load existing project id or redirect to dashboard
-    let id = this.route.params.subscribe(params => id = params['id']);
-    if (id !== undefined) {
-      this.project = this.projectService.get(id);
-    } else {
-      this.router.navigate(['']);
-    }
+    this.route.params.subscribe(params => {
+      let id: string = params['id'];
+      if (id !== undefined) {
+        this.project = this.projectService.get(id);
+      } else {
+        this.router.navigate(['']);
+      }
+    });
   }
 
   ngOnDestroy() {
