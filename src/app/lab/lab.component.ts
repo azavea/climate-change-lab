@@ -27,7 +27,7 @@ import * as _ from 'lodash';
 })
 export class LabComponent implements OnInit, OnDestroy {
 
-  public apiCities: string = apiHost + "/api/city/?search=:keyword&format=json";
+  public apiCities: string = apiHost + "/api/city/?search=:keyword";
   public climateModels: ClimateModel[] = [];
   public scenarios: Scenario[] = [];
   public project: Project;
