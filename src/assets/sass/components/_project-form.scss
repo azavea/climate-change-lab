@@ -1,5 +1,5 @@
 .form {
-    width: 400px;
+    margin: 10% 20%;
 }
 
 label {
@@ -9,4 +9,10 @@ label {
 .form-control {
     width: 100%;
     margin-bottom: 20px;
+}
+
+.dropdown {
+    label {
+        display: inline;
+    }
 }
