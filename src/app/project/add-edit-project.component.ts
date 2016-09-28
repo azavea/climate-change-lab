@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Project } from '../models/project';
 import { Scenario } from '../models/scenario';
@@ -10,8 +10,8 @@ import { CityDropdownComponent } from '../lab/dropdowns/city-dropdown.component'
 import { ScenarioDropdownComponent } from '../lab/dropdowns/scenario-dropdown.component';
 import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
 
+
 /* Add/Edit Project Component
-    -- optionally accepts existing project, useful for edit mode
 */
 
 @Component({
@@ -20,18 +20,25 @@ import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
 })
 export class AddEditProjectComponent implements OnInit {
 
-    @Input() project: Project;
-    public edit: boolean;
-    public model;
+    public project: Project;
+    public edit: boolean = false;
+    public model = {'project': {} as Project};
 
-    constructor(private router: Router, private projectService: ProjectService) {
-        this.edit = this.project? true: false;
-    }
+    constructor(private router: Router,
+                private route: ActivatedRoute,
+                private projectService: ProjectService) {}
 
     ngOnInit() {
-        if (this.edit) {
-            this.model.project = this.project;
-        } else {
+        // Load current project
+        this.route.params.subscribe(params => {
+            let id: string = params['id'];
+            if (id !== undefined) {
+                this.model.project = this.projectService.get(id);
+                this.edit = true;
+            }
+        });
+        // Else, create new project
+        if (!this.edit) {
             this.model = new ProjectForm(new Project({}));
         }
     }
@@ -41,8 +48,8 @@ export class AddEditProjectComponent implements OnInit {
             this.projectService.update(this.model.project);
         } else {
             this.projectService.add(this.model.project);
-            this.onSuccess();
         }
+        this.onSuccess();
     }
 
     onSuccess() {
