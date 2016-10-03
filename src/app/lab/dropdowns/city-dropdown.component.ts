@@ -61,7 +61,9 @@ export class CityDropdownComponent {
     // custom formatter to display string for selected city as City, State
     public cityValueFormatter(data: any): string {
         let displayValue: string = "";
-        displayValue += data && data.properties ? data.properties.name + ', ' + data.properties.admin : data.toString();
+        if (data && data.properties) {
+            displayValue += data.properties.name + ', ' + data.properties.admin;
+        }
         return displayValue;
     }
 }
