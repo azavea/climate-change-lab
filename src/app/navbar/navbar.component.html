@@ -25,7 +25,7 @@
           <li role="menuitem" *ngIf="projectID">
             <a class="dropdown-item" [routerLink]="['/edit/', projectID]">Project Settings</a>
           </li>
-          <li class="divider dropdown-divider"></li>
+          <li class="divider dropdown-divider" *ngIf="projectID"></li>
           <li role="menuitem">
             <a class="dropdown-item" (click)="authService.logout()">Logout</a>
           </li>

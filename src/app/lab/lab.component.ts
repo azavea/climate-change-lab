@@ -3,12 +3,10 @@
  * App Component
  */
 import { Component, OnInit, OnDestroy, ViewEncapsulation, Input } from '@angular/core';
-import { Router, ActivatedRoute }     from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { ScenarioDropdownComponent } from './dropdowns/scenario-dropdown.component';
-import { ModelModalComponent } from './dropdowns/model-modal.component';
-import { CityDropdownComponent } from './dropdowns/city-dropdown.component';
 import { ProjectService } from '../services/project.service';
 
 import { Chart } from '../models/chart';
@@ -25,6 +23,7 @@ import * as _ from 'lodash';
 })
 export class LabComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription;
   public project: Project;
 
   constructor(private projectService: ProjectService,
@@ -34,7 +33,7 @@ export class LabComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Load existing project id or redirect to dashboard
-    this.route.params.subscribe(params => {
+    this.subscription = this.route.params.subscribe(params => {
       let id: string = params['id'];
       if (id !== undefined) {
         this.project = this.projectService.get(id);
@@ -45,6 +44,7 @@ export class LabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subscription.unsubscribe();
     this.projectService.update(this.project);
   }
 

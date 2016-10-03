@@ -40,6 +40,9 @@ export class AddEditProjectComponent implements OnInit {
         // Else, create new project
         if (!this.edit) {
             this.model = new ProjectForm(new Project({}));
+            // Dropdowns & autocompletes require a value, {} at the very least
+            this.model.project.scenario = {} as Scenario;
+            this.model.project.city = {} as City;
         }
     }
 

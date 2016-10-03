@@ -1,19 +1,25 @@
 .form {
     margin: 10% 20%;
-}
 
-label {
-    display: block;
+    label {
+        display: block;
+        margin-top: 20px;
+    }
 }
 
 .form-control {
     width: 100%;
-    margin-bottom: 20px;
 }
 
 .dropdown {
     label {
         display: inline;
+    }
+}
+
+.modal {
+    label {
+        margin: 0;
     }
 }
 
