@@ -7,6 +7,7 @@ import { Scenario } from '../models/scenario';
 
 import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
+import { CSVService } from '../services/csv.service';
 
 /*
  * Chart component
@@ -29,7 +30,8 @@ export class ChartComponent implements OnChanges {
     private chartData: ChartData[];
 
     constructor(private chartService: ChartService,
-                private indicatorService: IndicatorService) {}
+                private indicatorService: IndicatorService,
+                private csvService: CSVService) {}
 
     ngOnChanges() {
         this.chartData = [];
@@ -48,6 +50,10 @@ export class ChartComponent implements OnChanges {
 
     onSettingChange() {
         this.onChartSettingChanged.emit(this.chart);
+    }
+
+    onExportClicked() {
+        this.csvService.downloadAsCSV(this.chartData);
     }
 
     removeChart(chart: Chart) {

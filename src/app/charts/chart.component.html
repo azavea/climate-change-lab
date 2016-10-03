@@ -3,8 +3,13 @@
     {{chart.indicator.label}}
     </h2>
     <div class="chart-actions">
-        <button class="button button-link" tooltipPlacement="bottom" tooltipTrigger="mouseenter"
-            tooltipPopupDelay="300" title="" tooltip="Export"><i class="icon icon-export"></i>
+        <button class="button button-link"
+                tooltipPlacement="bottom"
+                tooltipTrigger="mouseenter"
+                tooltipPopupDelay="300"
+                title=""
+                tooltip="Export"
+                (click)="onExportClicked()"><i class="icon icon-export"></i>
         </button>
         <button class="button button-link"
                 tooltipPlacement="bottom"
