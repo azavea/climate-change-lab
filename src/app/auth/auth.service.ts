@@ -9,7 +9,7 @@ import { apiHost } from '../constants';
 export class AuthService {
 
     private LOCALSTORAGE_TOKEN_KEY: string = 'auth.api.token';
-    private LOCALSTORAGE_USERNAME_KEY: string = 'auth.api.username';
+    private LOCALSTORAGE_EMAIL_KEY: string = 'auth.api.email';
 
     // TODO: Inject a window or localStorage service here to abstract implicit
     //       dependency on window
@@ -19,18 +19,18 @@ export class AuthService {
         return window.localStorage.getItem(this.LOCALSTORAGE_TOKEN_KEY) || null;
     }
 
-    getUsername(): string {
-        let defaultUsername = this.isAuthenticated() ? 'User' : 'Anonymous';
-        return window.localStorage.getItem(this.LOCALSTORAGE_USERNAME_KEY) || defaultUsername;
+    getEmail(): string {
+        let defaultEmail = this.isAuthenticated() ? 'User' : 'Anonymous';
+        return window.localStorage.getItem(this.LOCALSTORAGE_EMAIL_KEY) || defaultEmail;
     }
 
     isAuthenticated(): boolean {
         return !!this.getToken();
     }
 
-    login(username: string, password: string): Observable<any> {
+    login(email: string, password: string): Observable<any> {
         let body = JSON.stringify({
-            'username': username,
+            'email': email,
             'password': password
         });
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -38,14 +38,14 @@ export class AuthService {
         let url = `${apiHost}/api-token-auth/`;
         return this.http.post(url, body, options).map(response => {
             let token = response.json().token;
-            this.setUsername(username);
+            this.setEmail(email);
             this.setToken(token);
         });
     }
 
     logout(redirectTo: string = '/login') {
         this.setToken(null);
-        this.setUsername(null);
+        this.setEmail(null);
         if (redirectTo) {
             this.router.navigate([redirectTo]);
         }
@@ -55,8 +55,8 @@ export class AuthService {
         this.setLocalStorageValue(this.LOCALSTORAGE_TOKEN_KEY, token);
     }
 
-    private setUsername(username: string | null) {
-        this.setLocalStorageValue(this.LOCALSTORAGE_USERNAME_KEY, username);
+    private setEmail(email: string | null) {
+        this.setLocalStorageValue(this.LOCALSTORAGE_EMAIL_KEY, email);
     }
 
     private setLocalStorageValue(key: string, value: string | null) {
