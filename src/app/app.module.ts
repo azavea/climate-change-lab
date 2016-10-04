@@ -38,6 +38,7 @@ import { ApiHttp } from './auth/api-http.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ChartService } from './services/chart.service';
+import { CSVService } from './services/csv.service';
 import { ClimateModelService } from './services/climate-model.service';
 import { IndicatorService } from './services/indicator.service';
 import { ScenarioService } from './services/scenario.service';
@@ -90,6 +91,7 @@ let ApiHttpProvider = {
     AuthService,
     AuthGuard,
     ChartService,
+    CSVService,
     ClimateModelService,
     IndicatorService,
     ScenarioService,
