@@ -50,8 +50,8 @@ export class LineGraphComponent {
         this.htmlElement = this.element.nativeElement;
         this.host = D3.select(this.element.nativeElement);
         this.timeOptions = {
-          'Yearly': '%Y',
-          'Daily': '%Y-%m-%d'
+          'yearly': '%Y',
+          'daily': '%Y-%m-%d'
         }
     }
 
@@ -79,7 +79,7 @@ export class LineGraphComponent {
         // Preserves parent data by fresh copying indicator data that will undergo processing
         let clippedData = _.cloneDeep(_.find(this.data, obj => obj.indicator.name === this.indicator.name));
         if (clippedData) {
-            this.timeFormat = this.timeOptions[clippedData.time_agg[0]];
+            this.timeFormat = this.timeOptions[clippedData.time_agg];
         }
         _.has(clippedData, 'data') ? this.extractedData = clippedData['data'] : this.extractedData = [];
         // Remove empty day in non-leap years (affects only daily data)
