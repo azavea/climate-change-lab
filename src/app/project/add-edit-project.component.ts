@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Project } from '../models/project';
 import { Scenario } from '../models/scenario';
@@ -23,6 +24,7 @@ export class AddEditProjectComponent implements OnInit {
     public project: Project;
     public edit: boolean = false;
     public model = {'project': {} as Project};
+    private routeParamsSubscription: Subscription;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -30,23 +32,29 @@ export class AddEditProjectComponent implements OnInit {
 
     ngOnInit() {
         // Load current project
-        this.route.params.subscribe(params => {
+        this.routeParamsSubscription = this.route.params.subscribe(params => {
             let id: string = params['id'];
             if (id !== undefined) {
                 this.model.project = this.projectService.get(id);
                 this.edit = true;
             }
+            // Reroute to dashboard if project doesn't exist
+            if (!this.model.project) {
+                this.router.navigate(['/']);
+            }
         });
         // Else, create new project
         if (!this.edit) {
-            this.model = new ProjectForm(new Project({}));
-            // Dropdowns & autocompletes require a value, {} at the very least
-            this.model.project.scenario = {} as Scenario;
-            this.model.project.city = {} as City;
+            this.model = new ProjectForm(new Project({
+                // Dropdowns & autocompletes require a value, {} at the very least
+                'scenario': {} as Scenario,
+                'city': {} as City
+            }));
         }
     }
 
     onSubmit() {
+        this.routeParamsSubscription.unsubscribe();
         if (this.edit) {
             this.projectService.update(this.model.project);
         } else {

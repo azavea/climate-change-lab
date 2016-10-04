@@ -1,4 +1,4 @@
-<div class="app-fullscreen">
+<div class="app-fullscreen" *ngIf="model.project">
 
     <navbar></navbar>
 
@@ -21,19 +21,19 @@
                          id="project.description"
                          name="project.description"
                          [(ngModel)]="model.project.description"></textarea>
-                  <label for="project.city">City</label>
+                  <label for="project.city">City*</label>
                   <city-dropdown [project]="model.project"></city-dropdown>
-                  <label for="project.scenario">Scenario</label>
+                  <label for="project.scenario">Scenario*</label>
                   <scenario-dropdown class="form-control" [project]="model.project"></scenario-dropdown>
                   <label for="project.models">Models</label>
                   <model-modal class="form-control" [project]="model.project"></model-modal>
                   <button type="submit"
                           class="submit btn btn-default"
-                          [disabled]="!projectForm.form.valid"
+                          [disabled]="!projectForm.form.valid || !model.project.city.id || !model.project.scenario.name"
                           *ngIf="!edit">Create Project</button>
                   <button type="submit"
                           class="submit btn btn-default"
-                          [disabled]="!projectForm.form.valid"
+                          [disabled]="!projectForm.form.valid || !model.project.city.id || !model.project.scenario.name"
                           *ngIf="edit">Update Project</button>
               </form>
         </div>

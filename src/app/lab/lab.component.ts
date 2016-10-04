@@ -23,43 +23,47 @@ import * as _ from 'lodash';
 })
 export class LabComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
-  public project: Project;
+    private routeParamsSubscription: Subscription;
+    public project: Project;
 
-  constructor(private projectService: ProjectService,
-              private route: ActivatedRoute,
-              private router: Router) {
-  }
+    constructor(private projectService: ProjectService,
+                private route: ActivatedRoute,
+                private router: Router) {
+    }
 
-  ngOnInit() {
-    // Load existing project id or redirect to dashboard
-    this.subscription = this.route.params.subscribe(params => {
-      let id: string = params['id'];
-      if (id !== undefined) {
-        this.project = this.projectService.get(id);
-      } else {
-        this.router.navigate(['']);
-      }
-    });
-  }
+    ngOnInit() {
+        // Load existing project id or redirect to dashboard
+        this.routeParamsSubscription = this.route.params.subscribe(params => {
+            let id: string = params['id'];
+            if (id !== undefined) {
+              this.project = this.projectService.get(id);
+            }
+            // Reroute to dashboard if project doesn't exist
+            if (!this.project) {
+                this.router.navigate(['/']);
+            }
+        });
+    }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.projectService.update(this.project);
-  }
+    ngOnDestroy() {
+        this.routeParamsSubscription.unsubscribe();
+        if (this.project) {
+            this.projectService.update(this.project);
+        }
+    }
 
-  public chartSettingChanged() {
-    this.projectService.update(this.project);
-  }
+    public chartSettingChanged() {
+        this.projectService.update(this.project);
+    }
 
-  public removeChart(chart: Chart) {
-    this.project.charts = this.project.charts.filter(c => c !== chart);
-    this.projectService.update(this.project);
-  }
+    public removeChart(chart: Chart) {
+        this.project.charts = this.project.charts.filter(c => c !== chart);
+        this.projectService.update(this.project);
+    }
 
-  public indicatorSelected(indicator: Indicator) {
-    let chart = new Chart({indicator: indicator});
-    this.project.charts.push(chart);
-    this.projectService.update(this.project);
-  }
+    public indicatorSelected(indicator: Indicator) {
+        let chart = new Chart({indicator: indicator});
+        this.project.charts.push(chart);
+        this.projectService.update(this.project);
+    }
 }
