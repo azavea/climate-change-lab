@@ -19,35 +19,18 @@
     }
 
     .table {
-        width: 100%;
-        padding: 0 3rem;
 
         tr {
-            background: none;
             border-bottom: gray 1px solid;
-        }
 
-        .name {
-            min-width: 70%;
-            cursor: pointer;
-        }
+            > div {
+                line-height: 5rem;
+            }
 
-        .num-charts {
-            width: 60px;
-            margin-left: 15px;
+            .name, .delete {
+                cursor: pointer;
+            }
         }
-
-        .timestamp {
-            width: auto;
-            margin-left: 15px;
-        }
-
-        .delete {
-            width: auto;
-            margin-left: 15px;
-            cursor: pointer;
-        }
-
     }
 }
 

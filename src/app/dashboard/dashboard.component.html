@@ -15,19 +15,22 @@
             <i class="icon-cloud"></i>
             <div>To explore climate change data, <a [routerLink]="['/new']">start a new project.</a></div>
         </div>
-        <table class="table" *ngIf="projects.length">
-            <tr class="row" *ngFor="let project of projects">
-                <div class="name" [routerLink]="['/lab', project.id]">{{ project.name }}</div>
-                <td class="num-charts">
-                    {{ project.charts.length }} chart<span *ngIf="project.charts.length > 1 || project.charts.length == 0">s</span>
-                </td>
-                <td class="timestamp">5 minutes</td>
-                <div class="delete" (click)="deleteProject(project)">
-                    <i class="icon-trash"></i>
-                </div>
-                <hr>
-            </tr>
-        </table>
+        <div *ngIf="projects.length">
+            <table class="table">
+                <tr class="row" *ngFor="let project of pageOfProjects">
+                    <div class="col-xs-7 name" [routerLink]="['/lab', project.id]">{{ project.name }}</div>
+                    <div class="col-xs-2">
+                        {{ project.charts.length }} chart<span *ngIf="project.charts.length > 1 || project.charts.length == 0">s</span>
+                    </div>
+                    <div class="col-xs-2">5 minutes</div>
+                    <div class="col-xs-1 delete" (click)="deleteProject(project)">
+                        <i class="icon-trash"></i>
+                    </div>
+                </tr>
+            </table>
+            <pagination [totalItems]="totalItems" [itemsPerPage]="5" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)">
+            </pagination>
+        </div>
     </div>
     <div class="about">
         <div class="title">
