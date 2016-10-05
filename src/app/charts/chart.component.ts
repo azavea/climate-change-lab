@@ -34,6 +34,7 @@ export class ChartComponent implements OnChanges {
                 private csvService: CSVService) {}
 
     ngOnChanges() {
+        if (!this.scenario || !this.city || !this.models) { return; }
         this.chartData = [];
         this.indicatorService.getData({
             indicator: this.chart.indicator,

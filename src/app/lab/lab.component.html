@@ -1,6 +1,6 @@
-  <div class="app-fullscreen">
+  <div class="app-fullscreen" *ngIf="this.project">
 
-    <navbar></navbar>
+    <navbar [projectID]="project.id"></navbar>
 
     <div class="flex-container">
 
@@ -9,56 +9,14 @@
       <div class="flex-expand">
         <nav class="controls">
           <div class="nav-left">
-            <div class="dropdown dropdown-location">
-              <div class="input">
-                <i class="icon-globe"></i>
-                <input auto-complete
-                    [(ngModel)]="project.city"
-                    [source]="apiCities"
-                    [list-formatter]="cityListFormatter"
-                    [value-formatter]="cityValueFormatter"
-                    display-property-name="name"
-                    path-to-data="features"
-                    [value-changed]="onCitySelected()"
-                    type="text"
-                    placeholder="Enter your city"
-                    min-chars="2" />
-
-              </div>
-            </div>
+            <!-- city selector -->
+            <city-dropdown [project]="project"></city-dropdown>
 
             <!-- scenario selector -->
-            <div dropdown class="dropdown dropdown-scenario">
-              <button dropdownToggle class="button dropdown-toggle" type="button"
-                id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="true">
-                <i class="icon-flash"></i>
-                {{ project.scenario.name }}
-                <i class="icon-angle-down caret"></i>
-              </button>
-              <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
-                <li *ngFor="let scenario of scenarios">
-                  <a (click)="updateScenario(scenario)"
-                    tooltip="{{ scenario.description }}"
-                    tooltipPlacement="bottom"
-                    tooltipTrigger="mouseenter"
-                    tooltipPopupDelay="300">{{ scenario.name }}</a>
-                </li>
-              </ul>
-            </div>
+            <scenario-dropdown [project]="project"></scenario-dropdown>
 
             <!-- climate model selector -->
-            <div class="dropdown dropdown-model">
-              <button class="button" type="button" data-target="#modelOptions"
-                aria-haspopup="true" aria-expanded="true"
-                (click)="smModal.show()">
-                <i class="icon-flash"></i>
-                {{ selectedClimateModels }}
-                <label>
-                  <a>Select Models</a>
-                </label>
-              </button>
-            </div>
+            <model-modal [project]="project"></model-modal>
 
           </div>
           <div class="nav-right"></div>
@@ -74,51 +32,5 @@
           </div>
         </div>
       </div>
-  </div>
-
-  <!-- TODO: remove config option to not display modal background once issue fixed:
-       valor-software/ng2-bootstrap#854 -->
-  <div class="modal modal-small fade"
-       id="modelOptions"
-       tabindex="-1"
-       role="dialog"
-       aria-labelledby="modelOptions"
-       aria-hidden="true"
-       bsModal #smModal="bs-modal"
-       [config]="{backdrop: 'static'}"
-       (onHide)="modalHide()">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <h4 class="modal-title">Select Models</h4>
-          <div>
-            <label>
-              <button type="button" (click)="selectAllClimateModels()">
-                Use all models
-              </button>
-              <button type="button" (click)="clearClimateModels()">
-                Clear all models
-              </button>
-            </label>
-          </div>
-          <hr />
-          <div *ngFor="let climateModel of climateModels">
-            <label>
-              <input type="checkbox"
-                     name="modelCheckbox"
-                     value="value"
-                     [(ngModel)]="climateModel.selected">
-              {{ climateModel.name }}
-            </label>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="button"
-                  data-dismiss="bs-modal"
-                  (click)="smModal.hide();"
-                  [disabled]="isModalUpdateButtonDisabled()">Update</button>
-        </div>
-      </div>
     </div>
   </div>
-

@@ -1,0 +1,41 @@
+<div class="app-fullscreen" *ngIf="model.project">
+
+    <navbar></navbar>
+
+    <div class="form">
+        <div class="project-title">
+          <h3 *ngIf="!edit">New project</h3>
+          <h3 *ngIf="edit">Edit project</h3>
+        </div>
+        <div class="add-edit-project-body">
+              <form (ngSubmit)="onSubmit()" #projectForm="ngForm">
+                  <label for="project.name">Title</label>
+                  <input type="text"
+                         class="form-control"
+                         id="project.name"
+                         name="project.name"
+                         [(ngModel)]="model.project.name">
+                  <label for="project.description">Description</label>
+                  <textarea type="text"
+                         class="form-control description"
+                         id="project.description"
+                         name="project.description"
+                         [(ngModel)]="model.project.description"></textarea>
+                  <label for="project.city">City*</label>
+                  <city-dropdown [project]="model.project"></city-dropdown>
+                  <label for="project.scenario">Scenario*</label>
+                  <scenario-dropdown class="form-control" [project]="model.project"></scenario-dropdown>
+                  <label for="project.models">Models</label>
+                  <model-modal class="form-control" [project]="model.project"></model-modal>
+                  <button type="submit"
+                          class="submit btn btn-default"
+                          [disabled]="!projectForm.form.valid || !model.project.city.id || !model.project.scenario.name"
+                          *ngIf="!edit">Create Project</button>
+                  <button type="submit"
+                          class="submit btn btn-default"
+                          [disabled]="!projectForm.form.valid || !model.project.city.id || !model.project.scenario.name"
+                          *ngIf="edit">Update Project</button>
+              </form>
+        </div>
+    </div>
+</div>

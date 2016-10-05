@@ -1,0 +1,28 @@
+.form {
+    margin: 10% 20%;
+
+    label {
+        display: block;
+        margin-top: 20px;
+    }
+}
+
+.form-control {
+    width: 100%;
+}
+
+.dropdown {
+    label {
+        display: inline;
+    }
+}
+
+.modal {
+    label {
+        margin: 0;
+    }
+}
+
+.submit.btn {
+    margin: 20px 0;
+}
