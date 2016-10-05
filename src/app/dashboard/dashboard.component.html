@@ -2,14 +2,6 @@
 
     <navbar></navbar>
 
-    <div class="dash-header">
-        <div class="dash-left">
-            <h2>Lab</h2>
-        </div>
-        <div class="dash-right">
-            <a class="button button-default" [routerLink]="['/new']">New Project</a>
-        </div>
-    </div>
     <div class="dash-body">
         <div *ngIf="!projects.length">
             <i class="icon-cloud"></i>
@@ -17,8 +9,16 @@
         </div>
         <div *ngIf="projects.length">
             <table class="table">
+                <tr class="row header">
+                    <div class="col-xs-7">
+                        <h2 class="title">Lab</h2>
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="button button-default pull-right" [routerLink]="['/new']">New Project</a>
+                    </div>
+                </tr>
                 <tr class="row" *ngFor="let project of pageOfProjects">
-                    <div class="col-xs-7 name" [routerLink]="['/lab', project.id]">{{ project.name }}</div>
+                    <div class="col-xs-6 name" [routerLink]="['/lab', project.id]">{{ project.name }}</div>
                     <div class="col-xs-2">
                         {{ project.charts.length }} chart<span *ngIf="project.charts.length > 1 || project.charts.length == 0">s</span>
                     </div>
@@ -28,7 +28,7 @@
                     </div>
                 </tr>
             </table>
-            <pagination [totalItems]="totalItems" [itemsPerPage]="5" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)">
+            <pagination [totalItems]="projects.length" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" (pageChanged)="setPage($event)">
             </pagination>
         </div>
     </div>

@@ -12,7 +12,7 @@ import {
     ModalModule,
     PaginationModule,
     TooltipModule,
-    TypeaheadModule, } from 'ng2-bootstrap/ng2-bootstrap';
+    TypeaheadModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { UiSwitchModule } from 'angular2-ui-switch';
 
 // App routing

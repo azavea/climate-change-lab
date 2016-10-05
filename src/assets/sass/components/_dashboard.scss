@@ -19,9 +19,18 @@
     }
 
     .table {
-
         tr {
+            background: none;
             border-bottom: gray 1px solid;
+
+            .title {
+                text-align: left;
+                margin: 4rem auto 4rem 3rem;
+            }
+
+            a{
+                margin: 4rem 1rem 4rem auto;
+            }
 
             > div {
                 line-height: 5rem;
