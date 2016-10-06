@@ -67,6 +67,7 @@ export class LineGraphComponent {
         this.setup();
         this.buildSVG();
         this.setLineScales();
+        this.drawGrid();
         this.drawMinMaxBand();
         this.drawTrendLine();
         this.drawThresholds();
@@ -120,8 +121,9 @@ export class LineGraphComponent {
         // Adjust y scale, prettify graph
         const minY = D3.min(_.map(this.extractedData, d => d.values.min));
         const maxY = D3.max(_.map(this.extractedData, d => d.values.max));
-        const yPad = (maxY - minY) > 0 ? (maxY - minY) * 1/3 : 10; // Note: 5 as default is arbitrary
-        this.yScale.domain([minY - yPad, maxY + yPad]);
+        const yPad = (maxY - minY) > 0 ? (maxY - minY) * 1/3 : 5; // Note: 5 as default is arbitrary
+        // if minY is 0, keep it that way
+        this.yScale.domain([minY == 0? minY: minY - yPad, maxY + yPad]);
 
         // Expects line data as DataPoint[]
         this.valueline = D3.line()
@@ -143,6 +145,30 @@ export class LineGraphComponent {
         this.svg.append('g')
           .call(D3.axisLeft(this.yScale)
           .ticks(5));
+    }
+
+    private drawGrid(): void {
+        this.svg.append('g')
+            .attr('class', 'grid line')
+            .call(this.makeXGridlines()
+                .tickSize(this.height)
+                .tickFormat(""));
+
+        this.svg.append('g')
+            .attr('class', 'grid line')
+            .call(this.makeYGridlines()
+                .tickSize(-this.width)
+                .tickFormat(""));
+    }
+
+    private makeXGridlines() {
+        return D3.axisBottom(this.xScale)
+            .ticks(5);
+    }
+
+    private makeYGridlines() {
+        return D3.axisLeft(this.yScale)
+            .ticks(5);
     }
 
     /* Draw line */
@@ -218,10 +244,6 @@ export class LineGraphComponent {
             if (this.min) {
                 // Draw min threshold line
                 let minData = [{'date': x1, 'value': this.minVal}, {'date': x2, 'value': this.minVal}];
-                if (this.minVal > this.yScale.invert(this.height) &&
-                        this.minVal < this.yScale.invert(0)) {  // only show when in chart area
-                    this.drawLine(minData, 'min-threshold');
-                }
 
                 // Prepare data for bar graph
                 let minBars = _(this.extractedData)
@@ -236,10 +258,6 @@ export class LineGraphComponent {
             if (this.max) {
                 // Draw max threshold line
                 let maxData = [{'date': x1, 'value': this.maxVal}, {'date': x2, 'value': this.maxVal}];
-                if (this.maxVal > this.yScale.invert(this.height) &&
-                        this.maxVal < this.yScale.invert(0)) {  // only show when in chart area
-                    this.drawLine(maxData, 'max-threshold');
-                }
 
                 // Prepare data for bar graph
                 let maxBars = _(this.extractedData)

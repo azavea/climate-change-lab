@@ -90,69 +90,55 @@ chart {
     fill: rgba(0, 0, 0, 0.9);
   }
 
-  .grid .tick {
-    stroke: rgba(0, 0, 0, 0.1);
-    opacity: 0.3;
+  .grid {
+
+    &.tick {
+      stroke: rgba(0, 0, 0, 0.1);
+      opacity: 0.3;
+    }
+
+    line {
+      stroke: #757575;
+      stroke-width: 1;
+      opacity: .3;
+      shape-rendering: crispEdges;
+    }
+
+    path {
+      stroke-width: 0;
+    }
   }
 
-  .grid path {
-    stroke-width: 0;
-  }
-
-  .grid .tick {
-    stroke: rgba(0, 0, 0, 0.1);
-    opacity: 0.3;
-  }
-
-  .grid path {
-    stroke-width: 0;
-  }
   .color-label{
     display: inline;
   }
 
   .line {
     fill: none;
-    stroke: #7b0ccf;
+    stroke: #1E8CEC;
     stroke-width: 2px;
   }
 
   .trendline {
     fill: none;
-    stroke: black;
+    stroke: #D44A34;
     stroke-width: 1px;
     opacity: .7;
   }
 
-  .min-threshold {
-    fill: none;
-    stroke: green;
-    stroke-width: .7px;
-    opacity: .7;
-    stroke-dasharray: 5 5;
-  }
-
-  .max-threshold {
-    fill: none;
-    stroke: red;
-    stroke-width: .7px;
-    opacity: .7;
-    stroke-dasharray: 5 5;
-  }
-
   .area {
-    fill: gray;
+    fill: #d7dbde;
     opacity: .7;
     z-index: -1;
   }
 
   .min-bar{
-    fill: green;
+    fill: #41424D;
     opacity: .4;
   }
 
   .max-bar{
-    fill: red;
+    fill: #F3B32F;
     opacity: .4;
   }
 
@@ -175,4 +161,9 @@ chart {
       }
     }
   }
+}
+
+.switch.switch-small.checked {
+  background-color: #d7dbde;
+  border-color: #d7dbde;
 }
