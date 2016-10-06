@@ -215,35 +215,40 @@ export class LineGraphComponent {
             let x1 = this.xRange[1];
             let x2 = this.xRange[0];
             let y = D3.max(this.yData);
-
-            if (this.min && this.minVal) {
+            if (this.min) {
                 // Draw min threshold line
                 let minData = [{'date': x1, 'value': this.minVal}, {'date': x2, 'value': this.minVal}];
-                this.drawLine(minData, 'min-threshold');
+                if (this.minVal > this.yScale.invert(this.height) &&
+                        this.minVal < this.yScale.invert(0)) {  // only show when in chart area
+                    this.drawLine(minData, 'min-threshold');
+                }
 
                 // Prepare data for bar graph
-                let minBars = _.map(this.extractedData, (datum, index) => {
-                    let val = this.minVal >  this.yData[index] ? y * 2 : 0;
-                    return { 'date': datum['date'], 'value': val };
-                });
+                let minBars = _(this.extractedData)
+                              .map((datum, index) => ({ 'date': datum['date'] }))
+                              .filter((bar, index) => this.minVal > this.yData[index])
+                              .value();
 
                 // Add bar graph
-                this.drawBarGraph(minBars, 'min-bar');
+                this.drawBands(minBars, 'min-bar');
             }
 
-            if (this.max && this.maxVal) {
+            if (this.max) {
                 // Draw max threshold line
                 let maxData = [{'date': x1, 'value': this.maxVal}, {'date': x2, 'value': this.maxVal}];
-                this.drawLine(maxData, 'max-threshold');
+                if (this.maxVal > this.yScale.invert(this.height) &&
+                        this.maxVal < this.yScale.invert(0)) {  // only show when in chart area
+                    this.drawLine(maxData, 'max-threshold');
+                }
 
                 // Prepare data for bar graph
-                let maxBars = _.map(this.extractedData, (datum, index) => {
-                    let val = this.maxVal <  this.yData[index] ? y * 2 : 0;
-                    return { 'date': datum['date'], 'value': val }
-                });
+                let maxBars = _(this.extractedData)
+                              .map((datum, index) => ({ 'date': datum['date'] }))
+                              .filter((bar, index) => this.maxVal < this.yData[index])
+                              .value();
 
                 // Add bar graph
-                this.drawBarGraph(maxBars, 'max-bar');
+                this.drawBands(maxBars, 'max-bar');
             }
         }
     }
@@ -255,7 +260,7 @@ export class LineGraphComponent {
           .attr('d', this.valueline);
     }
 
-    private drawBarGraph(data: Array<DataPoint>, className: string): void {
+    private drawBands(data: Array<DataPoint>, className: string): void {
         let xscale = D3.scaleBand()
           .range([0, this.width])
           .padding(0)
@@ -267,7 +272,7 @@ export class LineGraphComponent {
           .attr('class', className)
           .attr('x', d => xscale(d.date))
           .attr('width', xscale.bandwidth())
-          .attr('y', d => this.yScale(d.value))
-          .attr('height', d => this.height - this.yScale(d.value));
+          .attr('y', 0)
+          .attr('height', this.height);
     }
 }
