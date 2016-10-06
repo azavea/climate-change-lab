@@ -255,22 +255,6 @@ export class LineGraphComponent {
           .attr('d', this.valueline);
     }
 
-    private drawBarGraph(data: Array<DataPoint>, className: string): void {
-        let xscale = D3.scaleBand()
-          .range([0, this.width])
-          .padding(0)
-          .domain(_.map(this.extractedData, d => d.date));
-
-        this.svg.selectAll('.' + className)
-          .data(data)
-          .enter().append('rect')
-          .attr('class', className)
-          .attr('x', d => xscale(d.date))
-          .attr('width', xscale.bandwidth())
-          .attr('y', d => this.yScale(d.value))
-          .attr('height', d => this.height - this.yScale(d.value));
-    }
-
     private drawBands(data: Array<DataPoint>, className: string): void {
         let xscale = D3.scaleBand()
           .range([0, this.width])
