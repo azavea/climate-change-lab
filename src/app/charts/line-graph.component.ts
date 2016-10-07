@@ -137,9 +137,11 @@ export class LineGraphComponent {
           .attr('transform', 'translate(0,' + this.height + ')')
           .attr('class', 'axis')
           .call(D3.axisBottom(this.xScale)
-          .ticks(5)
-          .tickSize(0)
-          .tickFormat(D3.timeFormat(this.timeFormat)));
+              .ticks(5)
+              .tickSize(0)
+              .tickFormat(D3.timeFormat(this.timeFormat)))
+          .selectAll("text")
+          .attr("y", 10);
     }
 
     /* Will draw the Y Axis */
@@ -147,8 +149,10 @@ export class LineGraphComponent {
         this.svg.append('g')
           .attr('class', 'axis')
           .call(D3.axisLeft(this.yScale)
-          .tickSize(0)
-          .ticks(5));
+              .tickSize(0)
+              .ticks(5))
+          .selectAll("text")
+          .attr("x", -10);
     }
 
     private drawGrid(): void {
