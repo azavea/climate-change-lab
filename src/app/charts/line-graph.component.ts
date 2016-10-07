@@ -135,6 +135,7 @@ export class LineGraphComponent {
     private drawXAxis(): void {
         this.svg.append('g')
           .attr('transform', 'translate(0,' + this.height + ')')
+          .attr('class', 'axis')
           .call(D3.axisBottom(this.xScale)
           .ticks(5)
           .tickSize(0)
@@ -144,6 +145,7 @@ export class LineGraphComponent {
     /* Will draw the Y Axis */
     private drawYAxis(): void {
         this.svg.append('g')
+          .attr('class', 'axis')
           .call(D3.axisLeft(this.yScale)
           .tickSize(0)
           .ticks(5));
