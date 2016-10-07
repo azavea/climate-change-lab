@@ -25,18 +25,22 @@ export class DashboardComponent implements OnInit {
         this.projects = this.projectService.list();
     }
 
-    public deleteProject(project) {
+    public deleteProject(project: Project) {
+        let projectIndex = this.projects.findIndex(p => p.id === project.id);
         this.projectService.remove(project);
         this.getProjects();
         let page = this.currentPage;
-        if (this.projects.length % this.itemsPerPage === 0) {
+        // Switch to previous page if the deleted project is the last project and is also
+        //  the last project on the current page
+        if (this.projects.length % this.itemsPerPage === 0 &&
+            projectIndex === this.projects.length) {
             page = page - 1;
         }
         this.setPage(page);
     }
 
     public setPage(page: number) {
-        this.currentPage = page;
+        this.currentPage = page < 1 ? 1 : page;
         let index = this.itemsPerPage * (page - 1);
         this.pageOfProjects = this.projects.slice(index, index + this.itemsPerPage);
     }
