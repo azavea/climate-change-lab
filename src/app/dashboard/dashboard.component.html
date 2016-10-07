@@ -8,28 +8,32 @@
             <div>To explore climate change data, <a [routerLink]="['/new']">start a new project.</a></div>
         </div>
         <div *ngIf="projects.length">
-            <table class="table">
-                <tr class="row header">
-                    <div class="col-xs-7">
-                        <h2 class="title">Lab</h2>
-                    </div>
-                    <div class="col-xs-4">
-                        <a class="button button-default pull-right" [routerLink]="['/new']">New Project</a>
-                    </div>
-                </tr>
-                <tr class="row" *ngFor="let project of pageOfProjects">
-                    <div class="col-xs-6 name" [routerLink]="['/lab', project.id]">{{ project.name }}</div>
-                    <div class="col-xs-2">
-                        {{ project.charts.length }} chart<span *ngIf="project.charts.length > 1 || project.charts.length == 0">s</span>
-                    </div>
-                    <div class="col-xs-2">5 minutes</div>
-                    <div class="col-xs-1 delete" (click)="deleteProject(project)">
-                        <i class="icon-trash"></i>
-                    </div>
-                </tr>
-            </table>
-            <pagination [totalItems]="projects.length" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" (pageChanged)="setPage($event)">
-            </pagination>
+            <div class="header-row row columns-center align-justify">
+                    <h2 class="title">Lab</h2>
+                    <a class="button button-default" [routerLink]="['/new']">New Project</a>
+            </div>
+            <div class="row project-row" *ngFor="let project of pageOfProjects">
+                <div class="column-7 name text-left pointer" [routerLink]="['/lab', project.id]">{{ project.name }}</div>
+                <div class="column-2">
+                    {{ project.charts.length }} chart<span *ngIf="project.charts.length > 1 || project.charts.length == 0">s</span>
+                </div>
+                <div class="column-2">5 minutes</div>
+                <div class="column-1 delete pointer" (click)="deleteProject(project)">
+                    <i class="icon-trash"></i>
+                </div>
+            </div>
+            <div class="row controls-row">
+                <div class="column-6 text-left">
+                    <a *ngIf="currentPage > 1"
+                       class="pointer"
+                       (click)="setPage(currentPage - 1)">Previous {{ itemsPerPage }}</a>
+                </div>
+                <div class="column-6 text-right">
+                    <a *ngIf="currentPage * itemsPerPage < projects.length"
+                       class="pointer"
+                       (click)="setPage(currentPage + 1)">Next {{ itemsPerPage }}</a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="about">

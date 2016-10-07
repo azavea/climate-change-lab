@@ -11,35 +11,34 @@
 }
 
 .dash-body {
+
+    h2 {
+        margin: 0;
+    }
+
+    .row {
+        margin: 0 20%;
+        padding: 20px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .header-row {
+        margin-top: 40px;
+    }
+
+    .controls-row {
+        border: none;
+
+        a {
+            color: $brand-primary;
+        }
+    }
+
     text-align: center;
     margin-bottom: 40px;
 
     .icon-cloud {
         font-size: 300px;
-    }
-
-    .table {
-        tr {
-            background: none;
-            border-bottom: gray 1px solid;
-
-            .title {
-                text-align: left;
-                margin: 4rem auto 4rem 3rem;
-            }
-
-            a{
-                margin: 4rem 1rem 4rem auto;
-            }
-
-            > div {
-                line-height: 5rem;
-            }
-
-            .name, .delete {
-                cursor: pointer;
-            }
-        }
     }
 }
 

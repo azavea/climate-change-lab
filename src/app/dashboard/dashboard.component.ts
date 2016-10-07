@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.getProjects();
-        this.setPage();
+        this.setPage(this.currentPage);
     }
 
     public getProjects() {
@@ -26,23 +26,17 @@ export class DashboardComponent implements OnInit {
     }
 
     public deleteProject(project) {
-        // special handling for page with single project
-        if (this.pageOfProjects.length == 1 && this.currentPage !==1) {
-            // first switch to prior page else pagination breaks
-            this.currentPage -= 1;
-            this.setPage();
-            // then remove project
-            this.projectService.remove(project);
-            this.getProjects();
-        } else {
-            this.projectService.remove(project);
-            this.getProjects();
-            this.setPage();
+        this.projectService.remove(project);
+        this.getProjects();
+        let page = this.currentPage;
+        if (this.projects.length % this.itemsPerPage === 0) {
+            page = page - 1;
         }
+        this.setPage(page);
     }
 
-    public setPage(event?: any) {
-        let page: number = event? event.page: this.currentPage;
+    public setPage(page: number) {
+        this.currentPage = page;
         let index = this.itemsPerPage * (page - 1);
         this.pageOfProjects = this.projects.slice(index, index + this.itemsPerPage);
     }
