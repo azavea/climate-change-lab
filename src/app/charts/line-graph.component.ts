@@ -137,6 +137,7 @@ export class LineGraphComponent {
           .attr('transform', 'translate(0,' + this.height + ')')
           .call(D3.axisBottom(this.xScale)
           .ticks(5)
+          .tickSize(0)
           .tickFormat(D3.timeFormat(this.timeFormat)));
     }
 
@@ -144,6 +145,7 @@ export class LineGraphComponent {
     private drawYAxis(): void {
         this.svg.append('g')
           .call(D3.axisLeft(this.yScale)
+          .tickSize(0)
           .ticks(5));
     }
 
