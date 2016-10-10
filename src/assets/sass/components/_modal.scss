@@ -60,6 +60,10 @@
   border-radius: $modal-border-radius;
   background-clip: padding-box;
   outline: 0;
+
+  label {
+    font-weight: normal;
+  }
 }
 
 .modal-backdrop {
@@ -105,5 +109,3 @@
   height: 50px;
   overflow: scroll;
 }
-
-

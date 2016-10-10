@@ -18,7 +18,7 @@ import { apiHost } from "../../constants";
   selector: 'city-dropdown',
   template: `<div class="dropdown dropdown-location">
               <div class="input">
-                <i class="icon-globe"></i>
+                <i *ngIf="showIcon" class="icon-globe"></i>
                 <input auto-complete
                     [(ngModel)]="project.city"
                     [source]="apiCities"
@@ -38,6 +38,7 @@ export class CityDropdownComponent {
     public apiCities: string = apiHost + "/api/city/?search=:keyword";
 
     @Input() project: Project;
+    @Input() showIcon: boolean = true;
 
     constructor() {}
 

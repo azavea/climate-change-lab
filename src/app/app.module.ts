@@ -10,6 +10,7 @@ import {
     CollapseModule,
     DropdownModule,
     ModalModule,
+    PaginationModule,
     TooltipModule,
     TypeaheadModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { UiSwitchModule } from 'angular2-ui-switch';
@@ -88,6 +89,7 @@ let ApiHttpProvider = {
     CollapseModule,
     DropdownModule,
     ModalModule,
+    PaginationModule,
     TooltipModule,
     Ng2AutoCompleteModule,
     UiSwitchModule

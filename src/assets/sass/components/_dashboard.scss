@@ -1,31 +1,54 @@
 .dash-left {
-  display: inline-flex;
-  float: left;
-  padding: 0.75rem 1.5rem 0;
+    display: inline-flex;
+    float: left;
+    padding: 0.75rem 3rem 0;
 }
 
 .dash-right {
-  display: inline-flex;
-  float: right;
-  padding: 0.75rem 1.5rem 0;
+    display: inline-flex;
+    float: right;
+    padding: 0.75rem 3rem 0;
 }
 
 .dash-body {
+
+    h2 {
+        margin: 0;
+    }
+
+    .row {
+        margin: 0 20%;
+        padding: 20px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .header-row {
+        margin-top: 40px;
+    }
+
+    .controls-row {
+        border: none;
+
+        a {
+            color: $brand-primary;
+        }
+    }
+
     text-align: center;
     margin-bottom: 40px;
 
     .icon-cloud {
-      font-size: 300px;
+        font-size: 300px;
     }
 }
 
 .about {
-  display: inline-table;
-  background-color: lightgrey;
-  padding: 30px 50px;
-  width: 100%;
+    display: inline-table;
+    background-color: lightgrey;
+    padding: 30px 50px;
+    width: 100%;
 
-  h2 {
-    margin: 0 0 20px;
-  }
+    h2 {
+        margin: 0 0 20px;
+    }
 }

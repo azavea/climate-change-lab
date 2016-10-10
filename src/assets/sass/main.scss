@@ -1,4 +1,4 @@
-$demo-styles: true;
+@import "bootstrap-core";
 
 /* * * *
  * Utilities
@@ -17,7 +17,7 @@ $demo-styles: true;
 /* * * *
  * Vendors imports
  * * * */
-// @import Placeholder
+@import "bootstrap-components";
 
 /* * * *
  * Base boilerplate styling
@@ -63,14 +63,3 @@ $demo-styles: true;
 
 @import
   'pages/labs';
-
-/* * * *
- * Demo styling
- * * * */
-@mixin demo-everything($demo: true) {
-  @if $demo {
-    @include demo;
-  }
-}
-@import 'demo';
-@include demo-everything;
