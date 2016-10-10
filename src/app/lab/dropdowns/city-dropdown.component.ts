@@ -26,7 +26,6 @@ import { apiHost } from "../../constants";
                     [value-formatter]="cityValueFormatter"
                     display-property-name="name"
                     path-to-data="features"
-                    [value-changed]="onCityClicked()"
                     type="text"
                     placeholder="Enter your city"
                     min-chars="2" />
@@ -41,16 +40,6 @@ export class CityDropdownComponent {
     @Input() showIcon: boolean = true;
 
     constructor() {}
-
-   /* Factory that returns a callback invoked when user picks a city.
-   * Note that this is invoked rather than passed in the directive, to get the inner function.
-   * Using an arrow function to keep the current context, in order to reference the chart service.
-   */
-    public onCityClicked(value: any) {
-        return (value) => {
-            this.project.city = value;
-        };
-    }
 
     // custom formatter to display list of options as City, State
     public cityListFormatter(data: any): string {
