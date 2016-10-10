@@ -61,9 +61,6 @@ export class AutoComplete {
       .map(resp => resp.json())
       .map(resp => {
         var list = resp.data || resp;
-
-        console.log(list);
-
         if (this.pathToData) {
           var paths = this.pathToData.split(".");
           paths.forEach(prop => list = list[prop]);

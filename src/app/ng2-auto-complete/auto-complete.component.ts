@@ -26,7 +26,7 @@ import { AutoComplete } from "./auto-complete";
     <ul *ngIf="dropdownVisible"
       [style.bottom]="inputEl.style.height"
       [style.position]="closeToBottom ? 'absolute': ''">
-      <li *ngIf="isLoading" class="loading">Loading</li>
+      <li *ngIf="isLoading && keyword.length >= minChars" class="loading">Loading</li>
       <li *ngIf="blankOptionText"
           (mousedown)="selectOne('')"
           class="blank-item">{{blankOptionText}}</li>
