@@ -77,83 +77,66 @@ chart {
     }
   }
 
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: rgba(0, 0, 0, 0.2);
-    color: rgba(0, 0, 0, 0.2);
-    shape-rendering: crispEdges;
+  .axis {
+
+    color: #757575;
+    opacity: .5;
+
+    path, line {
+      fill: none;
+      stroke-width: 1;
+    }
+
+    text {
+      font-size: 11px;
+    }
   }
 
-  .axis text {
-    font-size: 11px;
-    fill: rgba(0, 0, 0, 0.9);
+  .grid {
+
+    line {
+      stroke: #757575;
+      stroke-width: .5;
+      opacity: .3;
+      shape-rendering: crispEdges;
+    }
+
+    path {
+      stroke-width: 0;
+    }
   }
 
-  .grid .tick {
-    stroke: rgba(0, 0, 0, 0.1);
-    opacity: 0.3;
-  }
-
-  .grid path {
-    stroke-width: 0;
-  }
-
-  .grid .tick {
-    stroke: rgba(0, 0, 0, 0.1);
-    opacity: 0.3;
-  }
-
-  .grid path {
-    stroke-width: 0;
-  }
   .color-label{
     display: inline;
   }
 
   .line {
     fill: none;
-    stroke: #7b0ccf;
+    stroke: #1E8CEC;
     stroke-width: 2px;
   }
 
   .trendline {
     fill: none;
-    stroke: black;
+    stroke: #D44A34;
     stroke-width: 1px;
     opacity: .7;
   }
 
-  .min-threshold {
-    fill: none;
-    stroke: green;
-    stroke-width: .7px;
-    opacity: .7;
-    stroke-dasharray: 5 5;
-  }
-
-  .max-threshold {
-    fill: none;
-    stroke: red;
-    stroke-width: .7px;
-    opacity: .7;
-    stroke-dasharray: 5 5;
-  }
-
   .area {
-    fill: gray;
+    fill: #EFF4F7;
     opacity: .7;
     z-index: -1;
   }
 
   .min-bar{
-    fill: green;
-    opacity: .4;
+    fill: #41424D;
+    opacity: .3;
   }
 
   .max-bar{
-    fill: red;
-    opacity: .4;
+    fill: #F3B32F;
+    opacity: .3;
   }
 
   .chart-controls {
@@ -175,4 +158,9 @@ chart {
       }
     }
   }
+}
+
+.switch.switch-small.checked {
+  background-color: #EFF4F7!important;
+  border-color: #EFF4F7!important;
 }
