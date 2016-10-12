@@ -13,7 +13,7 @@ import * as $ from 'jquery';
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
-  inputs: [ 'data', 'indicator', 'trendline', 'min', 'max', 'minVal', 'maxVal' ]
+  inputs: [ 'data', 'indicator', 'trendline', 'min', 'max', 'minVal', 'maxVal', 'isHover' ]
 })
 
 export class LineGraphComponent {
@@ -26,6 +26,7 @@ export class LineGraphComponent {
     public max: Boolean;
     public minVal: number;
     public maxVal: number;
+    public isHover: Boolean;
 
     private host;                          // D3 object referebcing host dom object
     private svg;                           // SVG in which we will print our chart
@@ -40,8 +41,11 @@ export class LineGraphComponent {
     private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
     private yData: Array<number>;          // Stores primary y axis data, multi-use
     private trendData: Array<DataPoint>;   // Formatted data for the trendline
+    private focus;                         // Scrubber element
+    private scrubberLine;                  // Scrubber element
     private timeOptions: any;
     private timeFormat: string;
+
 
     /* We request angular for the element reference
     * and then we create a D3 Wrapper for our host element
@@ -60,6 +64,13 @@ export class LineGraphComponent {
       this.ngOnChanges();
     }
 
+    @HostListener('mousemove', ['$event'])
+    onMouseMove(event) {
+      if (this.isHover) {
+        this.handleMouseOverGraph(event);
+      }
+    }
+
     /* Will Update on every @Input change */
     ngOnChanges(): void {
         if (!this.data || this.data.length === 0) return;
@@ -74,6 +85,7 @@ export class LineGraphComponent {
         this.drawXAxis();
         this.drawYAxis();
         this.drawAvgLine();
+        this.drawScrubber();
     }
 
     private filterData(): void {
@@ -140,8 +152,8 @@ export class LineGraphComponent {
               .ticks(5)
               .tickSize(0)
               .tickFormat(D3.timeFormat(this.timeFormat)))
-          .selectAll("text")
-          .attr("y", 10);
+          .selectAll('text')
+          .attr('y', 10);
     }
 
     /* Will draw the Y Axis */
@@ -151,8 +163,8 @@ export class LineGraphComponent {
           .call(D3.axisLeft(this.yScale)
               .tickSize(0)
               .ticks(5))
-          .selectAll("text")
-          .attr("x", -10);
+          .selectAll('text')
+          .attr('x', -10);
     }
 
     private drawGrid(): void {
@@ -239,7 +251,7 @@ export class LineGraphComponent {
         // Draw min/max area
         this.svg.append('path')
           .data([minMaxData])
-          .attr('class', "area")
+          .attr('class', 'area')
           .attr('d', area);
     }
 
@@ -277,6 +289,74 @@ export class LineGraphComponent {
                 this.drawBands(maxBars, 'max-bar');
             }
         }
+    }
+
+    private drawScrubber(): void {
+        let indicator = this.indicator.name;
+        this.focus = this.svg.append('g')
+          .attr('class', indicator)
+          .classed('hidden', true);
+
+        this.focus.append('circle')
+          .attr('r', 4.5);
+
+        this.focus.append('text')
+          .attr('class', 'scrubber-text');
+
+        // vertical scrub line
+        this.svg.append('line')
+          .attr('class', 'scrubline' + ' ' + indicator)
+          .attr('x1', 0).attr('x2', 0)
+          .attr('y1', 0).attr('y2', this.height)
+          .classed('hidden', true);
+
+        // Sensory area
+        this.svg.append('rect')
+          .attr('class', 'overlay' + ' ' + indicator)
+          .attr('width', this.width)
+          .attr('height', this.height);
+
+        // Toggle scrubber visibility
+        this.isHover? $('.'+ indicator).toggleClass('hidden', false) : $('.'+ indicator).toggleClass('hidden', true);
+    }
+
+    private handleMouseOverGraph(event) {
+        let xPos = event.offsetX - this.margin.left,
+        yPos = event.offsetY - this.margin.top;
+        // Firefox handles event positioning differently than Chrome, Safari
+        if (navigator.userAgent.indexOf('Firefox') != -1) {
+            xPos = event.offsetX;
+            yPos = event.offsetY;
+        }
+
+        // default round down position to existing time point
+        let bisectDate = D3.bisector(function(d) { return d.date; }).left;
+        let x0 = this.xScale.invert(xPos),
+          i = bisectDate(this.extractedData, x0, 1),
+          d0 = this.extractedData[i - 1],
+          d1 = this.extractedData[i],
+          d: number;
+
+        // prevent error leaving graph
+        if (d0 && d1) {
+          d = x0 - d0.date > d1.date - x0 ? i : i-1;
+        } else {
+          d = i-1;
+        }
+
+        let yDatum = this.yData[d];
+
+        // transform scubber elements
+        this.focus
+          .attr('transform', 'translate(' + xPos + ',' + this.yScale(yDatum) + ')');
+
+        this.svg.select('.scrubline')
+          .attr('transform', 'translate(' + xPos + ',' + 0 + ')');
+
+        //update scrubber text
+        D3.select('.scrubber-text')
+           .text(yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'])
+           .attr('transform', 'translate(' + -25 + ',' + -15 + ')');
     }
 
     private drawLine(data: Array<DataPoint>, className: string): void {

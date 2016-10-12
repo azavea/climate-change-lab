@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, HostListener } from '@angular/core';
 
 import { Chart, ChartData } from '../models/chart';
 import { City } from '../models/city';
@@ -28,10 +28,23 @@ export class ChartComponent implements OnChanges {
     @Input() city: City;
 
     private chartData: ChartData[];
+    private isHover: Boolean;
+
+    @HostListener('mouseover', ['$event'])
+    onMouseOver(event) {
+      this.isHover = true;
+    }
+
+    @HostListener('mouseleave', ['$event'])
+    onMouseOut(event) {
+      this.isHover = false;
+    }
 
     constructor(private chartService: ChartService,
                 private indicatorService: IndicatorService,
-                private csvService: CSVService) {}
+                private csvService: CSVService) {
+        this.isHover = false;
+    }
 
     ngOnChanges() {
         if (!this.scenario || !this.city || !this.models) { return; }
