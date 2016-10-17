@@ -13,7 +13,7 @@ import * as $ from 'jquery';
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
-  inputs: [ 'data', 'indicator', 'trendline', 'min', 'max', 'minVal', 'maxVal', 'isHover' ]
+  inputs: [ 'data', 'indicator', 'trendline', 'min', 'max', 'minVal', 'maxVal', 'hover' ]
 })
 
 export class LineGraphComponent {
@@ -26,7 +26,7 @@ export class LineGraphComponent {
     public max: Boolean;
     public minVal: number;
     public maxVal: number;
-    public isHover: Boolean;
+    public hover: Boolean;
 
     private host;                          // D3 object referebcing host dom object
     private svg;                           // SVG in which we will print our chart
@@ -66,7 +66,7 @@ export class LineGraphComponent {
 
     @HostListener('mousemove', ['$event'])
     onMouseMove(event) {
-      if (this.isHover) {
+      if (this.hover) {
         this.handleMouseOverGraph(event);
       }
     }
@@ -316,7 +316,7 @@ export class LineGraphComponent {
           .attr('class', 'scrubber-text' + ' ' + indicator);
 
         // Toggle scrubber visibility
-        this.isHover? $('.'+ indicator).toggleClass('hidden', false) : $('.'+ indicator).toggleClass('hidden', true);
+        this.hover? $('.'+ indicator).toggleClass('hidden', false) : $('.'+ indicator).toggleClass('hidden', true);
     }
 
     private handleMouseOverGraph(event) {
