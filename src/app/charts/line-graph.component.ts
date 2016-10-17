@@ -301,7 +301,7 @@ export class LineGraphComponent {
           .attr('r', 4.5);
 
         this.focus.append('text')
-          .attr('class', 'scrubber-text');
+          .attr('class', 'scrubber-text' + ' ' + indicator);
 
         // vertical scrub line
         this.svg.append('line')
@@ -354,7 +354,7 @@ export class LineGraphComponent {
           .attr('transform', 'translate(' + xPos + ',' + 0 + ')');
 
         //update scrubber text
-        D3.select('.scrubber-text')
+        D3.select('.scrubber-text.' + this.indicator.name)
            .text(yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'])
            .attr('transform', 'translate(' + -25 + ',' + -15 + ')');
     }
