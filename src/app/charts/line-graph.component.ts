@@ -293,15 +293,6 @@ export class LineGraphComponent {
 
     private drawScrubber(): void {
         let indicator = this.indicator.name;
-        this.focus = this.svg.append('g')
-          .attr('class', indicator)
-          .classed('hidden', true);
-
-        this.focus.append('circle')
-          .attr('r', 4.5);
-
-        this.focus.append('text')
-          .attr('class', 'scrubber-text' + ' ' + indicator);
 
         // vertical scrub line
         this.svg.append('line')
@@ -310,11 +301,19 @@ export class LineGraphComponent {
           .attr('y1', 0).attr('y2', this.height)
           .classed('hidden', true);
 
-        // Sensory area
-        this.svg.append('rect')
-          .attr('class', 'overlay' + ' ' + indicator)
-          .attr('width', this.width)
-          .attr('height', this.height);
+        this.focus = this.svg.append('g')
+          .attr('class', indicator)
+          .classed('hidden', true);
+
+        this.focus.append('circle')
+          .attr('r', 4.5);
+
+        this.focus.append('rect')
+          .attr('class', 'scrubber-box' + ' ' + indicator)
+          .attr('height', 20);
+
+        this.focus.append('text')
+          .attr('class', 'scrubber-text' + ' ' + indicator);
 
         // Toggle scrubber visibility
         this.isHover? $('.'+ indicator).toggleClass('hidden', false) : $('.'+ indicator).toggleClass('hidden', true);
@@ -350,13 +349,23 @@ export class LineGraphComponent {
         this.focus
           .attr('transform', 'translate(' + xPos + ',' + this.yScale(yDatum) + ')');
 
-        this.svg.select('.scrubline')
+        this.svg.selectAll('.scrubline')
           .attr('transform', 'translate(' + xPos + ',' + 0 + ')');
 
         //update scrubber text
-        D3.select('.scrubber-text.' + this.indicator.name)
-           .text(yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'])
-           .attr('transform', 'translate(' + -25 + ',' + -15 + ')');
+        let labelText = yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'];
+        let textSVG = D3.select('.scrubber-text.' + this.indicator.name)
+          .text(labelText);
+
+        // center text
+        let labelWidth = textSVG.node().getBBox().width;
+        textSVG
+          .attr('transform', 'translate(' + -labelWidth/2 + ',' + -15 + ')');
+
+        //update text box length
+        D3.select('.scrubber-box.' + this.indicator.name)
+          .attr('width', textSVG.node().getBBox().width + 10)
+          .attr('transform', 'translate(' + -(labelWidth/2 + 5) + ',' + -30 + ')');
     }
 
     private drawLine(data: Array<DataPoint>, className: string): void {
