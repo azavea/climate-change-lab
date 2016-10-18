@@ -45,6 +45,9 @@ export class LineGraphComponent {
     private scrubberLine;                  // Scrubber element, independent
     private timeOptions: any;
     private timeFormat: string;
+    private id: string;                    // Randomly generated int # used to distinguish the chart for drawing and isolated chart scrubber
+                                           // Not a perfect solution should the random int and indicator be the same
+                                           // However, this is quite unlikely (1/10000, and even less likely by way of app use)
 
 
     /* We request angular for the element reference
@@ -64,10 +67,11 @@ export class LineGraphComponent {
       this.ngOnChanges();
     }
 
+    // If the chart is being hovered over, handle mouse movements
     @HostListener('mousemove', ['$event'])
     onMouseMove(event) {
       if (this.hover) {
-        this.handleMouseOverGraph(event);
+        this.redrawScrubber(event);
       }
     }
 
@@ -110,6 +114,7 @@ export class LineGraphComponent {
         this.height = 200 - this.margin.top - this.margin.bottom;
         this.xScale = D3.scaleTime().range([0, this.width]);
         this.yScale = D3.scaleLinear().range([this.height, 0]);
+        this.id = this.indicator.name + (Math.round(Math.random() * 10000)).toString();
     }
 
     /* Will build the SVG Element */
@@ -292,71 +297,81 @@ export class LineGraphComponent {
     }
 
     private drawScrubber(): void {
-        let indicator = this.indicator.name;
-
-        // vertical scrub line. Exists outside scrubber cluster because it moves independently
+        // Vertical scrub line. Exists outside scrubber cluster because it moves independently
         this.svg.append('line')
-            .attr('class', 'scrubline' + ' ' + indicator)
+            .attr('class', 'scrubline' + ' ' + this.id)
             .attr('x1', 0).attr('x2', 0)
             .attr('y1', 0).attr('y2', this.height)
             .classed('hidden', true);
 
-        // other scrubber elements
+        // Other scrubber elements
         this.scrubber = this.svg.append('g')
-            .attr('class', indicator)
+            .attr('class', this.id)
             .classed('hidden', true);
 
         this.scrubber.append('circle')
             .attr('r', 4.5);
 
         this.scrubber.append('rect')
-            .attr('class', 'scrubber-box' + ' ' + indicator)
+            .attr('class', 'scrubber-box' + ' ' + this.id)
             .attr('height', 20);
 
         this.scrubber.append('text')
-            .attr('class', 'scrubber-text' + ' ' + indicator);
+            .attr('class', 'scrubber-text' + ' ' + this.id);
+
+        // Scrubber sensory zone (set to size of graph) intentionally drawn last
+        // It overlays all other svg elements for uncompromised mouseover detection
+        this.svg.append('rect')
+            .attr('id', 'overlay')
+            .attr('height', this.height)
+            .attr('width', this.width);
 
         // Toggle scrubber visibility
-        this.hover? $('.'+ indicator).toggleClass('hidden', false) : $('.'+ indicator).toggleClass('hidden', true);
+        this.hover? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id).toggleClass('hidden', true);
     }
 
-    private handleMouseOverGraph(event) {
+    private redrawScrubber(event) {
         let xPos = event.offsetX - this.margin.left;
+        // Firefox handles event positioning differently than Chrome, Safari
+        if (navigator.userAgent.indexOf('Firefox') != -1) {
+            xPos = event.offsetX;
+        }
 
         // Quit if mouse outside chart bounds; Eliminates most heinous flashing misbehavior in Firefox too
         if (xPos < 0 || xPos > this.width) { return; }
 
-        // default round down position to existing time point
+        // Default round down position to existing time point
+        // Note the +unary operator before dates. Converts dates to numbers to quell tslinter
         let bisectDate = D3.bisector(function(d) { return d.date; }).left;
         let x0 = this.xScale.invert(xPos),
-            i = bisectDate(this.extractedData, x0, 1),
+            i = +bisectDate(this.extractedData, x0, 1),
             d0 = this.extractedData[i - 1],
             d1 = this.extractedData[i],
             d: number;
 
-        // prevent error leaving graph
+        // Prevent error leaving graph
         if (d0 && d1) {
-            d = x0 - d0.date > d1.date - x0 ? i : i-1;
+            d = x0 - +d0.date > +d1.date - x0 ? i : i-1;
         } else {
             d = i-1;
         }
 
         let yDatum = this.yData[d];
 
-        // move scubber elements
+        // Move scubber elements
         this.scrubber.attr('transform', 'translate(' + xPos + ',' + this.yScale(yDatum) + ')');
         this.svg.selectAll('.scrubline').attr('transform', 'translate(' + xPos + ',' + 0 + ')');
 
-        //update scrubber text
+        // Update scrubber text
         let labelText = yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'];
-        let textSVG = D3.select('.scrubber-text.' + this.indicator.name).text(labelText);
+        let textSVG = D3.select('.scrubber-text.' + this.id).text(labelText);
 
-        // center text
+        // Center text
         let labelWidth = textSVG.node().getBBox().width;
         textSVG.attr('transform', 'translate(' + -labelWidth/2 + ',' + -15 + ')');
 
-        //update text box length
-        D3.select('.scrubber-box.' + this.indicator.name)
+        // Update text box length
+        D3.select('.scrubber-box.' + this.id)
             .attr('width', textSVG.node().getBBox().width + 10)
             .attr('transform', 'translate(' + -(labelWidth/2 + 5) + ',' + -30 + ')');
     }

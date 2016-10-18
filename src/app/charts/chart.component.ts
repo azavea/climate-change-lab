@@ -28,23 +28,18 @@ export class ChartComponent implements OnChanges {
     @Input() city: City;
 
     private chartData: ChartData[];
-    private isHover: Boolean;
+    private isHover: Boolean = false;
 
+    // Mousemove event must be at this level to listen to mousing over rect#overlay
+    // Should be configurable to make a cross-chart scrubber
     @HostListener('mouseover', ['$event'])
     onMouseOver(event) {
-      this.isHover = true;
-    }
-
-    @HostListener('mouseleave', ['$event'])
-    onMouseOut(event) {
-      this.isHover = false;
+        this.isHover = event.target.id === 'overlay'? true : false;
     }
 
     constructor(private chartService: ChartService,
                 private indicatorService: IndicatorService,
-                private csvService: CSVService) {
-        this.isHover = false;
-    }
+                private csvService: CSVService) {}
 
     ngOnChanges() {
         if (!this.scenario || !this.city || !this.models) { return; }
