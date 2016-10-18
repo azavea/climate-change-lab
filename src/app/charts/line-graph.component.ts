@@ -41,8 +41,8 @@ export class LineGraphComponent {
     private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
     private yData: Array<number>;          // Stores primary y axis data, multi-use
     private trendData: Array<DataPoint>;   // Formatted data for the trendline
-    private focus;                         // Scrubber element
-    private scrubberLine;                  // Scrubber element
+    private scrubber;                      // Lump of scrubber elements
+    private scrubberLine;                  // Scrubber element, independent
     private timeOptions: any;
     private timeFormat: string;
 
@@ -294,100 +294,93 @@ export class LineGraphComponent {
     private drawScrubber(): void {
         let indicator = this.indicator.name;
 
-        // vertical scrub line
+        // vertical scrub line. Exists outside scrubber cluster because it moves independently
         this.svg.append('line')
-          .attr('class', 'scrubline' + ' ' + indicator)
-          .attr('x1', 0).attr('x2', 0)
-          .attr('y1', 0).attr('y2', this.height)
-          .classed('hidden', true);
+            .attr('class', 'scrubline' + ' ' + indicator)
+            .attr('x1', 0).attr('x2', 0)
+            .attr('y1', 0).attr('y2', this.height)
+            .classed('hidden', true);
 
-        this.focus = this.svg.append('g')
-          .attr('class', indicator)
-          .classed('hidden', true);
+        // other scrubber elements
+        this.scrubber = this.svg.append('g')
+            .attr('class', indicator)
+            .classed('hidden', true);
 
-        this.focus.append('circle')
-          .attr('r', 4.5);
+        this.scrubber.append('circle')
+            .attr('r', 4.5);
 
-        this.focus.append('rect')
-          .attr('class', 'scrubber-box' + ' ' + indicator)
-          .attr('height', 20);
+        this.scrubber.append('rect')
+            .attr('class', 'scrubber-box' + ' ' + indicator)
+            .attr('height', 20);
 
-        this.focus.append('text')
-          .attr('class', 'scrubber-text' + ' ' + indicator);
+        this.scrubber.append('text')
+            .attr('class', 'scrubber-text' + ' ' + indicator);
 
         // Toggle scrubber visibility
         this.hover? $('.'+ indicator).toggleClass('hidden', false) : $('.'+ indicator).toggleClass('hidden', true);
     }
 
     private handleMouseOverGraph(event) {
-        let xPos = event.offsetX - this.margin.left,
-        yPos = event.offsetY - this.margin.top;
-        // Firefox handles event positioning differently than Chrome, Safari
-        if (navigator.userAgent.indexOf('Firefox') != -1) {
-            xPos = event.offsetX;
-            yPos = event.offsetY;
-        }
+        let xPos = event.offsetX - this.margin.left;
+
+        // Quit if mouse outside chart bounds; Eliminates most heinous flashing misbehavior in Firefox too
+        if (xPos < 0 || xPos > this.width) { return; }
 
         // default round down position to existing time point
         let bisectDate = D3.bisector(function(d) { return d.date; }).left;
         let x0 = this.xScale.invert(xPos),
-          i = bisectDate(this.extractedData, x0, 1),
-          d0 = this.extractedData[i - 1],
-          d1 = this.extractedData[i],
-          d: number;
+            i = bisectDate(this.extractedData, x0, 1),
+            d0 = this.extractedData[i - 1],
+            d1 = this.extractedData[i],
+            d: number;
 
         // prevent error leaving graph
         if (d0 && d1) {
-          d = x0 - d0.date > d1.date - x0 ? i : i-1;
+            d = x0 - d0.date > d1.date - x0 ? i : i-1;
         } else {
-          d = i-1;
+            d = i-1;
         }
 
         let yDatum = this.yData[d];
 
-        // transform scubber elements
-        this.focus
-          .attr('transform', 'translate(' + xPos + ',' + this.yScale(yDatum) + ')');
-
-        this.svg.selectAll('.scrubline')
-          .attr('transform', 'translate(' + xPos + ',' + 0 + ')');
+        // move scubber elements
+        this.scrubber.attr('transform', 'translate(' + xPos + ',' + this.yScale(yDatum) + ')');
+        this.svg.selectAll('.scrubline').attr('transform', 'translate(' + xPos + ',' + 0 + ')');
 
         //update scrubber text
         let labelText = yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'];
-        let textSVG = D3.select('.scrubber-text.' + this.indicator.name)
-          .text(labelText);
+        let textSVG = D3.select('.scrubber-text.' + this.indicator.name).text(labelText);
 
         // center text
         let labelWidth = textSVG.node().getBBox().width;
-        textSVG
-          .attr('transform', 'translate(' + -labelWidth/2 + ',' + -15 + ')');
+        textSVG.attr('transform', 'translate(' + -labelWidth/2 + ',' + -15 + ')');
 
         //update text box length
         D3.select('.scrubber-box.' + this.indicator.name)
-          .attr('width', textSVG.node().getBBox().width + 10)
-          .attr('transform', 'translate(' + -(labelWidth/2 + 5) + ',' + -30 + ')');
+            .attr('width', textSVG.node().getBBox().width + 10)
+            .attr('transform', 'translate(' + -(labelWidth/2 + 5) + ',' + -30 + ')');
     }
 
     private drawLine(data: Array<DataPoint>, className: string): void {
         this.svg.append('path')
-          .data([data])
-          .attr('class', className)
-          .attr('d', this.valueline);
+            .data([data])
+            .attr('class', className)
+            .attr('d', this.valueline);
     }
 
     private drawBands(data: Array<DataPoint>, className: string): void {
         let xscale = D3.scaleBand()
-          .range([0, this.width])
-          .padding(0)
-          .domain(_.map(this.extractedData, d => d.date));
+            .range([0, this.width])
+            .padding(0)
+            .domain(_.map(this.extractedData, d => d.date));
 
         this.svg.selectAll('.' + className)
-          .data(data)
-          .enter().append('rect')
-          .attr('class', className)
-          .attr('x', d => xscale(d.date))
-          .attr('width', xscale.bandwidth())
-          .attr('y', 0)
-          .attr('height', this.height);
+            .data(data)
+            .enter().append('rect')
+            .attr('class', className)
+            .attr('x', d => xscale(d.date))
+            .attr('width', xscale.bandwidth())
+            .attr('y', 0)
+            .attr('height', this.height);
     }
 }
