@@ -109,7 +109,7 @@ export class LineGraphComponent {
 
     /* Will setup the chart basics */
     private setup(): void {
-        this.margin = { top: 20, right: 20, bottom: 40, left: 40 };
+        this.margin = { top: 20, right: 50, bottom: 40, left: 50 };
         this.width = $('.chart').width() - this.margin.left - this.margin.right;
         this.height = 200 - this.margin.top - this.margin.bottom;
         this.xScale = D3.scaleTime().range([0, this.width]);
