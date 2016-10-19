@@ -139,6 +139,32 @@ chart {
     opacity: .3;
   }
 
+  #overlay {
+    fill: none;
+    pointer-events: all;
+  }
+
+  g {
+    circle {
+      fill: none;
+      stroke: black;
+      stroke-width: 2.5px;
+    }
+
+    .scrubber-box {
+      fill: black;
+    }
+
+    .scrubber-text {
+      fill: white;
+      stroke: white;
+    }
+  }
+
+  .scrubline {
+    stroke: #757575;
+  }
+
   .chart-controls {
     color: black;
 

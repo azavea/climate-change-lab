@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, HostListener } from '@angular/core';
 
 import { Chart, ChartData } from '../models/chart';
 import { City } from '../models/city';
@@ -28,6 +28,14 @@ export class ChartComponent implements OnChanges {
     @Input() city: City;
 
     private chartData: ChartData[];
+    private isHover: Boolean = false;
+
+    // Mousemove event must be at this level to listen to mousing over rect#overlay
+    // Should be configurable to make a cross-chart scrubber
+    @HostListener('mouseover', ['$event'])
+    onMouseOver(event) {
+        this.isHover = event.target.id === 'overlay' ? true : false;
+    }
 
     constructor(private chartService: ChartService,
                 private indicatorService: IndicatorService,
