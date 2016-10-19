@@ -140,7 +140,7 @@ export class LineGraphComponent {
         const maxY = D3.max(_.map(this.extractedData, d => d.values.max));
         const yPad = (maxY - minY) > 0 ? (maxY - minY) * 1/3 : 5; // Note: 5 as default is arbitrary
         // if minY is 0, keep it that way
-        this.yScale.domain([minY == 0? minY: minY - yPad, maxY + yPad]);
+        this.yScale.domain([minY == 0 ? minY : minY - yPad, maxY + yPad]);
 
         // Expects line data as DataPoint[]
         this.valueline = D3.line()
@@ -327,13 +327,13 @@ export class LineGraphComponent {
             .attr('width', this.width);
 
         // Toggle scrubber visibility
-        this.hover? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id).toggleClass('hidden', true);
+        this.hover ? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id).toggleClass('hidden', true);
     }
 
     private redrawScrubber(event) {
         let xPos = event.offsetX - this.margin.left;
         // Firefox handles event positioning differently than Chrome, Safari
-        if (navigator.userAgent.indexOf('Firefox') != -1) {
+        if (navigator && navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
             xPos = event.offsetX;
         }
 

@@ -34,7 +34,7 @@ export class ChartComponent implements OnChanges {
     // Should be configurable to make a cross-chart scrubber
     @HostListener('mouseover', ['$event'])
     onMouseOver(event) {
-        this.isHover = event.target.id === 'overlay'? true : false;
+        this.isHover = event.target.id === 'overlay' ? true : false;
     }
 
     constructor(private chartService: ChartService,
