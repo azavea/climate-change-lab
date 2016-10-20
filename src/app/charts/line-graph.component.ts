@@ -104,7 +104,8 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         // Set up global chart mouseover communication chain if set to multi-chart scrubber
-        if (this.multiChartScrubber) {
+        // ** CURRENTLY ONLY FOR YEARLY INDICATORS**
+        if (this.multiChartScrubber && this.indicator.time_aggregation === 'yearly') {
             this.multiChartScrubberHoverSubscription = this.chartService.multiChartScrubberHover$.subscribe(data => {
                 this.hover = data;
                 this.hover ? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id).toggleClass('hidden', true);
@@ -119,7 +120,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if (this.multiChartScrubber) {
+        if (this.multiChartScrubber && this.indicator.time_aggregation === 'yearly') {
             this.multiChartScrubberInfoSubscription.unsubscribe();
             this.multiChartScrubberHoverSubscription.unsubscribe();
         }
