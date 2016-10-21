@@ -63,7 +63,8 @@ export class LineGraphComponent implements OnInit, OnDestroy {
         this.host = D3.select(this.element.nativeElement);
         this.timeOptions = {
           'yearly': '%Y',
-          'daily': '%Y-%m-%d'
+          'daily': '%Y-%m-%d',
+          'monthly': '%Y-%m'
         }
     }
 
@@ -137,8 +138,6 @@ export class LineGraphComponent implements OnInit, OnDestroy {
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
             this.extractedData.pop();
         }
-        // Parse out avg data for ease of use later
-        this.yData = _.map(this.extractedData, d => d.values.avg);
     }
 
     /* Will setup the chart basics */
@@ -166,6 +165,12 @@ export class LineGraphComponent implements OnInit, OnDestroy {
         // Time scales only recognize annual and daily data
         var parseTime = D3.timeParse(this.timeFormat);
         this.extractedData.forEach(d => d.date = parseTime(d.date));
+
+        // Sort data by date ascending
+        this.extractedData.sort(function(a, b) {return a.date - b.date;});
+        // Parse out avg data for ease of use later
+        this.yData = _.map(this.extractedData, d => d.values.avg);
+
         this.xRange = D3.extent(this.extractedData, d => d.date);
         this.xScale.domain(this.xRange);
 
