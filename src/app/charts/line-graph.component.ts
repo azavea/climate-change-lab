@@ -106,11 +106,11 @@ export class LineGraphComponent implements OnInit, OnDestroy {
         // Set up global chart mouseover communication chain if set to multi-chart scrubber
         // ** CURRENTLY ONLY FOR YEARLY INDICATORS**
         if (this.multiChartScrubber && this.indicator.time_aggregation === 'yearly') {
-            this.multiChartScrubberHoverSubscription = this.chartService.multiChartScrubberHover$.subscribe(data => {
+            this.multiChartScrubberHoverSubscription = this.chartService.multiChartScrubberHoverObservable.subscribe(data => {
                 this.hover = data;
                 this.hover ? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id).toggleClass('hidden', true);
             });
-            this.multiChartScrubberInfoSubscription = this.chartService.multiChartScrubberInfo$.subscribe(event => {
+            this.multiChartScrubberInfoSubscription = this.chartService.multiChartScrubberInfoObservable.subscribe(event => {
                 // Only redraw if a chart is moused over
                 if (this.hover) {
                     this.redrawScrubber(event)
