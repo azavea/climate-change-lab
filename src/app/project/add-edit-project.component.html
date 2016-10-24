@@ -33,6 +33,12 @@
                         <model-modal [project]="model.project"></model-modal>
                     </div>
                 </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" name="multiChartScrubber"  [(ngModel)]="model.project.multiChartScrubber">
+                        Multi-Chart Scrubber
+                    </label>
+                </div>
                 <div class="row align-center">
                     <button type="submit"
                             class="button button-primary"
