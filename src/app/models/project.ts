@@ -18,6 +18,7 @@ export class Project {
     allModels: boolean = true;
     models: ClimateModel[] = [];
     charts: Chart[] = [];
+    multiChartScrubber: boolean = false;
 
     constructor(object: Object) {
         Object.assign(this, object);
@@ -36,7 +37,8 @@ export class Project {
             scenario: this.scenario,
             allModels: this.allModels,
             models: this.models,
-            charts: this.charts
+            charts: this.charts,
+            multiChartScrubber: this.multiChartScrubber
         };
     }
 

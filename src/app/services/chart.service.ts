@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import 'rxjs/Rx';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 import { ChartData, MultiDataPoint } from '../models/chart';
 
@@ -13,7 +13,22 @@ import * as _ from 'lodash';
 @Injectable()
 export class ChartService {
 
+    private _multiChartScrubberInfo = new Subject();
+    private _multiChartScrubberHover = new Subject<Boolean>();
+
+    public multiChartScrubberInfoObservable = this._multiChartScrubberInfo.asObservable();
+    public multiChartScrubberHoverObservable = this._multiChartScrubberHover.asObservable();
+
     constructor() {}
+
+    // receive and ship mousemove event
+    updateMultiChartScrubberInfo(event) {
+        this._multiChartScrubberInfo.next(event);
+    }
+    // receive and ship overlay mouseover status
+    detectMultiChartHover(bool: Boolean) {
+        this._multiChartScrubberHover.next(bool);
+    }
 
     // return an array of date strings for each day in the given year
     getDaysInYear(year: number): string[] {

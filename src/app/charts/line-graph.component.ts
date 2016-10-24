@@ -1,9 +1,11 @@
-import { Component, ViewEncapsulation, ElementRef, HostListener } from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { ChartData, DataPoint } from '../models/chart';
 import { Indicator } from '../models/indicator.models';
 import * as D3 from 'd3';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
+
+import { ChartService } from '../services/chart.service';
 
 /*
  * Line graph component
@@ -13,10 +15,10 @@ import * as $ from 'jquery';
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
-  inputs: [ 'data', 'indicator', 'trendline', 'min', 'max', 'minVal', 'maxVal', 'hover' ]
+  inputs: [ 'data', 'indicator', 'trendline', 'min', 'max', 'minVal', 'maxVal', 'hover', 'multiChartScrubber' ]
 })
 
-export class LineGraphComponent {
+export class LineGraphComponent implements OnInit, OnDestroy {
 
     public data: ChartData[];
     public extractedData: Array<DataPoint>;
@@ -27,6 +29,7 @@ export class LineGraphComponent {
     public minVal: number;
     public maxVal: number;
     public hover: Boolean;
+    public multiChartScrubber: Boolean;
 
     private host;                          // D3 object referebcing host dom object
     private svg;                           // SVG in which we will print our chart
@@ -49,11 +52,13 @@ export class LineGraphComponent {
                                            // Not a perfect solution should the random int and indicator be the same
                                            // However, this is quite unlikely (1/10000, and even less likely by way of app use)
 
+    private multiChartScrubberHoverSubscription;
+    private multiChartScrubberInfoSubscription;
 
     /* We request angular for the element reference
     * and then we create a D3 Wrapper for our host element
     */
-    constructor(private element: ElementRef) {
+    constructor(private element: ElementRef, private chartService: ChartService) {
         this.htmlElement = this.element.nativeElement;
         this.host = D3.select(this.element.nativeElement);
         this.timeOptions = {
@@ -64,18 +69,23 @@ export class LineGraphComponent {
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
-      this.ngOnChanges();
+        this.ngOnChanges();
     }
 
     // If the chart is being hovered over, handle mouse movements
     @HostListener('mousemove', ['$event'])
     onMouseMove(event) {
-      if (this.hover) {
-        this.redrawScrubber(event);
-      }
+        // for single-chart scrubber
+        if (this.hover && !this.multiChartScrubber) {
+            this.redrawScrubber(event);
+        }
+        // for multi-chart scrubber
+        if (this.multiChartScrubber) {
+            this.chartService.updateMultiChartScrubberInfo(event);
+        }
     }
 
-    /* Will Update on every @Input change */
+    /* Executes on every @Input change */
     ngOnChanges(): void {
         if (!this.data || this.data.length === 0) return;
         this.filterData();
@@ -90,6 +100,30 @@ export class LineGraphComponent {
         this.drawYAxis();
         this.drawAvgLine();
         this.drawScrubber();
+    }
+
+    ngOnInit(): void {
+        // Set up global chart mouseover communication chain if set to multi-chart scrubber
+        // ** CURRENTLY ONLY FOR YEARLY INDICATORS**
+        if (this.multiChartScrubber && this.indicator.time_aggregation === 'yearly') {
+            this.multiChartScrubberHoverSubscription = this.chartService.multiChartScrubberHoverObservable.subscribe(data => {
+                this.hover = data;
+                this.hover ? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id).toggleClass('hidden', true);
+            });
+            this.multiChartScrubberInfoSubscription = this.chartService.multiChartScrubberInfoObservable.subscribe(event => {
+                // Only redraw if a chart is moused over
+                if (this.hover) {
+                    this.redrawScrubber(event)
+                }
+            });
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.multiChartScrubber && this.indicator.time_aggregation === 'yearly') {
+            this.multiChartScrubberInfoSubscription.unsubscribe();
+            this.multiChartScrubberHoverSubscription.unsubscribe();
+        }
     }
 
     private filterData(): void {
@@ -372,7 +406,7 @@ export class LineGraphComponent {
 
         // Update text box length
         D3.select('.scrubber-box.' + this.id)
-            .attr('width', textSVG.node().getBBox().width + 10)
+            .attr('width', labelWidth + 10)
             .attr('transform', 'translate(' + -(labelWidth/2 + 5) + ',' + -30 + ')');
     }
 
