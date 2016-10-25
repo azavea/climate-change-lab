@@ -34,18 +34,19 @@ export class ChartData {
   indicator: string;
   data: MultiDataPoint[];
   time_agg: string[];
+  time_format: string;
 }
 
 export class DataPoint {
-  date: string;
-  value: number;
+    date: Date;
+    value: number;
 }
 
 export class MultiDataPoint {
-    date: string;
+    date: Date;
     values: {
-        'avg': Number,
-        'min': Number,
-        'max': Number
+        'avg': number,
+        'min': number,
+        'max': number
     };
 }

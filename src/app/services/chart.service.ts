@@ -5,6 +5,7 @@ import { ChartData, MultiDataPoint } from '../models/chart';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import * as D3 from 'd3';
 
 /*
  * Chart Service
@@ -18,6 +19,13 @@ export class ChartService {
 
     public multiChartScrubberInfoObservable = this._multiChartScrubberInfo.asObservable();
     public multiChartScrubberHoverObservable = this._multiChartScrubberHover.asObservable();
+
+
+    private timeOptions = {
+          'yearly': '%Y',
+          'daily': '%Y-%m-%d',
+          'monthly': '%Y-%m'
+        };
 
     constructor() {}
 
@@ -51,9 +59,12 @@ export class ChartService {
         _.each(data, obj => {
             let indicatorData: MultiDataPoint[] = [];
             let indicator = obj.indicator;
+            let timeFormat = this.timeOptions[indicator.time_aggregation];
+            let parseTime = D3.timeParse(timeFormat);
+
             _.each(obj.data, (values, key) => {
                 indicatorData.push({
-                    'date': key,
+                    'date': parseTime(key),
                     'values': values
                 } as MultiDataPoint);
             });
@@ -63,7 +74,8 @@ export class ChartService {
                 chartData.push({
                     'indicator': indicator,
                     'data': indicatorData,
-                    'time_agg': indicator.time_aggregation
+                    'time_agg': indicator.time_aggregation,
+                    'time_format': timeFormat
                 } as ChartData);
             }
         });
