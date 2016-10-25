@@ -40,14 +40,12 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     private yScale;                        // D3 scale in Y
     private htmlElement;                   // Host HTMLElement
     private valueline;                     // Base for a chart line
-    private xRange: Array<string>;         // Min, max date range
+    private xRange: Array<Date>;           // Min, max date range
     private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
     private yData: Array<number>;          // Stores primary y axis data, multi-use
-    private trendData: Array<DataPoint>;   // Formatted data for the trendline
+    private timeFormat: string;            // Date formatting for x axis labels (e.g, '%Y-%m')
     private scrubber;                      // Lump of scrubber elements
     private scrubberLine;                  // Scrubber element, independent
-    private timeOptions: any;
-    private timeFormat: string;
     private id: string;                    // Randomly generated int # used to distinguish the chart for drawing and isolated chart scrubber
                                            // Not a perfect solution should the random int and indicator be the same
                                            // However, this is quite unlikely (1/10000, and even less likely by way of app use)
@@ -61,11 +59,6 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     constructor(private element: ElementRef, private chartService: ChartService) {
         this.htmlElement = this.element.nativeElement;
         this.host = D3.select(this.element.nativeElement);
-        this.timeOptions = {
-          'yearly': '%Y',
-          'daily': '%Y-%m-%d',
-          'monthly': '%Y-%m'
-        }
     }
 
     @HostListener('window:resize', ['$event'])
@@ -130,14 +123,12 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     private filterData(): void {
         // Preserves parent data by fresh copying indicator data that will undergo processing
         let clippedData = _.cloneDeep(_.find(this.data, obj => obj.indicator.name === this.indicator.name));
-        if (clippedData) {
-            this.timeFormat = this.timeOptions[clippedData.time_agg];
-        }
         _.has(clippedData, 'data') ? this.extractedData = clippedData['data'] : this.extractedData = [];
         // Remove empty day in non-leap years (affects only daily data)
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
             this.extractedData.pop();
         }
+        this.timeFormat = clippedData.time_format;
     }
 
     /* Will setup the chart basics */
@@ -162,12 +153,8 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     // Set axis and line scales
     private setLineScales(): void {
-        // Time scales only recognize annual and daily data
-        var parseTime = D3.timeParse(this.timeFormat);
-        this.extractedData.forEach(d => d.date = parseTime(d.date));
-
         // Sort data by date ascending
-        this.extractedData.sort(function(a, b) {return a.date - b.date;});
+        this.extractedData.sort(function(a, b) {return +a.date - +b.date;});
         // Parse out avg data for ease of use later
         this.yData = _.map(this.extractedData, d => d.values.avg);
 
@@ -254,9 +241,9 @@ export class LineGraphComponent implements OnInit, OnDestroy {
             var y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
             var x2 = this.xRange[0];
             var y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
-            this.trendData = [{'date': x1, 'value': y2}, {'date': x2, 'value': y1}];
+            let trendData = [{'date': x1, 'value': y2}, {'date': x2, 'value': y1}];
             // Add trendline
-            this.drawLine(this.trendData, 'trendline');
+            this.drawLine(trendData, 'trendline');
         }
     }
 
