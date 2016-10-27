@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Observable } from 'rxjs';
 
-import { Project } from '../models/project';
+import { Project, APIProject } from '../models/project';
+import { ApiHttp } from '../auth/api-http.service';
+import { apiHost } from "../constants";
+
+import * as _ from 'lodash';
 
 @Injectable()
 export class ProjectService {
@@ -9,7 +15,7 @@ export class ProjectService {
     private projects: Project[] = [];
     private storage: Storage = window.localStorage;
 
-    constructor() {
+    constructor(private apiHttp: ApiHttp) {
         this.projects = JSON.parse(this.storage.getItem(this.storageKey)) || [];
     }
 
@@ -22,8 +28,13 @@ export class ProjectService {
         return this.projects.find(project => project.id === id);
     }
 
-    list(): Project[] {
-        return this.projects;
+    list(): Observable<APIProject[]> {
+        let url = apiHost + '/api/project/';
+        return this.apiHttp.get(url)
+            .map(resp => {
+                resp = resp.json().results || [];
+                return _.each(resp, project => project.project_data = JSON.parse(project.project_data));
+            });
     }
 
     remove(project: Project) {

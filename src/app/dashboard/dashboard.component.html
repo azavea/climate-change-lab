@@ -17,6 +17,16 @@
                         <a class="button button-primary" [routerLink]="['/new']">New Project</a>
                     </div>
                 </div>
+                <div class="row project-row" *ngFor="let project of pageOfProjects">
+                    <div class="column-7 name text-left pointer" [routerLink]="['/lab', project.id]">{{ project.project_data.name }}</div>
+                    <div class="column-2">
+                        {{ project.project_data.charts.length }} chart<span *ngIf="project.project_data.charts.length > 1 || project.project_data.charts.length == 0">s</span>
+                    </div>
+                    <div class="column-2">5 minutes</div>
+                    <div class="column-1 delete pointer" (click)="deleteProject(project)">
+                        <i class="icon-trash"></i>
+                    </div>
+                </div>
                 <div class="project-rows">
                     <div class="row project-row" *ngFor="let project of pageOfProjects">
                         <div class="column column-7 name text-left pointer" [routerLink]="['/lab', project.id]">{{ project.name }}</div>
