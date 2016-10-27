@@ -1,8 +1,19 @@
+// Container
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 // Row
 .row {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 1rem;
+  margin-left: $column-padding*-1;
+  margin-right: $column-padding*-1;
 
   &.nowrap {
     flex-wrap: nowrap;
@@ -54,7 +65,7 @@
 @for $i from 1 through $column-count {
   .column-#{$i} {
     flex: none;
-    padding: $column-padding;
+    padding: 0 $column-padding;
     width: ($i/$column-count) * 100%;
   }
 }

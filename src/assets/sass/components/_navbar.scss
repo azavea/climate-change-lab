@@ -4,8 +4,9 @@ nav {
 
 .nav-primary {
   background-color: $color-header;
-  height: $nav-height;
+  height: 100%;
   color: #fff;
+  height: $nav-height;
 
   & > .nav-left {
     float: left;
@@ -22,31 +23,48 @@ nav {
   height: $nav-height;
   color: #fff;
   border-bottom: 1px solid $gray-2;
+  background-color: #fff;
+  .dropdown {
+    display: block;
+    float: left;
+    height: 100%;
+    border-right: 1px solid $gray-2;
+    & > .button {
+      height: 100%;
+      border-radius: 0;
+      border-width: 0;
+      background-color: transparent;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
 
   & > .nav-left {
-    float: left;
-    padding: 0.6rem 1.5rem 0;
   }
 
   & > .nav-right {
     float: right;
-    padding: 0.7rem 1.5rem 0;
-  }
-
-  .button-link {
-    color: #fff;
-    &:hover, &.hover,
-    &:active, &.active,
-    &:focus, &.focus,
-    &:focus:active {
-      box-shadow: none;
-      background-color: transparent;
-      color: #fff;
-    }
   }
 
   li > a.dropdown-item {
     cursor: pointer;
   }
+  .dropdown-location {
+    input {
+      border-color: transparent;
+      background-color: transparent;
+      outline: none;
+      color: inherit;
+    }
+  }
 }
 
+.logo {
+  & > a {
+    & > img {
+      width: 9.4rem;
+      position: relative;
+      top: 0.3rem;
+    }
+  }
+}

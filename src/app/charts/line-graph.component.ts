@@ -109,9 +109,9 @@ export class LineGraphComponent {
 
     /* Will setup the chart basics */
     private setup(): void {
-        this.margin = { top: 20, right: 50, bottom: 40, left: 50 };
+        this.margin = { top: 20, right: 40, bottom: 40, left: 50 };
         this.width = $('.chart').width() - this.margin.left - this.margin.right;
-        this.height = 200 - this.margin.top - this.margin.bottom;
+        this.height = 214 - this.margin.top - this.margin.bottom;
         this.xScale = D3.scaleTime().range([0, this.width]);
         this.yScale = D3.scaleLinear().range([this.height, 0]);
         this.id = this.indicator.name + (Math.round(Math.random() * 10000)).toString();

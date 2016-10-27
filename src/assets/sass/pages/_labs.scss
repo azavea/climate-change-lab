@@ -1,8 +1,32 @@
-.controls {
-  .dropdown {
-    display: block;
-    float: left;
-    height: 100%;
+.auto-complete {
+  & > input {
+    width: 100% !important;
+    border: 1px solid #ccc;
+    background-color: white;
+    // outline: -webkit-focus-ring-color auto 5px;
+    // outline-offset: -2px;
+    &:focus {
+      outline: -webkit-focus-ring-color auto 5px;
+      outline-offset: -2px;
+      background-color: white;
+    }
+  }
+  & > ul {
+    animation: none !important;
+  }
+}
+
+nav {
+  .button-link {
+    color: #fff;
+    &:hover, &.hover,
+    &:active, &.active,
+    &:focus, &.focus,
+    &:focus:active {
+      box-shadow: none;
+      background-color: transparent;
+      color: #fff;
+    }
   }
   .button-switch {
     display: inline-block;
@@ -11,18 +35,9 @@
     padding: 0;
     height: 100%;
 
-    .button {
-      height: 100%;
-      border-radius: 0;
-      border-width: 0 1px 0 0;
-      background-color: transparent;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-
     // TODO: Remove hack for input box once this control is reworked
     .input {
-      margin: 0.5rem 1.5rem 0;
+      margin: 0.2rem 1.5rem 0;
       line-height: 3.2rem;
       color: $heading-font-color;
     }
@@ -36,13 +51,6 @@
     }
   }
 
-}
-
-.dropdown-location {
-  .dropdown-menu {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
 }
 
 .logo {

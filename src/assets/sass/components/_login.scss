@@ -12,35 +12,23 @@
 
         a {
             align-self: center;
-            margin-top: 10px;
+            margin-top: 6px;
         }
 
         form {
             display: flex;
             flex-direction: column;
-            margin-bottom: 40px;
+            margin-bottom: 2rem;
 
             label {
                 margin-bottom: 5px;
-            }
-
-            input[type="text"],
-            input[type="password"] {
-                margin-bottom: 15px;
-                padding: 5px;
-            }
-
-            .ng-valid[required], .ng-valid.required {
-                border-left: 5px solid #42A948;
-            }
-
-            .ng-invalid:not(form).ng-dirty.ng-touched {
-                border-left: 5px solid #a94442;
+                margin-top: 1.4rem;
             }
 
             button {
                 width: 80px;
                 align-self: center;
+                margin-top: 2.8rem;
             }
         }
     }

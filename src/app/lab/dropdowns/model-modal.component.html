@@ -4,9 +4,7 @@
     (click)="smModal.show()">
     <i class="icon-flash"></i>
     {{ selectedClimateModels }}
-    <label>
-      <a>Select Models</a>
-    </label>
+    Select Models
   </button>
 </div>
 <div class="modal modal-small fade"
@@ -22,16 +20,12 @@
     <div class="modal-content">
       <div class="modal-body">
         <h4 class="modal-title">Select Models</h4>
-        <div>
-          <label>
-            <button type="button" (click)="selectAllClimateModels()">
-              Use all models
-            </button>
-            <button type="button" (click)="clearClimateModels()">
-              Clear all models
-            </button>
-          </label>
-        </div>
+        <button class="button" type="button" (click)="selectAllClimateModels()">
+          Use all models
+        </button>
+        <button class="button" type="button" (click)="clearClimateModels()">
+          Clear all models
+        </button>
         <hr />
         <div *ngFor="let climateModel of climateModels">
           <label>
@@ -45,7 +39,7 @@
       </div>
       <div class="modal-footer">
         <button type="button"
-                class="button"
+                class="button button-primary"
                 (click)="smModal.hide();"
                 [disabled]="isModalUpdateButtonDisabled()">Update</button>
       </div>

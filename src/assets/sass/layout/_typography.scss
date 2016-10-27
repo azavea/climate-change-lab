@@ -78,3 +78,12 @@ hr {
   border-width: 0;
   border-top: 1px solid $gray-2;
 }
+
+a {
+  color: $brand-primary;
+  text-decoration: none;
+}
+
+label {
+  color: $gray-4;
+}
