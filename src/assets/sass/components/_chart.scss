@@ -162,18 +162,19 @@ chart {
 
   g {
     circle {
-      fill: none;
-      stroke: black;
-      stroke-width: 2.5px;
+      fill: $brand-primary;
+      stroke: #fff;
+      stroke-width: 2px;
     }
 
     .scrubber-box {
-      fill: black;
+      fill: #000;
     }
 
     .scrubber-text {
-      fill: white;
-      stroke: white;
+      fill: #fff;
+      stroke: #fff;
+      font-weight: 400;
     }
   }
 
@@ -182,7 +183,7 @@ chart {
   }
 
   .chart-controls {
-    color: black;
+    color: #000;
 
     .controls-header {
       .controls-label {
