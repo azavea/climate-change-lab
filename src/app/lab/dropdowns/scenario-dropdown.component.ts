@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Scenario } from '../../models/scenario';
-import { Project } from '../../models/project';
+import { ProjectData } from '../../models/project';
 import { ScenarioService } from '../../services/scenario.service';
 import { ProjectService } from '../../services/project.service';
 
@@ -10,7 +10,7 @@ import { ProjectService } from '../../services/project.service';
     -- Requires project input
     Expected use:
         <scenario-dropdown
-            [project]="your_project">
+            [project]="your_project_data">
 */
 
 @Component({
@@ -36,7 +36,7 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ScenarioDropdownComponent implements OnInit {
 
-    @Input() project: Project;
+    @Input() project: ProjectData;
     private DEFAULT_SCENARIO_NAME: string = 'RCP85';
     public scenarios: Scenario[] = [];
 

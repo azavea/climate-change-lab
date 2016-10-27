@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ClimateModel } from '../../models/climate-model';
-import { Project } from '../../models/project';
+import { ProjectData } from '../../models/project';
 import { ClimateModelService } from '../../services/climate-model.service';
 
 /*  Model Modal Component
@@ -9,7 +9,7 @@ import { ClimateModelService } from '../../services/climate-model.service';
     -- Emits selected model
     Expected use:
         <model-modal
-            [project]="your_project">
+            [project]="your_project_data">
 */
 
 @Component({
@@ -18,7 +18,7 @@ import { ClimateModelService } from '../../services/climate-model.service';
 })
 export class ModelModalComponent implements OnInit {
 
-    @Input() project: Project;
+    @Input() project: ProjectData;
 
     private buttonText: string;
     public climateModels: ClimateModel[] = [];

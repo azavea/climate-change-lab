@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input } from '@angular/core';
 
 import { City } from '../../models/city';
-import { Project } from '../../models/project';
+import { ProjectData } from '../../models/project';
 
 import { apiHost } from "../../constants";
 
@@ -11,7 +11,7 @@ import { apiHost } from "../../constants";
 
     Expected use:
         <city-dropdown
-        [project]="your_project">
+        [project]="your_project_data">
 */
 
 @Component({
@@ -36,7 +36,7 @@ export class CityDropdownComponent {
 
     public apiCities: string = apiHost + "/api/city/?search=:keyword";
 
-    @Input() project: Project;
+    @Input() project: ProjectData;
     @Input() showIcon: boolean = true;
 
     constructor() {}

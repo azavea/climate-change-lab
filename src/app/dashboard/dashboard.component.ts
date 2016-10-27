@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Project } from '../models/project';
+import { APIProject } from '../models/project';
 import { ProjectService } from '../services/project.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { ProjectService } from '../services/project.service';
 })
 export class DashboardComponent implements OnInit {
 
-    private projects: Project[] = [];
-    private pageOfProjects: Project[] = [];
+    private projects: APIProject[] = [];
+    private pageOfProjects: APIProject[] = [];
     public currentPage: number = 1;
     public itemsPerPage: number = 5;
 
@@ -29,11 +29,10 @@ export class DashboardComponent implements OnInit {
             .subscribe(data => this.projects = data);
     }
 
-    public deleteProject(project: Project) {
+    public deleteProject(project: APIProject) {
         let projectIndex = this.projects.findIndex(p => p.id === project.id);
-        this.projectService.remove(project);
-        this.projectService.list()
-            .subscribe(data => {
+        this.projectService.remove(project.id).subscribe();
+        this.projectService.list().subscribe(data => {
                 this.projects = data;
                 let page = this.currentPage;
                 // Switch to previous page if the deleted project is the last project and is also

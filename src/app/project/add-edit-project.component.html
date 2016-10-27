@@ -14,39 +14,39 @@
                        class="form-control"
                        id="project.name"
                        name="project.name"
-                       [(ngModel)]="model.project.name">
+                       [(ngModel)]="model.project.project_data.name">
                 <label for="project.description">Description</label>
                 <textarea type="text"
                         class="form-control description"
                         id="project.description"
                         name="project.description"
-                        [(ngModel)]="model.project.description"></textarea>
+                        [(ngModel)]="model.project.project_data.description"></textarea>
                 <label for="project.city">Choose a city*</label>
-                <city-dropdown [project]="model.project" [showIcon]="false"></city-dropdown>
+                <city-dropdown [project]="model.project.project_data" [showIcon]="false"></city-dropdown>
                 <div class="row">
                     <div class="column-6 flex-column">
                         <label for="project.scenario">Scenario*</label>
-                        <scenario-dropdown [project]="model.project"></scenario-dropdown>
+                        <scenario-dropdown [project]="model.project.project_data"></scenario-dropdown>
                     </div>
                     <div class="column-6 flex-column">
                         <label for="project.models">Models</label>
-                        <model-modal [project]="model.project"></model-modal>
+                        <model-modal [project]="model.project.project_data"></model-modal>
                     </div>
                 </div>
                 <div class="row">
                     <label>
-                        <input type="checkbox" name="multiChartScrubber"  [(ngModel)]="model.project.multiChartScrubber">
+                        <input type="checkbox" name="multiChartScrubber"  [(ngModel)]="model.project.project_data.multiChartScrubber">
                         Multi-Chart Scrubber
                     </label>
                 </div>
                 <div class="row align-center">
                     <button type="submit"
                             class="button button-primary"
-                            [disabled]="!projectForm.form.valid || !model.project.city.id || !model.project.scenario.name"
+                            [disabled]="!projectForm.form.valid || !model.project.project_data.city.id || !model.project.project_data.scenario.name"
                             *ngIf="!edit">Create Project</button>
                     <button type="submit"
                             class="button button-primary"
-                            [disabled]="!projectForm.form.valid || !model.project.city.id || !model.project.scenario.name"
+                            [disabled]="!projectForm.form.valid || !model.project.project_data.city.id || !model.project.project_data.scenario.name"
                             *ngIf="edit">Update Project</button>
                 </div>
             </form>

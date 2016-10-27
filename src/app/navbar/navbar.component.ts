@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 import { AuthService } from '../auth/auth.service';
-import { Project } from '../models/project';
 
 
 @Component({

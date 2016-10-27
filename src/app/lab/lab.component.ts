@@ -11,7 +11,7 @@ import { ProjectService } from '../services/project.service';
 
 import { Chart } from '../models/chart';
 import { Indicator } from '../models/indicator.models';
-import { Project } from '../models/project';
+import { APIProject } from '../models/project';
 
 import * as _ from 'lodash';
 
@@ -24,7 +24,7 @@ import * as _ from 'lodash';
 export class LabComponent implements OnInit, OnDestroy {
 
     private routeParamsSubscription: Subscription;
-    public project: Project;
+    public project: APIProject;
 
     constructor(private projectService: ProjectService,
                 private route: ActivatedRoute,
@@ -36,10 +36,14 @@ export class LabComponent implements OnInit, OnDestroy {
         this.routeParamsSubscription = this.route.params.subscribe(params => {
             let id: string = params['id'];
             if (id !== undefined) {
-              this.project = this.projectService.get(id);
-            }
-            // Reroute to dashboard if project doesn't exist
-            if (!this.project) {
+              this.projectService.get(id).subscribe(data => {
+                    this.project = data;
+                    if (!this.project) {
+                        this.router.navigate(['/']);
+                    }
+                });
+            } else {
+                // Reroute to dashboard if project doesn't exist
                 this.router.navigate(['/']);
             }
         });
@@ -57,13 +61,14 @@ export class LabComponent implements OnInit, OnDestroy {
     }
 
     public removeChart(chart: Chart) {
-        this.project.charts = this.project.charts.filter(c => c !== chart);
+        this.project.project_data.charts = this.project.project_data.charts.filter(c => c !== chart);
         this.projectService.update(this.project);
     }
 
     public indicatorSelected(indicator: Indicator) {
         let chart = new Chart({indicator: indicator});
         this.project.charts.unshift(chart);
+        this.project.project_data.charts.push(chart);
         this.projectService.update(this.project);
     }
 }

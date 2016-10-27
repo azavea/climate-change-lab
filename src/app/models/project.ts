@@ -8,14 +8,7 @@ export enum ProjectVisibility {
     Public
 }
 
-export class APIProject {
-    id: string;
-    created: string;
-    modified: string;
-    project_data: Project;
-}
-
-export class Project {
+export class ProjectData {
     name: string;
     description: string;
     visibility: ProjectVisibility = ProjectVisibility.Private;
@@ -42,5 +35,19 @@ export class Project {
 
     static fromJSON(object: Object) {
         return new this(object);
+    }
+}
+
+export class APIProject {
+    id: string;
+    created: string;
+    modified: string;
+    project_data: ProjectData;
+
+    constructor(object: Object) {
+        Object.assign(this, object);
+        if (!this.project_data) {
+            this.project_data = new ProjectData();
+        }
     }
 }

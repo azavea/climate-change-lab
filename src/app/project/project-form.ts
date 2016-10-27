@@ -1,7 +1,7 @@
-import { Project } from '../models/project';
+import { APIProject } from '../models/project';
 
 export class ProjectForm {
 
-    constructor(public project: Project) {}
+    constructor(public project: APIProject) {}
 
 }
