@@ -18,6 +18,7 @@
   word-wrap: normal;
   font-size: $tooltip-font-size;
   opacity: 0;
+  transition-delay: 500ms;
 
   &.in {
     opacity: 1;

@@ -5,14 +5,23 @@ add-edit-project {
         flex-direction: column;
     }
     .form {
-        margin: 0% 20%;
+        margin: 0% auto;
+        width: 100%;
+        max-width: 500px;
+        margin-top: 3rem;
+    }
+
+    model-modal {
+        button {
+            padding-right: 18px !important;
+        }
     }
 
     form {
         label {
-            margin-top: 30px;
-            margin-bottom: 10px;
-            color: $heading-font-color;
+            margin-top: 26px;
+            margin-bottom: 9px;
+            color: $gray-4;
         }
 
         button[type="submit"] {
@@ -28,10 +37,6 @@ add-edit-project {
                 width: 100%;
             }
         }
-
-        .column-6 {
-            padding: 0;
-        }
     }
 
     .dropdown {
@@ -45,4 +50,10 @@ add-edit-project {
             margin: 0;
         }
     }
+}
+
+input, textarea {
+    color: $color-header;
+    border: 1px solid #ccc;
+    padding: 6px;
 }

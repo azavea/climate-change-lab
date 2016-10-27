@@ -16,12 +16,6 @@
         margin: 0;
     }
 
-    .row {
-        margin: 0 20%;
-        padding: 20px 0;
-        border-bottom: 1px solid #ddd;
-    }
-
     .header-row {
         margin-top: 40px;
     }
@@ -50,5 +44,13 @@
 
     h2 {
         margin: 0 0 20px;
+    }
+}
+
+.project-row {
+    .column {
+        border-bottom: 1px solid $gray-3;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
     }
 }

@@ -4,7 +4,7 @@
     </h2>
     <div class="chart-actions">
         <button class="button button-link"
-                tooltipPlacement="bottom"
+                tooltipPlacement="top"
                 tooltipTrigger="mouseenter"
                 tooltipPopupDelay="300"
                 title=""
@@ -12,7 +12,7 @@
                 (click)="onExportClicked()"><i class="icon icon-export"></i>
         </button>
         <button class="button button-link"
-                tooltipPlacement="bottom"
+                tooltipPlacement="top"
                 tooltipTrigger="mouseenter"
                 tooltipPopupDelay="300"
                 title=""
@@ -21,7 +21,7 @@
                 (click)="onSettingsToggleClicked()"><i class="icon icon-cog"></i>
         </button>
         <button class="button button-link"
-                tooltipPlacement="bottom"
+                tooltipPlacement="top"
                 tooltipTrigger="mouseenter"
                 tooltipPopupDelay="300"
                 title=""
@@ -45,7 +45,6 @@
         [multiChartScrubber]="multiChartScrubber">
     </line-graph>
     <div class="chart-options" *ngIf="chart.showSettings">
-        <h4 class="margin-top-0 h5">Options</h4>
         <div class="chart-options-body">
             <div class="chart-options-group">
                 <ui-switch [(ngModel)]="chart.showTrendline"

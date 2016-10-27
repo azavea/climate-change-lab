@@ -1,7 +1,8 @@
 sidebar {
   overflow-y: auto;
-  width: 320px;
-  padding: 2.5rem 0;
+  width: 220px;
+  border-right: 1px solid $gray-3;
+  padding-top: 2.5rem;
 }
 
 .sidebar-with-nav-vertical {
@@ -29,7 +30,7 @@ sidebar {
   background-color: transparent;
   text-align: left;
   position: relative;
-  color: #555;
+  color: #999;
   &:hover {
     color: $brand-primary;
     cursor: pointer;
@@ -44,18 +45,21 @@ sidebar {
   }
 }
 
+indicator-list {
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+    display: block;
+  }
+}
+
 .sidebar-category {
-  border-bottom: 1px solid $gray-2;
-  color: #70a6c0;
-  font-size: $font-size-h6;
-  letter-spacing: 1px;
-  margin: 2.5rem 1.5rem 1rem 1.5rem;
+  font-size: $font-size-h5;
+  margin: 0 1.5rem;
   padding-bottom: 1rem;
-  text-transform: uppercase;
 }
 
 .sidebar-title {
-  font-size: $font-size-h4;
+  font-size: $font-size-h5;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   font-weight: 700;
