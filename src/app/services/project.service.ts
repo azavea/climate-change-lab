@@ -11,17 +11,12 @@ import * as _ from 'lodash';
 @Injectable()
 export class ProjectService {
 
-    private storageKey: string = 'cclab.projects';
     private projects: Project[] = [];
-    private storage: Storage = window.localStorage;
 
-    constructor(private apiHttp: ApiHttp) {
-        this.projects = JSON.parse(this.storage.getItem(this.storageKey)) || [];
-    }
+    constructor(private apiHttp: ApiHttp) {}
 
     add(project: Project) {
         this.projects.push(project);
-        this.save();
     }
 
     get(id: string) {
@@ -41,16 +36,10 @@ export class ProjectService {
         this.projects = this.projects.filter(function(p) {
             return p.id !== project.id;
         });
-        this.save();
     }
 
     update(project: Project) {
         let index = this.projects.findIndex(p => p.id === project.id);
         this.projects[index] = project;
-        this.save();
-    }
-
-    private save() {
-        this.storage.setItem(this.storageKey, JSON.stringify(this.projects));
     }
 }
