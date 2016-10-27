@@ -20,6 +20,7 @@ export class ModelModalComponent implements OnInit {
 
     @Input() project: Project;
 
+    private buttonText: string;
     public climateModels: ClimateModel[] = [];
 
     constructor(private climateModelService: ClimateModelService) {}
@@ -43,6 +44,7 @@ export class ModelModalComponent implements OnInit {
 
     public updateProjectClimateModels() {
         this.project.models = this.filterSelectedClimateModels();
+        this.updateButtonText();
     }
 
     private filterSelectedClimateModels(isSelected: boolean = true) {
@@ -52,7 +54,7 @@ export class ModelModalComponent implements OnInit {
     public modalHide() {
         let models = this.filterSelectedClimateModels();
         if (models.length < 1) {
-          this.selectAllClimateModels()
+          this.selectAllClimateModels();
         }
         this.updateProjectClimateModels();
     }
@@ -72,9 +74,15 @@ export class ModelModalComponent implements OnInit {
                         if (projectModel.name === model.name) {
                            model.selected = projectModel.selected;
                         }
-                    })
-                })
+                    });
+                });
             }
+            this.updateButtonText();
         });
+    }
+
+    private updateButtonText() {
+        this.buttonText = this.project.models.length === this.climateModels.length ?
+            'All available models' : 'Subset of models';
     }
 }
