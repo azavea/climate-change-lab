@@ -8,8 +8,14 @@ export enum ProjectVisibility {
     Public
 }
 
-export class Project {
+export class APIProject {
     id: string;
+    created: string;
+    modified: string;
+    project_data: Project;
+}
+
+export class Project {
     name: string;
     description: string;
     visibility: ProjectVisibility = ProjectVisibility.Private;
@@ -20,16 +26,8 @@ export class Project {
     charts: Chart[] = [];
     multiChartScrubber: boolean = false;
 
-    constructor(object: Object) {
-        Object.assign(this, object);
-        if (!this.id) {
-            this.id = this.generateUUID();
-        }
-    }
-
     public toJSON() {
         return {
-            id: this.id,
             name: this.name,
             description: this.description,
             visibility: this.visibility,
@@ -44,15 +42,5 @@ export class Project {
 
     static fromJSON(object: Object) {
         return new this(object);
-    }
-
-    private generateUUID(): string {
-        // TODO: Remove when UUID generated via POST to API
-        // Pulled this temporary implementation from:
-        //  https://stackoverflow.com/a/2117523
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-            return v.toString(16);
-        });
     }
 }
