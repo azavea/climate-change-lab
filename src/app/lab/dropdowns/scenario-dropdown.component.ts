@@ -37,6 +37,7 @@ import { ProjectService } from '../../services/project.service';
 export class ScenarioDropdownComponent implements OnInit {
 
     @Input() project: Project;
+    private DEFAULT_SCENARIO_NAME: string = 'RCP85';
     public scenarios: Scenario[] = [];
 
     constructor(private scenarioService: ScenarioService,
@@ -51,6 +52,15 @@ export class ScenarioDropdownComponent implements OnInit {
     }
 
     private getScenarios() {
-        this.scenarioService.list().subscribe(data => this.scenarios = data);
+        this.scenarioService.list().subscribe(data => {
+            this.scenarios = data;
+
+            // Set a default for the project if none is set
+            if (!this.project.scenario.name) {
+                this.onScenarioClicked(this.scenarios.find((s) => {
+                    return s.name === this.DEFAULT_SCENARIO_NAME;
+                }));
+            }
+        });
     }
 }
