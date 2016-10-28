@@ -28,11 +28,11 @@ export class ApiHttp extends Http {
         return super.get(url, this.appendAPIHeaders(options));
     }
 
-    post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         return super.post(url, body, this.appendAPIHeaders(options));
     }
 
-    put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+    put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         return super.put(url, body, this.appendAPIHeaders(options));
     }
 

@@ -10,13 +10,13 @@
         <nav class="controls">
           <div class="nav-left">
             <!-- city selector -->
-            <city-dropdown [project]="project.project_data"></city-dropdown>
+            <city-dropdown [projectData]="project.project_data"></city-dropdown>
 
             <!-- scenario selector -->
-            <scenario-dropdown [project]="project.project_data"></scenario-dropdown>
+            <scenario-dropdown [projectData]="project.project_data"></scenario-dropdown>
 
             <!-- climate model selector -->
-            <model-modal [project]="project.project_data"></model-modal>
+            <model-modal [projectData]="project.project_data"></model-modal>
 
           </div>
           <div class="nav-right"></div>
@@ -28,8 +28,7 @@
                    [models]="project.project_data.models"
                    [scenario]="project.project_data.scenario"
                    [multiChartScrubber]="project.project_data.multiChartScrubber"
-                   (onRemoveChart)="removeChart($event)"
-                   (onChartSettingChanged)="chartSettingChanged()"></chart>
+                   (onRemoveChart)="removeChart($event)"></chart>
           </div>
         </div>
       </div>

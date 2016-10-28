@@ -16,9 +16,8 @@ export class ProjectService {
     constructor(private apiHttp: ApiHttp) {}
 
     add(project: APIProject): Observable<APIProject> {
-        let body = JSON.stringify(project);
         let url = `${apiHost}/api/project/`;
-        return this.apiHttp.post(url, body).map(resp => resp.json() || {} as APIProject);
+        return this.apiHttp.post(url, project).map(resp => resp.json() || {} as APIProject);
     }
 
     get(id: string): Observable<APIProject> {
@@ -27,7 +26,7 @@ export class ProjectService {
     }
 
     list(): Observable<APIProject[]> {
-        let url = apiHost + '/api/project/';
+        let url = `${apiHost}/api/project/`;
         return this.apiHttp.get(url)
             .map(resp => resp.json().results || [] as APIProject[]);
     }
@@ -38,8 +37,7 @@ export class ProjectService {
     }
 
     update(project: APIProject): Observable<APIProject> {
-        let body = JSON.stringify(project.project_data);
         let url = `${apiHost}/api/project/${project.id}/`;
-        return this.apiHttp.put(url, body).map(resp => resp.json() || {} as APIProject);
+        return this.apiHttp.put(url, project).map(resp => resp.json() || {} as APIProject);
     }
 }

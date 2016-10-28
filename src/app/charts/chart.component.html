@@ -48,33 +48,28 @@
         <div class="chart-options-body">
             <div class="chart-options-group">
                 <ui-switch [(ngModel)]="chart.showTrendline"
-                           (ngModelChanges)="onSettingChanged()"
                            size="small"></ui-switch>
                 <span>Show Trendline</span>
             </div>
             <div class="chart-options-group">
                 <ui-switch [(ngModel)]="chart.showMinimum"
-                           (ngModelChanges)="onSettingChanged()"
                            size="small"></ui-switch>
                 <span>Show Min</span>
                 <input
                     type="number"
                     step="any"
                     placeholder="0"
-                    [(ngModel)]="chart.minimumValue"
-                    (ngModelChanges)="onSettingChanged()">
+                    [(ngModel)]="chart.minimumValue">
             </div>
             <div class="chart-options-group">
                 <ui-switch [(ngModel)]="chart.showMaximum"
-                           (ngModelChanges)="onSettingChanged()"
                            size="small"></ui-switch>
                 <span>Show Max</span>
                 <input
                     type="number"
                     step="any"
                     placeholder="0"
-                    [(ngModel)]="chart.maximumValue"
-                    (ngModelChanges)="onSettingChanged()">
+                    [(ngModel)]="chart.maximumValue">
             </div>
         </div>
     </div>

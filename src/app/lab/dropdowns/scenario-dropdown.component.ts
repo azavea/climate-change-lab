@@ -10,7 +10,7 @@ import { ProjectService } from '../../services/project.service';
     -- Requires project input
     Expected use:
         <scenario-dropdown
-            [project]="your_project_data">
+            [projectData]="your_project.project_data">
 */
 
 @Component({
@@ -20,7 +20,7 @@ import { ProjectService } from '../../services/project.service';
                 id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true">
                 <i class="icon-flash"></i>
-                {{ project.scenario.label || "Select Scenario" }}
+                {{ projectData.scenario.label || "Select Scenario" }}
                 <i class="icon-angle-down caret"></i>
               </button>
               <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
@@ -36,7 +36,7 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ScenarioDropdownComponent implements OnInit {
 
-    @Input() project: ProjectData;
+    @Input() projectData: ProjectData;
     private DEFAULT_SCENARIO_NAME: string = 'RCP85';
     public scenarios: Scenario[] = [];
 
@@ -48,7 +48,7 @@ export class ScenarioDropdownComponent implements OnInit {
     }
 
     public onScenarioClicked(scenario: Scenario) {
-        this.project.scenario = scenario;
+        this.projectData.scenario = scenario;
     }
 
     private getScenarios() {

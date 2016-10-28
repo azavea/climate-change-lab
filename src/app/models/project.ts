@@ -19,6 +19,10 @@ export class ProjectData {
     charts: Chart[] = [];
     multiChartScrubber: boolean = false;
 
+    constructor(object: Object) {
+        Object.assign(this, object);
+    }
+
     public toJSON() {
         return {
             name: this.name,
@@ -47,7 +51,7 @@ export class APIProject {
     constructor(object: Object) {
         Object.assign(this, object);
         if (!this.project_data) {
-            this.project_data = new ProjectData();
+            this.project_data = new ProjectData({});
         }
     }
 }

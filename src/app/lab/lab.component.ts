@@ -2,7 +2,7 @@
  * Climate Change Lab
  * App Component
  */
-import { Component, OnInit, OnDestroy, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, HostListener, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -31,6 +31,12 @@ export class LabComponent implements OnInit, OnDestroy {
                 private router: Router) {
     }
 
+    // Save
+    @HostListener('window:beforeunload', ['$event'])
+    unloadHandler(event) {
+        this.saveChartSettings();
+    }
+
     ngOnInit() {
         // Load existing project id or redirect to dashboard
         this.routeParamsSubscription = this.route.params.subscribe(params => {
@@ -52,23 +58,21 @@ export class LabComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.routeParamsSubscription.unsubscribe();
         if (this.project) {
-            this.projectService.update(this.project);
+            this.saveChartSettings();
         }
     }
 
-    public chartSettingChanged() {
-        this.projectService.update(this.project);
+    public saveChartSettings() {
+        this.projectService.update(this.project).subscribe();
     }
 
     public removeChart(chart: Chart) {
         this.project.project_data.charts = this.project.project_data.charts.filter(c => c !== chart);
-        this.projectService.update(this.project);
     }
 
     public indicatorSelected(indicator: Indicator) {
         let chart = new Chart({indicator: indicator});
         this.project.charts.unshift(chart);
         this.project.project_data.charts.push(chart);
-        this.projectService.update(this.project);
     }
 }

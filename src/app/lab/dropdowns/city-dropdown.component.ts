@@ -11,7 +11,7 @@ import { apiHost } from "../../constants";
 
     Expected use:
         <city-dropdown
-        [project]="your_project_data">
+        [projectData]="your_project.project_data">
 */
 
 @Component({
@@ -20,7 +20,7 @@ import { apiHost } from "../../constants";
               <div class="input">
                 <i *ngIf="showIcon" class="icon-globe"></i>
                 <input auto-complete
-                    [(ngModel)]="project.city"
+                    [(ngModel)]="projectData.city"
                     [source]="apiCities"
                     [list-formatter]="cityListFormatter"
                     [value-formatter]="cityValueFormatter"
@@ -36,7 +36,7 @@ export class CityDropdownComponent {
 
     public apiCities: string = apiHost + "/api/city/?search=:keyword";
 
-    @Input() project: ProjectData;
+    @Input() projectData: ProjectData;
     @Input() showIcon: boolean = true;
 
     constructor() {}
