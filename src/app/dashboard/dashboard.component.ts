@@ -9,6 +9,7 @@ import { ProjectService } from '../services/project.service';
 })
 export class DashboardComponent implements OnInit {
 
+    private showDashboard: string = 'hide';     // Hide dashboard until projects loaded
     private projects: APIProject[] = [];
     private pageOfProjects: APIProject[] = [];
     public currentPage: number = 1;
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
             .subscribe(data => {
                 this.projects = data;
                 this.setPage(this.currentPage);
+                this.showDashboard = 'show';
             });
     }
 
