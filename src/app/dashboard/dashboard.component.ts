@@ -33,8 +33,10 @@ export class DashboardComponent implements OnInit {
 
     public deleteProject(project: APIProject) {
         let projectIndex = this.projects.findIndex(p => p.id === project.id);
-        this.projectService.remove(project.id).subscribe();
-        this.projectService.list().subscribe(data => {
+        // Ensure delete completes before requerying for all projects
+        this.projectService.remove(project.id).flatMap(() => {
+                return this.projectService.list();
+            }).subscribe(data => {
                 this.projects = data;
                 let page = this.currentPage;
                 // Switch to previous page if the deleted project is the last project and is also
