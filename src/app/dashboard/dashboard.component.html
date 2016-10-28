@@ -10,17 +10,23 @@
             </div>
             <div *ngIf="projects.length">
                 <div class="header-row row columns-center align-justify">
-                        <h2 class="title">Lab</h2>
-                        <a class="button button-default" [routerLink]="['/new']">New Project</a>
-                </div>
-                <div class="row project-row" *ngFor="let project of pageOfProjects">
-                    <div class="column-7 name text-left pointer" [routerLink]="['/lab', project.id]">{{ project.project_data.name }}</div>
-                    <div class="column-2">
-                        {{ project.project_data.charts.length }} chart<span *ngIf="project.project_data.charts.length > 1 || project.project_data.charts.length == 0">s</span>
+                    <div class="column column-6">
+                        <h2 class="title margin-no">Lab</h2>
                     </div>
-                    <div class="column-2">5 minutes</div>
-                    <div class="column-1 delete pointer" (click)="deleteProject(project)">
-                        <i class="icon-trash"></i>
+                    <div class="column column-6 text-right">
+                        <a class="button button-primary" [routerLink]="['/new']">New Project</a>
+                    </div>
+                </div>
+                <div class="project-rows">
+                    <div class="row project-row" *ngFor="let project of pageOfProjects">
+                        <div class="column column-7 name text-left pointer" [routerLink]="['/lab', project.id]">{{ project.project_data.name }}</div>
+                        <div class="column column-2">
+                            {{ project.project_data.charts.length }} chart<span *ngIf="project.project_data.charts.length > 1 || project.project_data.charts.length == 0">s</span>
+                        </div>
+                        <div class="column column-2">5 minutes</div>
+                        <div class="column column-1 delete pointer" (click)="deleteProject(project)">
+                            <i class="icon-trash"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="row controls-row">
