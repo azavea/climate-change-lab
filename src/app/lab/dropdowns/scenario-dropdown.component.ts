@@ -56,7 +56,7 @@ export class ScenarioDropdownComponent implements OnInit {
             this.scenarios = data;
 
             // Set a default for the project if none is set
-            if (!this.project.scenario.name) {
+            if (!this.projectData.scenario.label) {
                 this.onScenarioClicked(this.scenarios.find((s) => {
                     return s.name === this.DEFAULT_SCENARIO_NAME;
                 }));

@@ -82,7 +82,7 @@ export class ModelModalComponent implements OnInit {
     }
 
     private updateButtonText() {
-        this.buttonText = this.project.models.length === this.climateModels.length ?
+        this.buttonText = this.projectData.models.length === this.climateModels.length ?
             'All available models' : 'Subset of models';
     }
 }
