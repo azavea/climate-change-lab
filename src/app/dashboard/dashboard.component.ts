@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { APIProject } from '../models/project';
+import { Project } from '../models/project';
 import { ProjectService } from '../services/project.service';
 
 @Component({
@@ -10,8 +10,8 @@ import { ProjectService } from '../services/project.service';
 export class DashboardComponent implements OnInit {
 
     private showDashboard: string = 'hide';     // Hide dashboard until projects loaded
-    private projects: APIProject[] = [];
-    private pageOfProjects: APIProject[] = [];
+    private projects: Project[] = [];
+    private pageOfProjects: Project[] = [];
     public currentPage: number = 1;
     public itemsPerPage: number = 5;
 
@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
             .subscribe(data => this.projects = data);
     }
 
-    public deleteProject(project: APIProject) {
+    public deleteProject(project: Project) {
         let projectIndex = this.projects.findIndex(p => p.id === project.id);
         // Ensure delete completes before requerying for all projects
         this.projectService.remove(project.id).flatMap(() => {

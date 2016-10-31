@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { ProjectData, APIProject } from '../models/project';
+import { ProjectData, Project } from '../models/project';
 import { Scenario } from '../models/scenario';
 import { City } from '../models/city';
 import { ProjectService } from '../services/project.service';
@@ -21,9 +21,9 @@ import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
 })
 export class AddEditProjectComponent implements OnInit {
 
-    public project: APIProject;
+    public project: Project;
     public edit: boolean = false;
-    public model = {'project': {} as APIProject};
+    public model = {'project': {} as Project};
     private routeParamsSubscription: Subscription;
 
     constructor(private router: Router,
@@ -47,7 +47,7 @@ export class AddEditProjectComponent implements OnInit {
         });
         // Else, create new project
         if (!this.edit) {
-            this.model = new ProjectForm(new APIProject({}));
+            this.model = new ProjectForm(new Project({}));
             // Dropdowns & autocompletes require a value, {} at the very least
             this.model.project.project_data.scenario = {} as Scenario;
             this.model.project.project_data.city = {} as City;

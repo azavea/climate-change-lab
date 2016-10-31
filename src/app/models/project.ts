@@ -42,7 +42,7 @@ export class ProjectData {
     }
 }
 
-export class APIProject {
+export class Project {
     id: string;
     created: string;
     modified: string;

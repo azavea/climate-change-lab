@@ -11,7 +11,7 @@ import { ProjectService } from '../services/project.service';
 
 import { Chart } from '../models/chart';
 import { Indicator } from '../models/indicator.models';
-import { APIProject } from '../models/project';
+import { Project } from '../models/project';
 
 import * as _ from 'lodash';
 
@@ -24,7 +24,7 @@ import * as _ from 'lodash';
 export class LabComponent implements OnInit, OnDestroy {
 
     private routeParamsSubscription: Subscription;
-    public project: APIProject;
+    public project: Project;
 
     constructor(private projectService: ProjectService,
                 private route: ActivatedRoute,
@@ -42,12 +42,10 @@ export class LabComponent implements OnInit, OnDestroy {
         this.routeParamsSubscription = this.route.params.subscribe(params => {
             let id: string = params['id'];
             if (id !== undefined) {
-              this.projectService.get(id).subscribe(data => {
-                    this.project = data;
-                    if (!this.project) {
-                        this.router.navigate(['/']);
-                    }
-                });
+                this.projectService.get(id).subscribe(
+                    data => this.project = data,
+                    error => this.router.navigate(['/']) // Reroute if error
+                );
             } else {
                 // Reroute to dashboard if project doesn't exist
                 this.router.navigate(['/']);
