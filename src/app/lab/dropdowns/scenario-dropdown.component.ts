@@ -20,7 +20,7 @@ import { ProjectService } from '../../services/project.service';
                 id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true">
                 <i class="icon-flash"></i>
-                {{ project.scenario.name || "Select Scenario" }}
+                {{ project.scenario.label || "Select Scenario" }}
                 <i class="icon-angle-down caret"></i>
               </button>
               <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
@@ -29,7 +29,7 @@ import { ProjectService } from '../../services/project.service';
                     tooltip="{{ scenario.description }}"
                     tooltipPlacement="bottom"
                     tooltipTrigger="mouseenter"
-                    tooltipPopupDelay="300">{{ scenario.name }}</a>
+                    tooltipPopupDelay="300">{{ scenario.label }}</a>
                 </li>
               </ul>
             </div>`
