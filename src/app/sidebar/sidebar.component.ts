@@ -1,7 +1,7 @@
 import { Component, EventEmitter, ViewEncapsulation, OnInit, Output } from '@angular/core';
 
 import { IndicatorService } from '../services/indicator.service';
-import { Indicator } from '../models/indicator.models';
+import { Indicator } from '../models/indicator.model';
 
 /*
  * Sidebar Component

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
-import { ChartData, MultiDataPoint } from '../models/chart';
+import { ChartData } from '../models/chart-data.model';
+import { MultiDataPoint } from '../models/multi-data-point.model';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';

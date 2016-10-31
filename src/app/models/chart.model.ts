@@ -1,4 +1,4 @@
-import { Indicator } from './indicator.models';
+import { Indicator } from './indicator.model';
 
 export class Chart {
     indicator: Indicator;
@@ -28,25 +28,4 @@ export class Chart {
     static fromJSON(object: Object) {
         return new this(object);
     }
-}
-
-export class ChartData {
-  indicator: string;
-  data: MultiDataPoint[];
-  time_agg: string[];
-  time_format: string;
-}
-
-export class DataPoint {
-    date: Date;
-    value: number;
-}
-
-export class MultiDataPoint {
-    date: Date;
-    values: {
-        'avg': number,
-        'min': number,
-        'max': number
-    };
 }

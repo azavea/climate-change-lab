@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnChanges, Input, Output, HostListener } from '@angular/core';
 
-import { Chart, ChartData } from '../models/chart';
-import { City } from '../models/city';
-import { ClimateModel } from '../models/climate-model';
-import { Scenario } from '../models/scenario';
+import { Chart } from '../models/chart.model';
+import { ChartData } from '../models/chart-data.model';
+import { City } from '../models/city.model';
+import { ClimateModel } from '../models/climate-model.model';
+import { Scenario } from '../models/scenario.model';
 
 import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';

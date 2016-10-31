@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input } from '@angular/core';
 
-import { City } from '../../models/city';
-import { ProjectData } from '../../models/project';
+import { City } from '../../models/city.model';
+import { ProjectData } from '../../models/project-data.model';
 
 import { apiHost } from "../../constants";
 

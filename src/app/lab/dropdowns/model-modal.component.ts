@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ClimateModel } from '../../models/climate-model';
-import { ProjectData } from '../../models/project';
+import { ClimateModel } from '../../models/climate-model.model';
+import { ProjectData } from '../../models/project-data.model';
 import { ClimateModelService } from '../../services/climate-model.service';
 
 /*  Model Modal Component

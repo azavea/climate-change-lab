@@ -9,9 +9,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ProjectService } from '../services/project.service';
 
-import { Chart } from '../models/chart';
-import { Indicator } from '../models/indicator.models';
-import { Project } from '../models/project';
+import { Chart } from '../models/chart.model';
+import { Indicator } from '../models/indicator.model';
+import { Project } from '../models/project.model';
 
 import * as _ from 'lodash';
 

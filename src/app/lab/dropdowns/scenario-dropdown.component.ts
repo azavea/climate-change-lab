@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Scenario } from '../../models/scenario';
-import { ProjectData } from '../../models/project';
+import { Scenario } from '../../models/scenario.model';
+import { ProjectData } from '../../models/project-data.model';
 import { ScenarioService } from '../../services/scenario.service';
 import { ProjectService } from '../../services/project.service';
 

@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { ProjectData, Project } from '../models/project';
+import { Project } from '../models/project.model';
+import { ProjectData } from '../models/project-data.model';
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from "../constants";
 

@@ -1,7 +1,7 @@
-import { City } from './city';
-import { Chart } from './chart';
-import { ClimateModel } from './climate-model';
-import { Scenario } from './scenario';
+import { City } from './city.model';
+import { Chart } from './chart.model';
+import { ClimateModel } from './climate-model.model';
+import { Scenario } from './scenario.model';
 
 export enum ProjectVisibility {
     Private,
@@ -39,19 +39,5 @@ export class ProjectData {
 
     static fromJSON(object: Object) {
         return new this(object);
-    }
-}
-
-export class Project {
-    id: string;
-    created: string;
-    modified: string;
-    project_data: ProjectData;
-
-    constructor(object: Object) {
-        Object.assign(this, object);
-        if (!this.project_data) {
-            this.project_data = new ProjectData({});
-        }
     }
 }

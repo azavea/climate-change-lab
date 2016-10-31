@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
-import {RequestOptions, URLSearchParams} from '@angular/http';
-import {Observable, Observer} from "rxjs";
+import { Injectable } from '@angular/core';
+import { RequestOptions, URLSearchParams } from '@angular/http';
+import { Observable, Observer } from "rxjs";
 import 'rxjs/Rx';
 
-import { Indicator, IndicatorQueryOpts } from '../models/indicator.models';
+import { Indicator } from '../models/indicator.model';
+import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from "../constants";
 

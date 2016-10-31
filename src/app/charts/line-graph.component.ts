@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
-import { ChartData, DataPoint } from '../models/chart';
-import { Indicator } from '../models/indicator.models';
+
+import { ChartData } from '../models/chart-data.model';
+import { DataPoint } from '../models/data-point.model';
+import { Indicator } from '../models/indicator.model';
 import * as D3 from 'd3';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
