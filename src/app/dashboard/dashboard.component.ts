@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Project } from '../models/project';
+import { Project } from '../models/project.model';
 import { ProjectService } from '../services/project.service';
 
 @Component({
@@ -9,34 +9,44 @@ import { ProjectService } from '../services/project.service';
 })
 export class DashboardComponent implements OnInit {
 
-    private projects: Project[];
-    private pageOfProjects: Project[];
+    private showDashboard: string = 'hide';     // Hide dashboard until projects loaded
+    private projects: Project[] = [];
+    private pageOfProjects: Project[] = [];
     public currentPage: number = 1;
     public itemsPerPage: number = 5;
 
     constructor(private projectService: ProjectService) {}
 
     ngOnInit() {
-        this.getProjects();
-        this.setPage(this.currentPage);
+        this.projectService.list()
+            .subscribe(data => {
+                this.projects = data;
+                this.setPage(this.currentPage);
+                this.showDashboard = 'show';
+            });
     }
 
     public getProjects() {
-        this.projects = this.projectService.list();
+        this.projectService.list()
+            .subscribe(data => this.projects = data);
     }
 
     public deleteProject(project: Project) {
         let projectIndex = this.projects.findIndex(p => p.id === project.id);
-        this.projectService.remove(project);
-        this.getProjects();
-        let page = this.currentPage;
-        // Switch to previous page if the deleted project is the last project and is also
-        //  the last project on the current page
-        if (this.projects.length % this.itemsPerPage === 0 &&
-            projectIndex === this.projects.length) {
-            page = page - 1;
-        }
-        this.setPage(page);
+        // Ensure delete completes before requerying for all projects
+        this.projectService.remove(project.id).flatMap(() => {
+                return this.projectService.list();
+            }).subscribe(data => {
+                this.projects = data;
+                let page = this.currentPage;
+                // Switch to previous page if the deleted project is the last project and is also
+                //  the last project on the current page
+                if (this.projects.length % this.itemsPerPage === 0 &&
+                    projectIndex === this.projects.length) {
+                    page = page - 1;
+                }
+                this.setPage(page);
+            });
     }
 
     public setPage(page: number) {

@@ -2,7 +2,7 @@
 
     <navbar></navbar>
 
-    <section class="lab">
+    <section class="lab" [ngClass]="showDashboard">
         <div class="container">
             <div *ngIf="!projects.length">
                 <i class="icon-cloud"></i>
@@ -19,9 +19,9 @@
                 </div>
                 <div class="project-rows">
                     <div class="row project-row" *ngFor="let project of pageOfProjects">
-                        <div class="column column-7 name text-left pointer" [routerLink]="['/lab', project.id]">{{ project.name }}</div>
+                        <div class="column column-7 name text-left pointer" [routerLink]="['/lab', project.id]">{{ project.project_data.name }}</div>
                         <div class="column column-2">
-                            {{ project.charts.length }} chart<span *ngIf="project.charts.length > 1 || project.charts.length == 0">s</span>
+                            {{ project.project_data.charts.length }} chart<span *ngIf="project.project_data.charts.length > 1 || project.project_data.charts.length == 0">s</span>
                         </div>
                         <div class="column column-2">5 minutes</div>
                         <div class="column column-1 delete pointer" (click)="deleteProject(project)">

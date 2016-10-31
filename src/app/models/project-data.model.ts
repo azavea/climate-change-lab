@@ -1,15 +1,14 @@
-import { City } from './city';
-import { Chart } from './chart';
-import { ClimateModel } from './climate-model';
-import { Scenario } from './scenario';
+import { City } from './city.model';
+import { Chart } from './chart.model';
+import { ClimateModel } from './climate-model.model';
+import { Scenario } from './scenario.model';
 
 export enum ProjectVisibility {
     Private,
     Public
 }
 
-export class Project {
-    id: string;
+export class ProjectData {
     name: string;
     description: string;
     visibility: ProjectVisibility = ProjectVisibility.Private;
@@ -22,14 +21,10 @@ export class Project {
 
     constructor(object: Object) {
         Object.assign(this, object);
-        if (!this.id) {
-            this.id = this.generateUUID();
-        }
     }
 
     public toJSON() {
         return {
-            id: this.id,
             name: this.name,
             description: this.description,
             visibility: this.visibility,
@@ -44,15 +39,5 @@ export class Project {
 
     static fromJSON(object: Object) {
         return new this(object);
-    }
-
-    private generateUUID(): string {
-        // TODO: Remove when UUID generated via POST to API
-        // Pulled this temporary implementation from:
-        //  https://stackoverflow.com/a/2117523
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-            return v.toString(16);
-        });
     }
 }

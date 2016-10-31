@@ -10,26 +10,25 @@
         <nav class="controls">
           <div class="nav-left">
             <!-- city selector -->
-            <city-dropdown [project]="project"></city-dropdown>
+            <city-dropdown [projectData]="project.project_data"></city-dropdown>
 
             <!-- scenario selector -->
-            <scenario-dropdown [project]="project"></scenario-dropdown>
+            <scenario-dropdown [projectData]="project.project_data"></scenario-dropdown>
 
             <!-- climate model selector -->
-            <model-modal [project]="project"></model-modal>
+            <model-modal [projectData]="project.project_data"></model-modal>
 
           </div>
           <div class="nav-right"></div>
         </nav>
         <div class="charts scrollable">
-          <div class="chart" *ngFor="let chart of project.charts">
+          <div class="chart" *ngFor="let chart of project.project_data.charts">
             <chart [chart]="chart"
-                   [city]="project.city"
-                   [models]="project.models"
-                   [scenario]="project.scenario"
-                   [multiChartScrubber]="project.multiChartScrubber"
-                   (onRemoveChart)="removeChart($event)"
-                   (onChartSettingChanged)="chartSettingChanged()"></chart>
+                   [city]="project.project_data.city"
+                   [models]="project.project_data.models"
+                   [scenario]="project.project_data.scenario"
+                   [multiChartScrubber]="project.project_data.multiChartScrubber"
+                   (onRemoveChart)="removeChart($event)"></chart>
           </div>
         </div>
       </div>

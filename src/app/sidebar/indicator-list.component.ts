@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Indicator } from '../models/indicator.models';
+import { Indicator } from '../models/indicator.model';
 
 /*
  * IndicatorList Component

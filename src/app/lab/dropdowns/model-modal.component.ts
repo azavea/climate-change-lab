@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ClimateModel } from '../../models/climate-model';
-import { Project } from '../../models/project';
+import { ClimateModel } from '../../models/climate-model.model';
+import { ProjectData } from '../../models/project-data.model';
 import { ClimateModelService } from '../../services/climate-model.service';
 
 /*  Model Modal Component
@@ -9,7 +9,7 @@ import { ClimateModelService } from '../../services/climate-model.service';
     -- Emits selected model
     Expected use:
         <model-modal
-            [project]="your_project">
+            [projectData]="your_project.project_data">
 */
 
 @Component({
@@ -18,7 +18,7 @@ import { ClimateModelService } from '../../services/climate-model.service';
 })
 export class ModelModalComponent implements OnInit {
 
-    @Input() project: Project;
+    @Input() projectData: ProjectData;
 
     private buttonText: string;
     public climateModels: ClimateModel[] = [];
@@ -43,7 +43,7 @@ export class ModelModalComponent implements OnInit {
     }
 
     public updateProjectClimateModels() {
-        this.project.models = this.filterSelectedClimateModels();
+        this.projectData.models = this.filterSelectedClimateModels();
         this.updateButtonText();
     }
 
@@ -65,11 +65,11 @@ export class ModelModalComponent implements OnInit {
             this.climateModels = data;
 
             // Initialize 'selected' attributes with models in project
-            if (this.project.models.length === 0) {
+            if (this.projectData.models.length === 0) {
                 this.selectAllClimateModels();
                 this.updateProjectClimateModels();
             } else {
-                this.project.models.forEach(projectModel => {
+                this.projectData.models.forEach(projectModel => {
                     this.climateModels.forEach(model => {
                         if (projectModel.name === model.name) {
                            model.selected = projectModel.selected;
@@ -82,7 +82,7 @@ export class ModelModalComponent implements OnInit {
     }
 
     private updateButtonText() {
-        this.buttonText = this.project.models.length === this.climateModels.length ?
+        this.buttonText = this.projectData.models.length === this.climateModels.length ?
             'All available models' : 'Subset of models';
     }
 }

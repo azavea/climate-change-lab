@@ -2,9 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Project } from '../models/project';
-import { Scenario } from '../models/scenario';
-import { City } from '../models/city';
+import { Project } from '../models/project.model';
+import { ProjectData } from '../models/project-data.model';
+import { Scenario } from '../models/scenario.model';
+import { City } from '../models/city.model';
 import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
 import { CityDropdownComponent } from '../lab/dropdowns/city-dropdown.component';
@@ -35,32 +36,38 @@ export class AddEditProjectComponent implements OnInit {
         this.routeParamsSubscription = this.route.params.subscribe(params => {
             let id: string = params['id'];
             if (id !== undefined) {
-                this.model.project = this.projectService.get(id);
-                this.edit = true;
-            }
-            // Reroute to dashboard if project doesn't exist
-            if (!this.model.project) {
-                this.router.navigate(['/']);
+                this.projectService.get(id).subscribe(data => {
+                    this.model.project = data;
+                    // Reroute to dashboard if project doesn't exist
+                    if (!this.model.project) {
+                        this.router.navigate(['/']);
+                    }
+                    this.edit = true;
+                });
             }
         });
         // Else, create new project
         if (!this.edit) {
-            this.model = new ProjectForm(new Project({
-                // Dropdowns & autocompletes require a value, {} at the very least
-                'scenario': {} as Scenario,
-                'city': {} as City
-            }));
+            this.model = new ProjectForm(new Project({}));
+            // Dropdowns & autocompletes require a value, {} at the very least
+            this.model.project.project_data.scenario = {} as Scenario;
+            this.model.project.project_data.city = {} as City;
         }
     }
 
     onSubmit() {
         this.routeParamsSubscription.unsubscribe();
         if (this.edit) {
-            this.projectService.update(this.model.project);
+            this.projectService.update(this.model.project).subscribe(data => {
+                this.model.project = data;
+                this.onSuccess();
+            });
         } else {
-            this.projectService.add(this.model.project);
+            this.projectService.add(this.model.project).subscribe(data => {
+                this.model.project = data;
+                this.onSuccess();
+            });
         }
-        this.onSuccess();
     }
 
     onSuccess() {

@@ -1,45 +1,42 @@
 import { Injectable } from '@angular/core';
+import { Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
+import { Observable } from 'rxjs';
 
-import { Project } from '../models/project';
+import { Project } from '../models/project.model';
+import { ProjectData } from '../models/project-data.model';
+import { ApiHttp } from '../auth/api-http.service';
+import { apiHost } from "../constants";
+
+import * as _ from 'lodash';
 
 @Injectable()
 export class ProjectService {
 
-    private storageKey: string = 'cclab.projects';
-    private projects: Project[] = [];
-    private storage: Storage = window.localStorage;
+    constructor(private apiHttp: ApiHttp) {}
 
-    constructor() {
-        this.projects = JSON.parse(this.storage.getItem(this.storageKey)) || [];
+    add(project: Project): Observable<Project> {
+        let url = `${apiHost}/api/project/`;
+        return this.apiHttp.post(url, project).map(resp => resp.json() || {} as Project);
     }
 
-    add(project: Project) {
-        this.projects.push(project);
-        this.save();
+    get(id: string): Observable<Project> {
+        let url = `${apiHost}/api/project/${id}/`
+        return this.apiHttp.get(url).map(resp => resp.json() || [] as Project[]);
     }
 
-    get(id: string) {
-        return this.projects.find(project => project.id === id);
+    list(): Observable<Project[]> {
+        let url = `${apiHost}/api/project/`;
+        return this.apiHttp.get(url)
+            .map(resp => resp.json().results || [] as Project[]);
     }
 
-    list(): Project[] {
-        return this.projects;
+    remove(id: string): Observable<Response> {
+        let url = `${apiHost}/api/project/${id}/`;
+        return this.apiHttp.delete(url);
     }
 
-    remove(project: Project) {
-        this.projects = this.projects.filter(function(p) {
-            return p.id !== project.id;
-        });
-        this.save();
-    }
-
-    update(project: Project) {
-        let index = this.projects.findIndex(p => p.id === project.id);
-        this.projects[index] = project;
-        this.save();
-    }
-
-    private save() {
-        this.storage.setItem(this.storageKey, JSON.stringify(this.projects));
+    update(project: Project): Observable<Project> {
+        let url = `${apiHost}/api/project/${project.id}/`;
+        return this.apiHttp.put(url, project).map(resp => resp.json() || {} as Project);
     }
 }

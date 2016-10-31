@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import 'rxjs/Rx';
 
-import { ClimateModel } from '../models/climate-model';
+import { ClimateModel } from '../models/climate-model.model';
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from "../constants";
 

@@ -2,16 +2,16 @@
  * Climate Change Lab
  * App Component
  */
-import { Component, OnInit, OnDestroy, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, HostListener, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ProjectService } from '../services/project.service';
 
-import { Chart } from '../models/chart';
-import { Indicator } from '../models/indicator.models';
-import { Project } from '../models/project';
+import { Chart } from '../models/chart.model';
+import { Indicator } from '../models/indicator.model';
+import { Project } from '../models/project.model';
 
 import * as _ from 'lodash';
 
@@ -31,15 +31,23 @@ export class LabComponent implements OnInit, OnDestroy {
                 private router: Router) {
     }
 
+    // Save
+    @HostListener('window:beforeunload', ['$event'])
+    unloadHandler(event) {
+        this.saveChartSettings();
+    }
+
     ngOnInit() {
         // Load existing project id or redirect to dashboard
         this.routeParamsSubscription = this.route.params.subscribe(params => {
             let id: string = params['id'];
             if (id !== undefined) {
-              this.project = this.projectService.get(id);
-            }
-            // Reroute to dashboard if project doesn't exist
-            if (!this.project) {
+                this.projectService.get(id).subscribe(
+                    data => this.project = data,
+                    error => this.router.navigate(['/']) // Reroute if error
+                );
+            } else {
+                // Reroute to dashboard if project doesn't exist
                 this.router.navigate(['/']);
             }
         });
@@ -48,22 +56,21 @@ export class LabComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.routeParamsSubscription.unsubscribe();
         if (this.project) {
-            this.projectService.update(this.project);
+            this.saveChartSettings();
         }
     }
 
-    public chartSettingChanged() {
-        this.projectService.update(this.project);
+    public saveChartSettings() {
+        this.projectService.update(this.project).subscribe();
     }
 
     public removeChart(chart: Chart) {
-        this.project.charts = this.project.charts.filter(c => c !== chart);
-        this.projectService.update(this.project);
+        this.project.project_data.charts = this.project.project_data.charts.filter(c => c !== chart);
     }
 
     public indicatorSelected(indicator: Indicator) {
         let chart = new Chart({indicator: indicator});
-        this.project.charts.unshift(chart);
-        this.projectService.update(this.project);
+        this.project.project_data.charts.unshift(chart);
+        this.project.project_data.charts.push(chart);
     }
 }
