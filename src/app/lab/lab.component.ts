@@ -71,6 +71,5 @@ export class LabComponent implements OnInit, OnDestroy {
     public indicatorSelected(indicator: Indicator) {
         let chart = new Chart({indicator: indicator});
         this.project.project_data.charts.unshift(chart);
-        this.project.project_data.charts.push(chart);
     }
 }
