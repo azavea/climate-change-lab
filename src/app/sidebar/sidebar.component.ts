@@ -32,15 +32,10 @@ export class SidebarComponent implements OnInit {
 
     private groupIndicators(indicators: Indicator[]) {
         this.tempIndicators = indicators.filter(i => {
-            return this.isValidIndicator(i) &&
-                   (i.variables.indexOf('tasmax') !== -1 || i.variables.indexOf('tasmin') !== -1);
+            return (i.variables.indexOf('tasmax') !== -1 || i.variables.indexOf('tasmin') !== -1);
         });
         this.precipIndicators = indicators.filter(i => {
-            return this.isValidIndicator(i) && i.variables.indexOf('pr') !== -1;
+            return i.variables.indexOf('pr') !== -1;
         });
-    }
-
-    private isValidIndicator(indicator: Indicator): boolean {
-        return indicator.time_aggregation !== 'daily';
     }
 }

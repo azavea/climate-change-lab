@@ -1,8 +1,16 @@
 import { MultiDataPoint } from './multi-data-point.model';
+import { Indicator } from './indicator.model';
+import { City } from './city.model';
+import { ClimateModel } from './climate-model.model';
+import { Scenario } from './scenario.model';
 
 export class ChartData {
-  indicator: string;
+  indicator: Indicator;
   data: MultiDataPoint[];
-  time_agg: string[];
+  time_aggregation: string;
   time_format: string;
+  city?: City;
+  climate_models?: ClimateModel[];
+  scenario?: Scenario;
+  units?: string
 }

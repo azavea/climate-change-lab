@@ -60,7 +60,7 @@ export class ChartService {
         _.each(data, obj => {
             let indicatorData: MultiDataPoint[] = [];
             let indicator = obj.indicator;
-            let timeFormat = this.timeOptions[indicator.time_aggregation];
+            let timeFormat = this.timeOptions[obj.time_aggregation];
             let parseTime = D3.timeParse(timeFormat);
 
             _.each(obj.data, (values, key) => {
@@ -75,7 +75,7 @@ export class ChartService {
                 chartData.push({
                     'indicator': indicator,
                     'data': indicatorData,
-                    'time_agg': indicator.time_aggregation,
+                    'time_aggregation': indicator.time_aggregation,
                     'time_format': timeFormat
                 } as ChartData);
             }
