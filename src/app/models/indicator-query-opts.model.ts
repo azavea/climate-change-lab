@@ -9,4 +9,5 @@ export interface IndicatorQueryOpts {
     scenario: Scenario;
     climateModels?: ClimateModel[];
     years?: string[];
+    time_aggregation?: string;
 }

@@ -28,6 +28,9 @@ export class IndicatorService {
         if (options.climateModels) {
             searchParams.append('models', options.climateModels.map(m => m.name).join(','));
         }
+        if (options.time_aggregation) {
+            searchParams.append('time_aggregation', options.time_aggregation);
+        }
 
 	    let requestOptions = new RequestOptions({search: searchParams});
         return this.apiHttp.get(url, requestOptions).map(resp => resp.json());
