@@ -75,7 +75,7 @@ export class ChartService {
                 chartData.push({
                     'indicator': indicator,
                     'data': indicatorData,
-                    'time_aggregation': indicator.time_aggregation,
+                    'time_aggregation': obj.time_aggregation,
                     'time_format': timeFormat
                 } as ChartData);
             }
