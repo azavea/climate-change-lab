@@ -9,6 +9,7 @@ import { Scenario } from '../models/scenario.model';
 import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
 import { CSVService } from '../services/csv.service';
+import { SocialService } from '../services/social.service';
 
 
 /*
@@ -43,7 +44,8 @@ export class ChartComponent implements OnChanges {
 
     constructor(private chartService: ChartService,
                 private indicatorService: IndicatorService,
-                private csvService: CSVService) {}
+                private csvService: CSVService,
+                private socialService: SocialService) {}
 
     ngOnChanges() {
         if (!this.scenario || !this.city || !this.models) { return; }
@@ -68,7 +70,7 @@ export class ChartComponent implements OnChanges {
     }
 
     onShareClicked() {
-        // TODO: implement
+        this.socialService.downloadAsPNG(this.chart.indicator.name);
     }
 
     removeChart(chart: Chart) {
