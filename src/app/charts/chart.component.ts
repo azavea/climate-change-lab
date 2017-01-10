@@ -10,6 +10,7 @@ import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
 import { CSVService } from '../services/csv.service';
 
+
 /*
  * Chart component
  * Container for each individual chart plus controls
@@ -64,6 +65,10 @@ export class ChartComponent implements OnChanges {
 
     onExportClicked() {
         this.csvService.downloadAsCSV(this.chartData);
+    }
+
+    onShareClicked() {
+        // TODO: implement
     }
 
     removeChart(chart: Chart) {
