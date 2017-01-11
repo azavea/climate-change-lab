@@ -14,9 +14,9 @@
         </button>
         <div class="social" [hidden]="!showShareOptions">
             <ul>
-                <li class="icon icon-download"></li>
-                <li class="icon icon-retweet"></li>
-                <li class="icon icon-plus"></li>
+                <li class="icon icon-download" (click)="onShareDownloadClicked()"></li>
+                <li class="icon icon-retweet" (click)="onShareTweetClicked()"></li>
+                <li class="icon icon-plus" (click)="onShareGooglePlusClicked()"></li>
             </ul>
         </div>
         <button class="button button-link"

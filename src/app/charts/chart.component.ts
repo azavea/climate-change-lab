@@ -74,8 +74,19 @@ export class ChartComponent implements OnChanges {
         this.showShareOptions = !this.showShareOptions;
 
         // TODO: use in handling click on popup
-        //this.socialService.downloadAsPNG(this.chart.indicator.name);
         //this.socialService.chartSvgToPngUri(this.chart.indicator.name);
+    }
+
+    onShareDownloadClicked() {
+        this.socialService.downloadAsPNG(this.chart.indicator.name);
+    }
+
+    onShareGooglePlusClicked() {
+        console.log('TODO: G+');
+    }
+
+    onShareTweetClicked() {
+        console.log("TODO: tweet");
     }
 
     removeChart(chart: Chart) {
