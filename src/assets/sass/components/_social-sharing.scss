@@ -42,7 +42,7 @@
     cursor:pointer;
     width:60px;
     margin:0;
-    padding:12px 0;
+    padding:10px 0;
     text-align:center;
     float:left;
     display:block;
@@ -66,6 +66,6 @@
       border-top: 20px solid #6CDFEA;
   }
 
-  li[class*="retweet"] {background:#6CDFEA; padding:12px 0; padding-bottom: 34px;}
-  li[class*="plus"] {background:#E34429; padding:12px 0; padding-bottom: 34px;}
+  li[class*="retweet"] {background:#6CDFEA; padding:10px 0; padding-bottom: 36px;}
+  li[class*="plus"] {background:#E34429; padding:10px 0; padding-bottom: 36px;}
 }
