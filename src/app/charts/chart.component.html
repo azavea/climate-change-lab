@@ -3,14 +3,22 @@
     {{chart.indicator.label}}
     </h2>
     <div class="chart-actions">
-        <button class="button button-link"
+        <button class="button button-link social-button"
                 tooltipPlacement="top"
                 tooltipTrigger="mouseenter"
                 tooltipPopupDelay="300"
                 title=""
                 tooltip="Share"
+                [ngClass]="{'show': showShareOptions, 'active': showShareOptions}"
                 (click)="onShareClicked()"><i class="icon icon-share"></i>
         </button>
+        <div class="social" [hidden]="!showShareOptions">
+            <ul>
+                <li class="icon icon-download"></li>
+                <li class="icon icon-retweet"></li>
+                <li class="icon icon-plus"></li>
+            </ul>
+        </div>
         <button class="button button-link"
                 tooltipPlacement="top"
                 tooltipTrigger="mouseenter"
