@@ -8,6 +8,15 @@ import * as SaveSvg from 'save-svg-as-png';
 @Injectable()
 export class SocialService {
 
+    // options to pass when converting SVG to PNG
+    private chartOptions = {
+            backgroundColor: 'white',
+            selectorRemap: function(selector) {
+                // find CSS selectors mapped to parent chart
+                return selector.replace('chart', '');
+            }
+    };
+
     /**
      * Converts chart SVG to PNG and downloads it.
      *
@@ -19,10 +28,18 @@ export class SocialService {
         // SVG might not be found if chart hasn't loaded yet
         if (!svg) return;
 
-        SaveSvg.saveSvgAsPng(svg, filename, {backgroundColor: 'white',
-            selectorRemap: function(selector) {
-                // find CSS selectors mapped to parent chart
-                return selector.replace('chart', '');
-            }});
+        SaveSvg.saveSvgAsPng(svg, filename, this.chartOptions);
+    }
+
+    public chartSvgToPngUri(indicatorName: string): void {
+        let svg: HTMLElement = document.getElementById('chart-' + indicatorName);
+        // SVG might not be found if chart hasn't loaded yet
+        if (!svg) return;
+
+        SaveSvg.svgAsPngUri(svg, this.chartOptions,
+            uri => {
+                // TODO: use this PNG data URI for posting image to social media
+                console.log(uri);
+            });
     }
 }
