@@ -70,7 +70,14 @@ export class ChartComponent implements OnChanges {
     }
 
     onDownloadImageClicked() {
-        this.socialService.downloadAsPNG(this.chart.indicator.name);
+        let fileName: string = [
+            this.chart.indicator.name,
+            // typescript checker complains if dot notation used on properties object
+            this.city.properties['name'],
+            this.scenario.name
+        ].join('_');
+
+        this.socialService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
     removeChart(chart: Chart) {

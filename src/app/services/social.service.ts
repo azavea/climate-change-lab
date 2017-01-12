@@ -3,7 +3,7 @@ import 'rxjs/Rx';
 import * as SaveSvg from 'save-svg-as-png';
 
 /*
- * Generates image of D3 chart SVG and shares it on social media
+ * Generates image of D3 chart SVG, potentially for sharing on social media
  */
 @Injectable()
 export class SocialService {
@@ -20,10 +20,11 @@ export class SocialService {
     /**
      * Converts chart SVG to PNG and downloads it.
      *
-     * @param indicatorName {string} Name of indicator; used for both file name and SVG selector
+     * @param indicatorName {string} Name of indicator; used for SVG selector
+     * @param fileName {string} File name for download; will be suffixed with extension
      */
-    public downloadAsPNG(indicatorName: string): void {
-        let filename: string = indicatorName + '.png';
+    public downloadAsPNG(indicatorName: string, fileName: string): void {
+        let filename: string = fileName + '.png';
         let svg: HTMLElement = document.getElementById('chart-' + indicatorName);
         // SVG might not be found if chart hasn't loaded yet
         if (!svg) return;
