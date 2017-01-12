@@ -32,7 +32,6 @@ export class ChartComponent implements OnChanges {
 
     private chartData: ChartData[];
     private isHover: Boolean = false;
-    private showShareOptions: Boolean = false;
 
     // Mousemove event must be at this level to listen to mousing over rect#overlay
     @HostListener('mouseover', ['$event'])
@@ -70,23 +69,8 @@ export class ChartComponent implements OnChanges {
         this.csvService.downloadAsCSV(this.chartData);
     }
 
-    onShareClicked() {
-        this.showShareOptions = !this.showShareOptions;
-
-        // TODO: use in handling click on popup
-        //this.socialService.chartSvgToPngUri(this.chart.indicator.name);
-    }
-
-    onShareDownloadClicked() {
+    onDownloadImageClicked() {
         this.socialService.downloadAsPNG(this.chart.indicator.name);
-    }
-
-    onShareGooglePlusClicked() {
-        console.log('TODO: G+');
-    }
-
-    onShareTweetClicked() {
-        console.log("TODO: tweet");
     }
 
     removeChart(chart: Chart) {
