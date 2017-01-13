@@ -72,8 +72,7 @@ export class ChartComponent implements OnChanges {
     onDownloadImageClicked() {
         let fileName: string = [
             this.chart.indicator.name,
-            // typescript checker complains if dot notation used on properties object
-            this.city.properties['name'],
+            this.city.properties.name,
             this.scenario.name
         ].join('_');
 

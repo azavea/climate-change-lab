@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "save-svg-as-png": "registry:npm/save-svg-as-png#1.0.3+20160511155423"
+  },
+  "globalDependencies": {
+    "geojson": "registry:dt/geojson#0.0.0+20160726205300"
   }
 }
