@@ -8,6 +8,15 @@
                 tooltipTrigger="mouseenter"
                 tooltipPopupDelay="300"
                 title=""
+                tooltip="Download chart image"
+                [ngClass]="{'active': showShareOptions}"
+                (click)="onDownloadImageClicked()"><i class="icon icon-download"></i>
+        </button>
+        <button class="button button-link"
+                tooltipPlacement="top"
+                tooltipTrigger="mouseenter"
+                tooltipPopupDelay="300"
+                title=""
                 tooltip="Export"
                 (click)="onExportClicked()"><i class="icon icon-export"></i>
         </button>

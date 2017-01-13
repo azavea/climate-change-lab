@@ -147,6 +147,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     private buildSVG(): void {
         this.host.html('');
         this.svg = this.host.append('svg')
+          .attr('id', 'chart-' + this.indicator.name)
           .attr('width', this.width + this.margin.left + this.margin.right)
           .attr('height', this.height + this.margin.top + this.margin.bottom)
           .append('g')

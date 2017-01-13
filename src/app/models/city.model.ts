@@ -1,6 +1,1 @@
-export interface City {
-    id: number;
-    type: string;
-    geometry: Object;
-    properties: Object;
-}
+export type City = GeoJSON.Feature<GeoJSON.Point>
