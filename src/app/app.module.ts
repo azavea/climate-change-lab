@@ -12,7 +12,7 @@ import {
     ModalModule,
     PaginationModule,
     TooltipModule,
-    TypeaheadModule } from 'ng2-bootstrap/ng2-bootstrap';
+    TypeaheadModule } from 'ng2-bootstrap';
 import { UiSwitchModule } from 'angular2-ui-switch';
 
 // App routing
@@ -88,10 +88,10 @@ let ApiHttpProvider = {
     HttpModule,
     routing,
     CollapseModule,
-    DropdownModule,
-    ModalModule,
+    DropdownModule.forRoot(),
+    ModalModule.forRoot(),
     PaginationModule,
-    TooltipModule,
+    TooltipModule.forRoot(),
     Ng2AutoCompleteModule,
     UiSwitchModule
   ],

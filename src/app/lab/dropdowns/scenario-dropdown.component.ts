@@ -27,9 +27,7 @@ import { ProjectService } from '../../services/project.service';
                 <li *ngFor="let scenario of scenarios">
                   <a (click)="onScenarioClicked(scenario)"
                     tooltip="{{ scenario.description }}"
-                    tooltipPlacement="bottom"
-                    tooltipTrigger="mouseenter"
-                    tooltipPopupDelay="300">{{ scenario.label }}</a>
+                    placement="bottom">{{ scenario.label }}</a>
                 </li>
               </ul>
             </div>`
