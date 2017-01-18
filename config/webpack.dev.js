@@ -24,7 +24,7 @@ module.exports = webpackMerge(commonConfig, {
 
   metadata: METADATA,
   debug: true,
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval-source-map',
   output: {
     path: helpers.root(BUILD_PATH),
     publicPath: '/',

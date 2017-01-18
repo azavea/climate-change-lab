@@ -4,35 +4,27 @@
     </h2>
     <div class="chart-actions">
         <button class="button button-link"
-                tooltipPlacement="top"
-                tooltipTrigger="mouseenter"
-                tooltipPopupDelay="300"
+                placement="top"
                 title=""
                 tooltip="Download chart image"
                 [ngClass]="{'active': showShareOptions}"
                 (click)="onDownloadImageClicked()"><i class="icon icon-download"></i>
         </button>
         <button class="button button-link"
-                tooltipPlacement="top"
-                tooltipTrigger="mouseenter"
-                tooltipPopupDelay="300"
+                placement="top"
                 title=""
                 tooltip="Export"
                 (click)="onExportClicked()"><i class="icon icon-export"></i>
         </button>
         <button class="button button-link"
-                tooltipPlacement="top"
-                tooltipTrigger="mouseenter"
-                tooltipPopupDelay="300"
+                placement="top"
                 title=""
                 tooltip="Options"
                 [ngClass]="{'active': chart.showSettings}"
                 (click)="onSettingsToggleClicked()"><i class="icon icon-cog"></i>
         </button>
         <button class="button button-link"
-                tooltipPlacement="top"
-                tooltipTrigger="mouseenter"
-                tooltipPopupDelay="300"
+                placement="top"
                 title=""
                 tooltip="Remove"
                 (click)="removeChart(chart)"><i class="icon icon-cancel"></i>
