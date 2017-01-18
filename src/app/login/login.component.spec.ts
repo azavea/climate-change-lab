@@ -33,7 +33,6 @@ import { ChartComponent } from '../charts/chart.component';
 import { IndicatorListComponent } from '../sidebar/indicator-list.component';
 import { LineGraphComponent } from '../charts/line-graph.component';
 import { WaveComponent } from '../ng2-spin-kit/wave.component';
-import { AuthGuard } from '../auth/auth.guard';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from '../app.component';
@@ -50,17 +49,14 @@ describe('LoginComponent', () => {
     let pwElement:    HTMLElement;
 
     let authServiceStub: Object;
-    let routerStub: Object;
 
     // asynchronous beforeEach to compile component
     beforeEach(async(() => {
         authServiceStub = {
             isAuthenticated: jasmine.createSpy('isAuthenticated'),
-            login: jasmine.createSpy('toString'),
-            toString: jasmine.createSpy('toString')
-        };
-        routerStub = {
-            navigate: jasmine.createSpy('navigate'),
+            login: jasmine.createSpy('login').and.returnValue({
+                subscribe: jasmine.createSpy('subscribe')
+            });
             toString: jasmine.createSpy('toString')
         };
 
@@ -110,5 +106,14 @@ describe('LoginComponent', () => {
 
     it('should have an empty email field', () => {
         expect(emailElement.textContent).toBe('');
+    });
+
+    it('should attempt login on form submission', () => {
+        spyOn(component, 'onSubmit').and.callThrough();
+        fixture.debugElement.query(By.css('form')).triggerEventHandler('submit', null);
+        fixture.detectChanges();
+
+        expect(component.onSubmit).toHaveBeenCalled();
+        expect(authServiceStub.login).toHaveBeenCalled();
     });
 });
