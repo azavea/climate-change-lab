@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { apiHost } from '../constants';
 import { LoginForm } from './login-form';
 import { AuthService } from '../auth/auth.service';
-import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'login',

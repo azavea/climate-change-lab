@@ -68,12 +68,12 @@ describe('LoginComponent', () => {
                                                { path: 'edit/', component: LoginComponent }]),
 
                 // bootstrap
-                CollapseModule,
-                DropdownModule,
-                ModalModule,
-                PaginationModule,
-                TooltipModule,
-                TypeaheadModule],
+                CollapseModule.forRoot(),
+                DropdownModule.forRoot(),
+                ModalModule.forRoot(),
+                PaginationModule.forRoot(),
+                TooltipModule.forRoot(),
+                TypeaheadModule.forRoot() ],
             declarations: [ LoginComponent, NavbarComponent, DashboardComponent, LabComponent,
                 AddEditProjectComponent, PageNotFoundComponent, SidebarComponent, AppComponent,
                 CityDropdownComponent, ScenarioDropdownComponent, ModelModalComponent,

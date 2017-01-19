@@ -87,10 +87,10 @@ let ApiHttpProvider = {
     FormsModule,
     HttpModule,
     routing,
-    CollapseModule,
+    CollapseModule.forRoot(),
     DropdownModule.forRoot(),
     ModalModule.forRoot(),
-    PaginationModule,
+    PaginationModule.forRoot(),
     TooltipModule.forRoot(),
     Ng2AutoCompleteModule,
     UiSwitchModule
