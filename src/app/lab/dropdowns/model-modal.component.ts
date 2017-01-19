@@ -47,16 +47,16 @@ export class ModelModalComponent implements OnInit {
         this.updateButtonText();
     }
 
-    private filterSelectedClimateModels(isSelected: boolean = true) {
-        return this.climateModels.filter(model => model.selected === isSelected);
-    }
-
     public modalHide() {
         let models = this.filterSelectedClimateModels();
         if (models.length < 1) {
           this.selectAllClimateModels();
         }
         this.updateProjectClimateModels();
+    }
+
+    private filterSelectedClimateModels(isSelected: boolean = true) {
+        return this.climateModels.filter(model => model.selected === isSelected);
     }
 
     // subscribe to list of available models from API endpoint

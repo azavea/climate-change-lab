@@ -30,7 +30,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.ts', '.js', '.json'],
+    extensions: ['','.ts', '.js', '.json'],
     root: helpers.root('src'),
     modulesDirectories: ['node_modules'],
   },

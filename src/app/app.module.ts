@@ -11,8 +11,7 @@ import {
     DropdownModule,
     ModalModule,
     PaginationModule,
-    TooltipModule,
-    TypeaheadModule } from 'ng2-bootstrap';
+    TooltipModule } from 'ng2-bootstrap';
 import { UiSwitchModule } from 'angular2-ui-switch';
 
 // App routing
@@ -31,10 +30,10 @@ import { IndicatorListComponent } from './sidebar/indicator-list.component';
 import { LabComponent } from './lab/lab.component';
 import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
-import { ModelModalComponent} from './lab/dropdowns/model-modal.component';
+import { ModelModalComponent } from './lab/dropdowns/model-modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
-import { ScenarioDropdownComponent} from './lab/dropdowns/scenario-dropdown.component';
+import { ScenarioDropdownComponent } from './lab/dropdowns/scenario-dropdown.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
 
@@ -51,14 +50,15 @@ import { ScenarioService } from './services/scenario.service';
 import { ProjectService } from './services/project.service';
 
 // Custom app providers
-let LocationStrategyProvider = {
+let locationStrategyProvider = {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
 };
-let ApiHttpProvider = {
+let apiHttpProvider = {
     provide: ApiHttp,
+    /* tslint:disable-next-line:max-line-length */
     useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, authService: AuthService) => {
-        return new ApiHttp(xhrBackend, requestOptions, authService)
+        return new ApiHttp(xhrBackend, requestOptions, authService);
     },
     deps: [XHRBackend, RequestOptions, AuthService]
 };
@@ -97,8 +97,8 @@ let ApiHttpProvider = {
   ],
   providers: [
     appRoutingProviders,
-    LocationStrategyProvider,
-    ApiHttpProvider,
+    locationStrategyProvider,
+    apiHttpProvider,
     AuthService,
     AuthGuard,
     ChartService,

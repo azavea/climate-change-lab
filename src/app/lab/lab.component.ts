@@ -2,18 +2,19 @@
  * Climate Change Lab
  * App Component
  */
-import { Component, OnInit, OnDestroy, ViewEncapsulation, HostListener, Input } from '@angular/core';
+import { Component,
+         OnInit,
+         OnDestroy,
+         ViewEncapsulation,
+         HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ProjectService } from '../services/project.service';
 
 import { Chart } from '../models/chart.model';
 import { Indicator } from '../models/indicator.model';
 import { Project } from '../models/project.model';
-
-import * as _ from 'lodash';
 
 
 @Component({
@@ -23,8 +24,8 @@ import * as _ from 'lodash';
 })
 export class LabComponent implements OnInit, OnDestroy {
 
-    private routeParamsSubscription: Subscription;
     public project: Project;
+    private routeParamsSubscription: Subscription;
 
     constructor(private projectService: ProjectService,
                 private route: ActivatedRoute,
@@ -33,7 +34,7 @@ export class LabComponent implements OnInit, OnDestroy {
 
     // Save
     @HostListener('window:beforeunload', ['$event'])
-    unloadHandler(event) {
+    unloadHandler() {
         this.saveChartSettings();
     }
 
@@ -65,7 +66,8 @@ export class LabComponent implements OnInit, OnDestroy {
     }
 
     public removeChart(chart: Chart) {
-        this.project.project_data.charts = this.project.project_data.charts.filter(c => c !== chart);
+        this.project.project_data.charts =
+            this.project.project_data.charts.filter(c => c !== chart);
     }
 
     public indicatorSelected(indicator: Indicator) {

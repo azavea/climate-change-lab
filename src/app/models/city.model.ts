@@ -1,1 +1,1 @@
-export type City = GeoJSON.Feature<GeoJSON.Point>
+export type City = GeoJSON.Feature<GeoJSON.Point>;

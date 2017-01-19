@@ -12,5 +12,5 @@ export class ChartData {
   city?: City;
   climate_models?: ClimateModel[];
   scenario?: Scenario;
-  units?: string
+  units?: string;
 }

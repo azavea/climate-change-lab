@@ -9,11 +9,11 @@ import { ProjectService } from '../services/project.service';
 })
 export class DashboardComponent implements OnInit {
 
+    public currentPage: number = 1;
+    public itemsPerPage: number = 5;
     private showDashboard: string = 'hide';     // Hide dashboard until projects loaded
     private projects: Project[] = [];
     private pageOfProjects: Project[] = [];
-    public currentPage: number = 1;
-    public itemsPerPage: number = 5;
 
     constructor(private projectService: ProjectService) {}
 

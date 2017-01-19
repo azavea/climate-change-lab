@@ -1,4 +1,9 @@
-import { Component, ViewEncapsulation, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component,
+         ViewEncapsulation,
+         ElementRef,
+         HostListener,
+         OnInit,
+         OnDestroy } from '@angular/core';
 
 import { ChartData } from '../models/chart-data.model';
 import { DataPoint } from '../models/data-point.model';
@@ -17,7 +22,15 @@ import { ChartService } from '../services/chart.service';
   selector: 'line-graph',
   encapsulation: ViewEncapsulation.None,
   template: `<ng-content></ng-content>`,
-  inputs: [ 'data', 'indicator', 'trendline', 'min', 'max', 'minVal', 'maxVal', 'hover', 'multiChartScrubber' ]
+  inputs: ['data',
+      'indicator',
+      'trendline',
+      'min',
+      'max',
+      'minVal',
+      'maxVal',
+      'hover',
+      'multiChartScrubber']
 })
 
 export class LineGraphComponent implements OnInit, OnDestroy {
@@ -35,7 +48,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     private host;                          // D3 object referebcing host dom object
     private svg;                           // SVG in which we will print our chart
-    private margin;                        // Space between the svg borders and the actual chart graphic
+    private margin;                        // Space between svg borders and the actual chart graphic
     private width;                         // Component width
     private height;                        // Component height
     private xScale;                        // D3 scale in X
@@ -43,14 +56,16 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     private htmlElement;                   // Host HTMLElement
     private valueline;                     // Base for a chart line
     private xRange: Array<Date>;           // Min, max date range
-    private xData: Array<number>;          // Stores x axis data as integers rather than dates, necessary for trendline math
+    private xData: Array<number>;          // Stores x axis data as integers rather than dates,
+                                           // necessary for trendline math
     private yData: Array<number>;          // Stores primary y axis data, multi-use
     private timeFormat: string;            // Date formatting for x axis labels (e.g, '%Y-%m')
-    private scrubber;                      // Lump of scrubber elements
     private scrubberLine;                  // Scrubber element, independent
-    private id: string;                    // Randomly generated int # used to distinguish the chart for drawing and isolated chart scrubber
-                                           // Not a perfect solution should the random int and indicator be the same
-                                           // However, this is quite unlikely (1/10000, and even less likely by way of app use)
+    private id: string;                    // Randomly generated int # used to distinguish the chart
+                                           // for drawing and isolated chart scrubber.
+                                           // Not a perfect solution should the random int and
+                                           // indicator be the same. However, this is quite unlikely
+                                           // (1/10000, and even less likely by way of app use)
 
     private multiChartScrubberHoverSubscription;
     private multiChartScrubberInfoSubscription;
@@ -64,7 +79,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     }
 
     @HostListener('window:resize', ['$event'])
-    onResize(event) {
+    onResize() {
         this.ngOnChanges();
     }
 
@@ -102,14 +117,19 @@ export class LineGraphComponent implements OnInit, OnDestroy {
         // Set up global chart mouseover communication chain if set to multi-chart scrubber
         // ** CURRENTLY ONLY FOR YEARLY INDICATORS**
         if (this.multiChartScrubber && this.data[0].time_aggregation === 'yearly') {
-            this.multiChartScrubberHoverSubscription = this.chartService.multiChartScrubberHoverObservable.subscribe(data => {
+            this.multiChartScrubberHoverSubscription = this.chartService
+                .multiChartScrubberHoverObservable.subscribe(data => {
+
                 this.hover = data;
-                this.hover ? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id).toggleClass('hidden', true);
+                this.hover ? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id)
+                    .toggleClass('hidden', true);
             });
-            this.multiChartScrubberInfoSubscription = this.chartService.multiChartScrubberInfoObservable.subscribe(event => {
+            this.multiChartScrubberInfoSubscription = this.chartService
+                .multiChartScrubberInfoObservable.subscribe(event => {
+
                 // Only redraw if a chart is moused over
                 if (this.hover) {
-                    this.redrawScrubber(event)
+                    this.redrawScrubber(event);
                 }
             });
         }
@@ -124,8 +144,10 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     private filterData(): void {
         // Preserves parent data by fresh copying indicator data that will undergo processing
-        let clippedData = _.cloneDeep(_.find(this.data, obj => obj.indicator.name === this.indicator.name));
-        _.has(clippedData, 'data') ? this.extractedData = clippedData['data'] : this.extractedData = [];
+        let clippedData = _.cloneDeep(_.find(this.data, obj =>
+                                             obj.indicator.name === this.indicator.name));
+        _.has(clippedData, 'data') ?
+            this.extractedData = clippedData['data'] : this.extractedData = [];
         // Remove empty day in non-leap years (affects only daily data)
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
             this.extractedData.pop();
@@ -157,7 +179,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     // Set axis and line scales
     private setLineScales(): void {
         // Sort data by date ascending
-        this.extractedData.sort(function(a, b) {return +a.date - +b.date;});
+        this.extractedData.sort(function(a, b) { return +a.date - +b.date; });
         // Parse out avg data for ease of use later
         this.yData = _.map(this.extractedData, d => d.values.avg);
 
@@ -167,9 +189,10 @@ export class LineGraphComponent implements OnInit, OnDestroy {
         // Adjust y scale, prettify graph
         const minY = D3.min(_.map(this.extractedData, d => d.values.min));
         const maxY = D3.max(_.map(this.extractedData, d => d.values.max));
-        const yPad = (maxY - minY) > 0 ? (maxY - minY) * 1/3 : 5; // Note: 5 as default is arbitrary
+        // Note: 5 as default is arbitrary
+        const yPad = (maxY - minY) > 0 ? (maxY - minY) * 1 / 3 : 5;
         // if minY is 0, keep it that way
-        this.yScale.domain([minY == 0 ? minY : minY - yPad, maxY + yPad]);
+        this.yScale.domain([minY === 0 ? minY : minY - yPad, maxY + yPad]);
 
         // Expects line data as DataPoint[]
         this.valueline = D3.line()
@@ -206,13 +229,13 @@ export class LineGraphComponent implements OnInit, OnDestroy {
             .attr('class', 'grid line')
             .call(this.makeXGridlines()
                 .tickSize(this.height)
-                .tickFormat(""));
+                .tickFormat(''));
 
         this.svg.append('g')
             .attr('class', 'grid line')
             .call(this.makeYGridlines()
                 .tickSize(-this.width)
-                .tickFormat(""));
+                .tickFormat(''));
     }
 
     private makeXGridlines() {
@@ -234,16 +257,16 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     private drawTrendLine(): void {
         // Only draw if data and add trendline flag
         if (this.trendline && this.extractedData.length) {
-            this.xData = D3.range(1, this.yData.length + 1)
+            this.xData = D3.range(1, this.yData.length + 1);
 
             // Calculate linear regression variables
-            var leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
+            let leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
 
             // Apply the results of the regression
-            var x1 = this.xRange[1];
-            var y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
-            var x2 = this.xRange[0];
-            var y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
+            let x1 = this.xRange[1];
+            let y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
+            let x2 = this.xRange[0];
+            let y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
             let trendData = [{'date': x1, 'value': y2}, {'date': x2, 'value': y1}];
             // Add trendline
             this.drawLine(trendData, 'trendline');
@@ -252,22 +275,22 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     // returns slope, intercept and r-square of the line
     private leastSquares(xData: Array<number>, yData: Array<number>): Array<number> {
-        var reduceSumFunc = function(prev, cur) { return prev + cur; };
+        let reduceSumFunc = function(prev, cur) { return prev + cur; };
 
-        var xBar = xData.reduce(reduceSumFunc) * 1.0 / xData.length;
-        var yBar = yData.reduce(reduceSumFunc) * 1.0 / yData.length;
-        var ssXX = _.map(xData, d => Math.pow(d - xBar, 2))
+        let xBar = xData.reduce(reduceSumFunc) * 1.0 / xData.length;
+        let yBar = yData.reduce(reduceSumFunc) * 1.0 / yData.length;
+        let ssXX = _.map(xData, d => Math.pow(d - xBar, 2))
                     .reduce(reduceSumFunc);
 
-        var ssYY = _.map(yData, d => Math.pow(d - yBar, 2))
+        let ssYY = _.map(yData, d => Math.pow(d - yBar, 2))
                     .reduce(reduceSumFunc);
 
-        var ssXY = _.map(xData, (d, i) => (d - xBar) * (yData[i] - yBar))
+        let ssXY = _.map(xData, (d, i) => (d - xBar) * (yData[i] - yBar))
                     .reduce(reduceSumFunc);
 
-        var slope = ssXY / ssXX;
-        var intercept = yBar - (xBar * slope);
-        var rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
+        let slope = ssXY / ssXX;
+        let intercept = yBar - (xBar * slope);
+        let rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
 
         return [slope, intercept, rSquare];
     }
@@ -294,11 +317,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
             // Prepare standard variables
             let x1 = this.xRange[1];
             let x2 = this.xRange[0];
-            let y = D3.max(this.yData);
             if (this.min) {
-                // Draw min threshold line
-                let minData = [{'date': x1, 'value': this.minVal}, {'date': x2, 'value': this.minVal}];
-
                 // Prepare data for bar graph
                 let minBars = _(this.extractedData)
                               .map((datum, index) => ({ 'date': datum['date'] }))
@@ -310,12 +329,9 @@ export class LineGraphComponent implements OnInit, OnDestroy {
             }
 
             if (this.max) {
-                // Draw max threshold line
-                let maxData = [{'date': x1, 'value': this.maxVal}, {'date': x2, 'value': this.maxVal}];
-
                 // Prepare data for bar graph
                 let maxBars = _(this.extractedData)
-                              .map((datum, index) => ({ 'date': datum['date'] }))
+                              .map((datum) => ({ 'date': datum['date'] }))
                               .filter((bar, index) => this.maxVal < this.yData[index])
                               .value();
 
@@ -356,7 +372,8 @@ export class LineGraphComponent implements OnInit, OnDestroy {
             .attr('width', this.width);
 
         // Toggle scrubber visibility
-        this.hover ? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id).toggleClass('hidden', true);
+        this.hover ? $('.' + this.id).toggleClass('hidden', false) :
+            $('.' + this.id).toggleClass('hidden', true);
     }
 
     private redrawScrubber(event) {
@@ -366,7 +383,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
             xPos = event.offsetX;
         }
 
-        // Quit if mouse outside chart bounds; Eliminates most heinous flashing misbehavior in Firefox too
+        // Quit if mouse outside chart bounds; eliminate flashing misbehavior in Firefox too
         if (xPos < 0 || xPos > this.width) { return; }
 
         // Default round down position to existing time point
@@ -380,9 +397,9 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
         // Prevent error leaving graph
         if (d0 && d1) {
-            d = x0 - +d0.date > +d1.date - x0 ? i : i-1;
+            d = x0 - +d0.date > +d1.date - x0 ? i : i - 1;
         } else {
-            d = i-1;
+            d = i - 1;
         }
 
         let yDatum = this.yData[d];
@@ -397,12 +414,12 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
         // Center text
         let labelWidth = textSVG.node().getBBox().width;
-        textSVG.attr('transform', 'translate(' + -labelWidth/2 + ',' + -15 + ')');
+        textSVG.attr('transform', 'translate(' + -labelWidth / 2 + ',' + -15 + ')');
 
         // Update text box length
         D3.select('.scrubber-box.' + this.id)
             .attr('width', labelWidth + 10)
-            .attr('transform', 'translate(' + -(labelWidth/2 + 5) + ',' + -30 + ')');
+            .attr('transform', 'translate(' + -(labelWidth / 2 + 5) + ',' + -30 + ')');
     }
 
     private drawLine(data: Array<DataPoint>, className: string): void {
