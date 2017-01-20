@@ -9,8 +9,8 @@
     "noEmitHelpers": true,
     "lib": ["es6", "dom"],
     "strictNullChecks": false,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
     "baseUrl": "./src",
     "paths": [
     ],

@@ -318,6 +318,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
                 // Prepare data for bar graph
                 let minBars = _(this.extractedData)
                               .map((datum) => ({ 'date': datum['date'] }))
+                              /* tslint:disable-next-line:no-unused-variable */
                               .filter((bar, index) => this.minVal > this.yData[index])
                               .value();
 
@@ -329,6 +330,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
                 // Prepare data for bar graph
                 let maxBars = _(this.extractedData)
                               .map((datum) => ({ 'date': datum['date'] }))
+                              /* tslint:disable-next-line:no-unused-variable */
                               .filter((bar, index) => this.maxVal < this.yData[index])
                               .value();
 
