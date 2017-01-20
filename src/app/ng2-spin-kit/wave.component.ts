@@ -9,7 +9,7 @@
  * due to dependency issues.
  */
 
-import { Component, Input, OnDestroy } from "@angular/core";
+import { Component, Input, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'sk-wave',
@@ -82,8 +82,6 @@ import { Component, Input, OnDestroy } from "@angular/core";
 })
 
 export class WaveComponent implements OnDestroy {
-  private visible: boolean = true;
-  private timeout: any;
 
   @Input()
   public delay: number = 0;
@@ -106,12 +104,15 @@ export class WaveComponent implements OnDestroy {
     }, this.delay);
   }
 
-  private cancel():void {
-    clearTimeout(this.timeout);
-    this.timeout = undefined;
+  private visible: boolean = true;
+  private timeout: any;
+
+  ngOnDestroy(): any {
+    this.cancel();
   }
 
-  ngOnDestroy():any {
-    this.cancel();
+  private cancel(): void {
+    clearTimeout(this.timeout);
+    this.timeout = undefined;
   }
 }

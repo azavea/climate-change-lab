@@ -15,12 +15,11 @@ import * as D3 from 'd3';
 @Injectable()
 export class ChartService {
 
-    private _multiChartScrubberInfo = new Subject();
-    private _multiChartScrubberHover = new Subject<Boolean>();
-
     public multiChartScrubberInfoObservable = this._multiChartScrubberInfo.asObservable();
     public multiChartScrubberHoverObservable = this._multiChartScrubberHover.asObservable();
 
+    private _multiChartScrubberInfo = new Subject();
+    private _multiChartScrubberHover = new Subject<Boolean>();
 
     private timeOptions = {
           'yearly': '%Y',
@@ -41,9 +40,9 @@ export class ChartService {
 
     // return an array of date strings for each day in the given year
     getDaysInYear(year: number): string[] {
-        var oneDate = moment.utc(+year + '-01-01', 'YYYY-MM-DD', true);
+        let oneDate = moment.utc(+year + '-01-01', 'YYYY-MM-DD', true);
         let days: string[] = [];
-        while (oneDate.get('year') == year) {
+        while (oneDate.get('year') === year) {
             days.push(oneDate.format('YYYY-MM-DD'));
             oneDate.add(1, 'day');
         }

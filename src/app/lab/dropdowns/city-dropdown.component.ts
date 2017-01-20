@@ -44,7 +44,7 @@ export class CityDropdownComponent {
     public cityListFormatter(data: any): string {
         let html: string = '';
         html += data.properties.name ?
-            `<span>${data.properties.name}, ${data.properties.admin}</span>`: data;
+            `<span>${data.properties.name}, ${data.properties.admin}</span>` : data;
         return html;
     }
 

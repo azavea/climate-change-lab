@@ -19,6 +19,10 @@ export class ProjectData {
     charts: Chart[] = [];
     multiChartScrubber: boolean = false;
 
+    static fromJSON(object: Object) {
+        return new this(object);
+    }
+
     constructor(object: Object) {
         Object.assign(this, object);
     }
@@ -35,9 +39,5 @@ export class ProjectData {
             charts: this.charts,
             multiChartScrubber: this.multiChartScrubber
         };
-    }
-
-    static fromJSON(object: Object) {
-        return new this(object);
     }
 }

@@ -117,6 +117,14 @@ export class AutoCompleteComponent implements OnInit {
 
   valueSelected: Subject<any> = new Subject();
 
+  private delay = (function () {
+    let timer = 0;
+    return function (callback: any, ms: number) {
+      clearTimeout(timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+
   isSrcArr(): boolean {
     return (this.source.constructor.name === 'Array');
   }
@@ -248,13 +256,5 @@ export class AutoCompleteComponent implements OnInit {
       `<span>${data[this.displayPropertyName]}</span>` : data;
     return html;
   }
-
-  private delay = (function () {
-    let timer = 0;
-    return function (callback: any, ms: number) {
-      clearTimeout(timer);
-      timer = setTimeout(callback, ms);
-    };
-  })();
 
 }

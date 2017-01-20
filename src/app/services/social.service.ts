@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import * as SaveSvg from 'save-svg-as-png';
 

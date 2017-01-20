@@ -60,7 +60,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
                                            // necessary for trendline math
     private yData: Array<number>;          // Stores primary y axis data, multi-use
     private timeFormat: string;            // Date formatting for x axis labels (e.g, '%Y-%m')
-    private scrubberLine;                  // Scrubber element, independent
+    private scrubber;                      // Lump of scrubber elements
     private id: string;                    // Randomly generated int # used to distinguish the chart
                                            // for drawing and isolated chart scrubber.
                                            // Not a perfect solution should the random int and
@@ -314,13 +314,10 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     private drawThresholds(): void {
         if (this.min || this.max) {
-            // Prepare standard variables
-            let x1 = this.xRange[1];
-            let x2 = this.xRange[0];
             if (this.min) {
                 // Prepare data for bar graph
                 let minBars = _(this.extractedData)
-                              .map((datum, index) => ({ 'date': datum['date'] }))
+                              .map((datum) => ({ 'date': datum['date'] }))
                               .filter((bar, index) => this.minVal > this.yData[index])
                               .value();
 

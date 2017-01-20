@@ -5,6 +5,7 @@ describe('CSVService', () => {
 
     let service: CSVService;
 
+    /* tslint:disable:max-line-length */
     let testData = [{data: [
          {date: 'Sun Jan 01 2006 00:00:00 GMT-0500 (EST)', values: {avg: 1, max: 2, min: 0}},
          {date: 'Mon Jan 01 2007 00:00:00 GMT-0500 (EST)', values: {avg: 42.0, max: 111.1, min: -2.2}}],
@@ -15,6 +16,7 @@ describe('CSVService', () => {
         'Sun Jan 01 2006 00:00:00 GMT-0500 (EST),1,2,0',
         'Mon Jan 01 2007 00:00:00 GMT-0500 (EST),42,111.1,-2.2'
     ].join('\r\n');
+    /* tslint:enable:max-line-length */
 
     beforeEach(() => {
         service = new CSVService();

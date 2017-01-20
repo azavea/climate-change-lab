@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
 import { Scenario } from '../models/scenario.model';
 import { ApiHttp } from '../auth/api-http.service';
-import { apiHost } from "../constants";
+import { apiHost } from '../constants';
 
 /*
  * Scenario Service

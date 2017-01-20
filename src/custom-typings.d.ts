@@ -15,7 +15,7 @@ declare module "my-module" {
 
  * If you are using a CommonJS module that is using module.exports then you will have to write your
  * types using export = yourObjectOrFunction with a namespace above it
- * notice how we have to create a namespace that is equal to the function we're assigning the export to
+ * notice how we have to create a namespace equal to the function we're assigning the export to
 
 declare module "jwt-decode" {
   function jwtDecode(token: string): any;
@@ -43,7 +43,7 @@ import * as _ from 'lodash'
  */
 
 // support NodeJS modules without type definitions
-declare module "*";
+declare module '*';
 
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
 declare var ENV: string;

@@ -4,6 +4,7 @@ import { City } from './city.model';
 import { ClimateModel } from './climate-model.model';
 import { Scenario } from './scenario.model';
 
+/* tslint:disable:variable-name */
 export class ChartData {
   indicator: Indicator;
   data: MultiDataPoint[];
@@ -14,3 +15,4 @@ export class ChartData {
   scenario?: Scenario;
   units?: string;
 }
+/* tslint:enable:variable-name */
