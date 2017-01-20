@@ -15,11 +15,13 @@ import * as D3 from 'd3';
 @Injectable()
 export class ChartService {
 
-    public multiChartScrubberInfoObservable = this._multiChartScrubberInfo.asObservable();
-    public multiChartScrubberHoverObservable = this._multiChartScrubberHover.asObservable();
-
+    /* tslint:disable:member-ordering */
     private _multiChartScrubberInfo = new Subject();
     private _multiChartScrubberHover = new Subject<Boolean>();
+
+    public multiChartScrubberInfoObservable = this._multiChartScrubberInfo.asObservable();
+    public multiChartScrubberHoverObservable = this._multiChartScrubberHover.asObservable();
+    /* tslint:enable:member-ordering */
 
     private timeOptions = {
           'yearly': '%Y',
