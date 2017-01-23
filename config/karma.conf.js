@@ -17,7 +17,7 @@ module.exports = function(config) {
     exclude: [ ],
 
     client: {
-      captureConsole: false
+      captureConsole: true
     },
 
     /*
@@ -93,7 +93,7 @@ module.exports = function(config) {
      * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
      */
     browsers: [
-      'PhantomJS'
+      'Chrome'
     ],
 
     mime: {
@@ -106,7 +106,7 @@ module.exports = function(config) {
      */
     singleRun: true,
 
-    failOnEmptyTestSuite: false
+    failOnEmptyTestSuite: true
   });
 
 };

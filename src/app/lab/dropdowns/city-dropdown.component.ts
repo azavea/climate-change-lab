@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { City } from '../../models/city.model';
 import { ProjectData } from '../../models/project-data.model';
 
-import { apiHost } from "../../constants";
+import { apiHost } from '../../constants';
 
 /*  City Dropdown Component
 
@@ -34,7 +33,7 @@ import { apiHost } from "../../constants";
 })
 export class CityDropdownComponent {
 
-    public apiCities: string = apiHost + "/api/city/?search=:keyword";
+    public apiCities: string = apiHost + '/api/city/?search=:keyword';
 
     @Input() projectData: ProjectData;
     @Input() showIcon: boolean = true;
@@ -43,14 +42,15 @@ export class CityDropdownComponent {
 
     // custom formatter to display list of options as City, State
     public cityListFormatter(data: any): string {
-        let html: string = "";
-        html += data.properties.name ? `<span>${data.properties.name}, ${data.properties.admin}</span>`: data;
+        let html: string = '';
+        html += data.properties.name ?
+            `<span>${data.properties.name}, ${data.properties.admin}</span>` : data;
         return html;
     }
 
     // custom formatter to display string for selected city as City, State
     public cityValueFormatter(data: any): string {
-        let displayValue: string = "";
+        let displayValue: string = '';
         if (data && data.properties) {
             displayValue += data.properties.name + ', ' + data.properties.admin;
         }

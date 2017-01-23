@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Project } from '../models/project.model';
 import { ProjectData } from '../models/project-data.model';
 import { ApiHttp } from '../auth/api-http.service';
-import { apiHost } from "../constants";
+import { apiHost } from '../constants';
 
 import * as _ from 'lodash';
 
@@ -20,7 +20,7 @@ export class ProjectService {
     }
 
     get(id: string): Observable<Project> {
-        let url = `${apiHost}/api/project/${id}/`
+        let url = `${apiHost}/api/project/${id}/`;
         return this.apiHttp.get(url).map(resp => resp.json() || [] as Project[]);
     }
 

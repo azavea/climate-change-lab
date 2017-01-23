@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { RequestOptions, URLSearchParams } from '@angular/http';
-import { Observable, Observer } from "rxjs";
+import { Observable, Observer } from 'rxjs';
 import 'rxjs/Rx';
 
 import { Indicator } from '../models/indicator.model';
 import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
 import { ApiHttp } from '../auth/api-http.service';
-import { apiHost } from "../constants";
+import { apiHost } from '../constants';
 
 /*
  * Indicator Service
@@ -32,7 +32,7 @@ export class IndicatorService {
             searchParams.append('time_aggregation', options.time_aggregation);
         }
 
-	    let requestOptions = new RequestOptions({search: searchParams});
+        let requestOptions = new RequestOptions({ search: searchParams });
         return this.apiHttp.get(url, requestOptions).map(resp => resp.json());
     }
 

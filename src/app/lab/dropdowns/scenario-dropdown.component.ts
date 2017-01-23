@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Scenario } from '../../models/scenario.model';
 import { ProjectData } from '../../models/project-data.model';
 import { ScenarioService } from '../../services/scenario.service';
-import { ProjectService } from '../../services/project.service';
 
 /*  Scenario Dropdown Component
 
@@ -35,11 +34,10 @@ import { ProjectService } from '../../services/project.service';
 export class ScenarioDropdownComponent implements OnInit {
 
     @Input() projectData: ProjectData;
-    private DEFAULT_SCENARIO_NAME: string = 'RCP85';
     public scenarios: Scenario[] = [];
+    private DEFAULT_SCENARIO_NAME: string = 'RCP85';
 
-    constructor(private scenarioService: ScenarioService,
-                private projectService: ProjectService) {}
+    constructor(private scenarioService: ScenarioService) {}
 
     ngOnInit() {
         this.getScenarios();

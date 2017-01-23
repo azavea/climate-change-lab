@@ -1,3 +1,4 @@
+/* tslint:disable:variable-name */
 export class Indicator {
     name: string;
     label: string;
@@ -9,3 +10,4 @@ export class Indicator {
     parameters?: any[];
     valid_aggregations?: string[];
 }
+/* tslint:enable:variable-name */

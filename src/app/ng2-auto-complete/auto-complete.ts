@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Response } from '@angular/http';
-import "rxjs/Rx";
+import 'rxjs/Rx';
 import { ApiHttp } from '../auth/api-http.service';
 
 /**
@@ -20,7 +20,7 @@ export class AutoComplete {
   filter(list: any[], keyword: string) {
     return list.filter(
       el => {
-        return !!JSON.stringify(el).match(new RegExp(keyword, "i"));
+        return !!JSON.stringify(el).match(new RegExp(keyword, 'i'));
       }
     );
   }
@@ -36,33 +36,33 @@ export class AutoComplete {
   getRemoteData(options: any): Observable<Response> {
 
     let keyValues: any[] = [];
-    let url = "";
+    let url = '';
 
-    for (var key in options) {
+    for (let key in options) {
       if (options.hasOwnProperty(key)) {
         // replace all keyword to value
-        let regexp: RegExp = new RegExp(":" + key, "g");
+        let regexp: RegExp = new RegExp(':' + key, 'g');
 
         url = this.source;
         if (url.match(regexp)) {
           url = url.replace(regexp, options[key]);
         } else {
-          keyValues.push(key + "=" + options[key]);
+          keyValues.push(key + '=' + options[key]);
         }
       }
     }
 
     if (keyValues.length) {
-      var qs = keyValues.join("&");
-      url += url.match(/\?[a-z]/i) ? qs : ("?" + qs);
+      let qs = keyValues.join('&');
+      url += url.match(/\?[a-z]/i) ? qs : ('?' + qs);
     }
 
     return this.apiHttp.get(url)
       .map(resp => resp.json())
       .map(resp => {
-        var list = resp.data || resp;
+        let list = resp.data || resp;
         if (this.pathToData) {
-          var paths = this.pathToData.split(".");
+          let paths = this.pathToData.split('.');
           paths.forEach(prop => list = list[prop]);
         }
 

@@ -1,5 +1,6 @@
 import { ProjectData } from './project-data.model';
 
+/* tslint:disable:variable-name */
 export class Project {
     id: string;
     created: string;
@@ -13,3 +14,5 @@ export class Project {
         }
     }
 }
+/* tslint:enable:variable-name */
+

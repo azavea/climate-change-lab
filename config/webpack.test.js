@@ -17,7 +17,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'tslint-loader',
-        exclude: [helpers.root('node_modules')]
+        exclude: [helpers.root('node_modules'), /\.spec\./]
       },
       {
         test: /\.js$/,
@@ -33,21 +33,13 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
-        query: {
-          compilerOptions: {
-
-            // Remove TypeScript helpers to be injected
-            // below by DefinePlugin
-            removeComments: true
-
-          }
-        },
+        loaders: ['awesome-typescript-loader', 'angular2-template-loader?keepUrl=true'],
         exclude: [/\.e2e\.ts$/]
       },
       { test: /\.json$/, loader: 'json-loader', exclude: [helpers.root('src/index.html')] },
       { test: /\.css$/, loaders: ['to-string-loader', 'css-loader'], exclude: [helpers.root('src/index.html')] },
-      { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] }
+      { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] },
+      { test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/, loader: 'raw-loader'}
     ],
     postLoaders: [
       {

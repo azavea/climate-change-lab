@@ -8,32 +8,32 @@ import {
   OnInit,
   ComponentFactoryResolver,
   SimpleChanges
-} from "@angular/core";
-import "rxjs/Rx";
+} from '@angular/core';
+import 'rxjs/Rx';
 
-import {AutoCompleteComponent} from "./auto-complete.component";
+import { AutoCompleteComponent } from './auto-complete.component';
 
 /**
  * display auto-complete section with input and dropdown list when it is clicked
  */
 @Directive({
-  selector: "[auto-complete], [ng2-auto-complete]",
+  selector: '[auto-complete], [ng2-auto-complete]',
   host: {
-    "(click)": "showAutoCompleteDropdown()",
-    "(focus)": "showAutoCompleteDropdown()"
+    '(click)': 'showAutoCompleteDropdown()',
+    '(focus)': 'showAutoCompleteDropdown()'
   }
 })
 export class AutoCompleteDirective implements OnInit {
 
-  @Input("auto-complete-placeholder") autoCompletePlaceholder: string;
-  @Input("list-formatter") listFormatter: (arg: any) => string;
+  @Input('auto-complete-placeholder') autoCompletePlaceholder: string;
+  @Input('list-formatter') listFormatter: (arg: any) => string;
   @Input('value-formatter') valueFormatter: (arg: any) => string;
-  @Input("source") source: any;
-  @Input("path-to-data") pathToData: string;
-  @Input("min-chars") minChars: number;
-  @Input("value-property-name") valuePropertyName: string;
-  @Input("display-property-name") displayPropertyName: string;
-  @Input("blank-option-text") blankOptionText: string;
+  @Input('source') source: any;
+  @Input('path-to-data') pathToData: string;
+  @Input('min-chars') minChars: number;
+  @Input('value-property-name') valuePropertyName: string;
+  @Input('display-property-name') displayPropertyName: string;
+  @Input('blank-option-text') blankOptionText: string;
 
   @Input() ngModel: String;
   @Output() ngModelChange = new EventEmitter();
@@ -52,11 +52,11 @@ export class AutoCompleteDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    // wrap this element with <div class="ng2-auto-complete">
-    let divEl = document.createElement("div");
-    divEl.className = "ng2-auto-complete";
-    divEl.style.display = "inline-block";
-    divEl.style.position = "relative";
+    // wrap this element with <div class='ng2-auto-complete'>
+    let divEl = document.createElement('div');
+    divEl.className = 'ng2-auto-complete';
+    divEl.style.display = 'inline-block';
+    divEl.style.position = 'relative';
     this.el.parentElement.insertBefore(divEl, this.el.nextSibling);
     divEl.appendChild(this.el);
 
@@ -64,14 +64,14 @@ export class AutoCompleteDirective implements OnInit {
     this.selectNewValue(this.ngModel);
 
     // when somewhere else clicked, hide this autocomplete
-    document.addEventListener("click", this.hideAutoCompleteDropdown);
+    document.addEventListener('click', this.hideAutoCompleteDropdown);
   }
 
   ngOnDestroy(): void {
     if (this.componentRef) {
       this.componentRef.instance.valueSelected.unsubscribe();
     }
-    document.removeEventListener("click", this.hideAutoCompleteDropdown);
+    document.removeEventListener('click', this.hideAutoCompleteDropdown);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -80,7 +80,7 @@ export class AutoCompleteDirective implements OnInit {
     }
   }
 
-  //show auto-complete list below the current element
+  // show auto-complete list below the current element
   showAutoCompleteDropdown() {
     this.hideAutoCompleteDropdown();
 
@@ -90,18 +90,18 @@ export class AutoCompleteDirective implements OnInit {
 
     let component = this.componentRef.instance;
     component.listFormatter = this.listFormatter;
-    //component.prefillFunc = this.prefillFunc;
+    // component.prefillFunc = this.prefillFunc;
     component.pathToData = this.pathToData;
     component.minChars = this.minChars;
-    component.valuePropertyName = this.valuePropertyName || "id";
-    component.displayPropertyName = this.displayPropertyName || "value";
+    component.valuePropertyName = this.valuePropertyName || 'id';
+    component.displayPropertyName = this.displayPropertyName || 'value';
     component.source = this.source;
     component.placeholder = this.autoCompletePlaceholder;
     component.blankOptionText = this.blankOptionText;
     component.valueSelected.subscribe(this.selectNewValue);
 
     this.acDropdownEl = this.componentRef.location.nativeElement;
-    this.acDropdownEl.style.display = "none";
+    this.acDropdownEl.style.display = 'none';
 
     // if this element is not an input tag, move dropdown after input tag
     // so that it displays correctly
@@ -113,8 +113,8 @@ export class AutoCompleteDirective implements OnInit {
   hideAutoCompleteDropdown = (event?: any): void =>  {
     if (this.componentRef) {
       if (
-        event && event.type === "click" &&
-        event.target.tagName !== "INPUT" &&
+        event && event.type === 'click' &&
+        event.target.tagName !== 'INPUT' &&
         !this.elementIn(event.target, this.acDropdownEl)
       ) {
         this.componentRef.destroy();
@@ -124,7 +124,7 @@ export class AutoCompleteDirective implements OnInit {
         this.componentRef = undefined;
       }
     }
-  };
+  }
 
   styleAutoCompleteDropdown = () => {
     if (this.componentRef) {
@@ -132,30 +132,30 @@ export class AutoCompleteDirective implements OnInit {
 
       /* setting width/height auto complete */
       let thisElBCR = this.el.getBoundingClientRect();
-      this.acDropdownEl.style.width = thisElBCR.width + "px";
-      this.acDropdownEl.style.position = "absolute";
-      this.acDropdownEl.style.zIndex = "1";
-      this.acDropdownEl.style.top = "0";
-      this.acDropdownEl.style.left = "0";
-      this.acDropdownEl.style.display = "inline-block";
+      this.acDropdownEl.style.width = thisElBCR.width + 'px';
+      this.acDropdownEl.style.position = 'absolute';
+      this.acDropdownEl.style.zIndex = '1';
+      this.acDropdownEl.style.top = '0';
+      this.acDropdownEl.style.left = '0';
+      this.acDropdownEl.style.display = 'inline-block';
 
       let thisInputElBCR = this.inputEl.getBoundingClientRect();
-      component.inputEl.style.width = (thisInputElBCR.width - 30) + "px";
-      component.inputEl.style.height = thisInputElBCR.height + "px";
+      component.inputEl.style.width = (thisInputElBCR.width - 30) + 'px';
+      component.inputEl.style.height = thisInputElBCR.height + 'px';
       component.inputEl.focus();
 
       component.closeToBottom =
         !!(thisInputElBCR.bottom + 100 > window.innerHeight);
     }
-  };
+  }
 
   addToStringFunction(val: any): any {
-    if (val && typeof val === "object") {
+    if (val && typeof val === 'object') {
         if (this.valueFormatter) {
             val.toString = () => this.valueFormatter(val);
-        } else if (val && typeof val !== "string") {
-            let displayVal = val[this.displayPropertyName || "value"];
-            val.toString = function() {return displayVal;}
+        } else if (val && typeof val !== 'string') {
+            let displayVal = val[this.displayPropertyName || 'value'];
+            val.toString = function() { return displayVal; };
         }
     }
     return val;
@@ -165,23 +165,29 @@ export class AutoCompleteDirective implements OnInit {
     if (val !== '') {
       val = this.addToStringFunction(val);
     }
-    (val !== this.ngModel) && this.ngModelChange.emit(val);
+    if (val !== this.ngModel) {
+      this.ngModelChange.emit(val);
+    }
     this.valueChanged.emit(val);
-    this.inputEl && (this.inputEl.value = ''+ val);
+    if (this.inputEl) {
+      this.inputEl.value = '' + val;
+    }
     this.hideAutoCompleteDropdown();
-  };
+  }
 
   private moveAutocompleteDropDownAfterInputEl(): void {
     this.inputEl = <HTMLInputElement>this.el;
-    if (this.el.tagName !== "INPUT" && this.acDropdownEl) {
-      this.inputEl =  this.el.querySelector("input");
+    if (this.el.tagName !== 'INPUT' && this.acDropdownEl) {
+      this.inputEl =  this.el.querySelector('input');
       this.inputEl.parentElement.insertBefore(this.acDropdownEl, this.inputEl.nextSibling);
     }
   }
 
   private elementIn(el: Node, containerEl: Node): boolean {
-    while ( el = el.parentNode ) {
+    el = el.parentNode;
+    while (el) {
       if ( el === containerEl ) { return true; };
+      el = el.parentNode;
     }
     return false;
   }

@@ -9,6 +9,10 @@ export class Chart {
     showMaximum: boolean = false;
     maximumValue: number = 0;
 
+    static fromJSON(object: Object) {
+        return new this(object);
+    }
+
     constructor(object: Object) {
         Object.assign(this, object);
     }
@@ -23,9 +27,5 @@ export class Chart {
             minimumValue: this.minimumValue,
             maximumValue: this.maximumValue
         };
-    }
-
-    static fromJSON(object: Object) {
-        return new this(object);
     }
 }

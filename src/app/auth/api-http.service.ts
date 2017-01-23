@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from './auth.service';
 
-import * as _ from 'lodash';
 
 /**
  * Wrapper for Http that appends authorization headers for requests to the API backend,
@@ -40,7 +39,7 @@ export class ApiHttp extends Http {
         return super.delete(url, this.appendAPIHeaders(options));
     }
 
-    private appendAPIHeaders(options?: RequestOptionsArgs) : RequestOptionsArgs {
+    private appendAPIHeaders(options?: RequestOptionsArgs): RequestOptionsArgs {
         if (options == null) {
             options = new RequestOptions();
         }

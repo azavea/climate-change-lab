@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import * as Papa from 'papaparse';
 import * as _ from 'lodash';
@@ -26,6 +26,6 @@ export class CSVService {
     }
 
     private downloadFile(data: string, title: string, mime: string): void {
-        FileSaver.saveAs(new File([data], title, {type: mime + ";charset=utf-8"}));
+        FileSaver.saveAs(new File([data], title, {type: mime + ';charset=utf-8'}));
     }
 }

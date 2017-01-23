@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, OnInit, ViewEncapsulation } from "@angular/core";
-import { Subject } from "rxjs/Subject";
-import { AutoComplete } from "./auto-complete";
+import { Component, ElementRef, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { AutoComplete } from './auto-complete';
 
 /**
  * show a selected date in monthly calendar
@@ -9,7 +9,7 @@ import { AutoComplete } from "./auto-complete";
  *   2. dataValue as any e.g.
  */
 @Component({
-  selector: "auto-complete",
+  selector: 'auto-complete',
   template: `
   <div class="auto-complete">
 
@@ -94,15 +94,15 @@ export class AutoCompleteComponent implements OnInit {
   /**
    * public input properties
    */
-  @Input("list-formatter") listFormatter: (arg: any) => string;
+  @Input('list-formatter') listFormatter: (arg: any) => string;
   @Input('value-formatter') valueFormatter: (arg: any) => void;
-  @Input("source") source: any;
-  @Input("path-to-data") pathToData: string;
-  @Input("min-chars") minChars: number = 0;
-  @Input("value-property-name") valuePropertyName: string = "id";
-  @Input("display-property-name") displayPropertyName: string = "value";
-  @Input("placeholder") placeholder: string;
-  @Input("blank-option-text") blankOptionText: string;
+  @Input('source') source: any;
+  @Input('path-to-data') pathToData: string;
+  @Input('min-chars') minChars: number = 0;
+  @Input('value-property-name') valuePropertyName: string = 'id';
+  @Input('display-property-name') displayPropertyName: string = 'value';
+  @Input('placeholder') placeholder: string;
+  @Input('blank-option-text') blankOptionText: string;
 
   el: HTMLElement;
   inputEl: HTMLInputElement;
@@ -117,8 +117,16 @@ export class AutoCompleteComponent implements OnInit {
 
   valueSelected: Subject<any> = new Subject();
 
+  private delay = (function () {
+    let timer = 0;
+    return function (callback: any, ms: number) {
+      clearTimeout(timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+
   isSrcArr(): boolean {
-    return (this.source.constructor.name === "Array");
+    return (this.source.constructor.name === 'Array');
   }
 
   /**
@@ -135,7 +143,7 @@ export class AutoCompleteComponent implements OnInit {
    * user enters into input el, shows list to select, then select one
    */
   ngOnInit(): void {
-    this.inputEl = <HTMLInputElement>(this.el.querySelector("input"));
+    this.inputEl = <HTMLInputElement>(this.el.querySelector('input'));
     this.autoComplete.source = this.source;
     this.autoComplete.pathToData = this.pathToData;
   }
@@ -148,7 +156,7 @@ export class AutoCompleteComponent implements OnInit {
   }
 
   showDropdownList(): void {
-    this.keyword = "";
+    this.keyword = '';
     this.inputEl.focus();
     this.reloadList();
   }
@@ -171,13 +179,13 @@ export class AutoCompleteComponent implements OnInit {
       this.isLoading = true;
 
       if (keyword.length >= this.minChars) {
-        if (typeof this.source === "function") {
+        if (typeof this.source === 'function') {
           // custom function that returns observable
           this.source(keyword).subscribe(
             resp => {
 
               if (this.pathToData) {
-                var paths = this.pathToData.split(".");
+                let paths = this.pathToData.split('.');
                 paths.forEach(prop => resp = resp[prop]);
               }
 
@@ -230,6 +238,9 @@ export class AutoCompleteComponent implements OnInit {
         }
         evt.preventDefault();
         break;
+      default:
+        this.hideDropdownList();
+        break;
     }
   };
 
@@ -239,18 +250,11 @@ export class AutoCompleteComponent implements OnInit {
   }
 
   private defaultListFormatter(data: any): string {
-    let html: string = "";
-    html += data[this.valuePropertyName] ? `<b>(${data[this.valuePropertyName]})</b>` : "";
-    html += data[this.displayPropertyName] ? `<span>${data[this.displayPropertyName]}</span>` : data;
+    let html: string = '';
+    html += data[this.valuePropertyName] ? `<b>(${data[this.valuePropertyName]})</b>` : '';
+    html += data[this.displayPropertyName] ?
+      `<span>${data[this.displayPropertyName]}</span>` : data;
     return html;
   }
-
-  private delay = (function () {
-    var timer = 0;
-    return function (callback: any, ms: number) {
-      clearTimeout(timer);
-      timer = setTimeout(callback, ms);
-    };
-  })();
 
 }
