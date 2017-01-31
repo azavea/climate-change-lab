@@ -39,6 +39,6 @@ export class IndicatorService {
     public list(): Observable<Indicator[]> {
         let url = apiHost + '/api/indicator/';
         return this.apiHttp.get(url)
-            .map(resp => resp.json().results || []);
+            .map(resp => resp.json() || []);
     }
 }
