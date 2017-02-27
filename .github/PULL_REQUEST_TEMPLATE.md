@@ -21,4 +21,4 @@ Optional. Ancillary topics, caveats, alternative strategies that didn't work out
  * Include any setup required, such as bundling scripts, restarting services, etc.
  * Include test case, and expected output
 
-See|Connects|Closes #XXX
+See|Connects #XXX
