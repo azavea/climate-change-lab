@@ -7,4 +7,4 @@
 export const defaultCity = {'id': 7, 'properties': {'name': 'Philadelphia','admin': 'PA'}};
 export const defaultScenario = 'RCP85';
 
-export const apiHost = 'https://api.staging.futurefeelslike.com';
+export const apiHost = 'https://climate.azavea.com';
