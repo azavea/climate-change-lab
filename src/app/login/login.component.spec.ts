@@ -14,11 +14,11 @@ import { UiSwitchModule } from 'angular2-ui-switch';
 
 import {
     CollapseModule,
-    DropdownModule,
+    BsDropdownModule,
     ModalModule,
     PaginationModule,
     TooltipModule,
-    TypeaheadModule } from 'ng2-bootstrap';
+    TypeaheadModule } from 'ngx-bootstrap';
 
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
@@ -69,7 +69,7 @@ describe('LoginComponent', () => {
 
                 // bootstrap
                 CollapseModule.forRoot(),
-                DropdownModule.forRoot(),
+                BsDropdownModule.forRoot(),
                 ModalModule.forRoot(),
                 PaginationModule.forRoot(),
                 TooltipModule.forRoot(),
