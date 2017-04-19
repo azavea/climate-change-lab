@@ -22,7 +22,7 @@ import { ScenarioService } from '../../services/scenario.service';
                 {{ projectData.scenario.label || "Select Scenario" }}
                 <i class="icon-angle-down caret"></i>
               </button>
-              <ul dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
+              <ul *dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
                 <li *ngFor="let scenario of scenarios">
                   <a (click)="onScenarioClicked(scenario)"
                     tooltip="{{ scenario.description }}"

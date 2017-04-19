@@ -8,10 +8,10 @@ import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 // 3rd party modules
 import {
     CollapseModule,
-    DropdownModule,
+    BsDropdownModule,
     ModalModule,
     PaginationModule,
-    TooltipModule } from 'ng2-bootstrap';
+    TooltipModule } from 'ngx-bootstrap';
 import { UiSwitchModule } from 'angular2-ui-switch';
 
 // App routing
@@ -88,7 +88,7 @@ let apiHttpProvider = {
     HttpModule,
     routing,
     CollapseModule.forRoot(),
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
