@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@types/core-js": "~0.9.28",
-    "@types/jasmine": "~2.5.40",
+    "@types/jasmine": "2.5.38",
     "@types/jquery": "~1.10.31",
     "@types/node": "~4.0.29",
     "@types/selenium-webdriver": "~2.53.39",
