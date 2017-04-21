@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -12,8 +12,7 @@
     "noUnusedParameters": false,
     "noUnusedLocals": false,
     "baseUrl": "./src",
-    "paths": [
-    ],
+    "paths": [],
     "types": [
       "core-js",
       "jasmine",
