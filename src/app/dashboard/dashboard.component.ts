@@ -11,9 +11,9 @@ export class DashboardComponent implements OnInit {
 
     public currentPage: number = 1;
     public itemsPerPage: number = 5;
-    private showDashboard: string = 'hide';     // Hide dashboard until projects loaded
-    private projects: Project[] = [];
-    private pageOfProjects: Project[] = [];
+    public showDashboard: string = 'hide';     // Hide dashboard until projects loaded
+    public projects: Project[] = [];
+    public pageOfProjects: Project[] = [];
 
     constructor(private projectService: ProjectService) {}
 

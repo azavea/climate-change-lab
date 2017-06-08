@@ -104,7 +104,7 @@ export class WaveComponent implements OnDestroy {
     }, this.delay);
   }
 
-  private visible: boolean = true;
+  public visible: boolean = true;
   private timeout: any;
 
   ngOnDestroy(): any {

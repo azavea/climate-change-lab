@@ -30,7 +30,7 @@ export class ChartComponent implements OnChanges {
     @Input() city: City;
     @Input() multiChartScrubber: Boolean;
 
-    private chartData: ChartData[];
+    public chartData: ChartData[];
     private isHover: Boolean = false;
 
     // Mousemove event must be at this level to listen to mousing over rect#overlay

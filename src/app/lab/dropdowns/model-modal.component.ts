@@ -21,7 +21,7 @@ export class ModelModalComponent implements OnInit {
     @Input() projectData: ProjectData;
 
     public climateModels: ClimateModel[] = [];
-    private buttonText: string;
+    public buttonText: string;
 
     constructor(private climateModelService: ClimateModelService) {}
 

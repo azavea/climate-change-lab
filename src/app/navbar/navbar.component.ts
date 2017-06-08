@@ -13,5 +13,5 @@ export class NavbarComponent {
 
     public isSettingsDropdownOpen: boolean = false;
 
-    constructor(private authService: AuthService) {}
+    constructor(public authService: AuthService) {}
 }

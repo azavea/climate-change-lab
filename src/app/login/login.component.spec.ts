@@ -10,7 +10,7 @@ import { LoginForm } from './login-form';
 
 import { FormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from '../ng2-auto-complete/ng2AutoComplete.module';
-import { UiSwitchModule } from 'angular2-ui-switch';
+import { UiSwitchModule } from 'ngx-ui-switch/src';
 
 import {
     CollapseModule,
