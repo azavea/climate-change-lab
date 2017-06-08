@@ -41,12 +41,12 @@ to switch between using the VM build and building directly on your host machine.
 
 | Command | Purpose | Use When ... |
 |------|---------|--------------|
-| `npm start` | Serve project using hot module replacement | For quick browser updating without refresh |
-| `npm run server:dev` | Serve project normally, without hot module replacement | If you don't want hot module replacement |
-| `npm run lint --silent` | Run typescript linter | To clean up your angular and .ts files |
+| `npm start` | Serve project in dev mode using Angular CLI | For quick browser updating with refresh |
+| `npm run lint` | Run typescript linter | To clean up your angular and .ts files |
+| `npm run test` | Run project tests | |
 | `npm run build:prod` | Build production version of application | When ready to deploy |
 
-Navigate to [http://localhost:3100](http://localhost:3100) in your browser.
+Navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
 Additional commands available in package.json.
 

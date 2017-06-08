@@ -48,7 +48,7 @@ describe('LoginComponent', () => {
     let pwDebug:      DebugElement;
     let pwElement:    HTMLElement;
 
-    let authServiceStub: Object;
+    let authServiceStub: any;
 
     // asynchronous beforeEach to compile component
     beforeEach(async(() => {
@@ -56,7 +56,7 @@ describe('LoginComponent', () => {
             isAuthenticated: jasmine.createSpy('isAuthenticated'),
             login: jasmine.createSpy('login').and.returnValue({
                 subscribe: jasmine.createSpy('subscribe')
-            });
+            }),
             toString: jasmine.createSpy('toString')
         };
 
