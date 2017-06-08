@@ -42,7 +42,6 @@ import { ApiHttp } from './auth/api-http.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ChartService } from './services/chart.service';
-import { CityService } from './services/city.service';
 import { CSVService } from './services/csv.service';
 import { SocialService } from './services/social.service';
 import { ClimateModelService } from './services/climate-model.service';
@@ -103,7 +102,6 @@ let apiHttpProvider = {
     AuthService,
     AuthGuard,
     ChartService,
-    CityService,
     CSVService,
     SocialService,
     ClimateModelService,

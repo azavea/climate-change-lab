@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs';
-// import 'rxjs/Rx';
 
 import { City } from '../models/city.model';
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
 
 /*
- * Scenario Service
- * Returns scenarios from API
+ * City Service
+ * Returns cities from API
  */
 @Injectable()
 export class CityService {
