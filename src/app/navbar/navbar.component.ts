@@ -12,7 +12,6 @@ export class NavbarComponent {
     @Input() projectID: string;
 
     public isSettingsDropdownOpen: boolean = false;
-    // public logoUrl: string = require('./climate-logo-white.svg');
 
     constructor(private authService: AuthService) {}
 }

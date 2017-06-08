@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 import { ProjectData } from '../../models/project-data.model';
-import { CityService } from '../../services/city.service';
 
 import { apiHost } from '../../constants';
 
