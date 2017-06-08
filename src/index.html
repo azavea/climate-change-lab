@@ -1,28 +1,14 @@
-<!DOCTYPE html>
-<html lang="">
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Cclab</title>
+  <base href="/">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet">
-
-  <title><%= webpackConfig.metadata.title %></title>
-
-  <meta name="description" content="<%= webpackConfig.metadata.title %>">
-
-  <!-- base url -->
-  <base href="<%= webpackConfig.metadata.baseUrl %>">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-
 <body>
-
-  <cc-lab>Loading...</cc-lab>
-
-  <% if (webpackConfig.metadata.isDevServer && webpackConfig.metadata.HMR !== true) { %>
-  <!-- Webpack Dev Server reload -->
-  <script src="/webpack-dev-server.js"></script>
-  <% } %>
-
-
+  <cc-lab></cc-lab>
 </body>
 </html>
