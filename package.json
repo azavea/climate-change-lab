@@ -16,7 +16,7 @@
     "build": "ng build",
     "build:prod": "ng build -prod --aot --extract-css",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint --type-check",
     "e2e": "ng e2e"
   },
   "private": true,
