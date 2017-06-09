@@ -1,6 +1,6 @@
 <div class="app-fullscreen" *ngIf="model.project">
 
-    <navbar></navbar>
+    <ccl-navbar></ccl-navbar>
 
     <div class="form">
         <div class="project-title">
@@ -22,15 +22,15 @@
                         name="project.description"
                         [(ngModel)]="model.project.project_data.description"></textarea>
                 <label for="project.city">Choose a city*</label>
-                <city-dropdown [projectData]="model.project.project_data" [showIcon]="false"></city-dropdown>
+                <ccl-city-dropdown [projectData]="model.project.project_data" [showIcon]="false"></ccl-city-dropdown>
                 <div class="row">
                     <div class="column-6 flex-column">
                         <label for="project.scenario">Scenario*</label>
-                        <scenario-dropdown [projectData]="model.project.project_data"></scenario-dropdown>
+                        <ccl-scenario-dropdown [projectData]="model.project.project_data"></ccl-scenario-dropdown>
                     </div>
                     <div class="column-6 flex-column">
                         <label for="project.models">Models</label>
-                        <model-modal [projectData]="model.project.project_data"></model-modal>
+                        <ccl-model-modal [projectData]="model.project.project_data"></ccl-model-modal>
                     </div>
                 </div>
                 <div class="row">

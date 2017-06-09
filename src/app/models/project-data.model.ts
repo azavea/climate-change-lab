@@ -14,10 +14,10 @@ export class ProjectData {
     visibility: ProjectVisibility = ProjectVisibility.Private;
     city: City;
     scenario: Scenario;
-    allModels: boolean = true;
+    allModels = true;
     models: ClimateModel[] = [];
     charts: Chart[] = [];
-    multiChartScrubber: boolean = false;
+    multiChartScrubber = false;
 
     static fromJSON(object: Object) {
         return new this(object);

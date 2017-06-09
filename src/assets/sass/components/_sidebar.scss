@@ -1,4 +1,4 @@
-sidebar {
+ccl-sidebar {
   overflow-y: auto;
   width: 220px;
   border-right: 1px solid $gray-3;
@@ -45,7 +45,7 @@ sidebar {
   }
 }
 
-indicator-list {
+ccl-indicator-list {
   &:not(:last-child) {
     margin-bottom: 2rem;
     display: block;

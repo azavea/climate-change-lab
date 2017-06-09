@@ -1,4 +1,4 @@
-add-edit-project {
+ccl-add-edit-project {
 
     .flex-column {
         display: flex;
@@ -11,7 +11,7 @@ add-edit-project {
         margin-top: 3rem;
     }
 
-    model-modal {
+    ccl-model-modal {
         button {
             padding-right: 18px !important;
         }

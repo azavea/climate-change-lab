@@ -8,7 +8,7 @@ import { Indicator } from '../models/indicator.model';
  */
 
 @Component({
-  selector: 'indicator-list',
+  selector: 'ccl-indicator-list',
   templateUrl: './indicator-list.component.html'
 })
 export class IndicatorListComponent {

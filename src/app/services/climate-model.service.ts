@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 import { ClimateModel } from '../models/climate-model.model';
 import { ApiHttp } from '../auth/api-http.service';
@@ -16,7 +15,7 @@ export class ClimateModelService {
     constructor(private apiHttp: ApiHttp) {}
 
     public list(): Observable<ClimateModel[]> {
-        let url = apiHost + '/api/climate-model/';
+        const url = apiHost + '/api/climate-model/';
         return this.apiHttp.get(url).map(resp => resp.json() || [] as ClimateModel[]);
     }
 }

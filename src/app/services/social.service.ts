@@ -24,18 +24,18 @@ export class SocialService {
      * @param fileName {string} File name for download; will be suffixed with extension
      */
     public downloadAsPNG(indicatorName: string, fileName: string): void {
-        let filename: string = fileName + '.png';
-        let svg: HTMLElement = document.getElementById('chart-' + indicatorName);
+        const filename: string = fileName + '.png';
+        const svg: HTMLElement = document.getElementById('chart-' + indicatorName);
         // SVG might not be found if chart hasn't loaded yet
-        if (!svg) return;
+        if (!svg) { return };
 
         SaveSvg.saveSvgAsPng(svg, filename, this.chartOptions);
     }
 
     public chartSvgToPngUri(indicatorName: string): void {
-        let svg: HTMLElement = document.getElementById('chart-' + indicatorName);
+        const svg: HTMLElement = document.getElementById('chart-' + indicatorName);
         // SVG might not be found if chart hasn't loaded yet
-        if (!svg) return;
+        if (!svg) { return };
 
         SaveSvg.svgAsPngUri(svg, this.chartOptions,
             uri => {
