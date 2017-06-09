@@ -66,7 +66,7 @@ ROOT_VM_DIR = "/opt/climate-change-lab"
 Vagrant.configure("2") do |config|
 
   config.vm.define "app" do |app|
-    app.vm.box = "ubuntu/precise64"
+    app.vm.box = "ubuntu/trusty64"
     app.vm.hostname = "app"
     app.vm.network "private_network", ip: ENV.fetch("CLIMATE_CHANGE_PRIVATE_IP", "192.168.8.111")
 
@@ -78,11 +78,11 @@ Vagrant.configure("2") do |config|
       ansible.raw_arguments = ["--timeout=60"]
     end
 
-    app.vm.network "forwarded_port", guest: 3100, host: 3100
+    app.vm.network "forwarded_port", guest: 4200, host: ENV.fetch("CLIMATE_CHANGE_LAB_PORT", 4200)
     app.ssh.forward_x11 = true
 
     app.vm.provider :virtualbox do |v|
-      v.memory = ENV.fetch("CLIMATE_CHANGE_LAB_MEM", 1024)
+      v.memory = ENV.fetch("CLIMATE_CHANGE_LAB_MEM", 2048)
       v.cpus = ENV.fetch("CLIMATE_CHANGE_LAB_CPUS", 2)
     end
   end

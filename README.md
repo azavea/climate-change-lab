@@ -27,15 +27,17 @@ cd /opt/climate-change-lab
 npm start
 ```
 
-The site will then be available at [http://localhost:3100](http://localhost:3100) on your host machine.
+The site will then be available at [http://localhost:4200](http://localhost:4200) on your host machine.
 
-Note that if you are using a Mac host, it may be necessary to run:
+If working within the VM, you can set `ENV.CLIMATE_CHANGE_LAB_PORT` before running `vagrant up` if port collisions for 4200 exist on your host.
+
+Note that if your host OS differs from the VM, you may need to run
 
 ```
 npm rebuild node-sass
 ```
 
-to switch between using the VM build and building directly on your host machine.
+within the environment (host or VM) before running other build scripts in that environment.
 
 ### Getting started
 
