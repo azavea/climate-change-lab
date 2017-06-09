@@ -84,7 +84,7 @@ import { Component, Input, OnDestroy } from '@angular/core';
 export class WaveComponent implements OnDestroy {
 
   @Input()
-  public delay: number = 0;
+  public delay = 0;
 
   @Input()
   public set isRunning(value: boolean) {
@@ -104,7 +104,7 @@ export class WaveComponent implements OnDestroy {
     }, this.delay);
   }
 
-  public visible: boolean = true;
+  public visible = true;
   private timeout: any;
 
   ngOnDestroy(): any {

@@ -2,12 +2,12 @@ import { Indicator } from './indicator.model';
 
 export class Chart {
     indicator: Indicator;
-    showSettings: boolean = false;
-    showTrendline: boolean = false;
-    showMinimum: boolean = false;
-    minimumValue: number = 0;
-    showMaximum: boolean = false;
-    maximumValue: number = 0;
+    showSettings = false;
+    showTrendline = false;
+    showMinimum = false;
+    minimumValue = 0;
+    showMaximum = false;
+    maximumValue = 0;
 
     static fromJSON(object: Object) {
         return new this(object);

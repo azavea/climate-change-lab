@@ -1,10 +1,10 @@
 import { async } from '@angular/core/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By }              from '@angular/platform-browser';
-import { DebugElement }    from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 import { apiHost } from '../constants';
-import { AuthService }    from '../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { LoginComponent } from './login.component';
 import { LoginForm } from './login-form';
 

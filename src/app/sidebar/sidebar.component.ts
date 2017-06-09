@@ -9,7 +9,7 @@ import { Indicator } from '../models/indicator.model';
  */
 
 @Component({
-  selector: 'sidebar',
+  selector: 'ccl-sidebar',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './sidebar.component.html'
 })

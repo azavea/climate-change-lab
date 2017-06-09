@@ -1,7 +1,7 @@
 import { Component, ViewContainerRef } from '@angular/core';
 
 @Component({
-  selector: 'cc-lab',
+  selector: 'ccl-app',
   template: '<router-outlet></router-outlet>'
 })
 export class AppComponent {

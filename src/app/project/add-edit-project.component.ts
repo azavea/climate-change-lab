@@ -17,13 +17,13 @@ import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
 */
 
 @Component({
-  selector: 'add-edit-project',
+  selector: 'ccl-add-edit-project',
   templateUrl: './add-edit-project.component.html'
 })
 export class AddEditProjectComponent implements OnInit {
 
     public project: Project;
-    public edit: boolean = false;
+    public edit = false;
     public model = {'project': {} as Project};
     private routeParamsSubscription: Subscription;
 
@@ -34,7 +34,7 @@ export class AddEditProjectComponent implements OnInit {
     ngOnInit() {
         // Load current project
         this.routeParamsSubscription = this.route.params.subscribe(params => {
-            let id: string = params['id'];
+            const id: string = params['id'];
             if (id !== undefined) {
                 this.projectService.get(id).subscribe(data => {
                     this.model.project = data;

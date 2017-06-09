@@ -6,13 +6,13 @@ import { LoginForm } from './login-form';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
-  selector: 'login',
+  selector: 'ccl-login',
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
 
-    createAccountUrl: string = `${apiHost}/accounts/register/`;
-    resetPasswordUrl: string = `${apiHost}/accounts/password/change/`;
+    createAccountUrl = `${apiHost}/accounts/register/`;
+    resetPasswordUrl = `${apiHost}/accounts/password/change/`;
 
     model = new LoginForm('', '');
 

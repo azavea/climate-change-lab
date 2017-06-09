@@ -51,7 +51,7 @@ import { ScenarioService } from './services/scenario.service';
 import { ProjectService } from './services/project.service';
 
 // Custom app providers
-let locationStrategyProvider = {
+const locationStrategyProvider = {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
 };

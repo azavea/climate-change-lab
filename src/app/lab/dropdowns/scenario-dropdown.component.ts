@@ -8,12 +8,12 @@ import { ScenarioService } from '../../services/scenario.service';
 
     -- Requires project input
     Expected use:
-        <scenario-dropdown
+        <ccl-scenario-dropdown
             [projectData]="your_project.project_data">
 */
 
 @Component({
-  selector: 'scenario-dropdown',
+  selector: 'ccl-scenario-dropdown',
   template: `<div dropdown class="dropdown dropdown-scenario">
               <button dropdownToggle class="button dropdown-toggle" type="button"
                 id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
@@ -35,7 +35,7 @@ export class ScenarioDropdownComponent implements OnInit {
 
     @Input() projectData: ProjectData;
     public scenarios: Scenario[] = [];
-    private DEFAULT_SCENARIO_NAME: string = 'RCP85';
+    private DEFAULT_SCENARIO_NAME = 'RCP85';
 
     constructor(private scenarioService: ScenarioService) {}
 
