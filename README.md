@@ -23,7 +23,7 @@ Then to start the development server within the VM:
 
 ```bash
 vagrant ssh
-cd /opt/climate-change-lab
+cd /vagrant
 npm start
 ```
 
