@@ -9,7 +9,7 @@ import { Indicator } from '../models/indicator.model';
  */
 
 @Component({
-  selector: 'sidebar',
+  selector: 'ccl-sidebar',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './sidebar.component.html'
 })
@@ -17,8 +17,8 @@ export class SidebarComponent implements OnInit {
 
     @Output() onIndicatorSelected = new EventEmitter<Indicator>();
 
-    private tempIndicators: Indicator[];
-    private precipIndicators: Indicator[];
+    public tempIndicators: Indicator[];
+    public precipIndicators: Indicator[];
 
     constructor(private indicatorService: IndicatorService) {}
 

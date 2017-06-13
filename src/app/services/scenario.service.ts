@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 import { Scenario } from '../models/scenario.model';
 import { ApiHttp } from '../auth/api-http.service';
@@ -16,7 +15,7 @@ export class ScenarioService {
     constructor(private apiHttp: ApiHttp) {}
 
     public list(): Observable<Scenario[]> {
-        let url = apiHost + '/api/scenario/';
+        const url = apiHost + '/api/scenario/';
         return this.apiHttp.get(url).map(resp => resp.json() || [] as Scenario[]);
     }
 }

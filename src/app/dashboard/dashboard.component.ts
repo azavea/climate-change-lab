@@ -4,16 +4,16 @@ import { Project } from '../models/project.model';
 import { ProjectService } from '../services/project.service';
 
 @Component({
-  selector: 'dashboard',
+  selector: 'ccl-dashboard',
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
 
-    public currentPage: number = 1;
-    public itemsPerPage: number = 5;
-    private showDashboard: string = 'hide';     // Hide dashboard until projects loaded
-    private projects: Project[] = [];
-    private pageOfProjects: Project[] = [];
+    public currentPage = 1;
+    public itemsPerPage = 5;
+    public showDashboard = 'hide';     // Hide dashboard until projects loaded
+    public projects: Project[] = [];
+    public pageOfProjects: Project[] = [];
 
     constructor(private projectService: ProjectService) {}
 
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
     }
 
     public deleteProject(project: Project) {
-        let projectIndex = this.projects.findIndex(p => p.id === project.id);
+        const projectIndex = this.projects.findIndex(p => p.id === project.id);
         // Ensure delete completes before requerying for all projects
         this.projectService.remove(project.id).flatMap(() => {
                 return this.projectService.list();
@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
 
     public setPage(page: number) {
         this.currentPage = page < 1 ? 1 : page;
-        let index = this.itemsPerPage * (page - 1);
+        const index = this.itemsPerPage * (page - 1);
         this.pageOfProjects = this.projects.slice(index, index + this.itemsPerPage);
     }
 }

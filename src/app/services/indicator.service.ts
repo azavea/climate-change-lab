@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestOptions, URLSearchParams } from '@angular/http';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer } from 'rxjs/Rx';
 import 'rxjs/Rx';
 
 import { Indicator } from '../models/indicator.model';
@@ -17,11 +17,11 @@ export class IndicatorService {
     constructor(private apiHttp: ApiHttp) {}
 
     public getData(options: IndicatorQueryOpts) {
-        let url = `${apiHost}/api/climate-data/${options.city.id}/${options.scenario.name}` +
+        const url = `${apiHost}/api/climate-data/${options.city.id}/${options.scenario.name}` +
                   `/indicator/${options.indicator.name}/`;
 
         // Generate query params
-        let searchParams: URLSearchParams = new URLSearchParams();
+        const searchParams: URLSearchParams = new URLSearchParams();
         if (options.years) {
             searchParams.append('years', options.years.join(','));
         }
@@ -32,12 +32,12 @@ export class IndicatorService {
             searchParams.append('time_aggregation', options.time_aggregation);
         }
 
-        let requestOptions = new RequestOptions({ search: searchParams });
+        const requestOptions = new RequestOptions({ search: searchParams });
         return this.apiHttp.get(url, requestOptions).map(resp => resp.json());
     }
 
     public list(): Observable<Indicator[]> {
-        let url = apiHost + '/api/indicator/';
+        const url = apiHost + '/api/indicator/';
         return this.apiHttp.get(url)
             .map(resp => resp.json() || []);
     }

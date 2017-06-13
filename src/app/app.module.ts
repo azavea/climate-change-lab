@@ -12,7 +12,7 @@ import {
     ModalModule,
     PaginationModule,
     TooltipModule } from 'ngx-bootstrap';
-import { UiSwitchModule } from 'angular2-ui-switch';
+import { UiSwitchModule } from 'ngx-ui-switch/src';
 
 // App routing
 import { routing, appRoutingProviders } from './app.routing';
@@ -39,6 +39,7 @@ import { WaveComponent } from './ng2-spin-kit/wave.component';
 
 // App services
 import { ApiHttp } from './auth/api-http.service';
+import { apiHttpProvider } from './auth/api-http.provider';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ChartService } from './services/chart.service';
@@ -50,17 +51,9 @@ import { ScenarioService } from './services/scenario.service';
 import { ProjectService } from './services/project.service';
 
 // Custom app providers
-let locationStrategyProvider = {
+const locationStrategyProvider = {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-};
-let apiHttpProvider = {
-    provide: ApiHttp,
-    /* tslint:disable-next-line:max-line-length */
-    useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, authService: AuthService) => {
-        return new ApiHttp(xhrBackend, requestOptions, authService);
-    },
-    deps: [XHRBackend, RequestOptions, AuthService]
 };
 
 @NgModule({

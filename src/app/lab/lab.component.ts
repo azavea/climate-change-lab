@@ -18,7 +18,7 @@ import { Project } from '../models/project.model';
 
 
 @Component({
-  selector: 'cc-lab',
+  selector: 'ccl-lab',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './lab.component.html'
 })
@@ -41,7 +41,7 @@ export class LabComponent implements OnInit, OnDestroy {
     ngOnInit() {
         // Load existing project id or redirect to dashboard
         this.routeParamsSubscription = this.route.params.subscribe(params => {
-            let id: string = params['id'];
+            const id: string = params['id'];
             if (id !== undefined) {
                 this.projectService.get(id).subscribe(
                     data => this.project = data,
@@ -71,7 +71,7 @@ export class LabComponent implements OnInit, OnDestroy {
     }
 
     public indicatorSelected(indicator: Indicator) {
-        let chart = new Chart({indicator: indicator});
+        const chart = new Chart({indicator: indicator});
         this.project.project_data.charts.unshift(chart);
     }
 }

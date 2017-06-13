@@ -9,12 +9,12 @@ import { apiHost } from '../../constants';
     -- Requires: input project
 
     Expected use:
-        <city-dropdown
+        <ccl-city-dropdown
         [projectData]="your_project.project_data">
 */
 
 @Component({
-  selector: 'city-dropdown',
+  selector: 'ccl-city-dropdown',
   template: `<div class="dropdown dropdown-location">
               <div class="input">
                 <i *ngIf="showIcon" class="icon-globe"></i>
@@ -36,13 +36,13 @@ export class CityDropdownComponent {
     public apiCities: string = apiHost + '/api/city/?search=:keyword';
 
     @Input() projectData: ProjectData;
-    @Input() showIcon: boolean = true;
+    @Input() showIcon = true;
 
     constructor() {}
 
     // custom formatter to display list of options as City, State
     public cityListFormatter(data: any): string {
-        let html: string = '';
+        let html = '';
         html += data.properties.name ?
             `<span>${data.properties.name}, ${data.properties.admin}</span>` : data;
         return html;
@@ -50,7 +50,7 @@ export class CityDropdownComponent {
 
     // custom formatter to display string for selected city as City, State
     public cityValueFormatter(data: any): string {
-        let displayValue: string = '';
+        let displayValue = '';
         if (data && data.properties) {
             displayValue += data.properties.name + ', ' + data.properties.admin;
         }

@@ -1,16 +1,16 @@
 import { async } from '@angular/core/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By }              from '@angular/platform-browser';
-import { DebugElement }    from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 import { apiHost } from '../constants';
-import { AuthService }    from '../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { LoginComponent } from './login.component';
 import { LoginForm } from './login-form';
 
 import { FormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from '../ng2-auto-complete/ng2AutoComplete.module';
-import { UiSwitchModule } from 'angular2-ui-switch';
+import { UiSwitchModule } from 'ngx-ui-switch/src';
 
 import {
     CollapseModule,
@@ -48,7 +48,7 @@ describe('LoginComponent', () => {
     let pwDebug:      DebugElement;
     let pwElement:    HTMLElement;
 
-    let authServiceStub: Object;
+    let authServiceStub: any;
 
     // asynchronous beforeEach to compile component
     beforeEach(async(() => {
@@ -56,7 +56,7 @@ describe('LoginComponent', () => {
             isAuthenticated: jasmine.createSpy('isAuthenticated'),
             login: jasmine.createSpy('login').and.returnValue({
                 subscribe: jasmine.createSpy('subscribe')
-            });
+            }),
             toString: jasmine.createSpy('toString')
         };
 

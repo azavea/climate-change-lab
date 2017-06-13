@@ -17,7 +17,7 @@ import { SocialService } from '../services/social.service';
  * Container for each individual chart plus controls
  */
 @Component({
-  selector: 'chart',
+  selector: 'ccl-chart',
   templateUrl: './chart.component.html'
 })
 export class ChartComponent implements OnChanges {
@@ -30,8 +30,8 @@ export class ChartComponent implements OnChanges {
     @Input() city: City;
     @Input() multiChartScrubber: Boolean;
 
-    private chartData: ChartData[];
-    private isHover: Boolean = false;
+    public chartData: ChartData[];
+    public isHover: Boolean = false;
 
     // Mousemove event must be at this level to listen to mousing over rect#overlay
     @HostListener('mouseover', ['$event'])
@@ -70,7 +70,7 @@ export class ChartComponent implements OnChanges {
     }
 
     onDownloadImageClicked() {
-        let fileName: string = [
+        const fileName: string = [
             this.chart.indicator.name,
             this.city.properties.name,
             this.scenario.name

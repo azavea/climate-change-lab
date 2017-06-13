@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import {} from ''
+
 import { ClimateModel } from '../../models/climate-model.model';
 import { ProjectData } from '../../models/project-data.model';
 import { ClimateModelService } from '../../services/climate-model.service';
@@ -8,20 +10,21 @@ import { ClimateModelService } from '../../services/climate-model.service';
     -- Requires project input
     -- Emits selected model
     Expected use:
-        <model-modal
+        <ccl-model-modal
             [projectData]="your_project.project_data">
 */
 
 @Component({
-  selector: 'model-modal',
+  selector: 'ccl-model-modal',
   templateUrl: './model-modal.component.html'
 })
 export class ModelModalComponent implements OnInit {
 
     @Input() projectData: ProjectData;
 
+    public buttonText: string;
     public climateModels: ClimateModel[] = [];
-    private buttonText: string;
+    public smModal: any;
 
     constructor(private climateModelService: ClimateModelService) {}
 
@@ -48,7 +51,7 @@ export class ModelModalComponent implements OnInit {
     }
 
     public modalHide() {
-        let models = this.filterSelectedClimateModels();
+        const models = this.filterSelectedClimateModels();
         if (models.length < 1) {
           this.selectAllClimateModels();
         }

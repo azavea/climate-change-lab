@@ -7,7 +7,6 @@
                 placement="top"
                 title=""
                 tooltip="Download chart image"
-                [ngClass]="{'active': showShareOptions}"
                 (click)="onDownloadImageClicked()"><i class="icon icon-download"></i>
         </button>
         <button class="button button-link"
@@ -33,7 +32,7 @@
 </div>
 <div class="chart-body">
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
-    <line-graph
+    <ccl-line-graph
         *ngIf="chartData && chartData.length"
         [data]="chartData"
         [indicator]="chart.indicator"
@@ -44,7 +43,7 @@
         [maxVal]="chart.maximumValue"
         [hover]="isHover"
         [multiChartScrubber]="multiChartScrubber">
-    </line-graph>
+    </ccl-line-graph>
     <div class="chart-options" *ngIf="chart.showSettings">
         <div class="chart-options-body">
             <div class="chart-options-group">

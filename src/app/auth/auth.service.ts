@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Rx';
 
 import { apiHost } from '../constants';
 
 @Injectable()
 export class AuthService {
 
-    private LOCALSTORAGE_TOKEN_KEY: string = 'auth.api.token';
-    private LOCALSTORAGE_EMAIL_KEY: string = 'auth.api.email';
+    private LOCALSTORAGE_TOKEN_KEY = 'auth.api.token';
+    private LOCALSTORAGE_EMAIL_KEY = 'auth.api.email';
 
     // TODO: Inject a window or localStorage service here to abstract implicit
     //       dependency on window
@@ -20,7 +20,7 @@ export class AuthService {
     }
 
     getEmail(): string {
-        let defaultEmail = this.isAuthenticated() ? 'User' : 'Anonymous';
+        const defaultEmail = this.isAuthenticated() ? 'User' : 'Anonymous';
         return window.localStorage.getItem(this.LOCALSTORAGE_EMAIL_KEY) || defaultEmail;
     }
 
@@ -29,15 +29,15 @@ export class AuthService {
     }
 
     login(email: string, password: string): Observable<any> {
-        let body = JSON.stringify({
+        const body = JSON.stringify({
             'email': email,
             'password': password
         });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let url = `${apiHost}/api-token-auth/`;
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        const url = `${apiHost}/api-token-auth/`;
         return this.http.post(url, body, options).map(response => {
-            let token = response.json().token;
+            const token = response.json().token;
             this.setEmail(email);
             this.setToken(token);
         });

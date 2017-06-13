@@ -1,9 +1,13 @@
-import { Component,
-         ViewEncapsulation,
-         ElementRef,
-         HostListener,
-         OnInit,
-         OnDestroy } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    HostListener,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation
+} from '@angular/core';
 
 import { ChartData } from '../models/chart-data.model';
 import { DataPoint } from '../models/data-point.model';
@@ -19,32 +23,24 @@ import { ChartService } from '../services/chart.service';
  * Contains all logic for drawing a line graph
  */
 @Component({
-  selector: 'line-graph',
+  selector: 'ccl-line-graph',
   encapsulation: ViewEncapsulation.None,
-  template: `<ng-content></ng-content>`,
-  inputs: ['data',
-      'indicator',
-      'trendline',
-      'min',
-      'max',
-      'minVal',
-      'maxVal',
-      'hover',
-      'multiChartScrubber']
+  template: `<ng-content></ng-content>`
 })
 
-export class LineGraphComponent implements OnInit, OnDestroy {
+export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
 
-    public data: ChartData[];
+    @Input() public data: ChartData[];
+    @Input() public indicator: Indicator;
+    @Input() public trendline: Boolean;
+    @Input() public min: Boolean;
+    @Input() public max: Boolean;
+    @Input() public minVal: number;
+    @Input() public maxVal: number;
+    @Input() public hover: Boolean;
+    @Input() public multiChartScrubber: Boolean;
+
     public extractedData: Array<DataPoint>;
-    public indicator: Indicator;
-    public trendline: Boolean;
-    public min: Boolean;
-    public max: Boolean;
-    public minVal: number;
-    public maxVal: number;
-    public hover: Boolean;
-    public multiChartScrubber: Boolean;
 
     private host;                          // D3 object referebcing host dom object
     private svg;                           // SVG in which we will print our chart
@@ -98,7 +94,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     /* Executes on every @Input change */
     ngOnChanges(): void {
-        if (!this.data || this.data.length === 0) return;
+        if (!this.data || this.data.length === 0) { return };
         this.filterData();
         this.setup();
         this.buildSVG();
@@ -144,7 +140,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     private filterData(): void {
         // Preserves parent data by fresh copying indicator data that will undergo processing
-        let clippedData = _.cloneDeep(_.find(this.data, obj =>
+        const clippedData = _.cloneDeep(_.find(this.data, obj =>
                                              obj.indicator.name === this.indicator.name));
         _.has(clippedData, 'data') ?
             this.extractedData = clippedData['data'] : this.extractedData = [];
@@ -250,7 +246,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     /* Draw line */
     private drawAvgLine(): void {
-        let data = _.map(this.extractedData, d => ({'date': d.date, 'value': d.values.avg }));
+        const data = _.map(this.extractedData, d => ({'date': d.date, 'value': d.values.avg }));
         this.drawLine(data, 'line');
     }
 
@@ -260,14 +256,14 @@ export class LineGraphComponent implements OnInit, OnDestroy {
             this.xData = D3.range(1, this.yData.length + 1);
 
             // Calculate linear regression variables
-            let leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
+            const leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
 
             // Apply the results of the regression
-            let x1 = this.xRange[1];
-            let y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
-            let x2 = this.xRange[0];
-            let y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
-            let trendData = [{'date': x1, 'value': y2}, {'date': x2, 'value': y1}];
+            const x1 = this.xRange[1];
+            const y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
+            const x2 = this.xRange[0];
+            const y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
+            const trendData = [{'date': x1, 'value': y2}, {'date': x2, 'value': y1}];
             // Add trendline
             this.drawLine(trendData, 'trendline');
         }
@@ -275,33 +271,33 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
     // returns slope, intercept and r-square of the line
     private leastSquares(xData: Array<number>, yData: Array<number>): Array<number> {
-        let reduceSumFunc = function(prev, cur) { return prev + cur; };
+        const reduceSumFunc = function(prev, cur) { return prev + cur; };
 
-        let xBar = xData.reduce(reduceSumFunc) * 1.0 / xData.length;
-        let yBar = yData.reduce(reduceSumFunc) * 1.0 / yData.length;
-        let ssXX = _.map(xData, d => Math.pow(d - xBar, 2))
+        const xBar = xData.reduce(reduceSumFunc) * 1.0 / xData.length;
+        const yBar = yData.reduce(reduceSumFunc) * 1.0 / yData.length;
+        const ssXX = _.map(xData, d => Math.pow(d - xBar, 2))
                     .reduce(reduceSumFunc);
 
-        let ssYY = _.map(yData, d => Math.pow(d - yBar, 2))
+        const ssYY = _.map(yData, d => Math.pow(d - yBar, 2))
                     .reduce(reduceSumFunc);
 
-        let ssXY = _.map(xData, (d, i) => (d - xBar) * (yData[i] - yBar))
+        const ssXY = _.map(xData, (d, i) => (d - xBar) * (yData[i] - yBar))
                     .reduce(reduceSumFunc);
 
-        let slope = ssXY / ssXX;
-        let intercept = yBar - (xBar * slope);
-        let rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
+        const slope = ssXY / ssXX;
+        const intercept = yBar - (xBar * slope);
+        const rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
 
         return [slope, intercept, rSquare];
     }
 
     private drawMinMaxBand(): void {
-        let area = D3.area()
+        const area = D3.area()
             .x(d => this.xScale(d.date))
             .y0(d => this.yScale(d.min))
             .y1(d => this.yScale(d.max));
 
-        let minMaxData = _.map(this.extractedData, d => ({'date': d.date,
+        const minMaxData = _.map(this.extractedData, d => ({'date': d.date,
                                                           'min': d.values.min,
                                                           'max': d.values.max}));
 
@@ -316,7 +312,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
         if (this.min || this.max) {
             if (this.min) {
                 // Prepare data for bar graph
-                let minBars = _(this.extractedData)
+                const minBars = _(this.extractedData)
                               .map((datum) => ({ 'date': datum['date'] }))
                               /* tslint:disable-next-line:no-unused-variable */
                               .filter((bar, index) => this.minVal > this.yData[index])
@@ -328,7 +324,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
             if (this.max) {
                 // Prepare data for bar graph
-                let maxBars = _(this.extractedData)
+                const maxBars = _(this.extractedData)
                               .map((datum) => ({ 'date': datum['date'] }))
                               /* tslint:disable-next-line:no-unused-variable */
                               .filter((bar, index) => this.maxVal < this.yData[index])
@@ -387,12 +383,12 @@ export class LineGraphComponent implements OnInit, OnDestroy {
 
         // Default round down position to existing time point
         // Note the +unary operator before dates. Converts dates to numbers to quell tslinter
-        let bisectDate = D3.bisector(function(d) { return d.date; }).left;
-        let x0 = this.xScale.invert(xPos),
+        const bisectDate = D3.bisector(function(d) { return d.date; }).left;
+        const x0 = this.xScale.invert(xPos),
             i = +bisectDate(this.extractedData, x0, 1),
             d0 = this.extractedData[i - 1],
-            d1 = this.extractedData[i],
-            d: number;
+            d1 = this.extractedData[i];
+        let d: number;
 
         // Prevent error leaving graph
         if (d0 && d1) {
@@ -401,18 +397,18 @@ export class LineGraphComponent implements OnInit, OnDestroy {
             d = i - 1;
         }
 
-        let yDatum = this.yData[d];
+        const yDatum = this.yData[d];
 
         // Move scubber elements
         this.scrubber.attr('transform', 'translate(' + xPos + ',' + this.yScale(yDatum) + ')');
         this.svg.selectAll('.scrubline').attr('transform', 'translate(' + xPos + ',' + 0 + ')');
 
         // Update scrubber text
-        let labelText = yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'];
-        let textSVG = D3.select('.scrubber-text.' + this.id).text(labelText);
+        const labelText = yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'];
+        const textSVG = D3.select('.scrubber-text.' + this.id).text(labelText);
 
         // Center text
-        let labelWidth = textSVG.node().getBBox().width;
+        const labelWidth = textSVG.node().getBBox().width;
         textSVG.attr('transform', 'translate(' + -labelWidth / 2 + ',' + -15 + ')');
 
         // Update text box length
@@ -429,7 +425,7 @@ export class LineGraphComponent implements OnInit, OnDestroy {
     }
 
     private drawBands(data: Array<DataPoint>, className: string): void {
-        let xscale = D3.scaleBand()
+        const xscale = D3.scaleBand()
             .range([0, this.width])
             .padding(0)
             .domain(_.map(this.extractedData, d => d.date));

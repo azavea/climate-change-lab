@@ -4,7 +4,7 @@
  */
 
 
-export const defaultCity = {'id': 7, 'properties': {'name': 'Philadelphia','admin': 'PA'}};
+export const defaultCity = {'id': 7, 'properties': {'name': 'Philadelphia', 'admin': 'PA'}};
 export const defaultScenario = 'RCP85';
 
 export const apiHost = 'https://app.climate.azavea.com';
