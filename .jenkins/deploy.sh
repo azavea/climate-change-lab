@@ -7,7 +7,7 @@ set -e
 set -x
 
 vagrant up && vagrant ssh -c "
-  cd /opt/climate-change-lab
+  cd /vagrant
   source .env
   npm install
   npm rebuild node-sass
