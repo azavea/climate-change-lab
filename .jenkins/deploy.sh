@@ -11,5 +11,5 @@ vagrant up && vagrant ssh -c "
   source .env
   npm install
   npm rebuild node-sass
-  npm run build:prod && s3_website push
+  npm run lint && npm run build:prod && s3_website push
 "
