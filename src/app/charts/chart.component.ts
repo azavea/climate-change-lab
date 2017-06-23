@@ -55,9 +55,13 @@ export class ChartComponent implements OnChanges {
             scenario: this.scenario,
             city: this.city,
             climateModels: this.models,
+            years: ['2040:2070'],
             // As a temporary solution, the time agg defaults to the 1st valid option.
             // Really, this should a user selectable option
-            time_aggregation: this.chart.indicator.valid_aggregations[0]
+            time_aggregation: this.chart.indicator.valid_aggregations[0],
+            threshold: 0,
+            threshold_comparator: 'lte',
+            threshold_units: 'in'
         }).subscribe(data => this.chartData = this.chartService.convertChartData([data]));
     }
 

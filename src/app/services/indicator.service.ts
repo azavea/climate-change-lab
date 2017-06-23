@@ -31,6 +31,15 @@ export class IndicatorService {
         if (options.time_aggregation) {
             searchParams.append('time_aggregation', options.time_aggregation);
         }
+        if (typeof options.threshold === 'number') {
+            searchParams.append('threshold', options.threshold.toString());
+        }
+        if (options.threshold_comparator) {
+            searchParams.append('threshold_comparator', options.threshold_comparator);
+        }
+        if (options.threshold_units) {
+            searchParams.append('threshold_units', options.threshold_units);
+        }
 
         const requestOptions = new RequestOptions({ search: searchParams });
         return this.apiHttp.get(url, requestOptions).map(resp => resp.json());
