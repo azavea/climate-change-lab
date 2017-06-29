@@ -1,11 +1,11 @@
 s3_id: <%= ENV['CCLAB_AWS_S3_ACCESS_KEY'] %>
 s3_secret: <%= ENV['CCLAB_AWS_S3_SECRET_ACCESS_KEY'] %>
-s3_bucket: lab.staging.climate.azavea.com
+s3_bucket: lab.climate.azavea.com
 
 # Below are examples of all the available configurations.
 # See README for more detailed info on each of them.
 
-site: dist/
+site: ../dist/
 
 index_document: index.html
 error_document: index.html

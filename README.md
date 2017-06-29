@@ -67,4 +67,11 @@ First, build the application via `npm run build:prod`. The static site will be b
 
 Copy the environment file with `cp .env.example .env` and add your AWS access/secret keys and CloudFront distribution ID to it.
 
-Push changes to the site with `s3_website push`
+Before publishing, ensure the correct `apiHost` is set for the target environment in `src/app/constants.ts` (staging host, or production).
+
+Push changes to the staging site with `s3_website push`
+
+To push changes to the production site, specify the production S3 configuration with:
+```
+s3_website push --config-dir=production_s3/
+```
