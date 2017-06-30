@@ -1,9 +1,10 @@
 ---
 
-  - name: Install build dependencies
+  - name: Install packages
     apt: name={{ item }} state=present
     with_items:
       - g++
+      - chromium-browser
 
   - name: "Install node dependencies"
     npm: path={{ app_dir }}
@@ -16,3 +17,11 @@
 
   - name: "Install s3_website gem"
     gem: name=s3_website user_install=no state=latest
+
+  # so test runner can find browser
+  - name: "Set path to Chromium"
+    lineinfile:
+      path: '/etc/environment'
+      state: present
+      regexp: '^CHROME_BIN='
+      line: CHROME_BIN=/usr/bin/chromium-browser
