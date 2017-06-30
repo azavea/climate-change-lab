@@ -8,6 +8,7 @@ node_modules/
 coverage/
 build/
 dist/
+violations.xml
 
 # Vagrant
 .vagrant/

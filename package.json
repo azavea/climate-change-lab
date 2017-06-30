@@ -17,6 +17,7 @@
     "build:prod": "ng build -prod --aot --extract-css",
     "test": "ng test",
     "lint": "ng lint --type-check",
+    "lint:ci": "ng lint --type-check --format checkstyle > violations.xml",
     "e2e": "ng e2e"
   },
   "private": true,
