@@ -56,6 +56,15 @@ node {
         }
       }
     }
+
+    // if got this far, build must not have failed
+    def slackMessage = ":jenkins: *climate-change-lab (${env.BRANCH_NAME}) #${env.BUILD_NUMBER}*"
+    if (env.CHANGE_TITLE) {
+      slackMessage += "\n${env.CHANGE_TITLE} - ${env.CHANGE_AUTHOR}"
+    }
+    slackMessage += "\n<${env.BUILD_URL}|View Build>"
+    slackSend color: 'good', channel: '#doe-climate-change', message: slackMessage
+
   } catch (err) {
     // Some exception was raised in the `try` block above. Assemble
     // an appropirate error message for Slack.
