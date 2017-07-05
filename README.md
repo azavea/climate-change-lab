@@ -23,7 +23,7 @@ The site will then be available at [http://localhost:4200](http://localhost:4200
 
 _Recommended only if you don't have the requirements above installed on your host system and are unable to install. If you do, strongly consider instructions in #Setup instead._
 
-Requires ansible 2.3+.
+Requires ansible 2.2+.
 
 To use the vagrant machine, first start it with:
 ```bash
