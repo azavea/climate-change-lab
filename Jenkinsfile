@@ -64,6 +64,7 @@ node {
                           credentialsId: 'CCLAB_AWS_CLOUDFRONT_ID',
                           variable: 'CCLAB_AWS_CLOUDFRONT_ID']]) {
           wrap([$class: 'AnsiColorBuildWrapper']) {
+            writeFile file: '.env', text: """export CCLAB_AWS_S3_ACCESS_KEY="${env.CCLAB_AWS_S3_ACCESS_KEY}"\nexport CCLAB_AWS_S3_SECRET_ACCESS_KEY="${env.CCLAB_AWS_S3_SECRET_ACCESS_KEY}"\nexport CCLAB_AWS_CLOUDFRONT_ID="${env.CCLAB_AWS_CLOUDFRONT_ID}"\nexport S3_WEBSITE_CONFIG_DIR="${env.S3_WEBSITE_CONFIG_DIR}"\n"""
             sh 'vagrant ssh -c "/vagrant/scripts/cipublish"'
           }
         }
