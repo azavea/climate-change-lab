@@ -17,14 +17,19 @@ node {
       env.S3_WEBSITE_CONFIG_DIR = "production_s3/";
     }
 
-    stage('cibuild') {
+    stage('setup') {
+      wrap([$class: 'AnsiColorBuildWrapper']) {
+        sh 'scripts/setup'
+      }
+    }
+
+    stage('test') {
       wrap([$class: 'AnsiColorBuildWrapper']) {
         writeFile file: 'src/app/constants.ts', text: '''
             export const defaultCity = {\'id\': 7, \'properties\': {\'name\': \'Philadelphia\', \'admin\': \'PA\'}};
             export const apiHost = \'${env.API_HOST}\';
             export const defaultScenario = \'RCP85\';\n'''
 
-        sh 'scripts/setup'
         sh 'vagrant ssh -c "/vagrant/scripts/test --jenkins"'
 
         step([$class: 'WarningsPublisher',
@@ -39,9 +44,15 @@ node {
       }
     }
 
-    if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'master') {
-      // Publish to S3
-      stage('cipublish') {
+    stage('cibuild') {
+      wrap([$class: 'AnsiColorBuildWrapper']) {
+        sh 'vagrant ssh -c "/vagrant/scripts/cibuild"'
+      }
+    }
+
+    // Publish to S3
+    stage('publish') {
+      if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'master') {
         // Decode the credentials stored within Jenkins.
         withCredentials([[$class: 'StringBinding',
                           credentialsId: 'CCLAB_AWS_S3_ACCESS_KEY',
@@ -53,7 +64,7 @@ node {
                           credentialsId: 'CCLAB_AWS_CLOUDFRONT_ID',
                           variable: 'CCLAB_AWS_CLOUDFRONT_ID']]) {
           wrap([$class: 'AnsiColorBuildWrapper']) {
-            sh 'vagrant ssh -c "/vagrant/scripts/cibuild && /vagrant/scripts/cipublish"'
+            sh 'vagrant ssh -c "/vagrant/scripts/cipublish"'
           }
         }
       }

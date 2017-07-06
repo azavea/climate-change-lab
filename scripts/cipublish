@@ -21,6 +21,6 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         fi
 
         echo -e '\nPublishing to s3...'
-        s3_website push --config-dir=${S3_WEBSITE_CONFIG_DIR}
+        s3_website push --config-dir="${S3_WEBSITE_CONFIG_DIR}"
     fi
 fi
