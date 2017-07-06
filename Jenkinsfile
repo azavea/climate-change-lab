@@ -24,7 +24,9 @@ node {
             export const apiHost = \'${env.API_HOST}\';
             export const defaultScenario = \'RCP85\';\n'''
 
-        sh 'scripts/cibuild.sh'
+        sh 'scripts/setup'
+        sh 'vagrant ssh -c "/vagrant/scripts/test --jenkins"'
+
         step([$class: 'WarningsPublisher',
           parserConfigurations: [[
             parserName: 'JSLint',
@@ -51,7 +53,7 @@ node {
                           credentialsId: 'CCLAB_AWS_CLOUDFRONT_ID',
                           variable: 'CCLAB_AWS_CLOUDFRONT_ID']]) {
           wrap([$class: 'AnsiColorBuildWrapper']) {
-            sh 'scripts/cipublish.sh'
+            sh 'vagrant ssh -c "/vagrant/scripts/cibuild && /vagrant/scripts/cipublish"'
           }
         }
       }
