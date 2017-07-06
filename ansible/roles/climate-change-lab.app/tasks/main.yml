@@ -12,7 +12,7 @@
 
   # necessary for Mac hosts
   - name: "Rebuild SASS"
-    command: "npm rebuild node-sass"
+    command: "npm rebuild node-sass --no-bin-links"
     become_user: "{{ ansible_ssh_user }}"
 
   - name: "Install s3_website gem"
