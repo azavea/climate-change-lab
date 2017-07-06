@@ -11,10 +11,10 @@ node {
     env.CLIMATE_CHANGE_LAB_PORT = 4422
 
     env.API_HOST = 'https://app.staging.climate.azavea.com';
-    env.S3_WEBSITE_CONFIG_DIR = '.';
+    env.S3_WEBSITE_CONFIG_DIR = ".";
     if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/')) {
       env.API_HOST = 'https://app.climate.azavea.com';
-      env.S3_WEBSITE_CONFIG_DIR = 'production_s3/';
+      env.S3_WEBSITE_CONFIG_DIR = "production_s3/";
     }
 
     stage('cibuild') {
