@@ -1,7 +1,5 @@
 # climate-change-lab
 
-[![Build Status](http://urbanappsci.internal.azavea.com/buildStatus/icon?job=climate-change-lab)](http://urbanappsci.internal.azavea.com/job/climate-change-lab/)
-
 ## Development
 
 ### Requirements
