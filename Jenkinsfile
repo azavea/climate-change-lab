@@ -25,10 +25,10 @@ node {
 
     stage('test') {
       wrap([$class: 'AnsiColorBuildWrapper']) {
-        writeFile file: 'src/app/constants.ts', text: '''
+        writeFile file: 'src/app/constants.ts', text: """
             export const defaultCity = {\'id\': 7, \'properties\': {\'name\': \'Philadelphia\', \'admin\': \'PA\'}};
             export const apiHost = \'${env.API_HOST}\';
-            export const defaultScenario = \'RCP85\';\n'''
+            export const defaultScenario = \'RCP85\';\n"""
 
         sh 'vagrant ssh -c "/vagrant/scripts/test --jenkins"'
 
