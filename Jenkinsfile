@@ -10,11 +10,15 @@ node {
     env.GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
     env.CLIMATE_CHANGE_LAB_PORT = 4422
 
+    // set environment variables for staging or production; default to staging
     env.API_HOST = 'https://app.staging.climate.azavea.com';
     env.S3_WEBSITE_CONFIG_DIR = ".";
-    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/')) {
+    env.CLOUDFRONT_ID_VAR = "CCLAB_AWS_STAGING_CLOUDFRONT_ID";
+
+    if (env.BRANCH_NAME == 'master') {
       env.API_HOST = 'https://app.climate.azavea.com';
       env.S3_WEBSITE_CONFIG_DIR = "production_s3/";
+      env.CLOUDFRONT_ID_VAR = "CCLAB_AWS_PRODUCTION_CLOUDFRONT_ID";
     }
 
     stage('setup') {
@@ -61,7 +65,7 @@ node {
                           credentialsId: 'CCLAB_AWS_S3_SECRET_ACCESS_KEY',
                           variable: 'CCLAB_AWS_S3_SECRET_ACCESS_KEY'],
                           [$class: 'StringBinding',
-                          credentialsId: 'CCLAB_AWS_CLOUDFRONT_ID',
+                          credentialsId: "${env.CLOUDFRONT_ID_VAR}",
                           variable: 'CCLAB_AWS_CLOUDFRONT_ID']]) {
           wrap([$class: 'AnsiColorBuildWrapper']) {
             writeFile file: '.env', text: """export CCLAB_AWS_S3_ACCESS_KEY="${env.CCLAB_AWS_S3_ACCESS_KEY}"\nexport CCLAB_AWS_S3_SECRET_ACCESS_KEY="${env.CCLAB_AWS_S3_SECRET_ACCESS_KEY}"\nexport CCLAB_AWS_CLOUDFRONT_ID="${env.CCLAB_AWS_CLOUDFRONT_ID}"\nexport S3_WEBSITE_CONFIG_DIR="${env.S3_WEBSITE_CONFIG_DIR}"\n"""
