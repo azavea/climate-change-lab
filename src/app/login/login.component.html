@@ -5,6 +5,8 @@
     <div class="login-body">
         <div class="login-box">
             <h3>Login</h3>
+            <br>Using your Climate API account information
+            <p>
 
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
                 <label for="email">E-mail</label>
@@ -29,7 +31,9 @@
             </form>
 
             <a href="{{ createAccountUrl }}">Create an account</a>
-            <a href="{{ resetPasswordUrl }}">Reset your password</a>
+            <p>
+            <p>
+            If you already registered, but do not know your password please <a href="{{ resetPasswordUrl }}">reset your password</a>.
         </div>
     </div>
 </div>
