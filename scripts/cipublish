@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e
+
+function usage() {
+    echo -n \
+    "Usage: $(basename "$0")
+    Publish site to S3 for staging or production. Note that cibuild script must be run first.
+    Expects environment variable S3_WEBSITE_CONFIG_DIR to be set."
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+    if [ "${1:-}" = "--help" ]; then
+        usage
+    else
+        cd /vagrant
+        source .env
+
+        if [ -z "${S3_WEBSITE_CONFIG_DIR}" ]; then
+            echo -e '\nEnvironment variable S3_WEBSITE_CONFIG_DIR must be set in order to publish.'
+            echo -e "\nSet to '.' to publish to staging, or to 'production_s3' for production."
+            exit 1
+        fi
+
+        echo -e '\nPublishing to s3...'
+        s3_website push --config-dir="${S3_WEBSITE_CONFIG_DIR}"
+    fi
+fi

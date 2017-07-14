@@ -1,0 +1,135 @@
+// Dropdown, Bootstrap
+
+.dropup,
+.dropdown {
+  position: relative;
+  & > button {
+    color: $heading-font-color;
+  }
+}
+
+.caret {
+  color: $body-font-color !important;
+  margin-left: 1rem;
+}
+
+.dropdown-toggle:focus {
+  outline: 0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 1rem 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
+  background-clip: padding-box;
+  &.pull-right {
+    right: 0;
+    left: auto;
+  }
+  & .divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+  }
+  & > li > a {
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 2rem;
+    clear: both;
+    font-weight: normal;
+    color: #333333;
+    white-space: nowrap;
+  }
+  & > li > a {
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        color: #262626;
+        background-color: #f5f5f5;
+    }
+  }
+  & > .active > a {
+    background-color: $brand-primary;
+    color: #fff;
+    &:hover,
+    &:focus {
+      color: #ffffff;
+      text-decoration: none;
+      outline: 0;
+      background-color: #337ab7;
+    }
+    &:after {
+      content: '\e852';
+      position: absolute;
+      right: 1rem;
+      font-family: mantle;
+    }
+  }
+  & > .disabled > a,
+  & > .disabled > a:hover,
+  & > .disabled > a:focus {
+    color: #777777;
+  }
+  & > .disabled > a:hover,
+  & > .disabled > a:focus {
+    text-decoration: none;
+    background-color: transparent;
+    background-image: none;
+    cursor: not-allowed;
+  }
+}
+
+.open > .dropdown-menu {
+  display: block;
+}
+
+.open > a {
+  outline: 0;
+}
+
+.dropdown-menu-right {
+  left: auto;
+  right: 0;
+}
+
+.dropdown-menu-left {
+  left: 0;
+  right: auto;
+}
+
+.dropdown-header {
+  display: block;
+  padding: 3px 20px;
+  font-size: 12px;
+  color: #777777;
+  white-space: nowrap;
+}
+
+.dropdown-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 990;
+}
+
+.pull-right > .dropdown-menu {
+  right: 0;
+  left: auto;
+}

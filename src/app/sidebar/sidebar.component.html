@@ -1,0 +1,12 @@
+<div class="sidebar-content scrollable">
+    <h3 class="sidebar-category">Temperature</h3>
+    <ccl-indicator-list
+        [indicators]="tempIndicators"
+        (indicatorClicked)="onIndicatorClicked($event)">
+    </ccl-indicator-list>
+    <h3 class="sidebar-category">Precipitation</h3>
+    <ccl-indicator-list
+        [indicators]="precipIndicators"
+        (indicatorClicked)="onIndicatorClicked($event)">
+    </ccl-indicator-list>
+</div>

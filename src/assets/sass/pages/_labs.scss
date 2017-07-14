@@ -1,0 +1,65 @@
+.auto-complete {
+  & > input {
+    width: 100% !important;
+    border: 1px solid #ccc;
+    background-color: white;
+    // outline: -webkit-focus-ring-color auto 5px;
+    // outline-offset: -2px;
+    &:focus {
+      outline: -webkit-focus-ring-color auto 5px;
+      outline-offset: -2px;
+      background-color: white;
+    }
+  }
+  & > ul {
+    animation: none !important;
+  }
+}
+
+nav {
+  .button-link {
+    color: #fff;
+    &:hover, &.hover,
+    &:active, &.active,
+    &:focus, &.focus,
+    &:focus:active {
+      box-shadow: none;
+      background-color: transparent;
+      color: #fff;
+    }
+  }
+  .button-switch {
+    display: inline-block;
+  }
+  .nav-left {
+    padding: 0;
+    height: 100%;
+
+    // TODO: Remove hack for input box once this control is reworked
+    .input {
+      margin: 0.2rem 1.5rem 0;
+      line-height: 3.2rem;
+      color: $heading-font-color;
+    }
+  }
+  .dropdown-menu {
+    border: 1px solid #cccccc;
+    margin: 0 0 0 -1px;
+    border-radius: 0;
+    & > .active > a {
+      font-weight: 800;
+    }
+  }
+
+}
+
+.logo {
+  margin: 0;
+  color: #fff;
+  padding-top: 0.5rem;
+  & > img {
+    height: 1.6rem;
+    position: relative;
+    top: 0.3rem;
+  }
+}

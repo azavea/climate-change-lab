@@ -1,0 +1,36 @@
+  <div class="app-fullscreen" *ngIf="this.project">
+
+    <ccl-navbar [projectID]="project.id"></ccl-navbar>
+
+    <div class="flex-container">
+
+      <ccl-sidebar class="sidebar-content scrollable" (onIndicatorSelected)="indicatorSelected($event)"></ccl-sidebar>
+
+      <div class="flex-expand">
+        <nav class="controls">
+          <div class="nav-left">
+            <!-- city selector -->
+            <ccl-city-dropdown [projectData]="project.project_data"></ccl-city-dropdown>
+
+            <!-- scenario selector -->
+            <ccl-scenario-dropdown [projectData]="project.project_data"></ccl-scenario-dropdown>
+
+            <!-- climate model selector -->
+            <ccl-model-modal [projectData]="project.project_data"></ccl-model-modal>
+
+          </div>
+          <div class="nav-right"></div>
+        </nav>
+        <div class="charts scrollable">
+          <div class="chart" *ngFor="let chart of project.project_data.charts">
+            <ccl-chart [chart]="chart"
+                       [city]="project.project_data.city"
+                       [models]="project.project_data.models"
+                       [scenario]="project.project_data.scenario"
+                       [multiChartScrubber]="project.project_data.multiChartScrubber"
+                       (onRemoveChart)="removeChart($event)"></ccl-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

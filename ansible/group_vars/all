@@ -1,0 +1,6 @@
+nodejs_version: 7.10.0
+nodejs_npm_version: 4.2.0
+
+ruby_version: 2.2
+
+java_version: '7u131-*'

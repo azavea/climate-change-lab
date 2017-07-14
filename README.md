@@ -4,30 +4,76 @@
 
 ### Requirements
 
-Requires node.js 6.3.1+ and npm 3.10.3+ for angular compatibility.
+Requires node.js 6.11+ and npm 3.10.10+ for Angular CLI compatibility.
+
+Alternatively, you can bring up the vagrant VM that has the dependencies installed.
 
 ### Setup
 
-Clone this repo and run `npm install`
+If your development host machine meets the requirements above, simply:
+
+  - Clone this repo and run `npm install`
+  - `cp example/constants.ts.example src/app/constants.ts`
+  - Edit `constants.ts` to set the API server name and API key
+  - `npm run serve`
+
+The site will then be available at [http://localhost:4200](http://localhost:4200) on your host machine.
+
+### Setup via Vagrant VM
+
+_Recommended only if you don't have the requirements above installed on your host system and are unable to install. If you do, strongly consider instructions in #Setup instead._
+
+Requires ansible 2.2+.
+
+To use the vagrant machine, first start it with:
+```bash
+vagrant up
+```
+
+Then to start the development server within the VM:
+
+```bash
+vagrant ssh
+cd /vagrant
+npm run serve:vm  # Replaces `npm run serve` to include VM specific serve options
+```
+
+The site will then be available at [http://localhost:4200](http://localhost:4200) on your host machine.
+
+Note that if your host OS differs from the VM, you may need to run
+
+```
+npm rebuild node-sass
+```
+
+within the environment (host or VM) before running other build scripts in that environment.
 
 ### Getting started
 
 | Command | Purpose | Use When ... |
 |------|---------|--------------|
-| `npm start` | Serve project using hot module replacement | For quick browser updating without refresh |
-| `npm run server:dev` | Serve project normally, without hot module replacement | If you don't want hot module replacement |
-| `npm run lint --silent` | Run typescript linter | To clean up your angular and .ts files |
+| `npm run serve` | Serve project in dev mode using Angular CLI | For quick browser updating with refresh |
+| `npm run lint` | Run typescript linter | To clean up your angular and .ts files |
+| `npm run test` | Run project tests | |
+| `npm run build:prod` | Build production version of application | When ready to deploy |
 
-Navigate to http://localhost:3100 in your browser
+Navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
-Additional commands available in package.json
+Additional commands available in package.json.
 
-### Tech Stack
+### Deployment
 
-Webpack -- is a module bundler for the browser.
+_All deployment steps should be done within the vagrant vm provided with this project. The vm is provisioned with the tools necessary to deploy._
 
-Webpack-dev-server -- serves project and watches changes to webpack bundles. Runs with project's npm commands. With hot module reload, changes are reloaded in browser without refresh.
+First, build the application via `npm run build:prod`. The static site will be built in the `dist/` directory.
 
-Angular -- still in development, using Angular 2.0.0-rc.4 as the front-end framework
+Copy the environment file with `cp .env.example .env` and add your AWS access/secret keys and CloudFront distribution ID to it.
 
-D3 -- javascript library for creating sharp, interactive data analysis visualizations.
+Before publishing, ensure the correct `apiHost` is set for the target environment in `src/app/constants.ts` (staging host, or production).
+
+Push changes to the staging site with `s3_website push`
+
+To push changes to the production site, specify the production S3 configuration with:
+```
+s3_website push --config-dir=production_s3/
+```

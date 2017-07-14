@@ -1,0 +1,55 @@
+<div class="app-fullscreen" *ngIf="model.project">
+
+    <ccl-navbar></ccl-navbar>
+
+    <div class="form">
+        <div class="project-title">
+          <h3 *ngIf="!edit">New project</h3>
+          <h3 *ngIf="edit">Edit project</h3>
+        </div>
+        <div class="add-edit-project-body">
+            <form (ngSubmit)="onSubmit()" #projectForm="ngForm" class="flex-column">
+                <label for="project.name">Title</label>
+                <input type="text"
+                       class="form-control"
+                       id="project.name"
+                       name="project.name"
+                       [(ngModel)]="model.project.project_data.name">
+                <label for="project.description">Description</label>
+                <textarea type="text"
+                        class="form-control description"
+                        id="project.description"
+                        name="project.description"
+                        [(ngModel)]="model.project.project_data.description"></textarea>
+                <label for="project.city">Choose a city*</label>
+                <ccl-city-dropdown [projectData]="model.project.project_data" [showIcon]="false"></ccl-city-dropdown>
+                <div class="row">
+                    <div class="column-6 flex-column">
+                        <label for="project.scenario">Scenario*</label>
+                        <ccl-scenario-dropdown [projectData]="model.project.project_data"></ccl-scenario-dropdown>
+                    </div>
+                    <div class="column-6 flex-column">
+                        <label for="project.models">Models</label>
+                        <ccl-model-modal [projectData]="model.project.project_data"></ccl-model-modal>
+                    </div>
+                </div>
+                <div class="row">
+                    <label>
+                        <input type="checkbox" name="multiChartScrubber"  [(ngModel)]="model.project.project_data.multiChartScrubber">
+                        Multi-Chart Scrubber
+                    </label>
+                </div>
+                <div class="row align-center">
+                    <button type="submit"
+                            class="button button-primary"
+                            [disabled]="!projectForm.form.valid || !model.project.project_data.city.id || !model.project.project_data.scenario.name"
+                            *ngIf="!edit">Create Project</button>
+                    <button type="submit"
+                            class="button button-primary"
+                            [disabled]="!projectForm.form.valid || !model.project.project_data.city.id || !model.project.project_data.scenario.name"
+                            *ngIf="edit">Update Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,210 @@
+.chart {
+  background-color: #fff;
+  box-shadow: 2px 2px 10px rgba(0,0,0,.05);
+  margin-bottom: 2rem;
+}
+
+.charts {
+  padding: 2rem 1.5rem;
+}
+
+ccl-line-graph {
+  position: relative;
+  display: block;
+}
+
+ccl-chart {
+  width: 100%;
+  display:block;
+
+  sk-wave[ng-reflect-is-running="true"] {
+    padding: 6rem;
+    position: relative;
+    display: block;
+  }
+
+  .chart-label {
+    font-size: $font-size-h5;
+    margin: 0;
+    flex: 1;
+    font-weight: 800;
+    padding-top: 1.5rem;
+  }
+
+  .chart-options {
+    border-top: 1px solid $gray-2;
+    margin: 0;
+    padding: 2rem;
+    color: $heading-font-color;
+
+    .chart-options-body {
+      display: flex;
+    }
+
+    .chart-options-group {
+      display: flex;
+      align-items: center;
+      padding-right: 2rem;
+
+      span {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+
+      input {
+        width: 60px;
+        font-weight: $body-font-weight;
+        font-family: $body-font-family;
+      }
+    }
+  }
+
+  .chart-heading {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid $gray-2;
+    margin: 0;
+    padding: 0 0 0 2rem;
+  }
+
+  .chart-actions {
+    text-align: right;
+    padding: 0.8rem 0;
+    .button {
+      position: relative;
+      float: left;
+      margin-right: 3px;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+      &:after {
+        content: "";
+        border-right: 1px solid $gray-2;
+        position: absolute;
+        top: 2px;
+        right: -4px;
+        bottom: 2px;
+      }
+      &:last-child {
+        &:after {
+          border-width: 0;
+        }
+      }
+    }
+  }
+
+  .axis {
+
+    color: #757575;
+    opacity: .5;
+
+    path, line {
+      fill: none;
+      stroke-width: 1;
+    }
+
+    text {
+      font-size: 11px;
+      font-family: $body-font-family;
+    }
+  }
+
+  .grid {
+
+    line {
+      stroke: #E3E3E3;
+      stroke-width: 1;
+      opacity: 1;
+      shape-rendering: crispEdges;
+    }
+
+    path {
+      stroke-width: 0;
+    }
+  }
+
+  .color-label{
+    display: inline;
+  }
+
+  .line {
+    fill: none;
+    stroke: #1E8CEC;
+    stroke-width: 2px;
+  }
+
+  .trendline {
+    fill: none;
+    stroke: #D44A34;
+    stroke-width: 1px;
+    opacity: .7;
+  }
+
+  .area {
+    fill: #EFF4F7;
+    opacity: .7;
+    z-index: -1;
+  }
+
+  .min-bar{
+    fill: #41424D;
+    opacity: .3;
+  }
+
+  .max-bar{
+    fill: #F3B32F;
+    opacity: .3;
+  }
+
+  #overlay {
+    fill: none;
+    pointer-events: all;
+  }
+
+  g {
+    circle {
+      fill: $brand-primary;
+      stroke: #fff;
+      stroke-width: 2px;
+    }
+
+    .scrubber-box {
+      fill: #000;
+    }
+
+    .scrubber-text {
+      fill: #fff;
+      stroke: #fff;
+      font-weight: 400;
+    }
+  }
+
+  .scrubline {
+    stroke: #757575;
+  }
+
+  .chart-controls {
+    color: #000;
+
+    .controls-header {
+      .controls-label {
+       display: inline-block;
+      }
+
+      .options-icon {
+        display: inline-block;
+      }
+    }
+
+    .controls-body {
+      input {
+        width: 75px;
+      }
+    }
+  }
+}
+
+.switch.switch-small.checked {
+  background-color: #EFF4F7!important;
+  border-color: #EFF4F7!important;
+}
+

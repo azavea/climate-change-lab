@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+function usage() {
+    echo -ne \
+    "Usage: $(basename "$0")
+    Run tests and linter.
+
+      --jenkins \tAlso run linter with file output for Jenkins CI server to parse.\n\n"
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+    if [ "${1:-}" = "--help" ]; then
+        usage
+    else
+        cd /vagrant
+
+        echo -e '\nRunning tests...'
+        npm run test
+
+        echo -e '\nRunning linter...'
+
+        # run linter with console output
+        npm run lint
+
+        # check if script run on CI
+        if [ "${1:-}" = "--jenkins" ]; then
+            echo -e '\nRunning linter for CI...'
+            # also run linter with file output for Jenkins to parse
+            npm run lint:ci
+        fi
+    fi
+fi

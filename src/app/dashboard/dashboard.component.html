@@ -1,0 +1,61 @@
+<div class="app-page">
+
+    <ccl-navbar></ccl-navbar>
+
+    <section class="lab" [ngClass]="showDashboard">
+        <div class="container">
+            <div *ngIf="!projects.length">
+                <i class="icon-cloud"></i>
+                <div>To explore climate change data, <a [routerLink]="['/new']">start a new project.</a></div>
+            </div>
+            <div *ngIf="projects.length">
+                <div class="header-row row columns-center align-justify">
+                    <div class="column column-6">
+                        <h2 class="title margin-no">Lab</h2>
+                    </div>
+                    <div class="column column-6 text-right">
+                        <a class="button button-primary" [routerLink]="['/new']">New Project</a>
+                    </div>
+                </div>
+                <div class="project-rows">
+                    <div class="row project-row" *ngFor="let project of pageOfProjects">
+                        <div class="column column-7 name text-left pointer" [routerLink]="['/lab', project.id]">{{ project.project_data.name }}</div>
+                        <div class="column column-2">
+                            {{ project.project_data.charts.length }} chart<span *ngIf="project.project_data.charts.length > 1 || project.project_data.charts.length == 0">s</span>
+                        </div>
+                        <div class="column column-2">5 minutes</div>
+                        <div class="column column-1 delete pointer" (click)="deleteProject(project)">
+                            <i class="icon-trash"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row controls-row">
+                    <div class="column column-6 text-left">
+                        <a *ngIf="currentPage > 1"
+                           class="pointer"
+                           (click)="setPage(currentPage - 1)">Previous {{ itemsPerPage }}</a>
+                    </div>
+                    <div class="column column-6 text-right">
+                        <a *ngIf="currentPage * itemsPerPage < projects.length"
+                           class="pointer"
+                           (click)="setPage(currentPage + 1)">Next {{ itemsPerPage }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="about">
+        <div class="container">
+            <div class="title">
+                <h2>API</h2>
+            </div>
+            <div class="about-body">
+                We created Azavea's Climate API in order to give you easy access to the <a href="https://aws.amazon.com/public-datasets/nasa-nex/" target="_blank">NASA NEX-GDDP</a> data without the hassle of having to download and wrangle a NetCDF dataset. With each query, you can choose from over 1,000 U.S. locations, either of the two most commonly used RCPs, 22 indicators of temperature and precipitation, and anytime 1950-2100.
+                <p>
+                <p>
+                To get started with the API, please review
+                <a href="https://docs.climate.azavea.com" target="_blank">the documentation</a>.
+            </div>
+        </div>
+    </section>
+</div>

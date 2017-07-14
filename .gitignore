@@ -4,3 +4,16 @@
 # Node
 npm-debug.log
 node_modules/
+
+coverage/
+build/
+dist/
+violations.xml
+
+# Vagrant
+.vagrant/
+ansible/*.retry
+ansible/roles/azavea.*
+
+.env
+

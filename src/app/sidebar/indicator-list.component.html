@@ -1,0 +1,4 @@
+<button class="indicator" *ngFor="let indicator of indicators"
+    (click)="onIndicatorClicked(indicator)"
+    tooltip="{{ indicator.description }}"
+    placement="right">{{indicator.label}}</button>

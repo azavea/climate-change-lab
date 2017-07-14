@@ -1,0 +1,76 @@
+<div class="chart-heading">
+    <h2 class="chart-label">
+    {{chart.indicator.label}}
+    </h2>
+    <div class="chart-actions">
+        <button class="button button-link"
+                placement="top"
+                title=""
+                tooltip="Download chart image"
+                (click)="onDownloadImageClicked()"><i class="icon icon-download"></i>
+        </button>
+        <button class="button button-link"
+                placement="top"
+                title=""
+                tooltip="Export"
+                (click)="onExportClicked()"><i class="icon icon-export"></i>
+        </button>
+        <button class="button button-link"
+                placement="top"
+                title=""
+                tooltip="Options"
+                [ngClass]="{'active': chart.showSettings}"
+                (click)="onSettingsToggleClicked()"><i class="icon icon-cog"></i>
+        </button>
+        <button class="button button-link"
+                placement="top"
+                title=""
+                tooltip="Remove"
+                (click)="removeChart(chart)"><i class="icon icon-cancel"></i>
+        </button>
+    </div>
+</div>
+<div class="chart-body">
+    <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
+    <ccl-line-graph
+        *ngIf="chartData && chartData.length"
+        [data]="chartData"
+        [indicator]="chart.indicator"
+        [trendline]="chart.showTrendline"
+        [min]="chart.showMinimum"
+        [max]="chart.showMaximum"
+        [minVal]="chart.minimumValue"
+        [maxVal]="chart.maximumValue"
+        [hover]="isHover"
+        [multiChartScrubber]="multiChartScrubber">
+    </ccl-line-graph>
+    <div class="chart-options" *ngIf="chart.showSettings">
+        <div class="chart-options-body">
+            <div class="chart-options-group">
+                <ui-switch [(ngModel)]="chart.showTrendline"
+                           size="small"></ui-switch>
+                <span>Show Trendline</span>
+            </div>
+            <div class="chart-options-group">
+                <ui-switch [(ngModel)]="chart.showMinimum"
+                           size="small"></ui-switch>
+                <span>Show Min</span>
+                <input
+                    type="number"
+                    step="any"
+                    placeholder="0"
+                    [(ngModel)]="chart.minimumValue">
+            </div>
+            <div class="chart-options-group">
+                <ui-switch [(ngModel)]="chart.showMaximum"
+                           size="small"></ui-switch>
+                <span>Show Max</span>
+                <input
+                    type="number"
+                    step="any"
+                    placeholder="0"
+                    [(ngModel)]="chart.maximumValue">
+            </div>
+        </div>
+    </div>
+</div>

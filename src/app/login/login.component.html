@@ -1,0 +1,39 @@
+<div class="app-fullscreen">
+
+    <ccl-navbar></ccl-navbar>
+
+    <div class="login-body">
+        <div class="login-box">
+            <h3>Login</h3>
+            <br>Using your Climate API account information
+            <p>
+
+            <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                <label for="email">E-mail</label>
+                <input type="text"
+                       class="form-control"
+                       id="email"
+                       name="email"
+                       required
+                       placeholder="E-mail"
+                       [(ngModel)]="model.email">
+                <label for="password">Password</label>
+                <input type="password"
+                       class="form-control"
+                       id="password"
+                       name="password"
+                       required
+                       placeholder="Password"
+                       [(ngModel)]="model.password">
+                <button type="submit"
+                        class="button button-primary"
+                        [disabled]="!loginForm.form.valid">Login</button>
+            </form>
+
+            <a href="{{ createAccountUrl }}">Create an account</a>
+            <p>
+            <p>
+            If you already registered, but do not know your password please <a href="{{ resetPasswordUrl }}">reset your password</a>.
+        </div>
+    </div>
+</div>

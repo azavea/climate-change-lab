@@ -1,0 +1,59 @@
+ccl-add-edit-project {
+
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+    .form {
+        margin: 0% auto;
+        width: 100%;
+        max-width: 500px;
+        margin-top: 3rem;
+    }
+
+    ccl-model-modal {
+        button {
+            padding-right: 18px !important;
+        }
+    }
+
+    form {
+        label {
+            margin-top: 26px;
+            margin-bottom: 9px;
+            color: $gray-4;
+        }
+
+        button[type="submit"] {
+            margin: 30px 0;
+            width: 140px;
+
+        }
+
+        .ng2-auto-complete {
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+        }
+    }
+
+    .dropdown {
+        label {
+            display: inline;
+        }
+    }
+
+    .modal {
+        label {
+            margin: 0;
+        }
+    }
+}
+
+input, textarea {
+    color: $color-header;
+    border: 1px solid #ccc;
+    padding: 6px;
+}

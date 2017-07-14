@@ -1,0 +1,70 @@
+nav {
+  flex-shrink: 0;
+}
+
+.nav-primary {
+  background-color: $color-header;
+  height: 100%;
+  color: #fff;
+  height: $nav-height;
+
+  & > .nav-left {
+    float: left;
+    padding: 0.6rem 1.5rem 0;
+  }
+
+  & > .nav-right {
+    float: right;
+    padding: 0.7rem 1.5rem 0;
+  }
+}
+
+.controls {
+  height: $nav-height;
+  color: #fff;
+  border-bottom: 1px solid $gray-2;
+  background-color: #fff;
+  .dropdown {
+    display: block;
+    float: left;
+    height: 100%;
+    border-right: 1px solid $gray-2;
+    & > .button {
+      height: 100%;
+      border-radius: 0;
+      border-width: 0;
+      background-color: transparent;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  & > .nav-left {
+  }
+
+  & > .nav-right {
+    float: right;
+  }
+
+  li > a.dropdown-item {
+    cursor: pointer;
+  }
+  .dropdown-location {
+    input {
+      border-color: transparent;
+      background-color: transparent;
+      outline: none;
+      color: inherit;
+    }
+  }
+}
+
+.logo {
+  & > a {
+    & > img {
+      width: 9.4rem;
+      position: relative;
+      top: 0.3rem;
+    }
+  }
+}
