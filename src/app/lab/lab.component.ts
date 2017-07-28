@@ -66,12 +66,11 @@ export class LabComponent implements OnInit, OnDestroy {
     }
 
     public removeChart(chart: Chart) {
-        this.project.project_data.charts =
-            this.project.project_data.charts.filter(c => c !== chart);
+        this.project.project_data.charts = [];
     }
 
     public indicatorSelected(indicator: Indicator) {
         const chart = new Chart({indicator: indicator});
-        this.project.project_data.charts.unshift(chart);
+        this.project.project_data.charts = [chart];
     }
 }
