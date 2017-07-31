@@ -4,8 +4,6 @@ import {
     HostListener,
     Input,
     OnChanges,
-    OnDestroy,
-    OnInit,
     ViewEncapsulation
 } from '@angular/core';
 
@@ -28,7 +26,7 @@ import { ChartService } from '../services/chart.service';
   template: `<ng-content></ng-content>`
 })
 
-export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
+export class LineGraphComponent implements OnChanges {
 
     @Input() public data: ChartData[];
     @Input() public indicator: Indicator;
@@ -38,7 +36,6 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public minVal: number;
     @Input() public maxVal: number;
     @Input() public hover: Boolean;
-    @Input() public multiChartScrubber: Boolean;
 
     public extractedData: Array<DataPoint>;
 
@@ -63,9 +60,6 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
                                            // indicator be the same. However, this is quite unlikely
                                            // (1/10000, and even less likely by way of app use)
 
-    private multiChartScrubberHoverSubscription;
-    private multiChartScrubberInfoSubscription;
-
     /* We request angular for the element reference
     * and then we create a D3 Wrapper for our host element
     */
@@ -83,12 +77,8 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
     @HostListener('mousemove', ['$event'])
     onMouseMove(event) {
         // for single-chart scrubber
-        if (this.hover && !this.multiChartScrubber) {
+        if (this.hover) {
             this.redrawScrubber(event);
-        }
-        // for multi-chart scrubber
-        if (this.multiChartScrubber) {
-            this.chartService.updateMultiChartScrubberInfo(event);
         }
     }
 
@@ -107,35 +97,6 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
         this.drawYAxis();
         this.drawAvgLine();
         this.drawScrubber();
-    }
-
-    ngOnInit(): void {
-        // Set up global chart mouseover communication chain if set to multi-chart scrubber
-        // ** CURRENTLY ONLY FOR YEARLY INDICATORS**
-        if (this.multiChartScrubber && this.data[0].time_aggregation === 'yearly') {
-            this.multiChartScrubberHoverSubscription = this.chartService
-                .multiChartScrubberHoverObservable.subscribe(data => {
-
-                this.hover = data;
-                this.hover ? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id)
-                    .toggleClass('hidden', true);
-            });
-            this.multiChartScrubberInfoSubscription = this.chartService
-                .multiChartScrubberInfoObservable.subscribe(event => {
-
-                // Only redraw if a chart is moused over
-                if (this.hover) {
-                    this.redrawScrubber(event);
-                }
-            });
-        }
-    }
-
-    ngOnDestroy(): void {
-        if (this.multiChartScrubber && this.data[0].time_aggregation === 'yearly') {
-            this.multiChartScrubberInfoSubscription.unsubscribe();
-            this.multiChartScrubberHoverSubscription.unsubscribe();
-        }
     }
 
     private filterData(): void {

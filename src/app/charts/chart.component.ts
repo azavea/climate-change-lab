@@ -28,7 +28,6 @@ export class ChartComponent implements OnChanges {
     @Input() scenario: Scenario;
     @Input() models: ClimateModel[];
     @Input() city: City;
-    @Input() multiChartScrubber: Boolean;
 
     public chartData: ChartData[];
     public isHover: Boolean = false;
@@ -37,9 +36,6 @@ export class ChartComponent implements OnChanges {
     @HostListener('mouseover', ['$event'])
     onMouseOver(event) {
         this.isHover = event.target.id === 'overlay' ? true : false;
-        if (this.multiChartScrubber) {
-            this.chartService.detectMultiChartHover(this.isHover);
-        }
     }
 
     constructor(private chartService: ChartService,

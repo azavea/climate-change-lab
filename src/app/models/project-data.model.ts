@@ -17,7 +17,6 @@ export class ProjectData {
     allModels = true;
     models: ClimateModel[] = [];
     charts: Chart[] = [];
-    multiChartScrubber = false;
 
     static fromJSON(object: Object) {
         return new this(object);
@@ -36,8 +35,7 @@ export class ProjectData {
             scenario: this.scenario,
             allModels: this.allModels,
             models: this.models,
-            charts: this.charts,
-            multiChartScrubber: this.multiChartScrubber
+            charts: this.charts
         };
     }
 }
