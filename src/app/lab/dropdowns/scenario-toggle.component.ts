@@ -4,34 +4,29 @@ import { Scenario } from '../../models/scenario.model';
 import { ProjectData } from '../../models/project-data.model';
 import { ScenarioService } from '../../services/scenario.service';
 
-/*  Scenario Dropdown Component
+/*  Scenario Toggle Component
 
     -- Requires project input
     Expected use:
-        <ccl-scenario-dropdown
+        <ccl-scenario-toggle
             [projectData]="your_project.project_data">
 */
 
 @Component({
-  selector: 'ccl-scenario-dropdown',
-  template: `<div dropdown class="dropdown dropdown-scenario">
-              <button dropdownToggle class="button dropdown-toggle" type="button"
-                id="scenarioDropdown" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="true">
-                <i class="icon-flash"></i>
-                {{ projectData.scenario.label || "Select Scenario" }}
-                <i class="icon-angle-down caret"></i>
-              </button>
-              <ul *dropdownMenu class="dropdown-menu" aria-labelledby="scenarioDropdown">
-                <li *ngFor="let scenario of scenarios">
-                  <a (click)="onScenarioClicked(scenario)"
-                    tooltip="{{ scenario.description }}"
-                    placement="bottom">{{ scenario.label }}</a>
-                </li>
-              </ul>
-            </div>`
+  selector: 'ccl-scenario-toggle',
+  template: `
+    <div class="dropdown">
+        <button class="button"
+               *ngFor="let s of scenarios"
+               [ngClass]="{'active': s.name === projectData.scenario.name}"
+               (click)="onScenarioClicked(s)">
+            {{ s.label }}
+        </button>
+    </div>
+  `
+
 })
-export class ScenarioDropdownComponent implements OnInit {
+export class ScenarioToggleComponent implements OnInit {
 
     @Input() projectData: ProjectData;
     public scenarios: Scenario[] = [];
@@ -49,7 +44,7 @@ export class ScenarioDropdownComponent implements OnInit {
 
     private getScenarios() {
         this.scenarioService.list().subscribe(data => {
-            this.scenarios = data;
+            this.scenarios = data.filter(s => s.name === 'RCP85' || s.name === 'RCP45')
 
             // Set a default for the project if none is set
             if (!this.projectData.scenario.label) {

@@ -33,7 +33,7 @@ import { LoginComponent } from './login/login.component';
 import { ModelModalComponent } from './lab/dropdowns/model-modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
-import { ScenarioDropdownComponent } from './lab/dropdowns/scenario-dropdown.component';
+import { ScenarioToggleComponent } from './lab/dropdowns/scenario-toggle.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
 
@@ -71,7 +71,7 @@ const locationStrategyProvider = {
     PageNotFoundComponent,
     LoginComponent,
     AddEditProjectComponent,
-    ScenarioDropdownComponent,
+    ScenarioToggleComponent,
     ModelModalComponent,
     CityDropdownComponent
   ],
