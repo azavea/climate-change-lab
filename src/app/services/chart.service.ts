@@ -15,14 +15,6 @@ import * as D3 from 'd3';
 @Injectable()
 export class ChartService {
 
-    /* tslint:disable:member-ordering */
-    private _multiChartScrubberInfo = new Subject();
-    private _multiChartScrubberHover = new Subject<Boolean>();
-
-    public multiChartScrubberInfoObservable = this._multiChartScrubberInfo.asObservable();
-    public multiChartScrubberHoverObservable = this._multiChartScrubberHover.asObservable();
-    /* tslint:enable:member-ordering */
-
     private timeOptions = {
           'yearly': '%Y',
           'daily': '%Y-%m-%d',
@@ -30,15 +22,6 @@ export class ChartService {
         };
 
     constructor() {}
-
-    // receive and ship mousemove event
-    updateMultiChartScrubberInfo(event) {
-        this._multiChartScrubberInfo.next(event);
-    }
-    // receive and ship overlay mouseover status
-    detectMultiChartHover(bool: Boolean) {
-        this._multiChartScrubberHover.next(bool);
-    }
 
     // return an array of date strings for each day in the given year
     getDaysInYear(year: number): string[] {
