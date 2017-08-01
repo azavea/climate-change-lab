@@ -18,6 +18,9 @@
             <!-- climate model selector -->
             <ccl-model-modal [projectData]="project.project_data"></ccl-model-modal>
 
+            <!-- units selector, only show if indicator selected -->
+            <ccl-units-dropdown *ngIf="project.project_data.charts[0]" [projectData]="project.project_data" [units]="indicator.available_units"></ccl-units-dropdown>
+
           </div>
           <div class="nav-right"></div>
         </nav>
@@ -27,7 +30,8 @@
                        [city]="project.project_data.city"
                        [models]="project.project_data.models"
                        [scenario]="project.project_data.scenario"
-                       (onRemoveChart)="removeChart($event)"></ccl-chart>
+                       [unit]="project.project_data.unit"
+                       (onRemoveChart)="removeChart()"></ccl-chart>
           </div>
         </div>
       </div>

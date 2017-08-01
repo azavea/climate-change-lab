@@ -17,6 +17,7 @@ export class ProjectData {
     allModels = true;
     models: ClimateModel[] = [];
     charts: Chart[] = [];
+    unit: string;
 
     static fromJSON(object: Object) {
         return new this(object);
@@ -35,7 +36,8 @@ export class ProjectData {
             scenario: this.scenario,
             allModels: this.allModels,
             models: this.models,
-            charts: this.charts
+            charts: this.charts,
+            unit: this.unit
         };
     }
 }
