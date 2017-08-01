@@ -25,6 +25,11 @@ export class DataExportService {
         this.downloadFile(this.dataToCSV(data), filename, 'text/csv');
     }
 
+    public downloadAsJSON(data): void {
+        const filename = data[0].indicator.name + '.json';
+        this.downloadFile(JSON.stringify(data), filename, 'application/json');
+    }
+
     private downloadFile(data: string, title: string, mime: string): void {
         FileSaver.saveAs(new File([data], title, {type: mime + ';charset=utf-8'}));
     }

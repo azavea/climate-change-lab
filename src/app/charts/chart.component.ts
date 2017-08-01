@@ -62,7 +62,7 @@ export class ChartComponent implements OnChanges {
     }
 
     onExportClicked() {
-        this.dataExportService.downloadAsCSV(this.chartData);
+        this.dataExportService.downloadAsJSON(this.chartData);
     }
 
     onDownloadImageClicked() {
