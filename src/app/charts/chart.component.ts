@@ -17,7 +17,7 @@ import { ImageExportService } from '../services/image-export.service';
  * Container for each individual chart plus controls
  */
 @Component({
-  selector: 'ccl-chart',
+  selector: 'ccl-chart', // if this selector is renamed, image export service must also be updated
   templateUrl: './chart.component.html'
 })
 export class ChartComponent implements OnChanges {

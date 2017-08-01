@@ -13,8 +13,7 @@ export class ImageExportService {
             backgroundColor: 'white',
             selectorRemap: function(selector) {
                 // find CSS selectors mapped to parent chart
-                console.log(selector);
-                return selector.replace('chart', '');
+                return selector.replace('ccl-chart', '');
             }
     };
 
