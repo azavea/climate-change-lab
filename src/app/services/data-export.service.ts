@@ -8,7 +8,7 @@ import * as FileSaver from 'file-saver';
  * Generates CSV
  */
 @Injectable()
-export class CSVService {
+export class DataExportService {
 
     public dataToCSV(data): string {
         const label = data[0].indicator.name + '-' + data[0].indicator.default_units;

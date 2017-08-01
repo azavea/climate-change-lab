@@ -8,7 +8,7 @@ import { Scenario } from '../models/scenario.model';
 
 import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
-import { CSVService } from '../services/csv.service';
+import { DataExportService } from '../services/data-export.service';
 import { ImageExportService } from '../services/image-export.service';
 
 
@@ -40,7 +40,7 @@ export class ChartComponent implements OnChanges {
 
     constructor(private chartService: ChartService,
                 private indicatorService: IndicatorService,
-                private csvService: CSVService,
+                private dataExportService: DataExportService,
                 private imageExportService: ImageExportService) {}
 
     ngOnChanges() {
@@ -62,7 +62,7 @@ export class ChartComponent implements OnChanges {
     }
 
     onExportClicked() {
-        this.csvService.downloadAsCSV(this.chartData);
+        this.dataExportService.downloadAsCSV(this.chartData);
     }
 
     onDownloadImageClicked() {
