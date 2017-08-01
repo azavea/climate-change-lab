@@ -8,8 +8,8 @@ import { Scenario } from '../models/scenario.model';
 
 import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
-import { CSVService } from '../services/csv.service';
-import { SocialService } from '../services/social.service';
+import { DataExportService } from '../services/data-export.service';
+import { ImageExportService } from '../services/image-export.service';
 
 
 /*
@@ -17,7 +17,7 @@ import { SocialService } from '../services/social.service';
  * Container for each individual chart plus controls
  */
 @Component({
-  selector: 'ccl-chart',
+  selector: 'ccl-chart', // if this selector is renamed, image export service must also be updated
   templateUrl: './chart.component.html'
 })
 export class ChartComponent implements OnChanges {
@@ -30,6 +30,7 @@ export class ChartComponent implements OnChanges {
     @Input() city: City;
 
     public chartData: ChartData[];
+    public rawChartData: any;
     public isHover: Boolean = false;
 
     // Mousemove event must be at this level to listen to mousing over rect#overlay
@@ -40,12 +41,13 @@ export class ChartComponent implements OnChanges {
 
     constructor(private chartService: ChartService,
                 private indicatorService: IndicatorService,
-                private csvService: CSVService,
-                private socialService: SocialService) {}
+                private dataExportService: DataExportService,
+                private imageExportService: ImageExportService) {}
 
     ngOnChanges() {
         if (!this.scenario || !this.city || !this.models) { return; }
         this.chartData = [];
+        this.rawChartData = [];
         this.indicatorService.getData({
             indicator: this.chart.indicator,
             scenario: this.scenario,
@@ -54,7 +56,10 @@ export class ChartComponent implements OnChanges {
             // As a temporary solution, the time agg defaults to the 1st valid option.
             // Really, this should a user selectable option
             time_aggregation: this.chart.indicator.valid_aggregations[0]
-        }).subscribe(data => this.chartData = this.chartService.convertChartData([data]));
+        }).subscribe(data => {
+            this.rawChartData = data;
+            this.chartData = this.chartService.convertChartData([data]);
+        });
     }
 
     onSettingsToggleClicked() {
@@ -62,7 +67,7 @@ export class ChartComponent implements OnChanges {
     }
 
     onExportClicked() {
-        this.csvService.downloadAsCSV(this.chartData);
+        this.dataExportService.downloadAsJSON(this.rawChartData);
     }
 
     onDownloadImageClicked() {
@@ -72,7 +77,7 @@ export class ChartComponent implements OnChanges {
             this.scenario.name
         ].join('_');
 
-        this.socialService.downloadAsPNG(this.chart.indicator.name, fileName);
+        this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
     removeChart(chart: Chart) {

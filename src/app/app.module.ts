@@ -43,8 +43,8 @@ import { apiHttpProvider } from './auth/api-http.provider';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ChartService } from './services/chart.service';
-import { CSVService } from './services/csv.service';
-import { SocialService } from './services/social.service';
+import { DataExportService } from './services/data-export.service';
+import { ImageExportService } from './services/image-export.service';
 import { ClimateModelService } from './services/climate-model.service';
 import { IndicatorService } from './services/indicator.service';
 import { ScenarioService } from './services/scenario.service';
@@ -95,8 +95,8 @@ const locationStrategyProvider = {
     AuthService,
     AuthGuard,
     ChartService,
-    CSVService,
-    SocialService,
+    DataExportService,
+    ImageExportService,
     ClimateModelService,
     IndicatorService,
     ScenarioService,
