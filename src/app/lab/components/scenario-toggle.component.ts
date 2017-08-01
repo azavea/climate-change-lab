@@ -19,7 +19,7 @@ import { ScenarioService } from '../../services/scenario.service';
         <button class="button"
                *ngFor="let s of scenarios"
                [ngClass]="{'active': s.name === projectData.scenario.name}"
-               (click)="onScenarioClicked(s)">
+               (click)="onScenarioClicked(s, $event)">
             {{ s.label }}
         </button>
     </div>
@@ -39,8 +39,11 @@ export class ScenarioToggleComponent implements OnInit {
         this.getScenarios();
     }
 
-    public onScenarioClicked(scenario: Scenario) {
+    public onScenarioClicked(scenario: Scenario, event?: Event, ) {
         this.projectData.scenario = scenario;
+        if (event) {
+            event.preventDefault();
+        }
     }
 
     private getScenarios() {
