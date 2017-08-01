@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
-import * as _ from 'lodash';
 import * as FileSaver from 'file-saver';
 
 /*
@@ -10,7 +9,7 @@ import * as FileSaver from 'file-saver';
 export class DataExportService {
 
     public downloadAsJSON(data): void {
-        const filename = data[0].indicator.name + '.json';
+        const filename = data.indicator.name + '.json';
         this.downloadFile(JSON.stringify(data), filename, 'application/json');
     }
 
