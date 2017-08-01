@@ -39,7 +39,7 @@ export class ScenarioToggleComponent implements OnInit {
         this.getScenarios();
     }
 
-    public onScenarioClicked(scenario: Scenario, event?: Event, ) {
+    public onScenarioClicked(scenario: Scenario, event?: Event) {
         this.projectData.scenario = scenario;
         if (event) {
             event.preventDefault();
