@@ -8,10 +8,10 @@ import { Scenario } from '../models/scenario.model';
 import { City } from '../models/city.model';
 import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
-import { CityDropdownComponent } from '../lab/dropdowns/city-dropdown.component';
-import { ScenarioToggleComponent } from '../lab/dropdowns/scenario-toggle.component';
-import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
-
+import {
+    CityDropdownComponent,
+    ModelModalComponent,
+    ScenarioToggleComponent } from '../lab';
 
 /* Add/Edit Project Component
 */

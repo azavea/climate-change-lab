@@ -20,20 +20,23 @@ import { routing, appRoutingProviders } from './app.routing';
 // App Modules
 import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.module';
 
+// Lab Components
+import {
+  CityDropdownComponent,
+  LabComponent,
+  ModelModalComponent,
+  ScenarioToggleComponent } from './lab';
+
 // App Components
 import { AppComponent } from './app.component';
 import { AddEditProjectComponent } from './project/add-edit-project.component';
 import { ChartComponent } from './charts/chart.component';
-import { CityDropdownComponent } from './lab/dropdowns/city-dropdown.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
-import { LabComponent } from './lab/lab.component';
 import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
-import { ModelModalComponent } from './lab/dropdowns/model-modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
-import { ScenarioToggleComponent } from './lab/dropdowns/scenario-toggle.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
 
