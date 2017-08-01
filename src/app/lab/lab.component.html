@@ -21,9 +21,9 @@
           </div>
           <div class="nav-right"></div>
         </nav>
-        <div class="charts scrollable">
-          <div class="chart" *ngFor="let chart of project.project_data.charts">
-            <ccl-chart [chart]="chart"
+        <div class="chart-container scrollable">
+          <div class="chart" *ngIf="project.project_data.charts[0]">
+            <ccl-chart [chart]="project.project_data.charts[0]"
                        [city]="project.project_data.city"
                        [models]="project.project_data.models"
                        [scenario]="project.project_data.scenario"
