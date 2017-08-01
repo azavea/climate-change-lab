@@ -9,7 +9,7 @@ import { Scenario } from '../models/scenario.model';
 import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
 import { CSVService } from '../services/csv.service';
-import { SocialService } from '../services/social.service';
+import { ImageExportService } from '../services/image-export.service';
 
 
 /*
@@ -41,7 +41,7 @@ export class ChartComponent implements OnChanges {
     constructor(private chartService: ChartService,
                 private indicatorService: IndicatorService,
                 private csvService: CSVService,
-                private socialService: SocialService) {}
+                private imageExportService: ImageExportService) {}
 
     ngOnChanges() {
         if (!this.scenario || !this.city || !this.models) { return; }
@@ -72,7 +72,7 @@ export class ChartComponent implements OnChanges {
             this.scenario.name
         ].join('_');
 
-        this.socialService.downloadAsPNG(this.chart.indicator.name, fileName);
+        this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
     removeChart(chart: Chart) {

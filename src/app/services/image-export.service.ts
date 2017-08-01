@@ -3,16 +3,17 @@ import 'rxjs/Rx';
 import * as SaveSvg from 'save-svg-as-png';
 
 /*
- * Generates image of D3 chart SVG, potentially for sharing on social media
+ * Generates image of D3 chart SVG for download
  */
 @Injectable()
-export class SocialService {
+export class ImageExportService {
 
     // options to pass when converting SVG to PNG
     private chartOptions = {
             backgroundColor: 'white',
             selectorRemap: function(selector) {
                 // find CSS selectors mapped to parent chart
+                console.log(selector);
                 return selector.replace('chart', '');
             }
     };
@@ -30,17 +31,5 @@ export class SocialService {
         if (!svg) { return };
 
         SaveSvg.saveSvgAsPng(svg, filename, this.chartOptions);
-    }
-
-    public chartSvgToPngUri(indicatorName: string): void {
-        const svg: HTMLElement = document.getElementById('chart-' + indicatorName);
-        // SVG might not be found if chart hasn't loaded yet
-        if (!svg) { return };
-
-        SaveSvg.svgAsPngUri(svg, this.chartOptions,
-            uri => {
-                // TODO: use this PNG data URI for posting image to social media
-                console.log(uri);
-            });
     }
 }
