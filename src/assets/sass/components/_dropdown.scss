@@ -17,6 +17,16 @@
   outline: 0;
 }
 
+.dropup,
+.navbar-fixed-bottom .dropdown {
+  // Different positioning for bottom up menu
+  .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 2px;
+  }
+}
+
 .dropdown-menu {
   position: absolute;
   top: 100%;
