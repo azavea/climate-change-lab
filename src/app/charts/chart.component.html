@@ -6,18 +6,6 @@
         <button class="button button-link"
                 placement="top"
                 title=""
-                tooltip="Download chart image"
-                (click)="onDownloadImageClicked()"><i class="icon icon-download"></i>
-        </button>
-        <button class="button button-link"
-                placement="top"
-                title=""
-                tooltip="Export"
-                (click)="onExportClicked()"><i class="icon icon-export"></i>
-        </button>
-        <button class="button button-link"
-                placement="top"
-                title=""
                 tooltip="Options"
                 [ngClass]="{'active': chart.showSettings}"
                 (click)="onSettingsToggleClicked()"><i class="icon icon-cog"></i>
@@ -72,4 +60,21 @@
             </div>
         </div>
     </div>
+</div>
+
+<div dropdown [dropup]="true" class="btn-group">
+    <button dropdownToggle class="button dropdown-toggle" type="button"
+        id="exportDropUp" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="true">
+        <i class="icon icon-download"></i>
+        Download
+    </button>
+    <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
+        <li role="menuitem">
+            <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
+        </li>
+        <li role="menuitem">
+            <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
+        </li>
+    </ul>
 </div>
