@@ -48,7 +48,7 @@ export class LabComponent implements OnInit, OnDestroy {
                 this.projectService.get(id).subscribe(
                     data => {
                         this.project = data;
-                        this.chart = this.project.project_data.charts[0];
+                        this.resetChart();
                         if (this.chart) {
                             this.indicator = this.chart.indicator;
                         }
@@ -69,12 +69,17 @@ export class LabComponent implements OnInit, OnDestroy {
         }
     }
 
+    public resetChart() {
+        this.chart = this.project.project_data.charts[0];
+    }
+
     public saveChartSettings() {
         this.projectService.update(this.project).subscribe();
     }
 
     public removeChart() {
         this.project.project_data.charts = [];
+        this.resetChart();
     }
 
     public indicatorSelected(indicator: Indicator) {
@@ -83,6 +88,6 @@ export class LabComponent implements OnInit, OnDestroy {
         const chart = new Chart({indicator: indicator,
                                  unit: indicator.default_units});
         this.project.project_data.charts = [chart];
-        this.chart = this.project.project_data.charts[0];
+        this.resetChart();
     }
 }
