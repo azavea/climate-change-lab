@@ -11,7 +11,8 @@ import { ProjectForm } from './project-form';
 import {
     CityDropdownComponent,
     ModelModalComponent,
-    ScenarioToggleComponent } from '../lab';
+    ScenarioToggleComponent,
+    UnitsDropdownComponent } from '../lab';
 
 /* Add/Edit Project Component
 */
