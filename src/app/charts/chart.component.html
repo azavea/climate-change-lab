@@ -63,18 +63,18 @@
 </div>
 
 <div dropdown [dropup]="true" class="btn-group">
-  <button dropdownToggle class="button dropdown-toggle" type="button"
-    id="exportDropUp" data-toggle="dropdown" aria-haspopup="true"
-    aria-expanded="true">
-    <i class="icon icon-download"></i>
-    Download
-  </button>
-  <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
-    <li role="menuitem">
-      <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
-    </li>
-    <li role="menuitem">
-      <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
-    </li>
-  </ul>
+    <button dropdownToggle class="button dropdown-toggle" type="button"
+        id="exportDropUp" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="true">
+        <i class="icon icon-download"></i>
+        Download
+    </button>
+    <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
+        <li role="menuitem">
+            <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
+        </li>
+        <li role="menuitem">
+            <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
+        </li>
+    </ul>
 </div>
