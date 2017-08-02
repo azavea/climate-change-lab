@@ -33,6 +33,7 @@ export class ChartComponent implements OnChanges {
 
     public chartData: ChartData[];
     public rawChartData: any;
+    public chartQuery: String;
     public isHover: Boolean = false;
     private historicalScenario: Scenario = {
         name: 'historical',
@@ -71,6 +72,8 @@ export class ChartComponent implements OnChanges {
             historical,
             future
         ).subscribe(data => {
+	    this.chartQuery = data[1].url;
+            delete data[1].url; // apart from URL, returned data is raw query response
             this.rawChartData = data[1];
             this.chartData = this.chartService.convertChartData(data)
         });
@@ -92,6 +95,11 @@ export class ChartComponent implements OnChanges {
         ].join('_');
 
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
+    }
+
+    onGetAPICallClicked() {
+        // TODO: implement pop-up with query and copy to clipboard
+        console.log(this.chartQuery);
     }
 
     removeChart(chart: Chart) {
