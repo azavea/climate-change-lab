@@ -20,15 +20,18 @@ import {
     TooltipModule,
     TypeaheadModule } from 'ngx-bootstrap';
 
+import {
+    CityDropdownComponent,
+    ScenarioToggleComponent,
+    ModelModalComponent,
+    LabComponent
+} from '../lab';
+
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { LabComponent } from '../lab/lab.component';
 import { AddEditProjectComponent } from '../project/add-edit-project.component';
 import { PageNotFoundComponent } from '../http-status/page-not-found/page-not-found.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { CityDropdownComponent } from '../lab/dropdowns/city-dropdown.component';
-import { ScenarioDropdownComponent } from '../lab/dropdowns/scenario-dropdown.component';
-import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
 import { ChartComponent } from '../charts/chart.component';
 import { IndicatorListComponent } from '../sidebar/indicator-list.component';
 import { LineGraphComponent } from '../charts/line-graph.component';
@@ -76,7 +79,7 @@ describe('LoginComponent', () => {
                 TypeaheadModule.forRoot() ],
             declarations: [ LoginComponent, NavbarComponent, DashboardComponent, LabComponent,
                 AddEditProjectComponent, PageNotFoundComponent, SidebarComponent, AppComponent,
-                CityDropdownComponent, ScenarioDropdownComponent, ModelModalComponent,
+                CityDropdownComponent, ScenarioToggleComponent, ModelModalComponent,
                 ChartComponent, IndicatorListComponent, LineGraphComponent, WaveComponent ],
             providers: [
                         {provide: AuthService, useValue: authServiceStub}]
