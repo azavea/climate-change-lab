@@ -27,7 +27,7 @@ export class Chart {
             showMaximum: this.showMaximum,
             minimumValue: this.minimumValue,
             maximumValue: this.maximumValue,
-            unit: this.indicator.default_units
+            unit: this.unit
         };
     }
 }
