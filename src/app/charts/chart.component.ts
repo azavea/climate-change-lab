@@ -34,8 +34,8 @@ export class ChartComponent implements OnChanges {
 
     public chartData: ChartData[];
     public rawChartData: any;
-    public chartQuery: String;
     public isHover: Boolean = false;
+    public curlCommand: String;
     private historicalScenario: Scenario = {
         name: 'historical',
         label: 'Historical',
@@ -74,10 +74,16 @@ export class ChartComponent implements OnChanges {
             historical,
             future
         ).subscribe(data => {
-	    this.chartQuery = data[1].url;
+	    const chartQuery = data[1].url;
             delete data[1].url; // apart from URL, returned data is raw query response
             this.rawChartData = data[1];
-            this.chartData = this.chartService.convertChartData(data)
+            this.chartData = this.chartService.convertChartData(data);
+
+	    this.curlCommand = ['curl -i "',
+                            chartQuery,
+                            '" -H "Authorization: Token ',
+                            this.authService.getToken(),
+                            '"'].join('');
         });
     }
 
@@ -101,13 +107,7 @@ export class ChartComponent implements OnChanges {
 
     onGetAPICallClicked() {
         // TODO: implement pop-up with query and copy to clipboard
-        var curl = ['curl -i "',
-                    this.chartQuery,
-                    '" -H "Authorization: Token ',
-                    this.authService.getToken(),
-                    '"'].join('');
-
-        console.log(curl);
+        console.log(this.curlCommand);
     }
 
     removeChart(chart: Chart) {
