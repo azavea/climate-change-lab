@@ -19,6 +19,15 @@
             [indicator]="chart.indicator"
             [hover]="isHover">
         </ccl-line-graph>
+        <div class="chart-legend" *ngIf="chartData && chartData.length">
+            <div class="chart-legend-icons">
+                <span><span class="icon-minus chart-legend-line"></span> {{ chartData[0].indicator.default_units }}</span>
+                <span><span class="chart-legend-minmax"></span> Range between min/max of selected models</span>
+            </div>
+            <div class="chart-legend-description">
+                {{ chartData[0].indicator.description }}
+            </div>
+        </div>
         <div class="chart-options">
             <div class="chart-options-body">
                 <nouislider class="chart-options-group"

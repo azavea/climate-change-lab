@@ -30,6 +30,30 @@ ccl-chart {
     padding-top: 1.5rem;
   }
 
+  .chart-legend {
+    padding: 2rem;
+    padding-top: 0;
+    color: #757575;
+    font-size: 11px;
+
+    .chart-legend-line {
+      color: #1E8CEC;
+    }
+
+    .chart-legend-icons {
+       padding-bottom: 0.5rem;
+    }
+
+    .chart-legend-minmax {
+      color: darken(#EFF4F7, 10%);
+
+      &:before {
+        padding-left: 0.5em;
+        content: '\2B1B'; // unicode large filled square
+      }
+    }
+  }
+
   .chart-options {
     border-top: 1px solid $gray-2;
     margin: 0;
