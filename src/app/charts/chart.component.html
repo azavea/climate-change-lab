@@ -83,14 +83,14 @@
                 id="apiCallDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 &gt;_ Get API Call
             </button>
-            <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="apiCallDropUp">
+            <ul *dropdownMenu class="dropdown-menu curl-popup" role="menu" aria-labelledby="apiCallDropUp">
                 <li role="menuitem">
                     <div class="drowdown-item">
                         <strong>Get API Call</strong>
                         <p>Use our API to access these data regularly for your own research or application.</p>
                         <div>
-                            <input id="curl-command" value="{{curlCommand}}">
-                            <a (click)="onGetAPICallClicked()">
+                            <input class="curl-command" value="{{curlCommand}}">
+                            <a (click)="onGetAPICallClicked($event)">
                             <i class="icon icon-umbrella"></i></a>
                         </div>
                     </div>

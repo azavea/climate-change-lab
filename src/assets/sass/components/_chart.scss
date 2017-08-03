@@ -50,10 +50,18 @@ ccl-chart {
         margin-right: 0.5rem;
       }
 
+      .curl-popup {
+        width: 300px;
+      }
+
       input {
         width: 60px;
         font-weight: $body-font-weight;
         font-family: $body-font-family;
+
+        &.curl-command {
+          width: 270px;
+        }
       }
     }
   }

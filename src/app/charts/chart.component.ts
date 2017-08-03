@@ -105,7 +105,9 @@ export class ChartComponent implements OnChanges {
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
-    onGetAPICallClicked() {
+    onGetAPICallClicked(event) {
+        // do not close popup when copy button clicked
+        event.stopPropagation();
         // TODO: implement pop-up with query and copy to clipboard
         console.log(this.curlCommand);
     }
