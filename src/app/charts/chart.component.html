@@ -61,25 +61,38 @@
         </div>
     </div>
 </div>
-<div dropdown [dropup]="true" class="btn-group">
-    <button dropdownToggle class="button dropdown-toggle" type="button"
-        id="exportDropUp" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="true">
-        <i class="icon icon-download"></i>
-        Download
-    </button>
-    <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
-        <li role="menuitem">
-            <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
-        </li>
-        <li role="menuitem">
-            <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
-        </li>
-    </ul>
+<div class="chart-options">
+    <div class="chart-options-body">
+        <div dropdown [dropup]="true" class="chart-options-group btn-group">
+            <button dropdownToggle class="button dropdown-toggle" type="button"
+                id="exportDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <i class="icon icon-download"></i>
+                Download
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
+                <li role="menuitem">
+                    <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
+                </li>
+                <li role="menuitem">
+                    <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
+                </li>
+            </ul>
+        </div>
+        <div dropdown [dropup]="true" class="chart-options-group btn-group">
+            <button dropdownToggle class="button dropdown-toggle" type="button"
+                id="apiCallDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                &gt;_ Get API Call
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="apiCallDropUp">
+                <li role="menuitem">
+                    <div class="drowdown-item">
+                        <strong>Get API Call</strong>
+                        <p>Use our API to access these data regularly for your own research or application.</p>
+                        <p>Text box here<a (click)="onGetAPICallClicked()">
+                            <i class="icon icon-umbrella"></i></a></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
-<button class="button"
-        placement="top"
-        title=""
-        tooltip="Get API call"
-        (click)="onGetAPICallClicked()">&gt;_ Get API Call
-</button>
