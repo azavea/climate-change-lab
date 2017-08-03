@@ -1,13 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Chart } from '../../models/chart.model';
+import { Indicator } from '../../models/indicator.model';
 
 /*  Units Dropdown Component
 
-    -- Requires project input
+    -- Requires handling unit selection
     Expected use:
         <ccl-units-dropdown
-            [chart]="your_chart">
+            [indicator]="your_indicator"
+            [unit]="your_unit"
+            (unitSelected)="onUnitSelected($event)">
 */
 
 @Component({
@@ -17,11 +20,11 @@ import { Chart } from '../../models/chart.model';
                 id="unitsDropdown" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true">
                 <i class="icon-flash"></i>
-                {{ chart.unit }}
+                {{ unit || indicator.default_units }}
                 <i class="icon-angle-down caret"></i>
               </button>
               <ul *dropdownMenu class="dropdown-menu" aria-labelledby="unitsDropdown">
-                <li *ngFor="let unit of chart.indicator.available_units">
+                <li *ngFor="let unit of indicator.available_units">
                   <a (click)="onUnitSelected(unit)"
                     placement="bottom">{{ unit }}</a>
                 </li>
@@ -30,11 +33,11 @@ import { Chart } from '../../models/chart.model';
 })
 export class UnitsDropdownComponent {
 
-    @Input() chart: Chart;
-
-    constructor() {}
+    @Input() indicator: Indicator;
+    @Input() unit: string;
+    @Output() unitSelected = new EventEmitter<string>();
 
     public onUnitSelected(unit: string){
-        this.chart.unit = unit;
+        this.unitSelected.emit(unit);
     }
 }

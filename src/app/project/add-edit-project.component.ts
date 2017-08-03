@@ -71,6 +71,10 @@ export class AddEditProjectComponent implements OnInit {
         }
     }
 
+    onUnitSelected(unit){
+        this.model.project.project_data.charts[0].unit = unit;
+    }
+
     onSuccess() {
         this.router.navigate(['/lab', this.model.project.id]);
     }
