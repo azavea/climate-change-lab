@@ -52,6 +52,8 @@ ccl-chart {
 
       .curl-popup {
         width: 300px;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
       }
 
       input {
@@ -60,7 +62,7 @@ ccl-chart {
         font-family: $body-font-family;
 
         &.curl-command {
-          width: 270px;
+          width: 255px;
         }
       }
     }

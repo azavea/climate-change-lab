@@ -84,14 +84,21 @@
                 &gt;_ Get API Call
             </button>
             <ul *dropdownMenu class="dropdown-menu curl-popup" role="menu" aria-labelledby="apiCallDropUp">
-                <li role="menuitem">
+                <li role="menuitem" (click)="$event.stopPropagation()">
                     <div class="drowdown-item">
                         <strong>Get API Call</strong>
                         <p>Use our API to access these data regularly for your own research or application.</p>
-                        <div>
-                            <input class="curl-command" value="{{curlCommand}}">
-                            <a (click)="onGetAPICallClicked($event)">
-                            <i class="icon icon-umbrella"></i></a>
+                        <div class="input-group">
+                            <input type="text" class="form-control curl-command"
+                                [(ngModel)]="curlCommand"
+                                placeholder="curl command for API query"
+                                #curlCommandInput>
+                            <span class="input-group-btn">
+                                <a [ngxClipboard]="curlCommandInput"
+                                    (cbOnSuccess)="curlCommandCopied()">
+                                    <i class="icon icon-umbrella"></i>
+                                </a>
+                            </span>
                         </div>
                     </div>
                 </li>

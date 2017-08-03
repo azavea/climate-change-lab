@@ -74,16 +74,13 @@ export class ChartComponent implements OnChanges {
             historical,
             future
         ).subscribe(data => {
-	    const chartQuery = data[1].url;
+            const chartQuery = data[1].url;
             delete data[1].url; // apart from URL, returned data is raw query response
             this.rawChartData = data[1];
             this.chartData = this.chartService.convertChartData(data);
 
-	    this.curlCommand = ['curl -i "',
-                            chartQuery,
-                            '" -H "Authorization: Token ',
-                            this.authService.getToken(),
-                            '"'].join('');
+            this.curlCommand = `curl -i "${chartQuery}" -H "Authorization: Token ` +
+                               `${this.authService.getToken()}"`;
         });
     }
 
@@ -105,11 +102,9 @@ export class ChartComponent implements OnChanges {
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
-    onGetAPICallClicked(event) {
-        // do not close popup when copy button clicked
-        event.stopPropagation();
-        // TODO: implement pop-up with query and copy to clipboard
-        console.log(this.curlCommand);
+    curlCommandCopied() {
+        // TODO: success message?
+        console.log('copied!');
     }
 
     removeChart(chart: Chart) {

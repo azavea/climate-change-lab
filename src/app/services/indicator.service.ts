@@ -18,7 +18,7 @@ export class IndicatorService {
 
     public getData(options: IndicatorQueryOpts) {
 
-        const getDetailUrl = `${apiHost}/api/climate-data/${options.city.id}/${options.scenario.name}` +
+        const url = `${apiHost}/api/climate-data/${options.city.id}/${options.scenario.name}` +
                          `/indicator/${options.indicator.name}/`;
 
         // Generate query params
@@ -34,8 +34,8 @@ export class IndicatorService {
         }
 
         const requestOptions = new RequestOptions({ search: searchParams });
-        return this.apiHttp.get(getDetailUrl, requestOptions).map(resp => {
-            let result = resp.json();
+        return this.apiHttp.get(url, requestOptions).map(resp => {
+            const result = resp.json();
             // Append the queried URL to the JSON representation of the response body.
             // Discusson of what undocumented `Response` method `json` does, exactly:
             // https://stackoverflow.com/a/41309889
