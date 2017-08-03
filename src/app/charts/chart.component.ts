@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnChanges, Input, Output, HostListener } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+
 import { Chart } from '../models/chart.model';
 import { ChartData } from '../models/chart-data.model';
 import { City } from '../models/city.model';
@@ -32,6 +34,11 @@ export class ChartComponent implements OnChanges {
     public chartData: ChartData[];
     public rawChartData: any;
     public isHover: Boolean = false;
+    private historicalScenario: Scenario = {
+        name: 'historical',
+        label: 'Historical',
+        description: ''
+    };
 
     // Mousemove event must be at this level to listen to mousing over rect#overlay
     @HostListener('mouseover', ['$event'])
@@ -48,7 +55,7 @@ export class ChartComponent implements OnChanges {
         if (!this.scenario || !this.city || !this.models) { return; }
         this.chartData = [];
         this.rawChartData = [];
-        this.indicatorService.getData({
+        const queryOpts = {
             indicator: this.chart.indicator,
             scenario: this.scenario,
             city: this.city,
@@ -56,9 +63,16 @@ export class ChartComponent implements OnChanges {
             // As a temporary solution, the time agg defaults to the 1st valid option.
             // Really, this should a user selectable option
             time_aggregation: this.chart.indicator.valid_aggregations[0]
-        }).subscribe(data => {
-            this.rawChartData = data;
-            this.chartData = this.chartService.convertChartData([data]);
+        };
+        const future = this.indicatorService.getData(queryOpts);
+        queryOpts.scenario = this.historicalScenario;
+        const historical = this.indicatorService.getData(queryOpts);
+        Observable.forkJoin(
+            historical,
+            future
+        ).subscribe(data => {
+            this.rawChartData = data[1];
+            this.chartData = this.chartService.convertChartData(data)
         });
     }
 
