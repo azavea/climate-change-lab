@@ -102,9 +102,10 @@ export class ChartComponent implements OnChanges {
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
-    curlCommandCopied() {
-        // TODO: success message?
-        console.log('copied!');
+    curlCommandCopied(copiedPopup) {
+        // show a confirmation tooltip, then hide it again after a second
+        copiedPopup.show();
+        setTimeout(() => { copiedPopup.hide(); }, 1000);
     }
 
     removeChart(chart: Chart) {

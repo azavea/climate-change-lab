@@ -93,9 +93,12 @@
                                 [(ngModel)]="curlCommand"
                                 placeholder="curl command for API query"
                                 #curlCommandInput>
-                            <span class="input-group-btn">
+                            <span
+                                tooltip="Copied!"
+                                triggers="" #copiedPopup="bs-tooltip"
+                                class="input-group-btn">
                                 <a [ngxClipboard]="curlCommandInput"
-                                    (cbOnSuccess)="curlCommandCopied()">
+                                    (cbOnSuccess)="curlCommandCopied(copiedPopup)">
                                     <i class="icon icon-umbrella"></i>
                                 </a>
                             </span>
