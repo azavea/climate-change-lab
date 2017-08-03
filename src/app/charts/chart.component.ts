@@ -8,6 +8,7 @@ import { City } from '../models/city.model';
 import { ClimateModel } from '../models/climate-model.model';
 import { Scenario } from '../models/scenario.model';
 
+import { AuthService } from '../auth/auth.service';
 import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
 import { DataExportService } from '../services/data-export.service';
@@ -50,7 +51,8 @@ export class ChartComponent implements OnChanges {
     constructor(private chartService: ChartService,
                 private indicatorService: IndicatorService,
                 private dataExportService: DataExportService,
-                private imageExportService: ImageExportService) {}
+                private imageExportService: ImageExportService,
+                private authService: AuthService) {}
 
     ngOnChanges() {
         if (!this.scenario || !this.city || !this.models) { return; }
@@ -99,7 +101,13 @@ export class ChartComponent implements OnChanges {
 
     onGetAPICallClicked() {
         // TODO: implement pop-up with query and copy to clipboard
-        console.log(this.chartQuery);
+        var curl = ['curl -i "',
+                    this.chartQuery,
+                    '" -H "Authorization: Token ',
+                    this.authService.getToken(),
+                    '"'].join('');
+
+        console.log(curl);
     }
 
     removeChart(chart: Chart) {
