@@ -11,6 +11,7 @@ import { LoginForm } from './login-form';
 import { FormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from '../ng2-auto-complete/ng2AutoComplete.module';
 import { UiSwitchModule } from 'ngx-ui-switch/src';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import {
     CollapseModule,
@@ -65,6 +66,7 @@ describe('LoginComponent', () => {
 
         TestBed.configureTestingModule({
             imports: [ FormsModule, Ng2AutoCompleteModule, UiSwitchModule, BrowserModule,
+                       ClipboardModule,
 
                 RouterTestingModule.withRoutes([{ path: 'login', component: LoginComponent },
                                                { path: '', component: AppComponent },
