@@ -1,5 +1,5 @@
 
-.icon-truck:before { content: '\e800'; } /* '' */
+.icon-clipboard:before { content: '\e800'; } /* '' */
 .icon-floppy:before { content: '\e801'; } /* '' */
 .icon-chart-bar:before { content: '\e802'; } /* '' */
 .icon-info-1:before { content: '\e803'; } /* '' */
@@ -164,8 +164,6 @@
 .icon-right:before { content: '\f178'; } /* '' */
 .icon-plus-squared-alt:before { content: '\f196'; } /* '' */
 .icon-mail-squared:before { content: '\f199'; } /* '' */
-.icon-cab:before { content: '\f1b9'; } /* '' */
-.icon-taxi:before { content: '\f1ba'; } /* '' */
 .icon-tree:before { content: '\f1bb'; } /* '' */
 .icon-database:before { content: '\f1c0'; } /* '' */
 .icon-sliders:before { content: '\f1de'; } /* '' */
@@ -181,11 +179,6 @@
 .icon-chart-area:before { content: '\f1fe'; } /* '' */
 .icon-chart-pie:before { content: '\f200'; } /* '' */
 .icon-chart-line:before { content: '\f201'; } /* '' */
-.icon-bicycle:before { content: '\f206'; } /* '' */
-.icon-bus:before { content: '\f207'; } /* '' */
-.icon-motorcycle:before { content: '\f21c'; } /* '' */
 .icon-street-view:before { content: '\f21d'; } /* '' */
 .icon-user-plus:before { content: '\f234'; } /* '' */
 .icon-user-times:before { content: '\f235'; } /* '' */
-.icon-train:before { content: '\f238'; } /* '' */
-.icon-subway:before { content: '\f239'; } /* '' */

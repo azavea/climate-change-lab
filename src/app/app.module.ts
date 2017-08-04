@@ -13,6 +13,7 @@ import {
     PaginationModule,
     TooltipModule } from 'ngx-bootstrap';
 import { UiSwitchModule } from 'ngx-ui-switch/src';
+import { ClipboardModule } from 'ngx-clipboard';
 
 // App routing
 import { routing, appRoutingProviders } from './app.routing';
@@ -89,7 +90,8 @@ const locationStrategyProvider = {
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
     Ng2AutoCompleteModule,
-    UiSwitchModule
+    UiSwitchModule,
+    ClipboardModule
   ],
   providers: [
     appRoutingProviders,

@@ -49,54 +49,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "4df54de7f9081aefcc1476068d4464e9",
-      "css": "train",
-      "code": 62008,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "26667777684de4808cedd3783834356f",
-      "css": "subway",
-      "code": 62009,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "9937d762aee170b7350b15dd02dd34a3",
-      "css": "cab",
-      "code": 61881,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "5eacf9f8805e2c0bc306dcd1e709db16",
-      "css": "taxi",
-      "code": 61882,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "7f3d8ff1d5f6ee019f0c00ed7a86caec",
-      "css": "truck",
-      "code": 59392,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "5b17c7263caa553039655f2fef81ecaf",
-      "css": "bus",
-      "code": 61959,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "891d861cffd152a6474f01e77716d44e",
-      "css": "bicycle",
-      "code": 61958,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "326dd5dc5899787161184614d04a50b9",
-      "css": "motorcycle",
-      "code": 61980,
-      "src": "fontawesome"
-    },
-    {
       "uid": "4109c474ff99cad28fd5a2c38af2ec6f",
       "css": "filter",
       "code": 61616,
@@ -1145,6 +1097,12 @@
       "css": "plus",
       "code": 59486,
       "src": "typicons"
+    },
+    {
+      "uid": "c9bef3dc67fea47e94c4a5030ea64dad",
+      "css": "clipboard",
+      "code": 59392,
+      "src": "elusive"
     }
   ]
 }

@@ -61,20 +61,49 @@
         </div>
     </div>
 </div>
-
-<div dropdown [dropup]="true" class="btn-group">
-    <button dropdownToggle class="button dropdown-toggle" type="button"
-        id="exportDropUp" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="true">
-        <i class="icon icon-download"></i>
-        Download
-    </button>
-    <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
-        <li role="menuitem">
-            <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
-        </li>
-        <li role="menuitem">
-            <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
-        </li>
-    </ul>
+<div class="chart-options">
+    <div class="chart-options-body">
+        <div dropdown [dropup]="true" class="chart-options-group btn-group">
+            <button dropdownToggle class="button dropdown-toggle" type="button"
+                id="exportDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <i class="icon icon-download"></i>
+                Download
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
+                <li role="menuitem">
+                    <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
+                </li>
+                <li role="menuitem">
+                    <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
+                </li>
+            </ul>
+        </div>
+        <div dropdown [dropup]="true" class="chart-options-group btn-group">
+            <button dropdownToggle class="button dropdown-toggle" type="button"
+                id="apiCallDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                &gt;_ Get API Call
+            </button>
+            <ul *dropdownMenu class="dropdown-menu curl-popup" role="menu" aria-labelledby="apiCallDropUp">
+                <li role="menuitem" (click)="$event.stopPropagation()">
+                    <div class="drowdown-item">
+                        <strong>Get API Call</strong>
+                        <p>Use our API to access these data regularly for your own research or application.</p>
+                        <div class="input-group">
+                            <input type="text" class="form-control curl-command"
+                                [(ngModel)]="curlCommand"
+                                placeholder="curl command for API query"
+                                #curlCommandInput>
+                            <button type="button" class="input-group-btn"
+                                tooltip="Copied!"
+                                triggers="" #copiedPopup="bs-tooltip"
+                                [ngxClipboard]="curlCommandInput"
+                                (cbOnSuccess)="curlCommandCopied(copiedPopup)">
+                                <i class="icon icon-clipboard"></i>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
