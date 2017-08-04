@@ -8,7 +8,7 @@ import { Indicator } from '../../models/indicator.model';
     -- Requires handling unit selection
     Expected use:
         <ccl-units-dropdown
-            [indicator]="your_indicator"
+            [units]="available_units"
             [unit]="your_unit"
             (unitSelected)="onUnitSelected($event)">
 */
@@ -19,12 +19,11 @@ import { Indicator } from '../../models/indicator.model';
               <button dropdownToggle class="button dropdown-toggle" type="button"
                 id="unitsDropdown" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true">
-                <i class="icon-flash"></i>
-                {{ unit || indicator.default_units }}
+                {{ unit }}
                 <i class="icon-angle-down caret"></i>
               </button>
               <ul *dropdownMenu class="dropdown-menu" aria-labelledby="unitsDropdown">
-                <li *ngFor="let unit of indicator.available_units">
+                <li *ngFor="let unit of units">
                   <a (click)="onUnitSelected(unit)"
                     placement="bottom">{{ unit }}</a>
                 </li>
@@ -34,7 +33,7 @@ import { Indicator } from '../../models/indicator.model';
 
 export class UnitsDropdownComponent {
 
-    @Input() indicator: Indicator;
+    @Input() units: [string];
     @Input() unit: string;
     @Output() unitSelected = new EventEmitter<string>();
 
