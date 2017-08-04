@@ -1,4 +1,4 @@
-  <div class="app-fullscreen" *ngIf="this.project">
+  <div class="app-fullscreen" *ngIf="project">
 
     <ccl-navbar [projectID]="project.id"></ccl-navbar>
 
@@ -18,6 +18,13 @@
             <!-- climate model selector -->
             <ccl-model-modal [projectData]="project.project_data"></ccl-model-modal>
 
+            <!-- units selector, only show if indicator selected -->
+            <ccl-units-dropdown *ngIf="project.project_data.charts[0]"
+                                [units]="project.project_data.charts[0].indicator.available_units"
+                                [unit]="project.project_data.charts[0].unit"
+                                (unitSelected)="onUnitSelected($event)">
+            </ccl-units-dropdown>
+
           </div>
           <div class="nav-right"></div>
         </nav>
@@ -27,7 +34,8 @@
                        [city]="project.project_data.city"
                        [models]="project.project_data.models"
                        [scenario]="project.project_data.scenario"
-                       (onRemoveChart)="removeChart($event)"></ccl-chart>
+                       [unit]="project.project_data.charts[0].unit"
+                       (onRemoveChart)="removeChart()"></ccl-chart>
           </div>
         </div>
       </div>

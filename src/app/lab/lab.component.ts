@@ -25,6 +25,8 @@ import { Project } from '../models/project.model';
 export class LabComponent implements OnInit, OnDestroy {
 
     public project: Project;
+    public chart: Chart;
+    public indicator: Indicator;
     private routeParamsSubscription: Subscription;
 
     constructor(private projectService: ProjectService,
@@ -44,7 +46,12 @@ export class LabComponent implements OnInit, OnDestroy {
             const id: string = params['id'];
             if (id !== undefined) {
                 this.projectService.get(id).subscribe(
-                    data => this.project = data,
+                    data => {
+                        this.project = data;
+                        if (this.project.project_data.charts[0]) {
+                            this.indicator = this.project.project_data.charts[0].indicator;
+                        }
+                    },
                     error => this.router.navigate(['/']) // Reroute if error
                 );
             } else {
@@ -61,16 +68,23 @@ export class LabComponent implements OnInit, OnDestroy {
         }
     }
 
+    onUnitSelected(unit) {
+        this.project.project_data.charts[0].unit = unit;
+    }
+
     public saveChartSettings() {
         this.projectService.update(this.project).subscribe();
     }
 
-    public removeChart(chart: Chart) {
+    public removeChart() {
         this.project.project_data.charts = [];
     }
 
     public indicatorSelected(indicator: Indicator) {
-        const chart = new Chart({indicator: indicator});
+        this.removeChart();
+        this.indicator = indicator;
+        const chart = new Chart({indicator: indicator,
+                                 unit: indicator.default_units});
         this.project.project_data.charts = [chart];
     }
 }

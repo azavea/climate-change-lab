@@ -31,6 +31,7 @@ export class ChartComponent implements OnChanges {
     @Input() scenario: Scenario;
     @Input() models: ClimateModel[];
     @Input() city: City;
+    @Input() unit: string;
 
     public chartData: ChartData[];
     public rawChartData: any;
@@ -63,6 +64,7 @@ export class ChartComponent implements OnChanges {
             scenario: this.scenario,
             city: this.city,
             climateModels: this.models,
+            unit: this.unit || this.chart.indicator.default_units,
             // As a temporary solution, the time agg defaults to the 1st valid option.
             // Really, this should a user selectable option
             time_aggregation: this.chart.indicator.valid_aggregations[0]

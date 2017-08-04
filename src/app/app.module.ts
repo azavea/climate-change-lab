@@ -26,7 +26,8 @@ import {
   CityDropdownComponent,
   LabComponent,
   ModelModalComponent,
-  ScenarioToggleComponent } from './lab';
+  ScenarioToggleComponent,
+  UnitsDropdownComponent } from './lab';
 
 // App Components
 import { AppComponent } from './app.component';
@@ -77,7 +78,8 @@ const locationStrategyProvider = {
     AddEditProjectComponent,
     ScenarioToggleComponent,
     ModelModalComponent,
-    CityDropdownComponent
+    CityDropdownComponent,
+    UnitsDropdownComponent
   ],
   imports: [
     BrowserModule,

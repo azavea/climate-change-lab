@@ -8,6 +8,7 @@ export class Chart {
     minimumValue = 0;
     showMaximum = false;
     maximumValue = 0;
+    unit: string;
 
     static fromJSON(object: Object) {
         return new this(object);
@@ -25,7 +26,8 @@ export class Chart {
             showMinimum: this.showMinimum,
             showMaximum: this.showMaximum,
             minimumValue: this.minimumValue,
-            maximumValue: this.maximumValue
+            maximumValue: this.maximumValue,
+            unit: this.unit
         };
     }
 }

@@ -10,4 +10,5 @@ export interface IndicatorQueryOpts {
     climateModels?: ClimateModel[];
     years?: string[];
     time_aggregation?: string;
+    unit?: string;
 }

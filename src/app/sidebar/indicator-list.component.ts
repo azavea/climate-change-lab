@@ -16,8 +16,6 @@ export class IndicatorListComponent {
     @Input() indicators: Indicator[];
     @Output() indicatorClicked = new EventEmitter<Indicator>();
 
-    constructor() {}
-
     onIndicatorClicked(indicator: Indicator) {
         this.indicatorClicked.emit(indicator);
     }

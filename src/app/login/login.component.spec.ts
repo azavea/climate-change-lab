@@ -25,6 +25,7 @@ import {
     CityDropdownComponent,
     ScenarioToggleComponent,
     ModelModalComponent,
+    UnitsDropdownComponent,
     LabComponent
 } from '../lab';
 
@@ -81,7 +82,7 @@ describe('LoginComponent', () => {
                 TypeaheadModule.forRoot() ],
             declarations: [ LoginComponent, NavbarComponent, DashboardComponent, LabComponent,
                 AddEditProjectComponent, PageNotFoundComponent, SidebarComponent, AppComponent,
-                CityDropdownComponent, ScenarioToggleComponent, ModelModalComponent,
+                CityDropdownComponent, ScenarioToggleComponent, ModelModalComponent, UnitsDropdownComponent,
                 ChartComponent, IndicatorListComponent, LineGraphComponent, WaveComponent ],
             providers: [
                         {provide: AuthService, useValue: authServiceStub}]

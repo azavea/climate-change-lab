@@ -32,6 +32,9 @@ export class IndicatorService {
         if (options.time_aggregation) {
             searchParams.append('time_aggregation', options.time_aggregation);
         }
+        if (options.unit) {
+            searchParams.append('units', options.unit);
+        }
 
         const requestOptions = new RequestOptions({ search: searchParams });
         return this.apiHttp.get(url, requestOptions).map(resp => {

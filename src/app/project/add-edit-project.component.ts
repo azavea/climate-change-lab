@@ -11,7 +11,8 @@ import { ProjectForm } from './project-form';
 import {
     CityDropdownComponent,
     ModelModalComponent,
-    ScenarioToggleComponent } from '../lab';
+    ScenarioToggleComponent,
+    UnitsDropdownComponent } from '../lab';
 
 /* Add/Edit Project Component
 */
@@ -20,6 +21,7 @@ import {
   selector: 'ccl-add-edit-project',
   templateUrl: './add-edit-project.component.html'
 })
+
 export class AddEditProjectComponent implements OnInit {
 
     public project: Project;
@@ -68,6 +70,10 @@ export class AddEditProjectComponent implements OnInit {
                 this.onSuccess();
             });
         }
+    }
+
+    onUnitSelected(unit) {
+        this.model.project.project_data.charts[0].unit = unit;
     }
 
     onSuccess() {
