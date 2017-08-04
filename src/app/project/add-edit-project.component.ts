@@ -21,6 +21,7 @@ import {
   selector: 'ccl-add-edit-project',
   templateUrl: './add-edit-project.component.html'
 })
+
 export class AddEditProjectComponent implements OnInit {
 
     public project: Project;
@@ -71,7 +72,7 @@ export class AddEditProjectComponent implements OnInit {
         }
     }
 
-    onUnitSelected(unit){
+    onUnitSelected(unit) {
         this.model.project.project_data.charts[0].unit = unit;
     }
 

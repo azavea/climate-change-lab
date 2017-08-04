@@ -31,13 +31,14 @@ import { Indicator } from '../../models/indicator.model';
               </ul>
             </div>`
 })
+
 export class UnitsDropdownComponent {
 
     @Input() indicator: Indicator;
     @Input() unit: string;
     @Output() unitSelected = new EventEmitter<string>();
 
-    public onUnitSelected(unit: string){
+    public onUnitSelected(unit: string) {
         this.unitSelected.emit(unit);
     }
 }
