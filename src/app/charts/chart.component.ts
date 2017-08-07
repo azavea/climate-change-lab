@@ -63,11 +63,13 @@ export class ChartComponent implements OnChanges {
             indicator: this.chart.indicator,
             scenario: this.scenario,
             city: this.city,
-            climateModels: this.models,
-            unit: this.unit || this.chart.indicator.default_units,
-            // As a temporary solution, the time agg defaults to the 1st valid option.
-            // Really, this should a user selectable option
-            time_aggregation: this.chart.indicator.valid_aggregations[0]
+            params: {
+                climateModels: this.models,
+                unit: this.unit || this.chart.indicator.default_units,
+                // As a temporary solution, the time agg defaults to the 1st valid option.
+                // Really, this should a user selectable option
+                time_aggregation: this.chart.indicator.valid_aggregations[0]
+            }
         };
         const future = this.indicatorService.getData(queryOpts);
         queryOpts.scenario = this.historicalScenario;

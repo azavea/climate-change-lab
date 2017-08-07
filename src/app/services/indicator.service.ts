@@ -23,17 +23,18 @@ export class IndicatorService {
 
         // Generate query params
         const searchParams: URLSearchParams = new URLSearchParams();
-        if (options.years) {
-            searchParams.append('years', options.years.join(','));
+        const optParams = options.params;
+        if (optParams.years) {
+            searchParams.append('years', optParams.years.join(','));
         }
-        if (options.climateModels) {
-            searchParams.append('models', options.climateModels.map(m => m.name).join(','));
+        if (optParams.climateModels) {
+            searchParams.append('models', optParams.climateModels.map(m => m.name).join(','));
         }
-        if (options.time_aggregation) {
-            searchParams.append('time_aggregation', options.time_aggregation);
+        if (optParams.time_aggregation) {
+            searchParams.append('time_aggregation', optParams.time_aggregation);
         }
-        if (options.unit) {
-            searchParams.append('units', options.unit);
+        if (optParams.unit) {
+            searchParams.append('units', optParams.unit);
         }
 
         const requestOptions = new RequestOptions({ search: searchParams });
