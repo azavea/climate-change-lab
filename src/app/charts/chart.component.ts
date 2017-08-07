@@ -42,6 +42,23 @@ export class ChartComponent implements OnChanges {
         label: 'Historical',
         description: ''
     };
+    public dateRange: number[] = [1950, 2100];
+    public sliderConfig: any = {
+        behaviour: 'drag',
+        connect: true,
+        margin: 1,
+        limit: 150,
+        range: {
+          min: 1950,
+          max: 2100
+        },
+        pips: {
+          mode: 'count',
+          values: 6,
+          density: 6
+        }
+      };
+
 
     // Mousemove event must be at this level to listen to mousing over rect#overlay
     @HostListener('mouseover', ['$event'])
@@ -84,10 +101,6 @@ export class ChartComponent implements OnChanges {
             this.curlCommand = `curl -i "${chartQuery}" -H "Authorization: Token ` +
                                `${this.authService.getToken()}"`;
         });
-    }
-
-    onSettingsToggleClicked() {
-        this.chart.showSettings = !this.chart.showSettings;
     }
 
     onExportClicked() {

@@ -6,13 +6,6 @@
         <button class="button button-link"
                 placement="top"
                 title=""
-                tooltip="Options"
-                [ngClass]="{'active': chart.showSettings}"
-                (click)="onSettingsToggleClicked()"><i class="icon icon-cog"></i>
-        </button>
-        <button class="button button-link"
-                placement="top"
-                title=""
                 tooltip="Remove"
                 (click)="removeChart(chart)"><i class="icon icon-cancel"></i>
         </button>
@@ -31,33 +24,9 @@
         [maxVal]="chart.maximumValue"
         [hover]="isHover">
     </ccl-line-graph>
-    <div class="chart-options" *ngIf="chart.showSettings">
+    <div class="chart-options">
         <div class="chart-options-body">
-            <div class="chart-options-group">
-                <ui-switch [(ngModel)]="chart.showTrendline"
-                           size="small"></ui-switch>
-                <span>Show Trendline</span>
-            </div>
-            <div class="chart-options-group">
-                <ui-switch [(ngModel)]="chart.showMinimum"
-                           size="small"></ui-switch>
-                <span>Show Min</span>
-                <input
-                    type="number"
-                    step="any"
-                    placeholder="0"
-                    [(ngModel)]="chart.minimumValue">
-            </div>
-            <div class="chart-options-group">
-                <ui-switch [(ngModel)]="chart.showMaximum"
-                           size="small"></ui-switch>
-                <span>Show Max</span>
-                <input
-                    type="number"
-                    step="any"
-                    placeholder="0"
-                    [(ngModel)]="chart.maximumValue">
-            </div>
+            <nouislider class="chart-options-group" [config]="sliderConfig"  [(ngModel)]="dateRange"></nouislider>
         </div>
     </div>
 </div>

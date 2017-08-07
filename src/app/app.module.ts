@@ -14,6 +14,7 @@ import {
     TooltipModule } from 'ngx-bootstrap';
 import { UiSwitchModule } from 'ngx-ui-switch/src';
 import { ClipboardModule } from 'ngx-clipboard';
+import { NouisliderModule } from 'ng2-nouislider';
 
 // App routing
 import { routing, appRoutingProviders } from './app.routing';
@@ -93,7 +94,8 @@ const locationStrategyProvider = {
     TooltipModule.forRoot(),
     Ng2AutoCompleteModule,
     UiSwitchModule,
-    ClipboardModule
+    ClipboardModule,
+    NouisliderModule
   ],
   providers: [
     appRoutingProviders,
