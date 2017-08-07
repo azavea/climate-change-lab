@@ -6,6 +6,7 @@ import { Chart } from '../models/chart.model';
 import { ChartData } from '../models/chart-data.model';
 import { City } from '../models/city.model';
 import { ClimateModel } from '../models/climate-model.model';
+import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
 import { Scenario } from '../models/scenario.model';
 
 import { AuthService } from '../auth/auth.service';
@@ -59,7 +60,7 @@ export class ChartComponent implements OnChanges {
         if (!this.scenario || !this.city || !this.models) { return; }
         this.chartData = [];
         this.rawChartData = [];
-        const queryOpts = {
+        const queryOpts: IndicatorQueryOpts = {
             indicator: this.chart.indicator,
             scenario: this.scenario,
             city: this.city,
