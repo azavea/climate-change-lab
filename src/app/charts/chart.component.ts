@@ -89,6 +89,7 @@ export class ChartComponent implements OnChanges {
             // Really, this should a user selectable option
             time_aggregation: this.chart.indicator.valid_aggregations[0]
         };
+        this.dateRange = [1950, 2100]; //reset time slider range
         const future = this.indicatorService.getData(queryOpts);
         queryOpts.scenario = this.historicalScenario;
         const historical = this.indicatorService.getData(queryOpts);
