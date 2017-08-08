@@ -14,6 +14,7 @@ import { IndicatorService } from '../services/indicator.service';
 import { DataExportService } from '../services/data-export.service';
 import { ImageExportService } from '../services/image-export.service';
 
+import * as _ from 'lodash';
 
 /*
  * Chart component
@@ -33,6 +34,7 @@ export class ChartComponent implements OnChanges {
     @Input() city: City;
     @Input() unit: string;
 
+    private processedData: ChartData[];
     public chartData: ChartData[];
     public rawChartData: any;
     public isHover: Boolean = false;
@@ -47,6 +49,7 @@ export class ChartComponent implements OnChanges {
         behaviour: 'drag',
         connect: true,
         margin: 1,
+        step: 1,
         limit: 150,
         range: {
           min: 1950,
@@ -96,10 +99,21 @@ export class ChartComponent implements OnChanges {
             const chartQuery = data[1].url;
             delete data[1].url; // apart from URL, returned data is raw query response
             this.rawChartData = data[1];
-            this.chartData = this.chartService.convertChartData(data);
+            this.processedData = this.chartService.convertChartData(data);
+            this.chartData = _.cloneDeep(this.processedData);
 
             this.curlCommand = `curl -i "${chartQuery}" -H "Authorization: Token ` +
                                `${this.authService.getToken()}"`;
+        });
+    }
+
+    sliceChartData() {
+        this.chartData = _.cloneDeep(this.processedData); // to trigger change detection
+        this.chartData[0]['data'] = _.filter(this.processedData[0]['data'], obj => {
+            const year = obj['date'].getFullYear()
+            if(year >= this.dateRange[0] && year <= this.dateRange[1]) {
+                return obj
+            }
         });
     }
 
