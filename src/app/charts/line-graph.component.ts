@@ -30,11 +30,6 @@ export class LineGraphComponent implements OnChanges {
 
     @Input() public data: ChartData[];
     @Input() public indicator: Indicator;
-    @Input() public trendline: Boolean;
-    @Input() public min: Boolean;
-    @Input() public max: Boolean;
-    @Input() public minVal: number;
-    @Input() public maxVal: number;
     @Input() public hover: Boolean;
 
     public extractedData: Array<DataPoint>;
@@ -91,8 +86,6 @@ export class LineGraphComponent implements OnChanges {
         this.setLineScales();
         this.drawGrid();
         this.drawMinMaxBand();
-        this.drawTrendLine();
-        this.drawThresholds();
         this.drawXAxis();
         this.drawYAxis();
         this.drawAvgLine();
@@ -211,47 +204,6 @@ export class LineGraphComponent implements OnChanges {
         this.drawLine(data, 'line');
     }
 
-    private drawTrendLine(): void {
-        // Only draw if data and add trendline flag
-        if (this.trendline && this.extractedData.length) {
-            this.xData = D3.range(1, this.yData.length + 1);
-
-            // Calculate linear regression variables
-            const leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
-
-            // Apply the results of the regression
-            const x1 = this.xRange[1];
-            const y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
-            const x2 = this.xRange[0];
-            const y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
-            const trendData = [{'date': x1, 'value': y2}, {'date': x2, 'value': y1}];
-            // Add trendline
-            this.drawLine(trendData, 'trendline');
-        }
-    }
-
-    // returns slope, intercept and r-square of the line
-    private leastSquares(xData: Array<number>, yData: Array<number>): Array<number> {
-        const reduceSumFunc = function(prev, cur) { return prev + cur; };
-
-        const xBar = xData.reduce(reduceSumFunc) * 1.0 / xData.length;
-        const yBar = yData.reduce(reduceSumFunc) * 1.0 / yData.length;
-        const ssXX = _.map(xData, d => Math.pow(d - xBar, 2))
-                    .reduce(reduceSumFunc);
-
-        const ssYY = _.map(yData, d => Math.pow(d - yBar, 2))
-                    .reduce(reduceSumFunc);
-
-        const ssXY = _.map(xData, (d, i) => (d - xBar) * (yData[i] - yBar))
-                    .reduce(reduceSumFunc);
-
-        const slope = ssXY / ssXX;
-        const intercept = yBar - (xBar * slope);
-        const rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
-
-        return [slope, intercept, rSquare];
-    }
-
     private drawMinMaxBand(): void {
         const area = D3.area()
             .x(d => this.xScale(d.date))
@@ -269,33 +221,6 @@ export class LineGraphComponent implements OnChanges {
           .attr('d', area);
     }
 
-    private drawThresholds(): void {
-        if (this.min || this.max) {
-            if (this.min) {
-                // Prepare data for bar graph
-                const minBars = _(this.extractedData)
-                              .map((datum) => ({ 'date': datum['date'] }))
-                              /* tslint:disable-next-line:no-unused-variable */
-                              .filter((bar, index) => this.minVal > this.yData[index])
-                              .value();
-
-                // Add bar graph
-                this.drawBands(minBars, 'min-bar');
-            }
-
-            if (this.max) {
-                // Prepare data for bar graph
-                const maxBars = _(this.extractedData)
-                              .map((datum) => ({ 'date': datum['date'] }))
-                              /* tslint:disable-next-line:no-unused-variable */
-                              .filter((bar, index) => this.maxVal < this.yData[index])
-                              .value();
-
-                // Add bar graph
-                this.drawBands(maxBars, 'max-bar');
-            }
-        }
-    }
 
     private drawScrubber(): void {
         // Vertical scrub line. Exists outside scrubber cluster because it moves independently
@@ -383,21 +308,5 @@ export class LineGraphComponent implements OnChanges {
             .data([data])
             .attr('class', className)
             .attr('d', this.valueline);
-    }
-
-    private drawBands(data: Array<DataPoint>, className: string): void {
-        const xscale = D3.scaleBand()
-            .range([0, this.width])
-            .padding(0)
-            .domain(_.map(this.extractedData, d => d.date));
-
-        this.svg.selectAll('.' + className)
-            .data(data)
-            .enter().append('rect')
-            .attr('class', className)
-            .attr('x', d => xscale(d.date))
-            .attr('width', xscale.bandwidth())
-            .attr('y', 0)
-            .attr('height', this.height);
     }
 }

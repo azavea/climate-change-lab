@@ -110,7 +110,7 @@ export class ChartComponent implements OnChanges {
 
     sliceChartData() {
         this.chartData = _.cloneDeep(this.processedData); // to trigger change detection
-        this.chartData[0]['data'] = _.filter(this.processedData[0]['data'], obj => {
+        this.chartData[0]['data'] = _.filter(this.chartData[0]['data'], obj => {
             const year = obj['date'].getFullYear()
             if(year >= this.dateRange[0] && year <= this.dateRange[1]) {
                 return obj
