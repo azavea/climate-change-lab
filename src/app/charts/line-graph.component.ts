@@ -94,15 +94,13 @@ export class LineGraphComponent implements OnChanges {
 
     private filterData(): void {
         // Preserves parent data by fresh copying indicator data that will undergo processing
-        const clippedData = _.cloneDeep(_.find(this.data, obj =>
-                                             obj.indicator.name === this.indicator.name));
-        _.has(clippedData, 'data') ?
-            this.extractedData = clippedData['data'] : this.extractedData = [];
+        _.has(this.data[0], 'data') ?
+            this.extractedData = _.cloneDeep(this.data[0]['data']) : this.extractedData = [];
         // Remove empty day in non-leap years (affects only daily data)
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
             this.extractedData.pop();
         }
-        this.timeFormat = clippedData.time_format;
+        this.timeFormat = this.data[0].time_format;
     }
 
     /* Will setup the chart basics */
