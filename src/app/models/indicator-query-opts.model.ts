@@ -7,8 +7,10 @@ export interface IndicatorQueryOpts {
     indicator: Indicator;
     city: City;
     scenario: Scenario;
-    climateModels?: ClimateModel[];
-    years?: string[];
-    time_aggregation?: string;
-    unit?: string;
+    params: {
+        climateModels?: ClimateModel[];
+        years?: string[];
+        time_aggregation?: string;
+        unit?: string;
+    }
 }

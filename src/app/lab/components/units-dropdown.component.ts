@@ -1,8 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Chart } from '../../models/chart.model';
-import { Indicator } from '../../models/indicator.model';
-
 /*  Units Dropdown Component
 
     -- Requires handling unit selection

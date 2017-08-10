@@ -6,6 +6,7 @@ import { Chart } from '../models/chart.model';
 import { ChartData } from '../models/chart-data.model';
 import { City } from '../models/city.model';
 import { ClimateModel } from '../models/climate-model.model';
+import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
 import { Scenario } from '../models/scenario.model';
 
 import { AuthService } from '../auth/auth.service';
@@ -59,15 +60,17 @@ export class ChartComponent implements OnChanges {
         if (!this.scenario || !this.city || !this.models) { return; }
         this.chartData = [];
         this.rawChartData = [];
-        const queryOpts = {
+        const queryOpts: IndicatorQueryOpts = {
             indicator: this.chart.indicator,
             scenario: this.scenario,
             city: this.city,
-            climateModels: this.models,
-            unit: this.unit || this.chart.indicator.default_units,
-            // As a temporary solution, the time agg defaults to the 1st valid option.
-            // Really, this should a user selectable option
-            time_aggregation: this.chart.indicator.valid_aggregations[0]
+            params: {
+                climateModels: this.models,
+                unit: this.unit || this.chart.indicator.default_units,
+                // As a temporary solution, the time agg defaults to the 1st valid option.
+                // Really, this should a user selectable option
+                time_aggregation: this.chart.indicator.valid_aggregations[0]
+            }
         };
         const future = this.indicatorService.getData(queryOpts);
         queryOpts.scenario = this.historicalScenario;
