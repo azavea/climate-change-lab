@@ -15,6 +15,7 @@ import { IndicatorService } from '../services/indicator.service';
 import { DataExportService } from '../services/data-export.service';
 import { ImageExportService } from '../services/image-export.service';
 
+import * as _ from 'lodash';
 
 /*
  * Chart component
@@ -34,6 +35,7 @@ export class ChartComponent implements OnChanges {
     @Input() city: City;
     @Input() unit: string;
 
+    private processedData: ChartData[];
     public chartData: ChartData[];
     public rawChartData: any;
     public isHover: Boolean = false;
@@ -43,6 +45,26 @@ export class ChartComponent implements OnChanges {
         label: 'Historical',
         description: ''
     };
+    private firstYear = 1950;
+    private lastYear = 2100;
+    public dateRange: number[] = [this.firstYear, this.lastYear];
+    public sliderConfig: any = {
+        behaviour: 'drag',
+        connect: true,
+        margin: 1,
+        step: 1,
+        limit: 150,
+        range: {
+          min: 1950,
+          max: 2100
+        },
+        pips: {
+          mode: 'count',
+          values: 6,
+          density: 6
+        }
+      };
+
 
     // Mousemove event must be at this level to listen to mousing over rect#overlay
     @HostListener('mouseover', ['$event'])
@@ -72,6 +94,7 @@ export class ChartComponent implements OnChanges {
                 time_aggregation: this.chart.indicator.valid_aggregations[0]
             }
         };
+        this.dateRange = [this.firstYear, this.lastYear]; // reset time slider range
         const future = this.indicatorService.getData(queryOpts);
         queryOpts.scenario = this.historicalScenario;
         const historical = this.indicatorService.getData(queryOpts);
@@ -82,15 +105,22 @@ export class ChartComponent implements OnChanges {
             const chartQuery = data[1].url;
             delete data[1].url; // apart from URL, returned data is raw query response
             this.rawChartData = data[1];
-            this.chartData = this.chartService.convertChartData(data);
+            this.processedData = this.chartService.convertChartData(data);
+            this.chartData = _.cloneDeep(this.processedData);
 
             this.curlCommand = `curl -i "${chartQuery}" -H "Authorization: Token ` +
                                `${this.authService.getToken()}"`;
         });
     }
 
-    onSettingsToggleClicked() {
-        this.chart.showSettings = !this.chart.showSettings;
+    sliceChartData() {
+        this.chartData = _.cloneDeep(this.processedData); // to trigger change detection
+        const startYear = this.dateRange[0];
+        const endYear = this.dateRange[1];
+        this.chartData[0]['data'] = (this.chartData[0]['data']).filter(obj => {
+            const year = obj['date'].getFullYear()
+            return year >= startYear && year <= endYear
+        });
     }
 
     onExportClicked() {
