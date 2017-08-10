@@ -45,12 +45,11 @@ ccl-chart {
     }
 
     .chart-legend-minmax {
-      color: darken(#EFF4F7, 10%);
-
-      &:before {
-        padding-left: 0.5em;
-        content: '\2B1B'; // unicode large filled square
-      }
+        background-color: darken(#eef4f7, 10%);
+        width: 1rem;
+        height: 1rem;
+        display: inline-block;
+        margin-left: 0.5rem;
     }
   }
 
