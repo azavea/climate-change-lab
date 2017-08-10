@@ -21,7 +21,11 @@
         </ccl-line-graph>
         <div class="chart-options">
             <div class="chart-options-body">
-                <nouislider class="chart-options-group" [config]="sliderConfig" [(ngModel)]="dateRange" (ngModelChange)="sliceChartData()"></nouislider>
+                <nouislider class="chart-options-group"
+                            [config]="sliderConfig"
+                            [(ngModel)]="dateRange"
+                            (ngModelChange)="sliceChartData()">
+                </nouislider>
             </div>
         </div>
         <div class="chart-options">

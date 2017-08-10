@@ -44,7 +44,9 @@ export class ChartComponent implements OnChanges {
         label: 'Historical',
         description: ''
     };
-    public dateRange: number[] = [1950, 2100];
+    private firstYear = 1950;
+    private lastYear = 2100;
+    public dateRange: number[] = [this.firstYear, this.lastYear];
     public sliderConfig: any = {
         behaviour: 'drag',
         connect: true,
@@ -89,7 +91,7 @@ export class ChartComponent implements OnChanges {
             // Really, this should a user selectable option
             time_aggregation: this.chart.indicator.valid_aggregations[0]
         };
-        this.dateRange = [1950, 2100]; // reset time slider range
+        this.dateRange = [this.firstYear, this.lastYear]; // reset time slider range
         const future = this.indicatorService.getData(queryOpts);
         queryOpts.scenario = this.historicalScenario;
         const historical = this.indicatorService.getData(queryOpts);
@@ -110,9 +112,11 @@ export class ChartComponent implements OnChanges {
 
     sliceChartData() {
         this.chartData = _.cloneDeep(this.processedData); // to trigger change detection
+        const startYear = this.dateRange[0];
+        const endYear = this.dateRange[1];
         this.chartData[0]['data'] = (this.chartData[0]['data']).filter(obj => {
             const year = obj['date'].getFullYear()
-            return year >= this.dateRange[0] && year <= this.dateRange[1]
+            return year >= startYear && year <= endYear
         });
     }
 
