@@ -17,7 +17,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
                 id="unitsDropdown" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true">
                 {{ unit }}
-                <i class="icon-angle-down caret"></i>
+                <i class="caret"></i>
               </button>
               <ul *dropdownMenu class="dropdown-menu" aria-labelledby="unitsDropdown">
                 <li *ngFor="let unit of units">
