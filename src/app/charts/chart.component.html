@@ -14,6 +14,16 @@
 <div class="chart-body">
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
     <div class="chart" *ngIf="chartData && chartData.length">
+        <div *ngIf="chart.indicator.thresholdIndicator" class="chart-options">
+            <div class="chart-options-group">
+                <span>Here is some text</span>
+                <div class="chart-options-body">
+                    <input type="number" class="chart-options-group"
+                        [(ngModel)]="extraParams.threshold"
+                        (ngModelChange)="updateExtraParams()">
+                </div>
+            </div>
+        </div>
         <ccl-line-graph
             [data]="chartData"
             [indicator]="chart.indicator"

@@ -24,6 +24,18 @@ export class IndicatorService {
         // Generate query params
         const searchParams: URLSearchParams = new URLSearchParams();
         const optParams = options.params;
+
+        console.log(options.params);
+        console.log('IndicatorQueryOpts');
+        ///////
+
+        // append extra parameters for threshold indicators
+        if (options.indicator.thresholdIndicator) {
+            searchParams.append('threshold', optParams.threshold.toString());
+            searchParams.append('threshold_units', optParams.threshold_units);
+            searchParams.append('threshold_comparator', optParams.threshold_comparator);
+        }
+
         if (optParams.years) {
             searchParams.append('years', optParams.years.join(','));
         }
@@ -50,7 +62,27 @@ export class IndicatorService {
 
     public list(): Observable<Indicator[]> {
         const url = apiHost + '/api/indicator/';
-        return this.apiHttp.get(url)
-            .map(resp => resp.json() || []);
+        const thresholdIndicatorNames = [
+            'max_temperature_threshold',
+            'min_temperature_threshold',
+            'precipitation_threshold'
+        ];
+
+        let response = this.apiHttp.get(url).map(resp => {
+            let indicators: Indicator[] = resp.json() || [];
+
+            // set property to note if indicator requires extra params to query
+            for (let i of indicators) {
+                i.thresholdIndicator = false;
+                for (let thresholdName of thresholdIndicatorNames) {
+                    if (i.name === thresholdName) {
+                        i.thresholdIndicator = true;
+                    }
+                }
+            }
+            return indicators;
+        });
+
+        return response;
     }
 }

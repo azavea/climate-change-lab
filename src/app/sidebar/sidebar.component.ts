@@ -33,10 +33,21 @@ export class SidebarComponent implements OnInit {
     private groupIndicators(indicators: Indicator[]) {
         // Filter any indicators with "required" params, we can't currently display them
         //  without changes to the Lab
+
+        console.log('groupIndicators()');
+
+        console.log(indicators);
+
         // TODO: Remove this filter once we've implemented user controls for indicator parameters
         const visibleIndicators = indicators.filter(i => {
-            return !i.parameters.some(p => p.required);
+            return i.thresholdIndicator || !i.parameters.some(p => p.required);
         });
+
+        //////////
+        console.log('visibleIndicators');
+        console.log(visibleIndicators);
+
+
         this.tempIndicators = visibleIndicators.filter(i => {
             return (i.variables.indexOf('tasmax') !== -1 || i.variables.indexOf('tasmin') !== -1);
         });

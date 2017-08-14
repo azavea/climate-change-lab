@@ -10,6 +10,7 @@ export class Indicator {
     available_units?: string[];
     default_units?: string;
     parameters?: IndicatorParameter[];
+    thresholdIndicator: boolean;
     valid_aggregations?: string[];
 }
 /* tslint:enable:variable-name */
