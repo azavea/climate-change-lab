@@ -34,6 +34,9 @@ export class ChartComponent implements OnChanges {
     @Input() models: ClimateModel[];
     @Input() city: City;
     @Input() unit: string;
+    @Input() threshold: Number;
+    @Input() thresholdUnit: string;
+    @Input() comparator: string;
 
     private processedData: ChartData[];
     public chartData: ChartData[];
@@ -94,9 +97,9 @@ export class ChartComponent implements OnChanges {
                 time_aggregation: this.chart.indicator.valid_aggregations[0],
 
                 // TODO; read real controls
-                threshold: 50,
-                threshold_units: 'F',
-                threshold_comparator: 'lte'
+                threshold: this.threshold || 50,
+                threshold_units: this.thresholdUnit || 'F',
+                threshold_comparator: this.comparator || 'lte'
             }
         };
 

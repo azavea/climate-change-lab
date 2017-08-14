@@ -17,7 +17,7 @@
         </div>
         <input type="number" class="chart-options-group"
             [(ngModel)]="threshold"
-            (ngModelChange)="updateExtraParams()">
+            (ngModelChange)="onThresholdSelected(threshold)">
         <div dropdown class="chart-options-group btn-group">
             <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="thresholdUnits">
                 <li *ngFor="let u of thresholdUnits">

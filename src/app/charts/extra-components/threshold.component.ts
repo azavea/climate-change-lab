@@ -22,6 +22,7 @@ export class ThresholdComponent implements OnChanges {
     @Input() thresholdUnits: string[] = ['K', 'F', 'C'];
     @Input() thresholdUnit: string;
     @Output() unitSelected = new EventEmitter<string>();
+    // TODO: wire up event emitters for the other two as well and listen in chart component?
 
     public onUnitSelected(unit: string) {
         this.thresholdUnit = unit;
@@ -34,6 +35,10 @@ export class ThresholdComponent implements OnChanges {
         this.comparator = comparator;
     }
 
+    public onThresholdSelected() {
+        console.log(this.threshold);
+    }
+
     constructor() {
         this.threshold = 50;
         this.comparator = 'lte';
@@ -42,12 +47,6 @@ export class ThresholdComponent implements OnChanges {
     ngOnChanges() {
         console.log('threshold params ngOnChanges');
         console.log(this);
-        console.log(this.threshold);
-    }
-
-    updateExtraParams() {
-        // TODO; fire model change on parent
-        console.log('extra in threshold component');
         console.log(this.threshold);
     }
 }
