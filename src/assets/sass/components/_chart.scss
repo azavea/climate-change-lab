@@ -37,7 +37,7 @@ ccl-chart {
     font-size: 11px;
 
     .chart-legend-line {
-      color: #1E8CEC;
+      color: $chart-line;
     }
 
     .chart-legend-icons {
@@ -45,7 +45,7 @@ ccl-chart {
     }
 
     .chart-legend-minmax {
-        background-color: darken(#eef4f7, 10%);
+        background-color: darken($chart-minmax, 10%);
         width: 1rem;
         height: 1rem;
         display: inline-block;
@@ -130,7 +130,7 @@ ccl-chart {
 
   .axis {
 
-    color: #757575;
+    color: $chart-axis;
     opacity: .5;
 
     path, line {
@@ -147,7 +147,7 @@ ccl-chart {
   .grid {
 
     line {
-      stroke: #E3E3E3;
+      stroke: $chart-grid;
       stroke-width: 1;
       opacity: 1;
       shape-rendering: crispEdges;
@@ -164,30 +164,30 @@ ccl-chart {
 
   .line {
     fill: none;
-    stroke: #1E8CEC;
+    stroke: $chart-line;
     stroke-width: 2px;
   }
 
   .trendline {
     fill: none;
-    stroke: #D44A34;
+    stroke: $chart-trendline;
     stroke-width: 1px;
     opacity: .7;
   }
 
   .area {
-    fill: #EFF4F7;
+    fill: $chart-minmax;
     opacity: .7;
     z-index: -1;
   }
 
   .min-bar{
-    fill: #41424D;
+    fill: $chart-min-bar;
     opacity: .3;
   }
 
   .max-bar{
-    fill: #F3B32F;
+    fill: $chart-max-bar;
     opacity: .3;
   }
 
@@ -215,7 +215,7 @@ ccl-chart {
   }
 
   .scrubline {
-    stroke: #757575;
+    stroke: $chart-scrubline;
   }
 
   .chart-controls {
