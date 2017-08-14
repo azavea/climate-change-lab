@@ -1,0 +1,8 @@
+<div class="chart-options-group">
+    <div class="chart-options-body">
+        <span>Show days where the daily low temperature is </span>
+        <input type="number" class="chart-options-group"
+            [(ngModel)]="threshold"
+            (ngModelChange)="updateExtraParams()">
+    </div>
+</div>

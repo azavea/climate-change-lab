@@ -16,8 +16,8 @@
     <div class="chart" *ngIf="chartData && chartData.length">
         <div *ngIf="chart.indicator.thresholdIndicator" class="chart-options">
             <div class="chart-options-group">
-                <span>Here is some text</span>
                 <div class="chart-options-body">
+                    <span>Show days where the daily low temperature is </span>
                     <input type="number" class="chart-options-group"
                         [(ngModel)]="extraParams.threshold"
                         (ngModelChange)="updateExtraParams()">
