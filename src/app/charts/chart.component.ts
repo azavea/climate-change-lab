@@ -48,7 +48,6 @@ export class ChartComponent implements OnChanges {
     private firstYear = 1950;
     private lastYear = 2100;
     public dateRange: number[] = [this.firstYear, this.lastYear];
-    public extraParams: any = {}; // TODO: type this to query param
     public sliderConfig: any = {
         behaviour: 'drag',
         connect: true,
@@ -104,6 +103,7 @@ export class ChartComponent implements OnChanges {
         if (this.chart.indicator.thresholdIndicator) {
             console.log('added extra threshold params');
         }
+        ///////////////////////////////
 
         this.dateRange = [this.firstYear, this.lastYear]; // reset time slider range
         const future = this.indicatorService.getData(queryOpts);
@@ -132,12 +132,6 @@ export class ChartComponent implements OnChanges {
             const year = obj['date'].getFullYear()
             return year >= startYear && year <= endYear
         });
-    }
-
-    updateExtraParams(extra) {
-        console.log(extra);
-        console.log('extra');
-        console.log(this.extraParams);
     }
 
     onExportClicked() {

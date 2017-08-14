@@ -1,8 +1,36 @@
 <div class="chart-options-group">
     <div class="chart-options-body">
-        <span>Show days where the daily low temperature is </span>
+        <span>Show days where </span>
+        <div dropdown class="chart-options-group btn-group">
+            <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="comparator">
+                <li *ngFor="let comp of comparators">
+                    <a (click)="onComparatorSelected(comp)"
+                        placement="bottom">{{ comp }}
+                    </a>
+                </li>
+            </ul>
+            <button dropdownToggle class="button dropdown-toggle" type="button"
+                id="comparator" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{ comparator }}
+                <i class="caret"></i>
+            </button>
+        </div>
         <input type="number" class="chart-options-group"
             [(ngModel)]="threshold"
             (ngModelChange)="updateExtraParams()">
+        <div dropdown class="chart-options-group btn-group">
+            <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="thresholdUnits">
+                <li *ngFor="let u of thresholdUnits">
+                    <a (click)="onUnitSelected(u)"
+                        placement="bottom">{{ u }}
+                    </a>
+                </li>
+            </ul>
+            <button dropdownToggle class="button dropdown-toggle" type="button"
+                id="thresholdUnits" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{ thresholdUnit }}
+                <i class="caret"></i>
+            </button>
+        </div>
     </div>
 </div>

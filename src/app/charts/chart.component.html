@@ -15,14 +15,9 @@
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
     <div class="chart" *ngIf="chartData && chartData.length">
         <div *ngIf="chart.indicator.thresholdIndicator" class="chart-options">
-            <div class="chart-options-group">
-                <div class="chart-options-body">
-                    <span>Show days where the daily low temperature is </span>
-                    <input type="number" class="chart-options-group"
-                        [(ngModel)]="extraParams.threshold"
-                        (ngModelChange)="updateExtraParams()">
-                </div>
-            </div>
+            <ccl-threshold-parameters
+                [thresholdUnit]="'F'">
+            </ccl-threshold-parameters>
         </div>
         <ccl-line-graph
             [data]="chartData"

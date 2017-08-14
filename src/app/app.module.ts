@@ -68,6 +68,7 @@ const locationStrategyProvider = {
   declarations: [
     AppComponent,
     WaveComponent,
+    ThresholdComponent,
     ChartComponent,
     DashboardComponent,
     IndicatorListComponent,
