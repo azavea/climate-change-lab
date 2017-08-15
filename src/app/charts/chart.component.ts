@@ -35,7 +35,7 @@ export class ChartComponent implements OnChanges {
     @Input() city: City;
     @Input() unit: string;
     @Input() threshold: Number;
-    @Input() thresholdUnit: string;
+    @Input() thresholdUnit: string = 'F';
     @Input() comparator: string;
 
     private processedData: ChartData[];
@@ -83,6 +83,9 @@ export class ChartComponent implements OnChanges {
 
     ngOnChanges() {
         if (!this.scenario || !this.city || !this.models) { return; }
+
+        console.log(this.thresholdUnit);
+
         this.chartData = [];
         this.rawChartData = [];
         let queryOpts: IndicatorQueryOpts = {
@@ -149,6 +152,10 @@ export class ChartComponent implements OnChanges {
         ].join('_');
 
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
+    }
+
+    public onThresholdUnitSelected() {
+        console.log('parent unit selected');
     }
 
     curlCommandCopied(copiedPopup) {

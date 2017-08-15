@@ -18,30 +18,57 @@ export class ThresholdComponent implements OnChanges {
 
     @Input() threshold: Number;
     @Input() comparator: string;
-    @Input() comparators: string[] = ['lte', 'gte', 'ge', 'le'];
+    @Input() comparators: any[] = [
+        {'key': 'gte', 'label': 'greater than or equal to'},
+        {'key': 'ge', 'label': 'greater than'},
+        {'key': 'le', 'label': 'less than'}
+    ]    ;
     @Input() thresholdUnits: string[] = ['K', 'F', 'C'];
     @Input() thresholdUnit: string;
-    @Output() unitSelected = new EventEmitter<string>();
-    // TODO: wire up event emitters for the other two as well and listen in chart component?
+    @Output() thresholdParamSelected = new EventEmitter();
 
     public onUnitSelected(unit: string) {
+        console.log('child onUnitSelected');
         this.thresholdUnit = unit;
         console.log(unit);
-        this.unitSelected.emit(unit);
+        this.notifyChanges();
     }
 
     public onComparatorSelected(comparator: string) {
         console.log(comparator);
         this.comparator = comparator;
+        this.notifyChanges();
     }
 
     public onThresholdSelected() {
         console.log(this.threshold);
+        this.notifyChanges();
+    }
+
+    public labelForComparator(comp) {
+        let found = _.find(this.comparators, function(c) {
+            return c.key === comp;
+        });
+        if (found) {
+            return found.label;
+        } else {
+            return '';
+        }
+    }
+
+    notifyChanges() {
+        console.log('notifyChanges');
+        if (!this.thresholdUnit || !this.threshold || !this.comparator) {
+            console.log('missing something, do not notify');
+            return;
+        }
+        this.thresholdParamSelected.emit();
     }
 
     constructor() {
         this.threshold = 50;
         this.comparator = 'lte';
+        this.thresholdUnit = 'F';
     }
 
     ngOnChanges() {
