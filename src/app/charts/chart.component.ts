@@ -84,6 +84,7 @@ export class ChartComponent implements OnChanges {
     ngOnChanges() {
         if (!this.scenario || !this.city || !this.models) { return; }
 
+        console.log('have threshold unit:');
         console.log(this.thresholdUnit);
 
         this.chartData = [];
@@ -154,8 +155,13 @@ export class ChartComponent implements OnChanges {
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
-    public onThresholdUnitSelected() {
+    public onThresholdSelected() {
         console.log('parent unit selected');
+        console.log(this.threshold);
+        console.log(this.thresholdUnit);
+        console.log(this.comparator);
+        console.log('going to trigger ngOnChanges');
+        this.ngOnChanges();
     }
 
     curlCommandCopied(copiedPopup) {

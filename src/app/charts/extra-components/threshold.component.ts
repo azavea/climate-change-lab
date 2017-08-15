@@ -20,6 +20,7 @@ export class ThresholdComponent implements OnChanges {
     @Input() comparator: string;
     @Input() comparators: any[] = [
         {'key': 'gte', 'label': 'greater than or equal to'},
+        {'key': 'lte', 'label': 'less than or equal to'},
         {'key': 'ge', 'label': 'greater than'},
         {'key': 'le', 'label': 'less than'}
     ]    ;
@@ -58,10 +59,12 @@ export class ThresholdComponent implements OnChanges {
 
     notifyChanges() {
         console.log('notifyChanges');
+        /*
         if (!this.thresholdUnit || !this.threshold || !this.comparator) {
             console.log('missing something, do not notify');
             return;
         }
+        */
         this.thresholdParamSelected.emit();
     }
 
