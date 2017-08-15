@@ -31,7 +31,7 @@ export class ThresholdComponent implements OnChanges {
     }
 
     public onComparatorSelected(comparator: string) {
-        console.log('onComparatorSelected()');
+        console.log(comparator);
         this.comparator = comparator;
     }
 
