@@ -16,9 +16,7 @@
     <div class="chart" *ngIf="chartData && chartData.length">
         <div *ngIf="chart.indicator.thresholdIndicator" class="chart-options">
             <ccl-threshold-parameters
-                [(threshold)]="threshold"
-                [(comparator)]="comparator"
-                (thresholdParamSelected)="onThresholdSelected(unit, threshold, comparator)">
+                (thresholdParamSelected)="onThresholdSelected($event)">
             </ccl-threshold-parameters>
         </div>
         <ccl-line-graph

@@ -84,32 +84,50 @@ export class ChartComponent implements OnChanges {
     ngOnChanges() {
         if (!this.scenario || !this.city || !this.models) { return; }
 
+        // TODO: move out defaults
+        this.updateChart({
+            'threshold': 50,
+            'threshold_comparator': 'lte',
+            'threshold_units': 'F'
+        });
+    }
+
+    updateChart(extraParams: any) {
+        console.log('update chart');
+
         console.log('have threshold unit:');
         console.log(this.thresholdUnit);
 
         this.chartData = [];
         this.rawChartData = [];
+
+        let params = {
+            climateModels: this.models,
+            unit: this.unit || this.chart.indicator.default_units,
+            // As a temporary solution, the time agg defaults to the 1st valid option.
+            // Really, this should a user selectable option
+            time_aggregation: this.chart.indicator.valid_aggregations[0]
+        }
+
+        if (this.chart.indicator.thresholdIndicator) {
+            console.log('added extra threshold params');
+            if (extraParams) {
+                params = _.extend(params, extraParams);
+                console.log('extra parms added!');
+                console.log(extraParams);
+                console.log(params);
+            } else {
+                console.log('missing required extra params');
+                return;
+            }
+        }
+
         let queryOpts: IndicatorQueryOpts = {
             indicator: this.chart.indicator,
             scenario: this.scenario,
             city: this.city,
-            params: {
-                climateModels: this.models,
-                unit: this.unit || this.chart.indicator.default_units,
-                // As a temporary solution, the time agg defaults to the 1st valid option.
-                // Really, this should a user selectable option
-                time_aggregation: this.chart.indicator.valid_aggregations[0],
-
-                // TODO; read real controls
-                threshold: this.threshold || 50,
-                threshold_units: this.thresholdUnit || 'F',
-                threshold_comparator: this.comparator || 'lte'
-            }
+            params: params
         };
-
-        if (this.chart.indicator.thresholdIndicator) {
-            console.log('added extra threshold params');
-        }
         ///////////////////////////////
 
         this.dateRange = [this.firstYear, this.lastYear]; // reset time slider range
@@ -155,13 +173,12 @@ export class ChartComponent implements OnChanges {
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
-    public onThresholdSelected() {
-        console.log('parent unit selected');
-        console.log(this.threshold);
-        console.log(this.thresholdUnit);
-        console.log(this.comparator);
+    public onThresholdSelected($event) {
+        console.log('parent');
+        console.log($event);
         console.log('going to trigger ngOnChanges');
-        this.ngOnChanges();
+        delete $event.event; // everything else is a threshold parameter
+        this.updateChart($event);
     }
 
     curlCommandCopied(copiedPopup) {

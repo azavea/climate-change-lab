@@ -36,14 +36,15 @@ export class ThresholdComponent implements OnChanges {
             }
 
             console.log('go tell parent');
-            this.thresholdParamSelected.emit();
+            this.thresholdParamSelected.emit({
+                'event': event,
+                'threshold_comparator': form.comparatorCtl,
+                'threshold': form.thresholdCtl,
+                'threshold_units': form.thresholdUnitCtl
+            });
         });
     }
 
-    //@Output() onRemoveChart = new EventEmitter<Chart>();
-
-    @Input() threshold: Number;
-    @Input() comparator: string;
     @Input() comparators: any[] = [
         {'key': 'gte', 'label': 'greater than or equal to'},
         {'key': 'lte', 'label': 'less than or equal to'},
@@ -53,34 +54,18 @@ export class ThresholdComponent implements OnChanges {
     @Input() thresholdUnits: any[] = [
         {'key': 'K', 'label': 'Kelvin'},
         {'key': 'F', 'label': 'Farenheit'},
-        {'key': 'C', 'label': 'Celsius'}
+        {'key': 'C', 'label': 'Centigrade'}
      ];
-    @Input() thresholdUnit: string;
-    @Output() thresholdParamSelected = new EventEmitter();
 
-    notifyChanges() {
-        console.log('notifyChanges');
-        /*
-        if (!this.thresholdUnit || !this.threshold || !this.comparator) {
-            console.log('missing something, do not notify');
-            return;
-        }
-        */
-        
-    }
+    @Output() thresholdParamSelected = new EventEmitter<any>();
 
     constructor(private fb: FormBuilder) {
         this.createForm();
-
-        this.threshold = 50;
-        this.comparator = 'lte';
-        this.thresholdUnit = 'F';
     }
 
     ngOnChanges() {
         console.log('threshold params ngOnChanges');
         console.log(this);
-        console.log(this.threshold);
 
         //this.notifyChanges();
     }
