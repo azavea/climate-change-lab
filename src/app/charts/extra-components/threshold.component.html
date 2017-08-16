@@ -1,33 +1,21 @@
 <div class="chart-options-group">
-    <div class="chart-options-body">
-        <span class="optional-parameters-label">Show days where </span>
-        <div dropdown class="chart-options-group btn-group dropdown">
-            <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="comparator">
-                <li *ngFor="let comp of comparators">
-                    <a (click)="onComparatorSelected(comp.key)"
-                        placement="bottom">{{ comp.label }}
-                    </a>
-                </li>
-            </ul>
-            <button dropdownToggle class="button dropdown-toggle" type="button"
-                id="comparator" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{ labelForComparator(comparator) }}
-                <i class="caret"></i>
-            </button>
+    <form [formGroup]="thresholdForm" novalidate>
+        <div class="chart-options-body form-group">
+            <span class="optional-parameters-label">Show days where </span>
+            <select class="form-control chart-options-group" formControlName="comparatorCtl">
+                <option *ngFor="let comp of comparators"
+                    [value]="comp.key">{{comp.label}}
+                </option>
+            </select>
+            <div class="chart-options-group">
+                <input type="number"
+                    formControlName="thresholdCtl">
+            </div>
+            <select class="form-control chart-options-group" formControlName="thresholdUnitCtl">
+                <option *ngFor="let unit of thresholdUnits"
+                    [value]="unit.key">{{unit.label}}
+                </option>
+            </select>
         </div>
-        <div class="chart-options-group">
-            <input type="number"
-                [(ngModel)]="threshold"
-                (ngModelChange)="onThresholdSelected(threshold)">
-        </div>
-        <div dropdown class="chart-options-group btn-group">
-            <!-- units selector, only show if indicator selected
-            TODO: set default unit another way? first in list?
-            -->
-            <ccl-units-dropdown [units]="thresholdUnits"
-                                [unit]="thresholdUnit"
-                                (unitSelected)="onUnitSelected($event)">
-            </ccl-units-dropdown>
-        </div>
-    </div>
+    </form>
 </div>
