@@ -11,14 +11,14 @@
         </button>
     </div>
 </div>
+<div *ngIf="chart.indicator.thresholdIndicator" class="chart-options">
+    <ccl-threshold-parameters
+        (thresholdParamSelected)="onThresholdSelected($event)">
+    </ccl-threshold-parameters>
+</div>
 <div class="chart-body">
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
     <div class="chart" *ngIf="chartData && chartData.length">
-        <div *ngIf="chart.indicator.thresholdIndicator" class="chart-options">
-            <ccl-threshold-parameters
-                (thresholdParamSelected)="onThresholdSelected($event)">
-            </ccl-threshold-parameters>
-        </div>
         <ccl-line-graph
             [data]="chartData"
             [indicator]="chart.indicator"
