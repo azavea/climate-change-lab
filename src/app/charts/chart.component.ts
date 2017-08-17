@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnChanges, Input, Output, HostListener } from '@angular/core';
+import { Component, ChangeDetectorRef, EventEmitter, OnChanges, Input, Output, HostListener } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -34,9 +34,6 @@ export class ChartComponent implements OnChanges {
     @Input() models: ClimateModel[];
     @Input() city: City;
     @Input() unit: string;
-    @Input() threshold: Number;
-    @Input() thresholdUnit: string = 'F';
-    @Input() comparator: string;
 
     private processedData: ChartData[];
     public chartData: ChartData[];
@@ -79,25 +76,21 @@ export class ChartComponent implements OnChanges {
                 private indicatorService: IndicatorService,
                 private dataExportService: DataExportService,
                 private imageExportService: ImageExportService,
-                private authService: AuthService) {}
+                private authService: AuthService,
+                private changeDetector: ChangeDetectorRef) {}
 
-    ngOnChanges() {
+    ngAfterViewInit() {
+        // Manually trigger change detection in parent to avoid
+        // ExpressionChangedAfterItHasBeenCheckedError when extra params form
+        // calls to set initial values in ngAfterViewInit.
+        this.changeDetector.detectChanges();
+    }
+
+    ngOnChanges($event) {
         if (!this.scenario || !this.city || !this.models) { return; }
-
-        // TODO: move out defaults
-        this.updateChart({
-            'threshold': 50,
-            'threshold_comparator': 'lte',
-            'threshold_units': 'F'
-        });
     }
 
     updateChart(extraParams: any) {
-        console.log('update chart');
-
-        console.log('have threshold unit:');
-        console.log(this.thresholdUnit);
-
         this.chartData = [];
         this.rawChartData = [];
 
@@ -110,16 +103,7 @@ export class ChartComponent implements OnChanges {
         }
 
         if (this.chart.indicator.thresholdIndicator) {
-            console.log('added extra threshold params');
-            if (extraParams) {
-                params = _.extend(params, extraParams);
-                console.log('extra parms added!');
-                console.log(extraParams);
-                console.log(params);
-            } else {
-                console.log('missing required extra params');
-                return;
-            }
+            params = _.extend(params, extraParams);
         }
 
         let queryOpts: IndicatorQueryOpts = {
@@ -128,7 +112,6 @@ export class ChartComponent implements OnChanges {
             city: this.city,
             params: params
         };
-        ///////////////////////////////
 
         this.dateRange = [this.firstYear, this.lastYear]; // reset time slider range
         const future = this.indicatorService.getData(queryOpts);
@@ -174,9 +157,6 @@ export class ChartComponent implements OnChanges {
     }
 
     public onThresholdSelected($event) {
-        console.log('parent');
-        console.log($event);
-        console.log('going to trigger ngOnChanges');
         delete $event.event; // everything else is a threshold parameter
         this.updateChart($event);
     }

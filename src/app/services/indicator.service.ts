@@ -25,10 +25,6 @@ export class IndicatorService {
         const searchParams: URLSearchParams = new URLSearchParams();
         const optParams = options.params;
 
-        console.log(options.params);
-        console.log('IndicatorQueryOpts');
-        ///////
-
         // append extra parameters for threshold indicators
         if (options.indicator.thresholdIndicator) {
             searchParams.append('threshold', optParams.threshold.toString());

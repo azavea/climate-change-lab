@@ -13,7 +13,6 @@ export interface IndicatorQueryOpts {
         time_aggregation?: string;
         unit?: string;
 
-        // TODO: move these to sub-interface?
         // threshold indicator parameters
         threshold?: Number;
         threshold_units?: string;

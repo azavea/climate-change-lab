@@ -1,8 +1,6 @@
 import { Component, EventEmitter, OnChanges, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { IndicatorQueryOpts } from '../../models/indicator-query-opts.model';
-
 import * as _ from 'lodash';
 
 /*
@@ -13,7 +11,7 @@ import * as _ from 'lodash';
   selector: 'ccl-threshold-parameters',
   templateUrl: './threshold.component.html'
 })
-export class ThresholdComponent implements OnChanges {
+export class ThresholdComponent {
 
     thresholdForm: FormGroup;
 
@@ -24,18 +22,7 @@ export class ThresholdComponent implements OnChanges {
             thresholdUnitCtl: ['F', Validators.required]
         });
 
-        this.thresholdForm.valueChanges.subscribe(form => {
-            console.log('form changed!');
-            console.log(form);
-            if (_.isUndefined(form.comparatorCtl) ||
-                _.isUndefined(form.thresholdCtl) ||
-                _.isUndefined(form.thresholdUnitCtl)) {
-
-                    console.log('missing something; do not tell parent');
-                    return;
-            }
-
-            console.log('go tell parent');
+        this.thresholdForm.valueChanges.debounceTime(1000).subscribe(form => {
             this.thresholdParamSelected.emit({
                 'event': event,
                 'threshold_comparator': form.comparatorCtl,
@@ -48,8 +35,8 @@ export class ThresholdComponent implements OnChanges {
     @Input() comparators: any[] = [
         {'key': 'gte', 'label': 'greater than or equal to'},
         {'key': 'lte', 'label': 'less than or equal to'},
-        {'key': 'ge', 'label': 'greater than'},
-        {'key': 'le', 'label': 'less than'}
+        {'key': 'gt', 'label': 'greater than'},
+        {'key': 'lt', 'label': 'less than'}
     ];
     @Input() thresholdUnits: any[] = [
         {'key': 'K', 'label': 'Kelvin'},
@@ -63,10 +50,14 @@ export class ThresholdComponent implements OnChanges {
         this.createForm();
     }
 
-    ngOnChanges() {
-        console.log('threshold params ngOnChanges');
-        console.log(this);
-
-        //this.notifyChanges();
+    ngAfterViewInit() {
+        // Since valueChanges triggers initially before parent is ready, wait until
+        // parent is ready here and trigger it to draw chart with extra parameters.
+        this.thresholdParamSelected.emit({
+            'event': null,
+            'threshold_comparator': this.thresholdForm.controls.comparatorCtl.value,
+            'threshold': this.thresholdForm.controls.thresholdCtl.value,
+            'threshold_units': this.thresholdForm.controls.thresholdUnitCtl.value
+        });
     }
 }
