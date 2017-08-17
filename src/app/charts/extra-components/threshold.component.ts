@@ -13,9 +13,12 @@ import * as _ from 'lodash';
 })
 export class ThresholdComponent {
 
+    @Input() label: string;
+
     thresholdForm: FormGroup;
 
     createForm() {
+        // TODO: Set the defaults dynamically based on selected indicator?
         this.thresholdForm = this.fb.group({
             comparatorCtl: ['lte', Validators.required],
             thresholdCtl: [50, Validators.required],

@@ -13,6 +13,7 @@
 </div>
 <div *ngIf="chart.indicator.thresholdIndicator" class="chart-options">
     <ccl-threshold-parameters
+        [label]="chart.indicator.label"
         (thresholdParamSelected)="onThresholdSelected($event)">
     </ccl-threshold-parameters>
 </div>
