@@ -1,4 +1,5 @@
-import { Component, ChangeDetectorRef, EventEmitter, OnChanges, Input, Output, HostListener } from '@angular/core';
+import { AfterViewInit, Component, ChangeDetectorRef, EventEmitter, OnChanges, Input, Output,
+    HostListener } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -25,7 +26,7 @@ import * as _ from 'lodash';
   selector: 'ccl-chart', // if this selector is renamed, image export service must also be updated
   templateUrl: './chart.component.html'
 })
-export class ChartComponent implements OnChanges {
+export class ChartComponent implements OnChanges, AfterViewInit {
 
     @Output() onRemoveChart = new EventEmitter<Chart>();
 
@@ -88,6 +89,7 @@ export class ChartComponent implements OnChanges {
 
     ngOnChanges($event) {
         if (!this.scenario || !this.city || !this.models) { return; }
+        this.updateChart($event);
     }
 
     updateChart(extraParams: any) {
@@ -106,7 +108,7 @@ export class ChartComponent implements OnChanges {
             params = _.extend(params, extraParams);
         }
 
-        let queryOpts: IndicatorQueryOpts = {
+        const queryOpts: IndicatorQueryOpts = {
             indicator: this.chart.indicator,
             scenario: this.scenario,
             city: this.city,

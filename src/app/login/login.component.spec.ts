@@ -8,7 +8,7 @@ import { AuthService } from '../auth/auth.service';
 import { LoginComponent } from './login.component';
 import { LoginForm } from './login-form';
 
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from '../ng2-auto-complete/ng2AutoComplete.module';
 import { UiSwitchModule } from 'ngx-ui-switch/src';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -29,6 +29,8 @@ import {
     UnitsDropdownComponent,
     LabComponent
 } from '../lab';
+
+import { ThresholdComponent } from '../charts/extra-components/threshold.component';
 
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
@@ -68,7 +70,7 @@ describe('LoginComponent', () => {
 
         TestBed.configureTestingModule({
             imports: [ FormsModule, Ng2AutoCompleteModule, UiSwitchModule, BrowserModule,
-                       ClipboardModule, NouisliderModule,
+                       ClipboardModule, NouisliderModule, ReactiveFormsModule,
 
                 RouterTestingModule.withRoutes([{ path: 'login', component: LoginComponent },
                                                { path: '', component: AppComponent },
@@ -83,8 +85,9 @@ describe('LoginComponent', () => {
                 TypeaheadModule.forRoot() ],
             declarations: [ LoginComponent, NavbarComponent, DashboardComponent, LabComponent,
                 AddEditProjectComponent, PageNotFoundComponent, SidebarComponent, AppComponent,
-                CityDropdownComponent, ScenarioToggleComponent, ModelModalComponent, UnitsDropdownComponent,
-                ChartComponent, IndicatorListComponent, LineGraphComponent, WaveComponent ],
+                CityDropdownComponent, ScenarioToggleComponent, ModelModalComponent,
+                UnitsDropdownComponent, ChartComponent, IndicatorListComponent, LineGraphComponent,
+                WaveComponent, ThresholdComponent ],
             providers: [
                         {provide: AuthService, useValue: authServiceStub}]
         });

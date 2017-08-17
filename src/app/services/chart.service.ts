@@ -49,7 +49,7 @@ export class ChartService {
             const timeFormat = this.timeOptions[obj.time_aggregation];
             const parseTime = D3.timeParse(timeFormat);
 
-            if (!i[indicator.name]) {
+            if (indicator && !i[indicator.name]) {
                 i[indicator.name] = {
                     'indicator': indicator,
                     'data': [],

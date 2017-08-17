@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable, Observer } from 'rxjs/Rx';
+import 'rxjs/add/observable/of';
 import 'rxjs/Rx';
 
 import { Indicator } from '../models/indicator.model';
@@ -27,6 +28,10 @@ export class IndicatorService {
 
         // append extra parameters for threshold indicators
         if (options.indicator.thresholdIndicator) {
+            // abort request if chart is in flux (these parameters are required)
+            if (!optParams.threshold) {
+                return Observable.of({url: ''});
+            }
             searchParams.append('threshold', optParams.threshold.toString());
             searchParams.append('threshold_units', optParams.threshold_units);
             searchParams.append('threshold_comparator', optParams.threshold_comparator);
@@ -64,13 +69,13 @@ export class IndicatorService {
             'precipitation_threshold'
         ];
 
-        let response = this.apiHttp.get(url).map(resp => {
-            let indicators: Indicator[] = resp.json() || [];
+       return this.apiHttp.get(url).map(resp => {
+            const indicators: Indicator[] = resp.json() || [];
 
             // set property to note if indicator requires extra params to query
-            for (let i of indicators) {
+            for (const i of indicators) {
                 i.thresholdIndicator = false;
-                for (let thresholdName of thresholdIndicatorNames) {
+                for (const thresholdName of thresholdIndicatorNames) {
                     if (i.name === thresholdName) {
                         i.thresholdIndicator = true;
                     }
@@ -78,7 +83,5 @@ export class IndicatorService {
             }
             return indicators;
         });
-
-        return response;
     }
 }
