@@ -9,6 +9,8 @@ import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
 
+import { isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
+
 /*
  * Indicator Service
  * Returns climate indicators. Used by the sidebar and to retrieve detail data for charts.
@@ -26,8 +28,8 @@ export class IndicatorService {
         const searchParams: URLSearchParams = new URLSearchParams();
         const optParams = options.params;
 
-        // append extra parameters for threshold indicators
-        if (options.indicator.thresholdIndicator) {
+        // append extra parameters, if needed
+        if (isThresholdIndicator(options.indicator.name)) {
             // abort request if chart is in flux (these parameters are required)
             if (!optParams.threshold) {
                 return Observable.of({url: ''});
@@ -63,24 +65,9 @@ export class IndicatorService {
 
     public list(): Observable<Indicator[]> {
         const url = apiHost + '/api/indicator/';
-        const thresholdIndicatorNames = [
-            'max_temperature_threshold',
-            'min_temperature_threshold',
-            'precipitation_threshold'
-        ];
 
        return this.apiHttp.get(url).map(resp => {
             const indicators: Indicator[] = resp.json() || [];
-
-            // set property to note if indicator requires extra params to query
-            for (const i of indicators) {
-                i.thresholdIndicator = false;
-                for (const thresholdName of thresholdIndicatorNames) {
-                    if (i.name === thresholdName) {
-                        i.thresholdIndicator = true;
-                    }
-                }
-            }
             return indicators;
         });
     }

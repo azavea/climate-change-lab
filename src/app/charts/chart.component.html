@@ -11,7 +11,7 @@
         </button>
     </div>
 </div>
-<div *ngIf="chart.indicator.thresholdIndicator" class="chart-options">
+<div *ngIf="isThresholdIndicator" class="chart-options">
     <ccl-threshold-parameters
         [label]="chart.indicator.label"
         (thresholdParamSelected)="onThresholdSelected($event)">

@@ -16,6 +16,8 @@ import { IndicatorService } from '../services/indicator.service';
 import { DataExportService } from '../services/data-export.service';
 import { ImageExportService } from '../services/image-export.service';
 
+import { isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
+
 import * as _ from 'lodash';
 
 /*
@@ -40,6 +42,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
     public chartData: ChartData[];
     public rawChartData: any;
     public isHover: Boolean = false;
+    public isThresholdIndicator: Boolean = false;
     public curlCommand: String;
     private historicalScenario: Scenario = {
         name: 'historical',
@@ -105,8 +108,9 @@ export class ChartComponent implements OnChanges, AfterViewInit {
             time_aggregation: this.chart.indicator.valid_aggregations[0]
         }
 
-        if (this.chart.indicator.thresholdIndicator) {
+        if (isThresholdIndicator(this.chart.indicator.name)) {
             params = _.extend(params, extraParams);
+            this.isThresholdIndicator = true;
         }
 
         const queryOpts: IndicatorQueryOpts = {
