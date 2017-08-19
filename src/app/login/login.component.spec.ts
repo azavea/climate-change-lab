@@ -30,7 +30,7 @@ import {
     LabComponent
 } from '../lab';
 
-import { ThresholdComponent } from '../charts/extra-components/threshold.component';
+import { ThresholdComponent } from '../charts/extra-params-components/threshold.component';
 
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
