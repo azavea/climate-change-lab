@@ -12,10 +12,5 @@ export interface IndicatorQueryOpts {
         years?: string[];
         time_aggregation?: string;
         unit?: string;
-
-        // threshold indicator parameters
-        threshold?: Number;
-        threshold_units?: string;
-        threshold_comparator?: string;
     }
 }
