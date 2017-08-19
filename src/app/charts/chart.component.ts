@@ -99,6 +99,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
         let params = {
             climateModels: this.models,
             unit: this.unit || this.chart.indicator.default_units,
+            // TODO: #212
             // As a temporary solution, the time agg defaults to the 1st valid option.
             // Really, this should a user selectable option
             time_aggregation: this.chart.indicator.valid_aggregations[0]
