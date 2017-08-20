@@ -8,6 +8,7 @@ import { ChartData } from '../models/chart-data.model';
 import { City } from '../models/city.model';
 import { ClimateModel } from '../models/climate-model.model';
 import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
+import { ThresholdIndicatorQueryOpts } from '../models/threshold-indicator-query-opts.model';
 import { Scenario } from '../models/scenario.model';
 
 import { AuthService } from '../auth/auth.service';
@@ -164,8 +165,8 @@ export class ChartComponent implements OnChanges, AfterViewInit {
     }
 
     public onThresholdSelected($event) {
-        delete $event.event; // everything else is a threshold parameter
-        this.updateChart($event);
+        const thresholdParams = $event.data as ThresholdIndicatorQueryOpts;
+        this.updateChart(thresholdParams);
     }
 
     curlCommandCopied(copiedPopup) {

@@ -39,12 +39,12 @@ export class ThresholdComponent implements AfterViewInit, OnChanges {
         });
 
         this.thresholdForm.valueChanges.debounceTime(1000).subscribe(form => {
-            this.thresholdParamSelected.emit({
+            this.thresholdParamSelected.emit({data: {
                 'event': event,
                 'threshold_comparator': form.comparatorCtl,
                 'threshold': form.thresholdCtl,
                 'threshold_units': form.thresholdUnitCtl
-            });
+            }});
         });
     }
 
@@ -55,12 +55,12 @@ export class ThresholdComponent implements AfterViewInit, OnChanges {
     ngAfterViewInit() {
         // Since valueChanges triggers initially before parent is ready, wait until
         // parent is ready here and trigger it to draw chart with extra parameters.
-        this.thresholdParamSelected.emit({
+        this.thresholdParamSelected.emit({data: {
             'event': null,
             'threshold_comparator': this.thresholdForm.controls.comparatorCtl.value,
             'threshold': this.thresholdForm.controls.thresholdCtl.value,
             'threshold_units': this.thresholdForm.controls.thresholdUnitCtl.value
-        });
+        }});
     }
 
     ngOnChanges(changes: any) {

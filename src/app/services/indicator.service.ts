@@ -6,6 +6,7 @@ import 'rxjs/Rx';
 
 import { Indicator } from '../models/indicator.model';
 import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
+import { ThresholdIndicatorQueryOpts } from '../models/threshold-indicator-query-opts.model';
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
 
@@ -26,30 +27,30 @@ export class IndicatorService {
 
         // Generate query params
         const searchParams: URLSearchParams = new URLSearchParams();
-        const optParams = options.params;
 
         // append extra parameters, if needed
         if (isThresholdIndicator(options.indicator.name)) {
+            const thresholdOpts: ThresholdIndicatorQueryOpts = <ThresholdIndicatorQueryOpts> options;
             // abort request if chart is in flux (these parameters are required)
-            if (!optParams.threshold) {
+            if (!thresholdOpts.params.threshold) {
                 return Observable.of({url: ''});
             }
-            searchParams.append('threshold', optParams.threshold.toString());
-            searchParams.append('threshold_units', optParams.threshold_units);
-            searchParams.append('threshold_comparator', optParams.threshold_comparator);
+            searchParams.append('threshold', thresholdOpts.params.threshold.toString());
+            searchParams.append('threshold_units', thresholdOpts.params.threshold_units);
+            searchParams.append('threshold_comparator', thresholdOpts.params.threshold_comparator);
         }
 
-        if (optParams.years) {
-            searchParams.append('years', optParams.years.join(','));
+        if (options.params.years) {
+            searchParams.append('years', options.params.years.join(','));
         }
-        if (optParams.climateModels) {
-            searchParams.append('models', optParams.climateModels.map(m => m.name).join(','));
+        if (options.params.climateModels) {
+            searchParams.append('models', options.params.climateModels.map(m => m.name).join(','));
         }
-        if (optParams.time_aggregation) {
-            searchParams.append('time_aggregation', optParams.time_aggregation);
+        if (options.params.time_aggregation) {
+            searchParams.append('time_aggregation', options.params.time_aggregation);
         }
-        if (optParams.unit) {
-            searchParams.append('units', optParams.unit);
+        if (options.params.unit) {
+            searchParams.append('units', options.params.unit);
         }
 
         const requestOptions = new RequestOptions({ search: searchParams });
