@@ -78,9 +78,16 @@ export class LabComponent implements OnInit, OnDestroy {
 
     public removeChart() {
         this.project.project_data.charts = [];
+        this.indicator = null;
     }
 
     public indicatorSelected(indicator: Indicator) {
+        // Must compare indicator names and not objects,
+        // or else will fail for first loaded indicator on page.
+        if (this.indicator && this.indicator.name === indicator.name) {
+            // do nothing if selected indicator is current indicator
+            return;
+        }
         this.removeChart();
         this.indicator = indicator;
         const chart = new Chart({indicator: indicator,

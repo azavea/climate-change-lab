@@ -17,25 +17,42 @@ export class ThresholdComponent implements AfterViewInit, OnChanges {
 
     thresholdForm: FormGroup;
 
-    @Input() comparators: any[] = [
-        {'key': 'gte', 'label': 'greater than or equal to'},
-        {'key': 'lte', 'label': 'less than or equal to'},
-        {'key': 'gt', 'label': 'greater than'},
-        {'key': 'lt', 'label': 'less than'}
-    ];
-    @Input() thresholdUnits: any[] = [
+    private thresholdTemperatureUnits: any[] = [
         {'key': 'K', 'label': 'Kelvin'},
         {'key': 'F', 'label': 'Farenheit'},
         {'key': 'C', 'label': 'Centigrade'}
      ];
 
+     private thresholdComparators: any[] = [
+        {'key': 'gte', 'label': 'greater than or equal to'},
+        {'key': 'lte', 'label': 'less than or equal to'},
+        {'key': 'gt', 'label': 'greater than'},
+        {'key': 'lt', 'label': 'less than'}
+    ];
+
+    private thresholdPrecipitationUnits: any[] = [
+        {'key': 'mm', 'label': 'millimeters'},
+        {'key': 'in', 'label': 'inches'},
+        {'key': 'kg/m^2', 'label': 'kg/m^2'}
+    ];
+
+    // default form values
+    private defaultThreshold = 50;
+    private defaultPrecipitationUnit = 'mm';
+    private defaultTemperatureUnit = 'F';
+    private defaultComparator = 'lte';
+
+    @Input() comparators: any[] = this.thresholdComparators;
+
+    @Input() thresholdUnits: any[] = this.thresholdTemperatureUnits;
+
     @Output() thresholdParamSelected = new EventEmitter<any>();
 
     createForm() {
         this.thresholdForm = this.fb.group({
-            comparatorCtl: ['lte', Validators.required],
-            thresholdCtl: [50, Validators.required],
-            thresholdUnitCtl: ['F', Validators.required]
+            comparatorCtl: [this.defaultComparator, Validators.required],
+            thresholdCtl: [this.defaultThreshold, Validators.required],
+            thresholdUnitCtl: [this.defaultTemperatureUnit, Validators.required]
         });
 
         this.thresholdForm.valueChanges.debounceTime(1000).subscribe(form => {
@@ -66,12 +83,19 @@ export class ThresholdComponent implements AfterViewInit, OnChanges {
     ngOnChanges(changes: any) {
         // listen for the indicator label to be set before changing options and defaults, if needed
         if (this.label.indexOf('Precipitation') > -1) {
-            this.thresholdUnits = [
-                {'key': 'mm', 'label': 'millimeters'},
-                {'key': 'in', 'label': 'inches'},
-                {'key': 'kg/m^2', 'label': 'kg/m^2'}
-            ];
-            this.thresholdForm.controls.thresholdUnitCtl.setValue('mm');
+            this.thresholdUnits = this.thresholdPrecipitationUnits;
+            this.thresholdForm.reset({
+                thresholdUnitCtl: this.defaultPrecipitationUnit,
+                comparatorCtl: this.defaultComparator,
+                thresholdCtl: this.defaultThreshold
+            });
+        } else {
+            this.thresholdUnits = this.thresholdTemperatureUnits;
+            this.thresholdForm.reset({
+                thresholdUnitCtl: this.defaultTemperatureUnit,
+                comparatorCtl: this.defaultComparator,
+                thresholdCtl: this.defaultThreshold
+            });
         }
     }
 }

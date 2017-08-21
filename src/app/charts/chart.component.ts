@@ -43,7 +43,6 @@ export class ChartComponent implements OnChanges, AfterViewInit {
     public chartData: ChartData[];
     public rawChartData: any;
     public isHover: Boolean = false;
-    public isThresholdIndicator: Boolean = false;
     public curlCommand: String;
     private historicalScenario: Scenario = {
         name: 'historical',
@@ -53,6 +52,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
     private firstYear = 1950;
     private lastYear = 2100;
     public dateRange: number[] = [this.firstYear, this.lastYear];
+    public isThresholdIndicator = isThresholdIndicator;
     public sliderConfig: any = {
         behaviour: 'drag',
         connect: true,
@@ -82,7 +82,8 @@ export class ChartComponent implements OnChanges, AfterViewInit {
                 private dataExportService: DataExportService,
                 private imageExportService: ImageExportService,
                 private authService: AuthService,
-                private changeDetector: ChangeDetectorRef) {}
+                private changeDetector: ChangeDetectorRef) {
+    }
 
     ngAfterViewInit() {
         // Manually trigger change detection in parent to avoid
@@ -93,6 +94,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
 
     ngOnChanges($event) {
         if (!this.scenario || !this.city || !this.models) { return; }
+        // happens if different chart selected
         this.updateChart($event);
     }
 
@@ -111,7 +113,6 @@ export class ChartComponent implements OnChanges, AfterViewInit {
 
         if (isThresholdIndicator(this.chart.indicator.name)) {
             params = _.extend(params, extraParams);
-            this.isThresholdIndicator = true;
         }
 
         const queryOpts: IndicatorQueryOpts = {
