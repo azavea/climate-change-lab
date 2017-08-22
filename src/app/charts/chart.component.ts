@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnChanges, Input, Output, HostListener } from '@angular/core';
+import { AfterViewInit, Component, ChangeDetectorRef, EventEmitter, OnChanges, Input, Output,
+    HostListener } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -7,6 +8,7 @@ import { ChartData } from '../models/chart-data.model';
 import { City } from '../models/city.model';
 import { ClimateModel } from '../models/climate-model.model';
 import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
+import { ThresholdIndicatorQueryOpts } from '../models/threshold-indicator-query-opts.model';
 import { Scenario } from '../models/scenario.model';
 
 import { AuthService } from '../auth/auth.service';
@@ -14,6 +16,8 @@ import { ChartService } from '../services/chart.service';
 import { IndicatorService } from '../services/indicator.service';
 import { DataExportService } from '../services/data-export.service';
 import { ImageExportService } from '../services/image-export.service';
+
+import { isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
 
 import * as _ from 'lodash';
 
@@ -25,7 +29,7 @@ import * as _ from 'lodash';
   selector: 'ccl-chart', // if this selector is renamed, image export service must also be updated
   templateUrl: './chart.component.html'
 })
-export class ChartComponent implements OnChanges {
+export class ChartComponent implements OnChanges, AfterViewInit {
 
     @Output() onRemoveChart = new EventEmitter<Chart>();
 
@@ -48,6 +52,7 @@ export class ChartComponent implements OnChanges {
     private firstYear = 1950;
     private lastYear = 2100;
     public dateRange: number[] = [this.firstYear, this.lastYear];
+    public isThresholdIndicator = isThresholdIndicator;
     public sliderConfig: any = {
         behaviour: 'drag',
         connect: true,
@@ -76,24 +81,47 @@ export class ChartComponent implements OnChanges {
                 private indicatorService: IndicatorService,
                 private dataExportService: DataExportService,
                 private imageExportService: ImageExportService,
-                private authService: AuthService) {}
+                private authService: AuthService,
+                private changeDetector: ChangeDetectorRef) {
+    }
 
-    ngOnChanges() {
+    ngAfterViewInit() {
+        // Manually trigger change detection in parent to avoid
+        // ExpressionChangedAfterItHasBeenCheckedError when extra params form
+        // calls to set initial values in ngAfterViewInit.
+        this.changeDetector.detectChanges();
+    }
+
+    ngOnChanges($event) {
         if (!this.scenario || !this.city || !this.models) { return; }
+        // happens if different chart selected
+        this.updateChart($event);
+    }
+
+    updateChart(extraParams: any) {
         this.chartData = [];
         this.rawChartData = [];
+
+        let params = {
+            climateModels: this.models,
+            unit: this.unit || this.chart.indicator.default_units,
+            // TODO: #212
+            // As a temporary solution, the time agg defaults to the 1st valid option.
+            // Really, this should a user selectable option
+            time_aggregation: this.chart.indicator.valid_aggregations[0]
+        }
+
+        if (isThresholdIndicator(this.chart.indicator.name)) {
+            params = _.extend(params, extraParams);
+        }
+
         const queryOpts: IndicatorQueryOpts = {
             indicator: this.chart.indicator,
             scenario: this.scenario,
             city: this.city,
-            params: {
-                climateModels: this.models,
-                unit: this.unit || this.chart.indicator.default_units,
-                // As a temporary solution, the time agg defaults to the 1st valid option.
-                // Really, this should a user selectable option
-                time_aggregation: this.chart.indicator.valid_aggregations[0]
-            }
+            params: params
         };
+
         this.dateRange = [this.firstYear, this.lastYear]; // reset time slider range
         const future = this.indicatorService.getData(queryOpts);
         queryOpts.scenario = this.historicalScenario;
@@ -135,6 +163,11 @@ export class ChartComponent implements OnChanges {
         ].join('_');
 
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
+    }
+
+    public onThresholdSelected($event) {
+        const thresholdParams = $event.data as ThresholdIndicatorQueryOpts;
+        this.updateChart(thresholdParams);
     }
 
     curlCommandCopied(copiedPopup) {

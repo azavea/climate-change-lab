@@ -2,7 +2,7 @@
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 
 // 3rd party modules
@@ -41,6 +41,7 @@ import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ThresholdComponent } from './charts/extra-params-components/threshold.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
 
 // App services
@@ -67,6 +68,7 @@ const locationStrategyProvider = {
   declarations: [
     AppComponent,
     WaveComponent,
+    ThresholdComponent,
     ChartComponent,
     DashboardComponent,
     IndicatorListComponent,
@@ -85,6 +87,7 @@ const locationStrategyProvider = {
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     routing,
     CollapseModule.forRoot(),

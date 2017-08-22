@@ -11,6 +11,12 @@
         </button>
     </div>
 </div>
+<div *ngIf="isThresholdIndicator(chart.indicator.name)" class="chart-options">
+    <ccl-threshold-parameters
+        [label]="chart.indicator.label"
+        (thresholdParamSelected)="onThresholdSelected($event)">
+    </ccl-threshold-parameters>
+</div>
 <div class="chart-body">
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
     <div class="chart" *ngIf="chartData && chartData.length">
