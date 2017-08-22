@@ -136,6 +136,10 @@ ccl-chart {
         border-color: #c1c1c1;
       }
 
+      .optional-parameters-label {
+        line-height: 6.0rem;
+      }
+
       button {
         line-height: 3.0rem;
       }
@@ -144,11 +148,33 @@ ccl-chart {
         width: 60px;
         font-weight: $body-font-weight;
         font-family: $body-font-family;
+        line-height: 3.0rem;
 
         &.curl-command {
           width: 240px;
           float: left;
         }
+      }
+
+      select {
+        font-weight: $body-font-weight;
+        font-family: $body-font-family;
+        height: 4.2rem;
+        line-height: 3.0rem;
+        margin-top: 0.9rem;
+        margin-right: 2rem;
+
+        min-width: 100px;
+        padding: 1rem 0;
+
+        font-size: 14px;
+        text-align: left;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+
+        box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
+        background-clip: padding-box;
       }
     }
   }

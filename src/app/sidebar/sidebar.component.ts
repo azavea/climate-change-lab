@@ -3,6 +3,8 @@ import { Component, EventEmitter, ViewEncapsulation, OnInit, Output } from '@ang
 import { IndicatorService } from '../services/indicator.service';
 import { Indicator } from '../models/indicator.model';
 
+import { isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
+
 /*
  * Sidebar Component
  * Populates sidebar with indicators and triggers adding charts
@@ -33,10 +35,12 @@ export class SidebarComponent implements OnInit {
     private groupIndicators(indicators: Indicator[]) {
         // Filter any indicators with "required" params, we can't currently display them
         //  without changes to the Lab
-        // TODO: Remove this filter once we've implemented user controls for indicator parameters
+
+        // TODO: Remove this filter once we've implemented user controls for all indicator parameters
         const visibleIndicators = indicators.filter(i => {
-            return !i.parameters.some(p => p.required);
+            return isThresholdIndicator(i.name) || !i.parameters.some(p => p.required);
         });
+
         this.tempIndicators = visibleIndicators.filter(i => {
             return (i.variables.indexOf('tasmax') !== -1 || i.variables.indexOf('tasmin') !== -1);
         });
