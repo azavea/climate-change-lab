@@ -12,7 +12,6 @@
          dropdown
          [(isOpen)]="isSettingsDropdownOpen">
       <button id="settings-dropdown" type="button" class="button button-link" dropdownToggle>
-        <i class="icon-user"></i>
         {{ authService.getEmail() }}
         <i [ngClass]="{'icon-angle-down': !isSettingsDropdownOpen, 'icon-angle-up': isSettingsDropdownOpen}"></i>
       </button>
@@ -20,11 +19,9 @@
         <li role="menuitem">
           <a class="dropdown-item" [routerLink]="['/']">Go to Dashboard</a>
         </li>
-        <li class="divider dropdown-divider"></li>
         <li role="menuitem" *ngIf="projectID">
           <a class="dropdown-item" [routerLink]="['/edit/', projectID]">Project Settings</a>
         </li>
-        <li class="divider dropdown-divider" *ngIf="projectID"></li>
         <li role="menuitem">
           <a class="dropdown-item" (click)="authService.logout()">Logout</a>
         </li>

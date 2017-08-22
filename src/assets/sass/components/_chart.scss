@@ -1,20 +1,42 @@
 .chart {
-  background-color: #fff;
   box-shadow: 2px 2px 10px rgba(0,0,0,.05);
-}
-
-.chart-container {
-  padding: 2rem 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 ccl-line-graph {
   position: relative;
   display: block;
+  flex: 1;
+}
+
+.chart-container {
+  height: 100%;
 }
 
 ccl-chart {
   width: 100%;
-  display:block;
+  display: block;
+  height: 100%;
+
+  .noUi-pips-horizontal {
+    font-size: 12px;
+  }
+
+  .noUi-marker-horizontal.noUi-marker-large {
+    height: 10px;
+  }
+
+  .noUi-marker-horizontal.noUi-marker {
+    margin-top: -3px;
+    width: 1px;
+    margin-left: 0;
+  }
+
+  .noUi-connect {
+    background-color: #1e8cec;
+  }
 
   sk-wave[ng-reflect-is-running="true"] {
     padding: 6rem;
@@ -23,18 +45,17 @@ ccl-chart {
   }
 
   .chart-label {
-    font-size: $font-size-h5;
+    font-size: $font-size-h3;
     margin: 0;
-    flex: 1;
     font-weight: 800;
-    padding-top: 1.5rem;
+    padding: 2rem;
   }
 
   .chart-legend {
     padding: 2rem;
     padding-top: 0;
     color: #757575;
-    font-size: 11px;
+    font-size: 12px;
 
     .chart-legend-line {
       color: $chart-line;
@@ -42,6 +63,10 @@ ccl-chart {
 
     .chart-legend-icons {
        padding-bottom: 0.5rem;
+       color: $color-header;
+       position: relative;
+       left: -3px;
+       margin-top: 16px;
     }
 
     .chart-legend-minmax {
@@ -50,14 +75,24 @@ ccl-chart {
         height: 1rem;
         display: inline-block;
         margin-left: 0.5rem;
+        margin-right: 2px;
+        position: relative;
+        top: 1px;
     }
   }
 
   .chart-options {
-    border-top: 1px solid $gray-2;
     margin: 0;
-    padding: 2rem;
+    padding: 1rem 1.5rem;
     color: $heading-font-color;
+
+    &.buttons {
+      border-top: 1px solid $gray-2;
+    }
+
+    &.slider {
+      padding: 1rem 2rem;
+    }
 
     .chart-options-body {
       display: flex;
@@ -66,7 +101,7 @@ ccl-chart {
     .chart-options-group {
       display: flex;
       align-items: center;
-      padding-right: 2rem;
+      padding-right: 1rem;
 
       span {
         margin-left: 0.5rem;
@@ -75,8 +110,30 @@ ccl-chart {
 
       .curl-popup {
         width: 300px;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        padding: 1rem;
+
+        h4 {
+          margin-top: 4px;
+          margin-bottom: 10px;
+        }
+      }
+
+      .input-group {
+        button {
+          height: 35px;
+          width: 35px;
+          position: relative;
+          left: -1px;
+          float: left;
+          background-color: #e0e0e0;
+          border: 1px solid #c1c1c1;
+        }
+      }
+
+      .dropdown-toggle {
+        background-color: #e0e0e0;
+        padding: 0.4rem 0.7rem 0.4rem 0.5rem;
+        border-color: #c1c1c1;
       }
 
       .optional-parameters-label {
@@ -94,7 +151,8 @@ ccl-chart {
         line-height: 3.0rem;
 
         &.curl-command {
-          width: 245px;
+          width: 240px;
+          float: left;
         }
       }
 

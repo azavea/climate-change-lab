@@ -125,4 +125,5 @@
 .button-group > .button:last-child:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  margin-left: -1px;
 }
