@@ -19,6 +19,8 @@ ccl-chart {
   width: 100%;
   display: block;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 
   .noUi-pips-horizontal {
     font-size: 12px;
@@ -48,7 +50,7 @@ ccl-chart {
     font-size: $font-size-h3;
     margin: 0;
     font-weight: 800;
-    padding: 2rem;
+    padding: 2rem 1.5rem;
   }
 
   .chart-legend {
@@ -81,6 +83,12 @@ ccl-chart {
     }
   }
 
+
+
+  .chart-body {
+    flex: 1;
+  }
+
   .chart-options {
     margin: 0;
     padding: 1rem 1.5rem;
@@ -91,7 +99,7 @@ ccl-chart {
     }
 
     &.slider {
-      padding: 1rem 2rem;
+      padding: 0rem 2rem 3rem;
     }
 
     .chart-options-body {
@@ -152,6 +160,7 @@ ccl-chart {
 
         &.curl-command {
           width: 240px;
+          height: 35px;
           float: left;
         }
       }
@@ -182,9 +191,7 @@ ccl-chart {
   .chart-heading {
     display: flex;
     align-items: flex-start;
-    border-bottom: 1px solid $gray-2;
     margin: 0;
-    padding: 0 0 0 2rem;
   }
 
   .chart-actions {

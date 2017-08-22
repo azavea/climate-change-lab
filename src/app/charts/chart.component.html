@@ -2,14 +2,6 @@
     <h2 class="chart-label">
     {{chart.indicator.label}}
     </h2>
-    <div class="chart-actions">
-        <button class="button button-link"
-                placement="top"
-                title=""
-                tooltip="Remove"
-                (click)="removeChart(chart)"><i class="icon icon-cancel"></i>
-        </button>
-    </div>
 </div>
 <div *ngIf="isThresholdIndicator(chart.indicator.name)" class="chart-options">
     <ccl-threshold-parameters
