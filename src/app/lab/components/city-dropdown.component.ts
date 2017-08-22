@@ -17,7 +17,6 @@ import { apiHost } from '../../constants';
   selector: 'ccl-city-dropdown',
   template: `<div class="dropdown dropdown-location">
               <div class="input">
-                <i *ngIf="showIcon" class="icon-globe"></i>
                 <input auto-complete
                     [(ngModel)]="projectData.city"
                     [source]="apiCities"

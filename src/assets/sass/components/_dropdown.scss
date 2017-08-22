@@ -56,14 +56,22 @@
     overflow: hidden;
     background-color: #e5e5e5;
   }
+  & > li {
+    &:not(:last-child) {
+      a {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  }
   & > li > a {
     text-decoration: none;
     display: block;
-    padding: 0.5rem 2rem;
+    padding: 1rem 1rem;
     clear: both;
     font-weight: normal;
     color: #333333;
     white-space: nowrap;
+    cursor: pointer;
   }
   & > li > a {
     &:hover,
@@ -106,6 +114,7 @@
 
 .open > .dropdown-menu {
   display: block;
+  padding: 0;
 }
 
 .open > a {

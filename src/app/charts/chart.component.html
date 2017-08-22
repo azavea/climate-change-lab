@@ -1,86 +1,74 @@
-<div class="chart-heading">
+<div class="chart" *ngIf="chartData && chartData.length">
+    <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
     <h2 class="chart-label">
     {{chart.indicator.label}}
     </h2>
-    <div class="chart-actions">
-        <button class="button button-link"
-                placement="top"
-                title=""
-                tooltip="Remove"
-                (click)="removeChart(chart)"><i class="icon icon-cancel"></i>
-        </button>
+    <ccl-line-graph
+        [data]="chartData"
+        [indicator]="chart.indicator"
+        [hover]="isHover">
+    </ccl-line-graph>
+    <div class="chart-options slider">
+        <div class="chart-options-body">
+            <nouislider class="chart-options-group"
+                        [config]="sliderConfig"
+                        [(ngModel)]="dateRange"
+                        (ngModelChange)="sliceChartData()">
+            </nouislider>
+        </div>
     </div>
-</div>
-<div class="chart-body">
-    <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
-    <div class="chart" *ngIf="chartData && chartData.length">
-        <ccl-line-graph
-            [data]="chartData"
-            [indicator]="chart.indicator"
-            [hover]="isHover">
-        </ccl-line-graph>
-        <div class="chart-legend" *ngIf="chartData && chartData.length">
-            <div class="chart-legend-icons">
-                <span><span class="icon-minus chart-legend-line"></span> {{ chartData[0].indicator.default_units }}</span>
-                <span><span class="chart-legend-minmax"></span> Range between min/max of selected models</span>
-            </div>
-            <div class="chart-legend-description">
-                {{ chartData[0].indicator.description }}
-            </div>
+    <div class="chart-legend" *ngIf="chartData && chartData.length">
+        <div class="chart-legend-icons">
+            <span><span class="icon-minus chart-legend-line"></span> {{ chartData[0].indicator.default_units }}</span>
+            <span><span class="chart-legend-minmax"></span> Range between min/max of selected models</span>
         </div>
-        <div class="chart-options">
-            <div class="chart-options-body">
-                <nouislider class="chart-options-group"
-                            [config]="sliderConfig"
-                            [(ngModel)]="dateRange"
-                            (ngModelChange)="sliceChartData()">
-                </nouislider>
-            </div>
+        <div class="chart-legend-description">
+            {{ chartData[0].indicator.description }}
         </div>
-        <div class="chart-options">
-            <div class="chart-options-body">
-                <div dropdown [dropup]="true" class="chart-options-group btn-group">
-                    <button dropdownToggle class="button dropdown-toggle" type="button"
-                        id="exportDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <i class="icon icon-download"></i>
-                        Download
-                    </button>
-                    <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
-                        <li role="menuitem">
-                            <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
-                        </li>
-                        <li role="menuitem">
-                            <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
-                        </li>
-                    </ul>
-                </div>
-                <div dropdown [dropup]="true" class="chart-options-group btn-group">
-                    <button dropdownToggle class="button dropdown-toggle" type="button"
-                        id="apiCallDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        &gt;_ Get API Call
-                    </button>
-                    <ul *dropdownMenu class="dropdown-menu curl-popup" role="menu" aria-labelledby="apiCallDropUp">
-                        <li role="menuitem" (click)="$event.stopPropagation()">
-                            <div class="drowdown-item">
-                                <strong>Get API Call</strong>
-                                <p>Use our API to access these data regularly for your own research or application.</p>
-                                <div class="input-group">
-                                    <input type="text" class="form-control curl-command"
-                                        [(ngModel)]="curlCommand"
-                                        placeholder="curl command for API query"
-                                        #curlCommandInput>
-                                    <button type="button" class="input-group-btn"
-                                        tooltip="Copied!"
-                                        triggers="" #copiedPopup="bs-tooltip"
-                                        [ngxClipboard]="curlCommandInput"
-                                        (cbOnSuccess)="curlCommandCopied(copiedPopup)">
-                                        <i class="icon icon-clipboard"></i>
-                                    </button>
-                                </div>
+    </div>
+    <div class="chart-options buttons">
+        <div class="chart-options-body">
+            <div dropdown [dropup]="true" class="chart-options-group btn-group">
+                <button dropdownToggle class="button dropdown-toggle" type="button"
+                    id="exportDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="icon icon-download"></i>
+                    Download
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
+                    <li role="menuitem">
+                        <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
+                    </li>
+                </ul>
+            </div>
+            <div dropdown [dropup]="true" class="chart-options-group btn-group">
+                <button dropdownToggle class="button dropdown-toggle" type="button"
+                    id="apiCallDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="icon icon-code"></i> Get API Call
+                </button>
+                <ul *dropdownMenu class="dropdown-menu curl-popup" role="menu" aria-labelledby="apiCallDropUp">
+                    <li role="menuitem" (click)="$event.stopPropagation()">
+                        <div class="drowdown-item">
+                            <h4>Get API Call</h4>
+                            <p>Use our API to access these data regularly for your own research or application.</p>
+                            <div class="input-group">
+                                <input type="text" class="form-control curl-command"
+                                    [(ngModel)]="curlCommand"
+                                    placeholder="curl command for API query"
+                                    #curlCommandInput>
+                                <button type="button" class="input-group-btn"
+                                    tooltip="Copied!"
+                                    triggers="" #copiedPopup="bs-tooltip"
+                                    [ngxClipboard]="curlCommandInput"
+                                    (cbOnSuccess)="curlCommandCopied(copiedPopup)">
+                                    <i class="icon icon-clipboard"></i>
+                                </button>
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
