@@ -5,7 +5,7 @@ import {
     Input,
     OnChanges,
     ViewEncapsulation,
-    AfterViewInit
+    AfterContentInit
 } from '@angular/core';
 
 import { ChartData } from '../models/chart-data.model';
@@ -27,7 +27,7 @@ import { ChartService } from '../services/chart.service';
   template: `<ng-content></ng-content>`
 })
 
-export class LineGraphComponent implements OnChanges, AfterViewInit {
+export class LineGraphComponent implements OnChanges, AfterContentInit {
 
     @Input() public data: ChartData[];
     @Input() public indicator: Indicator;
@@ -80,21 +80,25 @@ export class LineGraphComponent implements OnChanges, AfterViewInit {
 
     /* Executes on every @Input change */
     ngOnChanges(): void {
-        if (!this.data || this.data.length === 0) { return };
-            this.filterData();
-            this.setup();
-            this.buildSVG();
-            this.setLineScales();
-            this.drawGrid();
-            this.drawMinMaxBand();
-            this.drawXAxis();
-            this.drawYAxis();
-            this.drawAvgLine();
-            this.drawScrubber();
+        this.composeLineGraph();
     }
 
-    ngAfterViewInit(): void {
-        this.ngOnChanges();
+    ngAfterContentInit(): void {
+        this.composeLineGraph();
+    }
+
+    private composeLineGraph(): void {
+        if (!this.data || this.data.length === 0) { return };
+        this.filterData();
+        this.setup();
+        this.buildSVG();
+        this.setLineScales();
+        this.drawGrid();
+        this.drawMinMaxBand();
+        this.drawXAxis();
+        this.drawYAxis();
+        this.drawAvgLine();
+        this.drawScrubber();
     }
 
     private filterData(): void {
