@@ -120,10 +120,13 @@ ccl-chart {
     .chart-options-group {
       display: flex;
       align-items: center;
-      padding-right: 1rem;
+      padding-right: 0.5rem;
+
+      &.threshold {
+        margin-top: -27px;
+      }
 
       span {
-        margin-left: 0.5rem;
         margin-right: 0.5rem;
       }
 
@@ -168,6 +171,8 @@ ccl-chart {
         font-weight: $body-font-weight;
         font-family: $body-font-family;
         line-height: 3.0rem;
+        height: 3rem;
+        border-radius: 3px;
 
         &.curl-command {
           width: 240px;
@@ -179,10 +184,10 @@ ccl-chart {
       select {
         font-weight: $body-font-weight;
         font-family: $body-font-family;
-        height: 4.2rem;
+        height: 3rem;
         line-height: 3.0rem;
-        margin-top: 0.9rem;
-        margin-right: 2rem;
+        margin-top: 1.5rem;
+        margin-right: 0.5rem;
 
         min-width: 100px;
         padding: 1rem 0;
@@ -203,7 +208,6 @@ ccl-chart {
     display: flex;
     align-items: flex-start;
     margin: 0;
-    margin-bottom: 50px;
   }
 
   .chart-actions {

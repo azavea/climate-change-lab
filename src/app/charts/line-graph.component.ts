@@ -114,7 +114,7 @@ export class LineGraphComponent implements OnChanges, AfterContentInit {
 
     /* Will setup the chart basics */
     private setup(): void {
-        this.margin = { top: 70, right: 40, bottom: 40, left: 50 };
+        this.margin = { top: 10, right: 40, bottom: 30, left: 50 };
         this.width = $('.chart').width() - this.margin.left - this.margin.right;
         this.height = $('.line-graph').height() - this.margin.top - this.margin.bottom;
         this.xScale = D3.scaleTime().range([0, this.width]);
