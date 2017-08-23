@@ -4,7 +4,8 @@ import {
     HostListener,
     Input,
     OnChanges,
-    ViewEncapsulation
+    ViewEncapsulation,
+    AfterViewInit
 } from '@angular/core';
 
 import { ChartData } from '../models/chart-data.model';
@@ -26,7 +27,7 @@ import { ChartService } from '../services/chart.service';
   template: `<ng-content></ng-content>`
 })
 
-export class LineGraphComponent implements OnChanges {
+export class LineGraphComponent implements OnChanges, AfterViewInit {
 
     @Input() public data: ChartData[];
     @Input() public indicator: Indicator;
@@ -80,16 +81,20 @@ export class LineGraphComponent implements OnChanges {
     /* Executes on every @Input change */
     ngOnChanges(): void {
         if (!this.data || this.data.length === 0) { return };
-        this.filterData();
-        this.setup();
-        this.buildSVG();
-        this.setLineScales();
-        this.drawGrid();
-        this.drawMinMaxBand();
-        this.drawXAxis();
-        this.drawYAxis();
-        this.drawAvgLine();
-        this.drawScrubber();
+            this.filterData();
+            this.setup();
+            this.buildSVG();
+            this.setLineScales();
+            this.drawGrid();
+            this.drawMinMaxBand();
+            this.drawXAxis();
+            this.drawYAxis();
+            this.drawAvgLine();
+            this.drawScrubber();
+    }
+
+    ngAfterViewInit(): void {
+        this.ngOnChanges();
     }
 
     private filterData(): void {
@@ -107,7 +112,7 @@ export class LineGraphComponent implements OnChanges {
     private setup(): void {
         this.margin = { top: 20, right: 40, bottom: 40, left: 50 };
         this.width = $('.chart').width() - this.margin.left - this.margin.right;
-        this.height = $('.chart').height() - this.margin.top - this.margin.bottom;
+        this.height = $('.line-graph').height() - this.margin.top - this.margin.bottom;
         this.xScale = D3.scaleTime().range([0, this.width]);
         this.yScale = D3.scaleLinear().range([this.height, 0]);
         this.id = this.indicator.name + (Math.round(Math.random() * 10000)).toString();
