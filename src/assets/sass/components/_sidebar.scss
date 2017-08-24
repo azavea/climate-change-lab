@@ -1,8 +1,8 @@
 ccl-sidebar {
   overflow-y: auto;
-  width: 220px;
+  width: 240px;
   border-right: 1px solid $gray-3;
-  padding-top: 2.5rem;
+  padding: 2rem 0;
 }
 
 .sidebar-with-nav-vertical {
@@ -30,7 +30,7 @@ ccl-sidebar {
   background-color: transparent;
   text-align: left;
   position: relative;
-  color: #999;
+  color: #4a4a4a;
   &:hover {
     color: $brand-primary;
     cursor: pointer;
@@ -53,8 +53,9 @@ ccl-indicator-list {
 }
 
 .sidebar-category {
-  font-size: $font-size-h5;
+  font-size: $font-size-h4;
   margin: 0 1.5rem;
+  font-weight: 800;
   padding-bottom: 1rem;
 }
 

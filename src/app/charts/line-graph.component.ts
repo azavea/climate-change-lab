@@ -4,7 +4,8 @@ import {
     HostListener,
     Input,
     OnChanges,
-    ViewEncapsulation
+    ViewEncapsulation,
+    AfterContentInit
 } from '@angular/core';
 
 import { ChartData } from '../models/chart-data.model';
@@ -26,7 +27,7 @@ import { ChartService } from '../services/chart.service';
   template: `<ng-content></ng-content>`
 })
 
-export class LineGraphComponent implements OnChanges {
+export class LineGraphComponent implements OnChanges, AfterContentInit {
 
     @Input() public data: ChartData[];
     @Input() public indicator: Indicator;
@@ -79,6 +80,14 @@ export class LineGraphComponent implements OnChanges {
 
     /* Executes on every @Input change */
     ngOnChanges(): void {
+        this.composeLineGraph();
+    }
+
+    ngAfterContentInit(): void {
+        this.composeLineGraph();
+    }
+
+    private composeLineGraph(): void {
         if (!this.data || this.data.length === 0) { return };
         this.filterData();
         this.setup();
@@ -105,9 +114,9 @@ export class LineGraphComponent implements OnChanges {
 
     /* Will setup the chart basics */
     private setup(): void {
-        this.margin = { top: 20, right: 40, bottom: 40, left: 50 };
+        this.margin = { top: 10, right: 40, bottom: 30, left: 50 };
         this.width = $('.chart').width() - this.margin.left - this.margin.right;
-        this.height = 214 - this.margin.top - this.margin.bottom;
+        this.height = $('.line-graph').height() - this.margin.top - this.margin.bottom;
         this.xScale = D3.scaleTime().range([0, this.width]);
         this.yScale = D3.scaleLinear().range([this.height, 0]);
         this.id = this.indicator.name + (Math.round(Math.random() * 10000)).toString();
