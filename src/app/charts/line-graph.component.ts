@@ -32,6 +32,7 @@ export class LineGraphComponent implements OnChanges, AfterContentInit {
     @Input() public data: ChartData[];
     @Input() public indicator: Indicator;
     @Input() public hover: Boolean;
+    @Input() public unit: string;
 
     public extractedData: Array<DataPoint>;
 
@@ -297,7 +298,7 @@ export class LineGraphComponent implements OnChanges, AfterContentInit {
         this.svg.selectAll('.scrubline').attr('transform', 'translate(' + xPos + ',' + 0 + ')');
 
         // Update scrubber text
-        const labelText = yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'];
+        const labelText = yDatum.toFixed(2) + ' ' + this.unit;
         const textSVG = D3.select('.scrubber-text.' + this.id).text(labelText);
 
         // Center text
