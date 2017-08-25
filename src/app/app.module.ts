@@ -34,6 +34,7 @@ import {
 import { AppComponent } from './app.component';
 import { AddEditProjectComponent } from './project/add-edit-project.component';
 import { ChartComponent } from './charts/chart.component';
+import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
 import { LineGraphComponent } from './charts/line-graph.component';
@@ -69,6 +70,7 @@ const locationStrategyProvider = {
     AppComponent,
     WaveComponent,
     ThresholdComponent,
+    CopyCurlComponent,
     ChartComponent,
     DashboardComponent,
     IndicatorListComponent,
