@@ -4,7 +4,7 @@
 
 ### Requirements
 
-Requires node.js 6.11+ and npm 3.10.10+ for Angular CLI compatibility.
+Requires node.js 6.11+ and yarn 0.24.0+ for Angular CLI compatibility.
 
 Alternatively, you can bring up the vagrant VM that has the dependencies installed.
 
@@ -12,10 +12,10 @@ Alternatively, you can bring up the vagrant VM that has the dependencies install
 
 If your development host machine meets the requirements above, simply:
 
-  - Clone this repo and run `npm install`
+  - Clone this repo and run `yarn install`
   - `cp example/constants.ts.example src/app/constants.ts`
   - Edit `constants.ts` to set the API server name and API key
-  - `npm run serve`
+  - `yarn run serve`
 
 The site will then be available at [http://localhost:4200](http://localhost:4200) on your host machine.
 
@@ -25,26 +25,20 @@ _Recommended only if you don't have the requirements above installed on your hos
 
 Requires ansible 2.2+.
 
-To use the vagrant machine, first start it with:
+To use the vagrant machine, first start and provision it with:
 ```bash
-vagrant up
+./scripts/setup
 ```
 
 Then to start the development server within the VM:
 
 ```bash
 vagrant ssh
-cd /vagrant
-npm run serve:vm  # Replaces `npm run serve` to include VM specific serve options
+./scripts/server --vm # Replaces `npm run serve` to include VM specific serve options
 ```
 
 The site will then be available at [http://localhost:4200](http://localhost:4200) on your host machine.
 
-Note that if your host OS differs from the VM, you may need to run
-
-```
-npm rebuild node-sass
-```
 
 within the environment (host or VM) before running other build scripts in that environment.
 
@@ -52,10 +46,12 @@ within the environment (host or VM) before running other build scripts in that e
 
 | Command | Purpose | Use When ... |
 |------|---------|--------------|
-| `npm run serve` | Serve project in dev mode using Angular CLI | For quick browser updating with refresh |
-| `npm run lint` | Run typescript linter | To clean up your angular and .ts files |
-| `npm run test` | Run project tests | |
-| `npm run build:prod` | Build production version of application | When ready to deploy |
+| `scripts/update` | Update project dependencies | |
+| `scripts/server` | Serve project in dev mode using Angular CLI | For quick browser updating with refresh |
+| `scripts/test` | Run project tests | |
+| `scripts/console` | Run commands inside of a container | |
+| `scripts/cibuild` | Build production version of application | Before deploying |
+| `scripts/infra` | Apply terraform changes and deploy static site | When ready to deploy |
 
 Navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
@@ -63,17 +59,18 @@ Additional commands available in package.json.
 
 ### Deployment
 
-_All deployment steps should be done within the vagrant vm provided with this project. The vm is provisioned with the tools necessary to deploy._
-
-First, build the application via `npm run build:prod`. The static site will be built in the `dist/` directory.
-
-Copy the environment file with `cp .env.example .env` and add your AWS access/secret keys and CloudFront distribution ID to it.
+First, build the application via `scripts/cibuild`. The static site will be built in the `dist/_site` directory.
 
 Before publishing, ensure the correct `apiHost` is set for the target environment in `src/app/constants.ts` (staging host, or production).
 
-Push changes to the staging site with `s3_website push`
+Push changes to the staging site with docker-compose:
 
-To push changes to the production site, specify the production S3 configuration with:
+```bash
+$ export CC_SETTINGS_BUCKET=staging-us-east-1-climate-lab-site
+$ export CC_SITE_BUCKET=staging-us-east-1-climate-lab-config
+$ docker-compose -f docker-compose.ci.yml run --rm terraform scripts/infra plan
+$ docker-compose -f docker-compose.ci.yml run --rm terraform scripts/infra apply
 ```
-s3_website push --config-dir=production_s3/
-```
+
+To push changes to the production site, set `CC_SETTINGS_BUCKET=production-us-east-1-climate-lab-site`
+and `CC_SITE_BUCKET=production-us-east-1-climate-lab-site`
