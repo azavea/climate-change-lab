@@ -30,12 +30,19 @@ Vagrant.configure("2") do |config|
     app.vm.network "private_network", ip: ENV.fetch("CLIMATE_CHANGE_PRIVATE_IP", "192.168.8.111")
 
     app.vm.synced_folder '.', ROOT_VM_DIR, type: "nfs", mount_options: MOUNT_OPTIONS
+    app.vm.synced_folder "~/.aws", "/home/vagrant/.aws"
 
     app.vm.provision "ansible" do |ansible|
-      ansible.galaxy_role_file = "ansible/roles.yml"
-      ansible.playbook = "ansible/climate-change-lab.yml"
+      ansible.galaxy_role_file = "deployment/ansible/roles.yml"
+      ansible.playbook = "deployment/ansible/climate-change-lab.yml"
       ansible.groups = ANSIBLE_GROUPS.merge(ANSIBLE_ENV_GROUPS)
       ansible.raw_arguments = ["--timeout=60"]
+    end
+
+    app.vm.provision :shell do |shell|
+      shell.inline = <<-SHELL
+        grep "cd /vagrant" /home/vagrant/.bashrc || echo "cd /vagrant" >> /home/vagrant/.bashrc
+      SHELL
     end
 
     app.vm.network "forwarded_port", guest: 4200, host: ENV.fetch("CLIMATE_CHANGE_LAB_PORT", 4200),

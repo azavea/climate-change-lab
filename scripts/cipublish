@@ -12,7 +12,6 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     if [ "${1:-}" = "--help" ]; then
         usage
     else
-        cd /vagrant
         source .env
 
         if [ -z "${S3_WEBSITE_CONFIG_DIR}" ]; then

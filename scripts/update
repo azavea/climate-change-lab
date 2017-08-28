@@ -1,1 +1,34 @@
-setup
+#!/bin/bash
+set -e
+
+if [[ -n ${CC_DEBUG} ]];
+then
+	set -x
+fi
+
+function usage() {
+    echo -n \
+    "Usage: $(basename "$0")
+    Builld vagrant VM."
+}
+
+DIR=$(dirname "${0}")
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+    if [ "${1:-}" = "--help" ]; then
+        usage
+    else
+    	
+    	# Create constants.ts from example
+    	if ! [[ -e "${DIR}/../src/app/constants.ts" ]];
+        then
+    	   cp "${DIR}/../example/constants.ts.example" "${DIR}/../src/app/constants.ts"
+    	fi
+
+    	# Build app container
+        docker-compose build app
+
+        # Update NPM dependencies
+        docker-compose run --rm app install
+    fi
+fi

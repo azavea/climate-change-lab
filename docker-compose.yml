@@ -1,0 +1,29 @@
+version: '2'
+services:
+  app:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: "7.10-slim"
+        NPM_VERSION: "4.2.0"
+    working_dir: /opt/app
+    environment:
+      - CHROME_BIN=/usr/bin/chromium
+    ports:
+      - 4200:4200
+    entrypoint: npm
+    volumes:
+        - ./src/:/opt/app/src/
+        - ./dist/:/opt/app/dist/
+        - ./.angular-cli.json:/opt/app/.angular-cli.json
+        - ./karma.conf.js:/opt/app/karma.conf.js
+        - ./package.json:/opt/app/package.json
+        - ./package-lock.json:/opt/app/package-lock.json
+        - ./protractor.conf.js:/opt/app/protractor.conf.js
+        - ./tsconfig.json:/opt/app/tsconfig.json
+        - ./tslint.json:/opt/app/tslint.json
+        - /var/cache/climate_change_node_modules:/opt/app/node_modules
+    command: 
+      - run
+      - serve:vm

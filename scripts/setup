@@ -14,5 +14,6 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         # run vagrant from up one directory relative to this script
         cd "$(dirname "$0")/.."
         vagrant up --provision
+        vagrant ssh -c "cd /vagrant && ./scripts/update"
     fi
 fi
