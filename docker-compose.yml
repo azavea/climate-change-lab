@@ -6,20 +6,19 @@ services:
       dockerfile: Dockerfile
       args:
         NODE_VERSION: "7.10-slim"
-        NPM_VERSION: "4.2.0"
     working_dir: /opt/app
     environment:
       - CHROME_BIN=/usr/bin/chromium
     ports:
       - 4200:4200
-    entrypoint: npm
+    entrypoint: yarn
     volumes:
         - ./src/:/opt/app/src/
         - ./dist/:/opt/app/dist/
         - ./.angular-cli.json:/opt/app/.angular-cli.json
         - ./karma.conf.js:/opt/app/karma.conf.js
         - ./package.json:/opt/app/package.json
-        - ./package-lock.json:/opt/app/package-lock.json
+        - ./yarn.lock:/opt/app/yarn.lock
         - ./protractor.conf.js:/opt/app/protractor.conf.js
         - ./tsconfig.json:/opt/app/tsconfig.json
         - ./tslint.json:/opt/app/tslint.json
