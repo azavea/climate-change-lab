@@ -8,5 +8,4 @@ RUN set -ex \
 		g++ \
 		chromium \
 	' \
-	&& apt-get install -y ${karmaDeps} \
-	&& npm  install --global --force npm@${NPM_VERSION}
+	&& apt-get install -y ${karmaDeps}

@@ -28,7 +28,7 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     	# Build app container
         docker-compose build app
 
-        # Update NPM dependencies
-        docker-compose run --rm app install
+        # Update dependencies
+        docker-compose run --rm app install --pure-lockfile
     fi
 fi
