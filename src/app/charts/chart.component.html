@@ -16,12 +16,13 @@
             <ccl-line-graph
                 [data]="chartData"
                 [indicator]="chart.indicator"
-                [hover]="isHover">
+                [hover]="isHover"
+                [unit]="unit">
             </ccl-line-graph>
         </div>
         <div class="chart-legend" *ngIf="chartData && chartData.length">
             <div class="chart-legend-icons">
-                <span><span class="icon-minus chart-legend-line"></span> {{ chartData[0].indicator.default_units }}</span>
+                <span><span class="icon-minus chart-legend-line"></span> {{ unit }}</span>
                 <span><span class="chart-legend-minmax"></span> Range between min/max of selected models</span>
             </div>
             <div class="chart-legend-description">
