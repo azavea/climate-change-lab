@@ -32,12 +32,14 @@ import * as _ from 'lodash';
 export class ChartComponent implements OnChanges, AfterViewInit {
 
     @Output() onRemoveChart = new EventEmitter<Chart>();
+    @Output() onExtraParamsChanged = new EventEmitter<any>();
 
     @Input() chart: Chart;
     @Input() scenario: Scenario;
     @Input() models: ClimateModel[];
     @Input() city: City;
     @Input() unit: string;
+    @Input() extraParams;
 
     private processedData: ChartData[];
     public chartData: ChartData[];
@@ -111,9 +113,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
             time_aggregation: this.chart.indicator.valid_aggregations[0]
         }
 
-        if (isThresholdIndicator(this.chart.indicator.name)) {
-            params = _.extend(params, extraParams);
-        }
+        params = _.extend(params, this.extraParams);
 
         const queryOpts: IndicatorQueryOpts = {
             indicator: this.chart.indicator,
@@ -167,7 +167,9 @@ export class ChartComponent implements OnChanges, AfterViewInit {
 
     public onThresholdSelected($event) {
         const thresholdParams = $event.data as ThresholdIndicatorQueryOpts;
-        this.updateChart(thresholdParams);
+        this.extraParams = thresholdParams;
+        this.onExtraParamsChanged.emit(this.extraParams);
+        this.updateChart(this.extraParams);
     }
 
     curlCommandCopied(copiedPopup) {

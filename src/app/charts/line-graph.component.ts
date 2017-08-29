@@ -80,7 +80,7 @@ export class LineGraphComponent implements OnChanges, AfterContentInit {
     }
 
     /* Executes on every @Input change */
-    ngOnChanges(): void {
+    ngOnChanges(changes?: any): void {
         this.composeLineGraph();
     }
 

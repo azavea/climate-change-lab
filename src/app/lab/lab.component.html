@@ -43,7 +43,9 @@
                        [models]="project.project_data.models"
                        [scenario]="project.project_data.scenario"
                        [unit]="project.project_data.charts[0].unit"
-                       (onRemoveChart)="removeChart()"></ccl-chart>
+                       [extraParams]="project.project_data.extraParams"
+                       (onRemoveChart)="removeChart()"
+                       (onExtraParamsChanged)="saveExtraParams($event)"></ccl-chart>
           </div>
         </div>
       </div>

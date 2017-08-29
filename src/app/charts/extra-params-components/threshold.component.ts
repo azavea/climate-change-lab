@@ -73,7 +73,6 @@ export class ThresholdComponent implements AfterViewInit, OnChanges {
         // Since valueChanges triggers initially before parent is ready, wait until
         // parent is ready here and trigger it to draw chart with extra parameters.
         this.thresholdParamSelected.emit({data: {
-            'event': null,
             'threshold_comparator': this.thresholdForm.controls.comparatorCtl.value,
             'threshold': this.thresholdForm.controls.thresholdCtl.value,
             'threshold_units': this.thresholdForm.controls.thresholdUnitCtl.value
@@ -82,6 +81,7 @@ export class ThresholdComponent implements AfterViewInit, OnChanges {
 
     ngOnChanges(changes: any) {
         // listen for the indicator label to be set before changing options and defaults, if needed
+
         if (this.label.indexOf('Precipitation') > -1) {
             this.thresholdUnits = this.thresholdPrecipitationUnits;
             this.thresholdForm.reset({
