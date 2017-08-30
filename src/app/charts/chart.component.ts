@@ -1,7 +1,17 @@
-import { AfterViewInit, Component, ChangeDetectorRef, EventEmitter, OnChanges, Input, Output,
-    HostListener } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Output
+} from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Chart } from '../models/chart.model';
 import { ChartData } from '../models/chart-data.model';
@@ -29,7 +39,7 @@ import * as _ from 'lodash';
   selector: 'ccl-chart', // if this selector is renamed, image export service must also be updated
   templateUrl: './chart.component.html'
 })
-export class ChartComponent implements OnChanges, AfterViewInit {
+export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
 
     @Output() onRemoveChart = new EventEmitter<Chart>();
 
@@ -69,6 +79,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
           density: 6
         }
       };
+    private dataSubscription: Subscription;
 
 
     // Mousemove event must be at this level to listen to mousing over rect#overlay
@@ -98,7 +109,12 @@ export class ChartComponent implements OnChanges, AfterViewInit {
         this.updateChart($event);
     }
 
+    ngOnDestroy() {
+        this.cancelDataRequest();
+    }
+
     updateChart(extraParams: any) {
+        this.cancelDataRequest();
         this.chartData = [];
         this.rawChartData = [];
 
@@ -126,7 +142,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
         const future = this.indicatorService.getData(queryOpts);
         queryOpts.scenario = this.historicalScenario;
         const historical = this.indicatorService.getData(queryOpts);
-        Observable.forkJoin(
+        this.dataSubscription = Observable.forkJoin(
             historical,
             future
         ).subscribe(data => {
@@ -178,5 +194,11 @@ export class ChartComponent implements OnChanges, AfterViewInit {
 
     removeChart(chart: Chart) {
         this.onRemoveChart.emit(chart);
+    }
+
+    private cancelDataRequest() {
+        if (this.dataSubscription) {
+            this.dataSubscription.unsubscribe();
+        }
     }
 }
