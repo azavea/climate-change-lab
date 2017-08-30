@@ -93,7 +93,9 @@ export class LabComponent implements OnInit, OnDestroy {
             return;
         }
         this.removeChart();
-        // Trigger lifecycle evaluation to truly destroy the chart child component
+        /*  Trigger lifecycle to truly destroy the chart component & its children
+            Reset defaults in fresh child components
+            Cleanly evaluate which children to have (e.g. extra params) */
         setTimeout(() => {
             this.indicator = indicator;
             this.saveExtraParams({});

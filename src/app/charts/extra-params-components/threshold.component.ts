@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, EventEmitter, OnChanges, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { Indicator } from '../../models/indicator.model';
+
 import * as _ from 'lodash';
 
 /*
@@ -13,7 +15,7 @@ import * as _ from 'lodash';
 })
 export class ThresholdComponent implements AfterViewInit, OnChanges, OnInit {
 
-    @Input() label: string;
+    @Input() indicator: Indicator;
     @Input() extraParams: any;
 
     thresholdForm: FormGroup;
@@ -50,14 +52,14 @@ export class ThresholdComponent implements AfterViewInit, OnChanges, OnInit {
 
     @Output() thresholdParamSelected = new EventEmitter<any>();
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private formBuilder: FormBuilder) {}
 
     ngOnChanges(changes: any) {
         /* Ignore change detection:
             - before initalization
             - from extraParams @Input whose initial values are all we want
         */
-        if (changes.label && this.thresholdForm) {
+        if (changes.indicator && this.thresholdForm) {
             this.thresholdForm.reset({
                 thresholdUnitCtl: this.defaultUnit,
                 comparatorCtl: this.defaultComparator,
@@ -67,7 +69,8 @@ export class ThresholdComponent implements AfterViewInit, OnChanges, OnInit {
     }
 
     ngOnInit() {
-        this.createForm(); // must create form on init instead of constructor to capture @Input values
+        // must create form on init instead of constructor to capture @Input values
+        this.createForm();
     }
 
     ngAfterViewInit() {
@@ -82,7 +85,7 @@ export class ThresholdComponent implements AfterViewInit, OnChanges, OnInit {
 
     createForm() {
         this.evaluateVariable();
-        this.thresholdForm = this.fb.group({
+        this.thresholdForm = this.formBuilder.group({
             comparatorCtl: [this.extraParams.threshold_comparator || this.defaultComparator, Validators.required],
             thresholdCtl: [this.extraParams.threshold || this.defaultThreshold, Validators.required],
             thresholdUnitCtl: [this.extraParams.threshold_units || this.defaultUnit, Validators.required]
@@ -100,7 +103,7 @@ export class ThresholdComponent implements AfterViewInit, OnChanges, OnInit {
 
     private evaluateVariable() {
         // Set component to precip or temperature
-        if (this.label.indexOf('Precipitation') > -1) {
+        if (this.indicator.variables.includes('pr')) {
             this.defaultUnit = this.defaultPrecipitationUnit;
             this.thresholdUnits = this.thresholdPrecipitationUnits;
         } else {
