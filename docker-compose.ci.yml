@@ -1,0 +1,14 @@
+version: '2.1'
+services:
+  terraform:
+    image: quay.io/azavea/terraform:0.9.11
+    volumes:
+      - ./:/usr/local/src
+      - $HOME/.aws:/root/.aws:ro
+    environment:
+      - AWS_PROFILE=climate
+      - CC_DEBUG=1
+      - CC_SETTINGS_BUCKET=${CC_SETTINGS_BUCKET:-staging-us-east-1-climate-lab-config}
+      - CC_SITE_BUCKET=${CC_SITE_BUCKET:-staging-us-east-1-climate-lab-site}
+    working_dir: /usr/local/src
+    entrypoint: bash
