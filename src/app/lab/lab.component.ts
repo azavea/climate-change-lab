@@ -96,6 +96,7 @@ export class LabComponent implements OnInit, OnDestroy {
         // Trigger lifecycle evaluation to truly destroy the chart child component
         setTimeout(() => {
             this.indicator = indicator;
+            this.saveExtraParams({});
             const chart = new Chart({indicator: indicator,
                                      unit: indicator.default_units});
             this.project.project_data.charts = [chart];

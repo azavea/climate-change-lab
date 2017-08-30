@@ -6,6 +6,7 @@
 <div *ngIf="isThresholdIndicator(chart.indicator.name)" class="chart-options">
     <ccl-threshold-parameters
         [label]="chart.indicator.label"
+        [extraParams]="extraParams"
         (thresholdParamSelected)="onThresholdSelected($event)">
     </ccl-threshold-parameters>
 </div>
