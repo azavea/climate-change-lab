@@ -6,7 +6,7 @@ import 'rxjs/Rx';
 
 import { Indicator } from '../models/indicator.model';
 import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
-import { ThresholdIndicatorQueryOpts } from '../models/threshold-indicator-query-opts.model';
+import { ThresholdIndicatorParams } from '../models/threshold-indicator-params.model';
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
 
@@ -30,14 +30,14 @@ export class IndicatorService {
 
         // append extra parameters, if needed
         if (isThresholdIndicator(options.indicator.name)) {
-            const thresholdOpts: ThresholdIndicatorQueryOpts = <ThresholdIndicatorQueryOpts> options;
+            const thresholdParams = options.params as ThresholdIndicatorParams;
             // abort request if chart is in flux (these parameters are required)
-            if (!thresholdOpts.params.threshold) {
+            if (!thresholdParams.threshold) {
                 return Observable.of({url: ''});
             }
-            searchParams.append('threshold', thresholdOpts.params.threshold.toString());
-            searchParams.append('threshold_units', thresholdOpts.params.threshold_units);
-            searchParams.append('threshold_comparator', thresholdOpts.params.threshold_comparator);
+            searchParams.append('threshold', thresholdParams.threshold.toString());
+            searchParams.append('threshold_units', thresholdParams.threshold_units);
+            searchParams.append('threshold_comparator', thresholdParams.threshold_comparator);
         }
 
         if (options.params.years) {
