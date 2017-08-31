@@ -30,6 +30,7 @@ import { ImageExportService } from '../services/image-export.service';
 
 import { isBasetempIndicator,
          isHistoricIndicator,
+         isPercentileIndicator,
          isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
 
 import * as _ from 'lodash';
@@ -71,6 +72,8 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
     public isThresholdIndicator = isThresholdIndicator;
     public isBasetempIndicator = isBasetempIndicator;
     public isHistoricIndicator = isHistoricIndicator;
+    public isPercentileIndicator = isPercentileIndicator;
+
     public sliderConfig: any = {
         behaviour: 'drag',
         connect: true,
@@ -187,7 +190,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
-    public onThresholdSelected(params: IndicatorQueryParams) {
+    public onExtraParamsSelected(params: IndicatorQueryParams) {
         this.extraParams = params;
         this.onExtraParamsChanged.emit(this.extraParams);
         this.updateChart(this.extraParams);

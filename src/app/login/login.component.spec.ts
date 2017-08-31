@@ -32,6 +32,7 @@ import {
 
 import { ThresholdComponent,
          BasetempComponent,
+         PercentileComponent,
          HistoricComponent } from '../charts/extra-params-components';
 
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -91,7 +92,7 @@ describe('LoginComponent', () => {
                 CityDropdownComponent, ScenarioToggleComponent, ModelModalComponent,
                 UnitsDropdownComponent, ChartComponent, IndicatorListComponent, LineGraphComponent,
                 WaveComponent, ThresholdComponent, HistoricComponent, CopyCurlComponent,
-                BasetempComponent ],
+                BasetempComponent, PercentileComponent ],
             providers: [
                         {provide: AuthService, useValue: authServiceStub}]
         });

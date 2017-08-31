@@ -7,8 +7,8 @@ import { ThresholdIndicatorQueryParams } from '../../models/threshold-indicator-
 import * as _ from 'lodash';
 
 /*
- * Chart component
- * Container for each individual chart plus controls
+ * Threshold params component
+ * Multi-field form to allow user to specify threshold params
  */
 @Component({
   selector: 'ccl-threshold-parameters',

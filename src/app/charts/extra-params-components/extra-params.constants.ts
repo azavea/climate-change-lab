@@ -16,8 +16,15 @@ const historicIndicatorNames = [
     'heat_wave_incidents'
 ];
 
-// TODO: concat additional extra parameter names to this array for #203, #204, and #205
-const extraParamsIndicatorNames = thresholdIndicatorNames;
+const percentileIndicatorNames = [
+    'percentile_high_temperature',
+    'percentile_low_temperature',
+    'percentile_precipitation'
+];
+
+// TODO: concat additional extra parameter names to this array for #205
+const extraParamsIndicatorNames = [].concat(thresholdIndicatorNames,
+	percentileIndicatorNames, historicIndicatorNames);
 
 export function isBasetempIndicator(indicatorName: string): boolean {
     return basetempIndicatorNames.indexOf(indicatorName) !== -1;
@@ -33,10 +40,9 @@ export function isThresholdIndicator(indicatorName: string): boolean {
 
 // TODO: use or remove this function
 export function hasExtraParams(indicatorName: string): boolean {
-    for (const extraParamName of extraParamsIndicatorNames) {
-        if (indicatorName === extraParamName) {
-            return true;
-        }
-    }
-    return false;
+    return extraParamsIndicatorNames.indexOf(indicatorName) !== -1;
+}
+
+export function isPercentileIndicator(indicatorName: string): boolean {
+    return percentileIndicatorNames.indexOf(indicatorName) !== -1;
 }
