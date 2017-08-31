@@ -42,7 +42,7 @@ import * as _ from 'lodash';
 export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
 
     @Output() onRemoveChart = new EventEmitter<Chart>();
-    @Output() onExtraParamsChanged = new EventEmitter<any>();
+    @Output() onExtraParamsChanged = new EventEmitter<IndicatorParams>();
 
     @Input() chart: Chart;
     @Input() scenario: Scenario;
@@ -181,8 +181,8 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
-    public onThresholdSelected($event) {
-        this.extraParams = $event.data as IndicatorParams;
+    public onThresholdSelected(params: IndicatorParams) {
+        this.extraParams = params;
         this.onExtraParamsChanged.emit(this.extraParams);
         this.updateChart(this.extraParams);
     }

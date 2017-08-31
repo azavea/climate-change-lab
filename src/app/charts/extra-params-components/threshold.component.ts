@@ -2,6 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, Output, OnInit } from '@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Indicator } from '../../models/indicator.model';
+import { ThresholdIndicatorParams } from '../../models/threshold-indicator-params.model';
 
 import * as _ from 'lodash';
 
@@ -16,7 +17,8 @@ import * as _ from 'lodash';
 export class ThresholdComponent implements AfterViewInit, OnInit {
 
     @Input() indicator: Indicator;
-    @Input() extraParams: any;
+    @Input() extraParams: ThresholdIndicatorParams;
+    @Output() thresholdParamSelected = new EventEmitter<ThresholdIndicatorParams>();
 
     thresholdForm: FormGroup;
 
@@ -50,8 +52,6 @@ export class ThresholdComponent implements AfterViewInit, OnInit {
 
     @Input() thresholdUnits: any[] = this.thresholdTemperatureUnits;
 
-    @Output() thresholdParamSelected = new EventEmitter<any>();
-
     constructor(private formBuilder: FormBuilder) {}
 
     ngOnInit() {
@@ -62,11 +62,11 @@ export class ThresholdComponent implements AfterViewInit, OnInit {
     ngAfterViewInit() {
         // Since valueChanges triggers initially before parent is ready, wait until
         // parent is ready here and trigger it to draw chart with extra parameters.
-        this.thresholdParamSelected.emit({data: {
+        this.thresholdParamSelected.emit({
             'threshold_comparator': this.thresholdForm.controls.comparatorCtl.value,
             'threshold': this.thresholdForm.controls.thresholdCtl.value,
             'threshold_units': this.thresholdForm.controls.thresholdUnitCtl.value
-        }});
+        });
     }
 
     createForm() {
@@ -78,12 +78,11 @@ export class ThresholdComponent implements AfterViewInit, OnInit {
         });
 
         this.thresholdForm.valueChanges.debounceTime(700).subscribe(form => {
-            this.thresholdParamSelected.emit({data: {
-                'event': event,
+            this.thresholdParamSelected.emit({
                 'threshold_comparator': form.comparatorCtl,
                 'threshold': form.thresholdCtl,
                 'threshold_units': form.thresholdUnitCtl
-            }});
+            });
         });
     }
 
