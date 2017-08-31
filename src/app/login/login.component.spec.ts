@@ -30,7 +30,8 @@ import {
     LabComponent
 } from '../lab';
 
-import { ThresholdComponent } from '../charts/extra-params-components/threshold.component';
+import { ThresholdComponent,
+         BasetempComponent } from '../charts/extra-params-components/threshold.component';
 
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
@@ -88,7 +89,7 @@ describe('LoginComponent', () => {
                 AddEditProjectComponent, PageNotFoundComponent, SidebarComponent, AppComponent,
                 CityDropdownComponent, ScenarioToggleComponent, ModelModalComponent,
                 UnitsDropdownComponent, ChartComponent, IndicatorListComponent, LineGraphComponent,
-                WaveComponent, ThresholdComponent, CopyCurlComponent ],
+                WaveComponent, ThresholdComponent, CopyCurlComponent, BasetempComponent ],
             providers: [
                         {provide: AuthService, useValue: authServiceStub}]
         });
