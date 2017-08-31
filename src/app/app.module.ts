@@ -33,6 +33,7 @@ import {
 // App Components
 import { AppComponent } from './app.component';
 import { AddEditProjectComponent } from './project/add-edit-project.component';
+import { BasetempComponent } from './charts/extra-params-components/basetemp.component';
 import { ChartComponent } from './charts/chart.component';
 import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -68,6 +69,7 @@ const locationStrategyProvider = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
+    BasetempComponent,
     WaveComponent,
     ThresholdComponent,
     CopyCurlComponent,

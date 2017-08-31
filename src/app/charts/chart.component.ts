@@ -28,7 +28,8 @@ import { IndicatorService } from '../services/indicator.service';
 import { DataExportService } from '../services/data-export.service';
 import { ImageExportService } from '../services/image-export.service';
 
-import { isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
+import { isBasetempIndicator,
+         isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
 
 import * as _ from 'lodash';
 
@@ -67,6 +68,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
     private lastYear = 2100;
     public dateRange: number[] = [this.firstYear, this.lastYear];
     public isThresholdIndicator = isThresholdIndicator;
+    public isBasetempIndicator = isBasetempIndicator;
     public sliderConfig: any = {
         behaviour: 'drag',
         connect: true,

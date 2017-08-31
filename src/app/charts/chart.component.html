@@ -10,6 +10,7 @@
         (thresholdParamSelected)="onThresholdSelected($event)">
     </ccl-threshold-parameters>
 </div>
+<!-- TODO: ADD basetemp-->
 <div class="chart-body">
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
     <div class="chart-graphic" *ngIf="chartData && chartData.length">
