@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnChanges, Input, Output, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Indicator } from '../../models/indicator.model';
@@ -13,7 +13,7 @@ import * as _ from 'lodash';
   selector: 'ccl-threshold-parameters',
   templateUrl: './threshold.component.html'
 })
-export class ThresholdComponent implements AfterViewInit, OnChanges, OnInit {
+export class ThresholdComponent implements AfterViewInit, OnInit {
 
     @Input() indicator: Indicator;
     @Input() extraParams: any;
@@ -53,20 +53,6 @@ export class ThresholdComponent implements AfterViewInit, OnChanges, OnInit {
     @Output() thresholdParamSelected = new EventEmitter<any>();
 
     constructor(private formBuilder: FormBuilder) {}
-
-    ngOnChanges(changes: any) {
-        /* Ignore change detection:
-            - before initalization
-            - from extraParams @Input whose initial values are all we want
-        */
-        if (changes.indicator && this.thresholdForm) {
-            this.thresholdForm.reset({
-                thresholdUnitCtl: this.defaultUnit,
-                comparatorCtl: this.defaultComparator,
-                thresholdCtl: this.defaultThreshold
-            });
-        }
-    }
 
     ngOnInit() {
         // must create form on init instead of constructor to capture @Input values
