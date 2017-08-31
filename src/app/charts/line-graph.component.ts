@@ -277,7 +277,7 @@ export class LineGraphComponent implements OnChanges, AfterContentInit {
 
         // Default round down position to existing time point
         // Note the +unary operator before dates. Converts dates to numbers to quell tslinter
-        const bisectDate = D3.bisector(function(d) { return d.date; }).left;
+        const bisectDate = D3.bisector(function(datum) { return datum.date; }).left;
         const x0 = this.xScale.invert(xPos),
             i = +bisectDate(this.extractedData, x0, 1),
             d0 = this.extractedData[i - 1],
