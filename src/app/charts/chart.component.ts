@@ -20,6 +20,7 @@ import { ClimateModel } from '../models/climate-model.model';
 import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
 import { IndicatorParams } from '../models/indicator-params.model';
 import { Scenario } from '../models/scenario.model';
+import { TimeAggParam } from '../models/time-agg-param.enum';
 
 import { AuthService } from '../auth/auth.service';
 import { ChartService } from '../services/chart.service';
@@ -49,7 +50,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
     @Input() models: ClimateModel[];
     @Input() city: City;
     @Input() unit: string;
-    @Input() extraParams;
+    @Input() extraParams: IndicatorParams;
 
     private processedData: ChartData[];
     public chartData: ChartData[];
@@ -115,18 +116,15 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.cancelDataRequest();
     }
 
-    updateChart(extraParams: any) {
+    updateChart(extraParams: IndicatorParams) {
         this.cancelDataRequest();
         this.chartData = [];
         this.rawChartData = [];
 
-        let params = {
+        let params: IndicatorParams = {
             climateModels: this.models,
             unit: this.unit || this.chart.indicator.default_units,
-            // TODO: #212
-            // As a temporary solution, the time agg defaults to the 1st valid option.
-            // Really, this should a user selectable option
-            time_aggregation: this.chart.indicator.valid_aggregations[0]
+            time_aggregation: TimeAggParam.Yearly
         }
 
         params = _.extend(params, this.extraParams);
