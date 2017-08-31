@@ -81,6 +81,10 @@ export class LabComponent implements OnInit, OnDestroy {
         this.indicator = null;
     }
 
+    public saveExtraParams(params: any) {
+        this.project.project_data.extraParams = params;
+    }
+
     public indicatorSelected(indicator: Indicator) {
         // Must compare indicator names and not objects,
         // or else will fail for first loaded indicator on page.
@@ -89,9 +93,15 @@ export class LabComponent implements OnInit, OnDestroy {
             return;
         }
         this.removeChart();
-        this.indicator = indicator;
-        const chart = new Chart({indicator: indicator,
-                                 unit: indicator.default_units});
-        this.project.project_data.charts = [chart];
+        /*  Trigger lifecycle to truly destroy the chart component & its children
+            Reset defaults in fresh child components
+            Cleanly evaluate which children to have (e.g. extra params) */
+        setTimeout(() => {
+            this.indicator = indicator;
+            this.saveExtraParams({});
+            const chart = new Chart({indicator: indicator,
+                                     unit: indicator.default_units});
+            this.project.project_data.charts = [chart];
+        })
     }
 }

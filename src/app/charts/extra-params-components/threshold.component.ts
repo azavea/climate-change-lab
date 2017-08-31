@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, EventEmitter, OnChanges, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Indicator } from '../../models/indicator.model';
 
 import * as _ from 'lodash';
 
@@ -11,9 +13,10 @@ import * as _ from 'lodash';
   selector: 'ccl-threshold-parameters',
   templateUrl: './threshold.component.html'
 })
-export class ThresholdComponent implements AfterViewInit, OnChanges {
+export class ThresholdComponent implements AfterViewInit, OnInit {
 
-    @Input() label: string;
+    @Input() indicator: Indicator;
+    @Input() extraParams: any;
 
     thresholdForm: FormGroup;
 
@@ -38,6 +41,7 @@ export class ThresholdComponent implements AfterViewInit, OnChanges {
 
     // default form values
     private defaultThreshold = 50;
+    private defaultUnit = '';
     private defaultPrecipitationUnit = 'mm';
     private defaultTemperatureUnit = 'F';
     private defaultComparator = 'lte';
@@ -48,14 +52,32 @@ export class ThresholdComponent implements AfterViewInit, OnChanges {
 
     @Output() thresholdParamSelected = new EventEmitter<any>();
 
+    constructor(private formBuilder: FormBuilder) {}
+
+    ngOnInit() {
+        // must create form on init instead of constructor to capture @Input values
+        this.createForm();
+    }
+
+    ngAfterViewInit() {
+        // Since valueChanges triggers initially before parent is ready, wait until
+        // parent is ready here and trigger it to draw chart with extra parameters.
+        this.thresholdParamSelected.emit({data: {
+            'threshold_comparator': this.thresholdForm.controls.comparatorCtl.value,
+            'threshold': this.thresholdForm.controls.thresholdCtl.value,
+            'threshold_units': this.thresholdForm.controls.thresholdUnitCtl.value
+        }});
+    }
+
     createForm() {
-        this.thresholdForm = this.fb.group({
-            comparatorCtl: [this.defaultComparator, Validators.required],
-            thresholdCtl: [this.defaultThreshold, Validators.required],
-            thresholdUnitCtl: [this.defaultTemperatureUnit, Validators.required]
+        this.evaluateVariable();
+        this.thresholdForm = this.formBuilder.group({
+            comparatorCtl: [this.extraParams.threshold_comparator || this.defaultComparator, Validators.required],
+            thresholdCtl: [this.extraParams.threshold || this.defaultThreshold, Validators.required],
+            thresholdUnitCtl: [this.extraParams.threshold_units || this.defaultUnit, Validators.required]
         });
 
-        this.thresholdForm.valueChanges.debounceTime(1000).subscribe(form => {
+        this.thresholdForm.valueChanges.debounceTime(700).subscribe(form => {
             this.thresholdParamSelected.emit({data: {
                 'event': event,
                 'threshold_comparator': form.comparatorCtl,
@@ -65,37 +87,14 @@ export class ThresholdComponent implements AfterViewInit, OnChanges {
         });
     }
 
-    constructor(private fb: FormBuilder) {
-        this.createForm();
-    }
-
-    ngAfterViewInit() {
-        // Since valueChanges triggers initially before parent is ready, wait until
-        // parent is ready here and trigger it to draw chart with extra parameters.
-        this.thresholdParamSelected.emit({data: {
-            'event': null,
-            'threshold_comparator': this.thresholdForm.controls.comparatorCtl.value,
-            'threshold': this.thresholdForm.controls.thresholdCtl.value,
-            'threshold_units': this.thresholdForm.controls.thresholdUnitCtl.value
-        }});
-    }
-
-    ngOnChanges(changes: any) {
-        // listen for the indicator label to be set before changing options and defaults, if needed
-        if (this.label.indexOf('Precipitation') > -1) {
+    private evaluateVariable() {
+        // Set component to precip or temperature
+        if (this.indicator.variables.includes('pr')) {
+            this.defaultUnit = this.defaultPrecipitationUnit;
             this.thresholdUnits = this.thresholdPrecipitationUnits;
-            this.thresholdForm.reset({
-                thresholdUnitCtl: this.defaultPrecipitationUnit,
-                comparatorCtl: this.defaultComparator,
-                thresholdCtl: this.defaultThreshold
-            });
         } else {
+            this.defaultUnit = this.defaultTemperatureUnit;
             this.thresholdUnits = this.thresholdTemperatureUnits;
-            this.thresholdForm.reset({
-                thresholdUnitCtl: this.defaultTemperatureUnit,
-                comparatorCtl: this.defaultComparator,
-                thresholdCtl: this.defaultThreshold
-            });
         }
     }
 }

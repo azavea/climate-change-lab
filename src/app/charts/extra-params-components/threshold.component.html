@@ -1,7 +1,7 @@
 <div class="chart-options-group threshold">
     <form [formGroup]="thresholdForm" novalidate>
         <div class="chart-options-body form-group">
-            <span class="optional-parameters-label">Show days where {{label | lowercase}} is </span>
+            <span class="optional-parameters-label">Show days where {{indicator.label | lowercase}} is </span>
             <select class="form-control chart-options-group" formControlName="comparatorCtl">
                 <option *ngFor="let comp of comparators"
                     [value]="comp.key">{{comp.label}}

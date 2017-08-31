@@ -3,20 +3,14 @@ import { Chart } from './chart.model';
 import { ClimateModel } from './climate-model.model';
 import { Scenario } from './scenario.model';
 
-export enum ProjectVisibility {
-    Private,
-    Public
-}
-
 export class ProjectData {
     name: string;
     description: string;
-    visibility: ProjectVisibility = ProjectVisibility.Private;
     city: City;
     scenario: Scenario;
-    allModels = true;
     models: ClimateModel[] = [];
     charts: Chart[] = [];
+    extraParams?: object;
 
     static fromJSON(object: Object) {
         return new this(object);
@@ -30,12 +24,11 @@ export class ProjectData {
         return {
             name: this.name,
             description: this.description,
-            visibility: this.visibility,
             city: this.city,
             scenario: this.scenario,
-            allModels: this.allModels,
             models: this.models,
-            charts: this.charts
+            charts: this.charts,
+            extraParams: this.extraParams
         };
     }
 }
