@@ -5,8 +5,8 @@ import 'rxjs/add/observable/of';
 import 'rxjs/Rx';
 
 import { Indicator } from '../models/indicator.model';
-import { IndicatorQueryOpts } from '../models/indicator-query-opts.model';
-import { ThresholdIndicatorQueryOpts } from '../models/threshold-indicator-query-opts.model';
+import { IndicatorRequestOpts } from '../models/indicator-request-opts.model';
+import { ThresholdIndicatorQueryParams } from '../models/threshold-indicator-query-params.model';
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
 
@@ -20,7 +20,7 @@ import { isThresholdIndicator } from '../charts/extra-params-components/extra-pa
 export class IndicatorService {
     constructor(private apiHttp: ApiHttp) {}
 
-    public getData(options: IndicatorQueryOpts) {
+    public getData(options: IndicatorRequestOpts) {
 
         const url = `${apiHost}/api/climate-data/${options.city.id}/${options.scenario.name}` +
                          `/indicator/${options.indicator.name}/`;
@@ -30,14 +30,14 @@ export class IndicatorService {
 
         // append extra parameters, if needed
         if (isThresholdIndicator(options.indicator.name)) {
-            const thresholdOpts: ThresholdIndicatorQueryOpts = <ThresholdIndicatorQueryOpts> options;
+            const thresholdParams = options.params as ThresholdIndicatorQueryParams;
             // abort request if chart is in flux (these parameters are required)
-            if (!thresholdOpts.params.threshold) {
+            if (!thresholdParams.threshold) {
                 return Observable.of({url: ''});
             }
-            searchParams.append('threshold', thresholdOpts.params.threshold.toString());
-            searchParams.append('threshold_units', thresholdOpts.params.threshold_units);
-            searchParams.append('threshold_comparator', thresholdOpts.params.threshold_comparator);
+            searchParams.append('threshold', thresholdParams.threshold.toString());
+            searchParams.append('threshold_units', thresholdParams.threshold_units);
+            searchParams.append('threshold_comparator', thresholdParams.threshold_comparator);
         }
 
         if (options.params.years) {

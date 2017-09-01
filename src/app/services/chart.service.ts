@@ -17,7 +17,6 @@ export class ChartService {
 
     private timeOptions = {
           'yearly': '%Y',
-          'daily': '%Y-%m-%d',
           'monthly': '%Y-%m'
         };
 
