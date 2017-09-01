@@ -14,7 +14,7 @@ import { ProjectService } from '../services/project.service';
 
 import { Chart } from '../models/chart.model';
 import { Indicator } from '../models/indicator.model';
-import { IndicatorParams } from '../models/indicator-params.model';
+import { IndicatorQueryParams } from '../models/indicator-query-params.model';
 import { Project } from '../models/project.model';
 
 
@@ -82,7 +82,7 @@ export class LabComponent implements OnInit, OnDestroy {
         this.indicator = null;
     }
 
-    public saveExtraParams(params: IndicatorParams) {
+    public saveExtraParams(params: IndicatorQueryParams) {
         this.project.project_data.extraParams = params;
     }
 

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, Output, OnInit } from '@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Indicator } from '../../models/indicator.model';
-import { ThresholdIndicatorParams } from '../../models/threshold-indicator-params.model';
+import { ThresholdIndicatorQueryParams } from '../../models/threshold-indicator-query-params.model';
 
 import * as _ from 'lodash';
 
@@ -17,8 +17,8 @@ import * as _ from 'lodash';
 export class ThresholdComponent implements AfterViewInit, OnInit {
 
     @Input() indicator: Indicator;
-    @Input() extraParams: ThresholdIndicatorParams;
-    @Output() thresholdParamSelected = new EventEmitter<ThresholdIndicatorParams>();
+    @Input() extraParams: ThresholdIndicatorQueryParams;
+    @Output() thresholdParamSelected = new EventEmitter<ThresholdIndicatorQueryParams>();
 
     thresholdForm: FormGroup;
 

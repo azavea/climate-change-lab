@@ -1,12 +1,12 @@
 import { City } from './city.model';
 import { Indicator } from './indicator.model';
-import { IndicatorParams } from './indicator-params.model';
+import { IndicatorQueryParams } from './indicator-query-params.model';
 import { ClimateModel } from './climate-model.model';
 import { Scenario } from './scenario.model';
 
-export interface IndicatorQueryOpts {
+export interface IndicatorRequestOpts {
     indicator: Indicator;
     city: City;
     scenario: Scenario;
-    params: IndicatorParams;
+    params: IndicatorQueryParams;
 }
