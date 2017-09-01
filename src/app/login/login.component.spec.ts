@@ -31,7 +31,7 @@ import {
 } from '../lab';
 
 import { ThresholdComponent,
-         BasetempComponent } from '../charts/extra-params-components/threshold.component';
+         BasetempComponent } from '../charts/extra-params-components';
 
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';

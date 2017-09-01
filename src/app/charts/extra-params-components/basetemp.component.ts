@@ -2,6 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, Output, OnInit } from '@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Indicator } from '../../models/indicator.model';
+import { BasetempIndicatorQueryParams } from '../../models/basetemp-indicator-query-params.model';
 
 import * as _ from 'lodash';
 
@@ -16,7 +17,8 @@ import * as _ from 'lodash';
 export class BasetempComponent implements AfterViewInit, OnInit {
 
     @Input() indicator: Indicator;
-    @Input() extraParams: any;
+    @Input() extraParams: BasetempIndicatorQueryParams;
+    @Output() basetempParamSelected = new EventEmitter<BasetempIndicatorQueryParams>();
 
     basetempForm: FormGroup;
 
@@ -24,7 +26,11 @@ export class BasetempComponent implements AfterViewInit, OnInit {
     private defaultBasetemp = 50;
     private defaultBasetempUnit = 'F';
 
-    @Output() basetempParamSelected = new EventEmitter<any>();
+    public basetempUnits: any[] = [
+        {'key': 'K', 'label': 'Kelvin'},
+        {'key': 'F', 'label': 'Farenheit'},
+        {'key': 'C', 'label': 'Centigrade'}
+     ];
 
     constructor(private formBuilder: FormBuilder) {}
 
@@ -36,10 +42,10 @@ export class BasetempComponent implements AfterViewInit, OnInit {
     ngAfterViewInit() {
         // Since valueChanges triggers initially before parent is ready, wait until
         // parent is ready here and trigger it to draw chart with extra parameters.
-        this.basetempParamSelected.emit({data: {
+        this.basetempParamSelected.emit({
             'basetemp': this.basetempForm.controls.basetempCtl.value,
             'basetemp_units': this.basetempForm.controls.basetempUnitCtl.value
-        }});
+        });
     }
 
     createForm() {
@@ -49,11 +55,10 @@ export class BasetempComponent implements AfterViewInit, OnInit {
         });
 
         this.basetempForm.valueChanges.debounceTime(700).subscribe(form => {
-            this.basetempParamSelected.emit({data: {
-                'event': event,
+            this.basetempParamSelected.emit({
                 'basetemp': form.basetempCtl,
                 'basetemp_units': form.basetempUnitCtl
-            }});
+            });
         });
     }
 }

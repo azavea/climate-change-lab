@@ -15,12 +15,7 @@ const basetempIndicatorNames = [
 const extraParamsIndicatorNames = thresholdIndicatorNames;
 
 export function isBasetempIndicator(indicatorName: string): boolean {
-    for (const basetempName of basetempIndicatorNames) {
-        if (indicatorName === basetempName) {
-            return true;
-        }
-    }
-    return false;
+    return basetempIndicatorNames.indexOf(indicatorName) !== -1;
 }
 
 export function isThresholdIndicator(indicatorName: string): boolean {

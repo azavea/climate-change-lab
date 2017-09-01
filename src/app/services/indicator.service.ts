@@ -8,7 +8,7 @@ import { Indicator } from '../models/indicator.model';
 import { IndicatorRequestOpts } from '../models/indicator-request-opts.model';
 import { ThresholdIndicatorQueryParams } from '../models/threshold-indicator-query-params.model';
 import { BasetempIndicatorQueryParams } from '../models/basetemp-indicator-query-params.model';
-import { IndicatorQueryParams } from '../models/indicator-query-params.model';\
+import { IndicatorQueryParams } from '../models/indicator-query-params.model';
 
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
@@ -46,13 +46,13 @@ export class IndicatorService {
 
         // append extra parameters, if needed
         if (isBasetempIndicator(options.indicator.name)) {
-            const basetempOpts: BasetempIndicatorQueryOpts = <BasetempIndicatorQueryOpts> options;
+            const basetempOpts = options.params as BasetempIndicatorQueryParams;
             // abort request if chart is in flux (these parameters are required)
-            if (!basetempOpts.params.basetemp) {
+            if (!basetempOpts.basetemp) {
                 return Observable.of({url: ''});
             }
-            searchParams.append('basetemp', basetempOpts.params.basetemp.toString());
-            searchParams.append('basetemp_units', basetempOpts.params.basetemp_units);
+            searchParams.append('basetemp', basetempOpts.basetemp.toString());
+            searchParams.append('basetemp_units', basetempOpts.basetemp_units);
         }
 
         if (options.params.years) {
