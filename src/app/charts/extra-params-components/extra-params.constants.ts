@@ -6,8 +6,17 @@ const thresholdIndicatorNames = [
     'precipitation_threshold'
 ];
 
+const basetempIndicatorNames = [
+    'cooling_degree_days',
+    'heating_degree_days'
+];
+
 // TODO: concat additional extra parameter names to this array for #203, #204, and #205
 const extraParamsIndicatorNames = thresholdIndicatorNames;
+
+export function isBasetempIndicator(indicatorName: string): boolean {
+    return basetempIndicatorNames.indexOf(indicatorName) !== -1;
+}
 
 export function isThresholdIndicator(indicatorName: string): boolean {
     for (const thresholdName of thresholdIndicatorNames) {
