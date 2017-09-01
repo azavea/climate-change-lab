@@ -8,7 +8,7 @@
                            formControlName="basetempCtl">
                 </div>
                 <select class="form-control chart-options-group" formControlName="basetempUnitCtl">
-                    <option *ngFor="let unit of basetempUnits"
+                    <option *ngFor="let unit of temperatureUnits"
                         [value]="unit.key">{{unit.label}}
                     </option>
                 </select>

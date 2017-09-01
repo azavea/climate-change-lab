@@ -26,6 +26,18 @@ const percentileIndicatorNames = [
 const extraParamsIndicatorNames = [].concat(thresholdIndicatorNames,
 	percentileIndicatorNames, historicIndicatorNames);
 
+export const TemperatureUnits: any[] = [
+    {'key': 'K', 'label': 'Kelvin'},
+    {'key': 'F', 'label': 'Farenheit'},
+    {'key': 'C', 'label': 'Centigrade'}
+ ];
+
+export const PrecipitationUnits: any[] = [
+    {'key': 'mm', 'label': 'millimeters'},
+    {'key': 'in', 'label': 'inches'},
+    {'key': 'kg/m^2', 'label': 'kg/m^2'}
+];
+
 export function isBasetempIndicator(indicatorName: string): boolean {
     return basetempIndicatorNames.indexOf(indicatorName) !== -1;
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Indicator } from '../../models/indicator.model';
 import { BasetempIndicatorQueryParams } from '../../models/basetemp-indicator-query-params.model';
+import { TemperatureUnits } from './extra-params.constants';
 
 import * as _ from 'lodash';
 
@@ -25,12 +26,7 @@ export class BasetempComponent implements AfterViewInit, OnInit {
     // default form values
     private defaultBasetemp = 50;
     private defaultBasetempUnit = 'F';
-
-    public basetempUnits: any[] = [
-        {'key': 'K', 'label': 'Kelvin'},
-        {'key': 'F', 'label': 'Farenheit'},
-        {'key': 'C', 'label': 'Centigrade'}
-     ];
+    private temperatureUnits = TemperatureUnits;
 
     constructor(private formBuilder: FormBuilder) {}
 
