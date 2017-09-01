@@ -51,7 +51,7 @@ export class PercentileComponent implements AfterViewInit, OnInit {
             if (pctl > 100 || pctl < 1) { return; }
             this.percentileParamSelected.emit({
 		'event': event,
-                'percentile': parseInt(pctl)
+                'percentile':Math.round(pctl)
             });
         });
     }
