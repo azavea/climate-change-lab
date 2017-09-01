@@ -55,7 +55,8 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
     public chartData: ChartData[];
     public rawChartData: any;
     public isHover: Boolean = false;
-    public curlCommand: String;
+    public curlCommandHistorical: String;
+    public curlCommandFuture: String;
     private historicalScenario: Scenario = {
         name: 'historical',
         label: 'Historical',
@@ -146,13 +147,16 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
             historical,
             future
         ).subscribe(data => {
-            const chartQuery = data[1].url;
+            const chartQueryHistorical = data[0].url;
+            const chartQueryFuture = data[1].url;
             delete data[1].url; // apart from URL, returned data is raw query response
             this.rawChartData = data[1];
             this.processedData = this.chartService.convertChartData(data);
             this.chartData = _.cloneDeep(this.processedData);
 
-            this.curlCommand = `curl -i "${chartQuery}" -H "Authorization: Token ` +
+            this.curlCommandHistorical = `curl -i "${chartQueryHistorical}" -H "Authorization: Token ` +
+                               `${this.authService.getToken()}"`;
+            this.curlCommandFuture = `curl -i "${chartQueryFuture}" -H "Authorization: Token ` +
                                `${this.authService.getToken()}"`;
         });
     }
@@ -186,12 +190,6 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.extraParams = thresholdParams;
         this.onExtraParamsChanged.emit(this.extraParams);
         this.updateChart(this.extraParams);
-    }
-
-    curlCommandCopied(copiedPopup) {
-        // show a confirmation tooltip, then hide it again after a second
-        copiedPopup.show();
-        setTimeout(() => { copiedPopup.hide(); }, 1000);
     }
 
     removeChart(chart: Chart) {

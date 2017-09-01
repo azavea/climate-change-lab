@@ -38,6 +38,7 @@ import { AddEditProjectComponent } from '../project/add-edit-project.component';
 import { PageNotFoundComponent } from '../http-status/page-not-found/page-not-found.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChartComponent } from '../charts/chart.component';
+import { CopyCurlComponent } from '../charts/copy-curl.component';
 import { IndicatorListComponent } from '../sidebar/indicator-list.component';
 import { LineGraphComponent } from '../charts/line-graph.component';
 import { WaveComponent } from '../ng2-spin-kit/wave.component';
@@ -87,7 +88,7 @@ describe('LoginComponent', () => {
                 AddEditProjectComponent, PageNotFoundComponent, SidebarComponent, AppComponent,
                 CityDropdownComponent, ScenarioToggleComponent, ModelModalComponent,
                 UnitsDropdownComponent, ChartComponent, IndicatorListComponent, LineGraphComponent,
-                WaveComponent, ThresholdComponent ],
+                WaveComponent, ThresholdComponent, CopyCurlComponent ],
             providers: [
                         {provide: AuthService, useValue: authServiceStub}]
         });

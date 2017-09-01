@@ -1,0 +1,14 @@
+<div class="input-group">
+    <span class="curl-label">{{ label }}</span>
+    <input type="text" class="form-control curl-command"
+        [(ngModel)]="curl"
+        placeholder={{placeholder}}
+        #curlCommandInput>
+    <button type="button" class="input-group-btn"
+        tooltip="Copied!"
+        triggers="" #copiedPopup="bs-tooltip"
+        [ngxClipboard]="curlCommandInput"
+        (cbOnSuccess)="curlCommandCopied(copiedPopup)">
+        <i class="icon icon-clipboard"></i>
+    </button>
+</div>

@@ -69,19 +69,16 @@
                             <div class="drowdown-item">
                                 <h4>Get API Call</h4>
                                 <p>Use our API to access these data regularly for your own research or application.</p>
-                                <div class="input-group">
-                                    <input type="text" class="form-control curl-command"
-                                        [(ngModel)]="curlCommand"
-                                        placeholder="curl command for API query"
-                                        #curlCommandInput>
-                                    <button type="button" class="input-group-btn"
-                                        tooltip="Copied!"
-                                        triggers="" #copiedPopup="bs-tooltip"
-                                        [ngxClipboard]="curlCommandInput"
-                                        (cbOnSuccess)="curlCommandCopied(copiedPopup)">
-                                        <i class="icon icon-clipboard"></i>
-                                    </button>
-                                </div>
+                                <ccl-copy-curl
+                                    [label]="'Future data'"
+                                    [placeholder]="'future curl command for API query'"
+                                    [curl]="curlCommandFuture">
+                                </ccl-copy-curl>
+                                <ccl-copy-curl
+                                    [label]="'Historical data'"
+                                    [placeholder]="'historical curl command for API query'"
+                                    [curl]="curlCommandHistorical">
+                                </ccl-copy-curl>
                             </div>
                         </li>
                     </ul>
