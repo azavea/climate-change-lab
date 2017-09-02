@@ -56,6 +56,7 @@ import { ChartService } from './services/chart.service';
 import { DataExportService } from './services/data-export.service';
 import { ImageExportService } from './services/image-export.service';
 import { ClimateModelService } from './services/climate-model.service';
+import { HistoricRangeService } from './services/historic-range.service';
 import { IndicatorService } from './services/indicator.service';
 import { ScenarioService } from './services/scenario.service';
 import { ProjectService } from './services/project.service';
@@ -116,6 +117,7 @@ const locationStrategyProvider = {
     DataExportService,
     ImageExportService,
     ClimateModelService,
+    HistoricRangeService,
     IndicatorService,
     ScenarioService,
     ProjectService
