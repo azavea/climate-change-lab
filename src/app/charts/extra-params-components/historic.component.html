@@ -1,0 +1,12 @@
+<div class="chart-options-group historic">
+    <form [formGroup]="historicForm" novalidate>
+        <div class="chart-options-body form-group">
+            <span class="optional-parameters-label">Show {{indicator.label | lowercase}} with historic range base year</span>
+                <div class="chart-options-group">
+                    <input type="number"
+                           step="1"
+                           formControlName="historicCtl">
+                </div>
+        </div>
+    </form>
+</div>

@@ -37,6 +37,7 @@ import { BasetempComponent } from './charts/extra-params-components/basetemp.com
 import { ChartComponent } from './charts/chart.component';
 import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HistoricComponent } from './charts/extra-params-components/historic.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
 import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
@@ -72,6 +73,7 @@ const locationStrategyProvider = {
     BasetempComponent,
     WaveComponent,
     ThresholdComponent,
+    HistoricComponent,
     CopyCurlComponent,
     ChartComponent,
     DashboardComponent,

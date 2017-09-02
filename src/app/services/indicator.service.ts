@@ -8,12 +8,14 @@ import { Indicator } from '../models/indicator.model';
 import { IndicatorRequestOpts } from '../models/indicator-request-opts.model';
 import { ThresholdIndicatorQueryParams } from '../models/threshold-indicator-query-params.model';
 import { BasetempIndicatorQueryParams } from '../models/basetemp-indicator-query-params.model';
+import { HistoricIndicatorQueryParams } from '../models/historic-indicator-query-params.model';
 import { IndicatorQueryParams } from '../models/indicator-query-params.model';
 
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
 
 import { isBasetempIndicator,
+         isHistoricIndicator,
          isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
 
 /*
@@ -42,10 +44,7 @@ export class IndicatorService {
             searchParams.append('threshold', thresholdParams.threshold.toString());
             searchParams.append('threshold_units', thresholdParams.threshold_units);
             searchParams.append('threshold_comparator', thresholdParams.threshold_comparator);
-        }
-
-        // append extra parameters, if needed
-        if (isBasetempIndicator(options.indicator.name)) {
+        } else if (isBasetempIndicator(options.indicator.name)) {
             const basetempOpts = options.params as BasetempIndicatorQueryParams;
             // abort request if chart is in flux (these parameters are required)
             if (!basetempOpts.basetemp) {
@@ -53,6 +52,11 @@ export class IndicatorService {
             }
             searchParams.append('basetemp', basetempOpts.basetemp.toString());
             searchParams.append('basetemp_units', basetempOpts.basetemp_units);
+        } else if (isHistoricIndicator(options.indicator.name)) {
+            const historicOpts = options.params as HistoricIndicatorQueryParams;
+            if (historicOpts.historic_range) {
+                searchParams.append('historic_range', historicOpts.historic_range.toString());
+            }
         }
 
         if (options.params.years) {

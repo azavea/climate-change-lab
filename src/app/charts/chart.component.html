@@ -17,6 +17,13 @@
         (basetempParamSelected)="onThresholdSelected($event)">
     </ccl-basetemp-parameters>
 </div>
+<div *ngIf="isHistoricIndicator(chart.indicator.name)" class="chart-options">
+    <ccl-historic-parameters
+        [indicator]="chart.indicator"
+        [extraParams]="extraParams"
+        (historicParamSelected)="onThresholdSelected($event)">
+    </ccl-historic-parameters>
+</div>
 <div class="chart-body">
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
     <div class="chart-graphic" *ngIf="chartData && chartData.length">
