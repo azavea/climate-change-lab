@@ -60,6 +60,8 @@ export class HistoricComponent implements AfterViewInit, OnInit {
     getHistoricRanges() {
         this.historicRangeService.list().subscribe(data => {
             this.historicRangeOptions = _.map(data, 'start_year');
+            // add empty option, as this is not a required parameter
+            this.historicRangeOptions.unshift('');
         });
     }
 }
