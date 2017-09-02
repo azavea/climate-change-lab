@@ -3,9 +3,11 @@
         <div class="chart-options-body form-group">
             <span class="optional-parameters-label">Show {{indicator.label | lowercase}} with historic range base year</span>
                 <div class="chart-options-group">
-                    <input type="number"
-                           step="1"
-                           formControlName="historicCtl">
+                    <select class="form-control chart-options-group" formControlName="historicCtl">
+                        <option *ngFor="let startYear of historicRangeOptions"
+                            [value]="startYear">{{startYear}}
+                        </option>
+                    </select>
                 </div>
         </div>
     </form>
