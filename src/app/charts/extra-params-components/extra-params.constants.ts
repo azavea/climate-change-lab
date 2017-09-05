@@ -24,7 +24,8 @@ const percentileIndicatorNames = [
 
 // TODO: concat additional extra parameter names to this array for #205
 const extraParamsIndicatorNames = [].concat(thresholdIndicatorNames,
-	percentileIndicatorNames, historicIndicatorNames);
+                                            percentileIndicatorNames,
+                                            historicIndicatorNames);
 
 export const TemperatureUnits: any[] = [
     {'key': 'K', 'label': 'Kelvin'},

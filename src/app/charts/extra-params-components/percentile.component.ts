@@ -51,7 +51,7 @@ export class PercentileComponent implements AfterViewInit, OnInit {
             if (pctl > 100 || pctl < 1) { return; }
             this.percentileParamSelected.emit({
                 // TODO: #243 proper form feedback instead of rounding
-                'percentile':Math.round(pctl)
+                'percentile': Math.round(pctl)
             });
         });
     }

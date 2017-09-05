@@ -24,9 +24,9 @@ export class BasetempComponent implements AfterViewInit, OnInit {
     basetempForm: FormGroup;
 
     // default form values
-    private defaultBasetemp = 50;
-    private defaultBasetempUnit = 'F';
-    private temperatureUnits = TemperatureUnits;
+    public defaultBasetemp = 50;
+    public defaultBasetempUnit = 'F';
+    public temperatureUnits = TemperatureUnits;
 
     constructor(private formBuilder: FormBuilder) {}
 
