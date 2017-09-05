@@ -37,6 +37,7 @@ import { BasetempComponent } from './charts/extra-params-components/basetemp.com
 import { ChartComponent } from './charts/chart.component';
 import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HistoricComponent } from './charts/extra-params-components/historic.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
 import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
@@ -55,6 +56,7 @@ import { ChartService } from './services/chart.service';
 import { DataExportService } from './services/data-export.service';
 import { ImageExportService } from './services/image-export.service';
 import { ClimateModelService } from './services/climate-model.service';
+import { HistoricRangeService } from './services/historic-range.service';
 import { IndicatorService } from './services/indicator.service';
 import { ScenarioService } from './services/scenario.service';
 import { ProjectService } from './services/project.service';
@@ -72,6 +74,7 @@ const locationStrategyProvider = {
     BasetempComponent,
     WaveComponent,
     ThresholdComponent,
+    HistoricComponent,
     CopyCurlComponent,
     ChartComponent,
     DashboardComponent,
@@ -114,6 +117,7 @@ const locationStrategyProvider = {
     DataExportService,
     ImageExportService,
     ClimateModelService,
+    HistoricRangeService,
     IndicatorService,
     ScenarioService,
     ProjectService
