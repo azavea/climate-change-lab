@@ -44,8 +44,10 @@ import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { ThresholdComponent } from './charts/extra-params-components/threshold.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
+
+import { ThresholdComponent,
+         PercentileComponent } from './charts/extra-params-components/';
 
 // App services
 import { ApiHttp } from './auth/api-http.service';
@@ -76,6 +78,7 @@ const locationStrategyProvider = {
     ThresholdComponent,
     HistoricComponent,
     CopyCurlComponent,
+    PercentileComponent,
     ChartComponent,
     DashboardComponent,
     IndicatorListComponent,

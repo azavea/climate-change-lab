@@ -7,21 +7,28 @@
     <ccl-threshold-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
-        (thresholdParamSelected)="onThresholdSelected($event)">
+        (thresholdParamSelected)="onExtraParamsSelected($event)">
     </ccl-threshold-parameters>
 </div>
 <div *ngIf="isBasetempIndicator(chart.indicator.name)" class="chart-options">
     <ccl-basetemp-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
-        (basetempParamSelected)="onThresholdSelected($event)">
+        (basetempParamSelected)="onExtraParamsSelected($event)">
     </ccl-basetemp-parameters>
+</div>
+<div *ngIf="isPercentileIndicator(chart.indicator.name)" class="chart-options">
+    <ccl-percentile-parameters
+        [indicator]="chart.indicator"
+        [extraParams]="extraParams"
+        (percentileParamSelected)="onExtraParamsSelected($event)">
+    </ccl-percentile-parameters>
 </div>
 <div *ngIf="isHistoricIndicator(chart.indicator.name)" class="chart-options">
     <ccl-historic-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
-        (historicParamSelected)="onThresholdSelected($event)">
+        (historicParamSelected)="onExtraParamsSelected($event)">
     </ccl-historic-parameters>
 </div>
 <div class="chart-body">

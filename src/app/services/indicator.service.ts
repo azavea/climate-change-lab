@@ -9,14 +9,17 @@ import { IndicatorRequestOpts } from '../models/indicator-request-opts.model';
 import { ThresholdIndicatorQueryParams } from '../models/threshold-indicator-query-params.model';
 import { BasetempIndicatorQueryParams } from '../models/basetemp-indicator-query-params.model';
 import { HistoricIndicatorQueryParams } from '../models/historic-indicator-query-params.model';
+import { PercentileIndicatorQueryParams } from '../models/percentile-indicator-query-params.model';
 import { IndicatorQueryParams } from '../models/indicator-query-params.model';
+
+import { isBasetempIndicator,
+         isHistoricIndicator,
+         isPercentileIndicator,
+         isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
 
 import { ApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
 
-import { isBasetempIndicator,
-         isHistoricIndicator,
-         isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
 
 /*
  * Indicator Service
@@ -57,6 +60,13 @@ export class IndicatorService {
             if (historicOpts.historic_range) {
                 searchParams.append('historic_range', historicOpts.historic_range.toString());
             }
+        } else if (isPercentileIndicator(options.indicator.name)) {
+            const percentileOpts = options.params as PercentileIndicatorQueryParams;
+            // abort request if chart is in flux (these parameters are required)
+            if (!percentileOpts.percentile) {
+                return Observable.of({url: ''});
+            }
+            searchParams.append('percentile', percentileOpts.percentile.toString());
         }
 
         if (options.params.years) {

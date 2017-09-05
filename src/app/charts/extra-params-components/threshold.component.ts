@@ -3,12 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Indicator } from '../../models/indicator.model';
 import { ThresholdIndicatorQueryParams } from '../../models/threshold-indicator-query-params.model';
+import { PrecipitationUnits,
+         TemperatureUnits } from './extra-params.constants';
 
 import * as _ from 'lodash';
 
 /*
- * Chart component
- * Container for each individual chart plus controls
+ * Threshold params component
+ * Multi-field form to allow user to specify threshold params
  */
 @Component({
   selector: 'ccl-threshold-parameters',
@@ -22,24 +24,15 @@ export class ThresholdComponent implements AfterViewInit, OnInit {
 
     thresholdForm: FormGroup;
 
-    private thresholdTemperatureUnits: any[] = [
-        {'key': 'K', 'label': 'Kelvin'},
-        {'key': 'F', 'label': 'Farenheit'},
-        {'key': 'C', 'label': 'Centigrade'}
-     ];
-
-     private thresholdComparators: any[] = [
+    private thresholdComparators: any[] = [
         {'key': 'gte', 'label': 'greater than or equal to'},
         {'key': 'lte', 'label': 'less than or equal to'},
         {'key': 'gt', 'label': 'greater than'},
         {'key': 'lt', 'label': 'less than'}
     ];
 
-    private thresholdPrecipitationUnits: any[] = [
-        {'key': 'mm', 'label': 'millimeters'},
-        {'key': 'in', 'label': 'inches'},
-        {'key': 'kg/m^2', 'label': 'kg/m^2'}
-    ];
+    private temperatureUnits = TemperatureUnits;
+    private precipitationUnits = PrecipitationUnits;
 
     // default form values
     private defaultThreshold = 50;
@@ -49,8 +42,7 @@ export class ThresholdComponent implements AfterViewInit, OnInit {
     private defaultComparator = 'lte';
 
     @Input() comparators: any[] = this.thresholdComparators;
-
-    @Input() thresholdUnits: any[] = this.thresholdTemperatureUnits;
+    @Input() thresholdUnits: any[] = this.temperatureUnits;
 
     constructor(private formBuilder: FormBuilder) {}
 
@@ -90,10 +82,10 @@ export class ThresholdComponent implements AfterViewInit, OnInit {
         // Set component to precip or temperature
         if (this.indicator.variables.includes('pr')) {
             this.defaultUnit = this.defaultPrecipitationUnit;
-            this.thresholdUnits = this.thresholdPrecipitationUnits;
+            this.thresholdUnits = this.precipitationUnits;
         } else {
             this.defaultUnit = this.defaultTemperatureUnit;
-            this.thresholdUnits = this.thresholdTemperatureUnits;
+            this.thresholdUnits = this.temperatureUnits;
         }
     }
 }
