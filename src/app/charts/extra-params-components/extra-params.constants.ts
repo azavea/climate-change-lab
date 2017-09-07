@@ -13,16 +13,19 @@ const basetempIndicatorNames = [
 
 const historicIndicatorNames = [
     'heat_wave_duration_index',
-    'heat_wave_incidents'
+    'heat_wave_incidents',
+    'extreme_heat_events',
+    'extreme_precipitation_events'
 ];
 
 const percentileIndicatorNames = [
     'percentile_high_temperature',
     'percentile_low_temperature',
-    'percentile_precipitation'
+    'percentile_precipitation',
+    'extreme_heat_events',
+    'extreme_precipitation_events'
 ];
 
-// TODO: concat additional extra parameter names to this array for #205
 const extraParamsIndicatorNames = [].concat(thresholdIndicatorNames,
                                             percentileIndicatorNames,
                                             historicIndicatorNames);
