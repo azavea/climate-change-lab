@@ -1,4 +1,4 @@
-import { Feature, Point } from '@types/geojson';
+import { Feature, Point } from 'geojson';
 
 export interface CityProperties {
     name: String;

@@ -4,9 +4,8 @@ import {
     HostListener,
     Input,
     OnChanges,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation
+    ViewEncapsulation,
+    AfterContentInit
 } from '@angular/core';
 
 import { ChartData } from '../models/chart-data.model';
@@ -28,17 +27,12 @@ import { ChartService } from '../services/chart.service';
   template: `<ng-content></ng-content>`
 })
 
-export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
+export class LineGraphComponent implements OnChanges, AfterContentInit {
 
     @Input() public data: ChartData[];
     @Input() public indicator: Indicator;
-    @Input() public trendline: Boolean;
-    @Input() public min: Boolean;
-    @Input() public max: Boolean;
-    @Input() public minVal: number;
-    @Input() public maxVal: number;
     @Input() public hover: Boolean;
-    @Input() public multiChartScrubber: Boolean;
+    @Input() public unit: string;
 
     public extractedData: Array<DataPoint>;
 
@@ -63,9 +57,6 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
                                            // indicator be the same. However, this is quite unlikely
                                            // (1/10000, and even less likely by way of app use)
 
-    private multiChartScrubberHoverSubscription;
-    private multiChartScrubberInfoSubscription;
-
     /* We request angular for the element reference
     * and then we create a D3 Wrapper for our host element
     */
@@ -83,17 +74,21 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
     @HostListener('mousemove', ['$event'])
     onMouseMove(event) {
         // for single-chart scrubber
-        if (this.hover && !this.multiChartScrubber) {
+        if (this.hover) {
             this.redrawScrubber(event);
-        }
-        // for multi-chart scrubber
-        if (this.multiChartScrubber) {
-            this.chartService.updateMultiChartScrubberInfo(event);
         }
     }
 
     /* Executes on every @Input change */
     ngOnChanges(): void {
+        this.composeLineGraph();
+    }
+
+    ngAfterContentInit(): void {
+        this.composeLineGraph();
+    }
+
+    private composeLineGraph(): void {
         if (!this.data || this.data.length === 0) { return };
         this.filterData();
         this.setup();
@@ -101,61 +96,28 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
         this.setLineScales();
         this.drawGrid();
         this.drawMinMaxBand();
-        this.drawTrendLine();
-        this.drawThresholds();
         this.drawXAxis();
         this.drawYAxis();
         this.drawAvgLine();
         this.drawScrubber();
     }
 
-    ngOnInit(): void {
-        // Set up global chart mouseover communication chain if set to multi-chart scrubber
-        // ** CURRENTLY ONLY FOR YEARLY INDICATORS**
-        if (this.multiChartScrubber && this.data[0].time_aggregation === 'yearly') {
-            this.multiChartScrubberHoverSubscription = this.chartService
-                .multiChartScrubberHoverObservable.subscribe(data => {
-
-                this.hover = data;
-                this.hover ? $('.' + this.id).toggleClass('hidden', false) : $('.' + this.id)
-                    .toggleClass('hidden', true);
-            });
-            this.multiChartScrubberInfoSubscription = this.chartService
-                .multiChartScrubberInfoObservable.subscribe(event => {
-
-                // Only redraw if a chart is moused over
-                if (this.hover) {
-                    this.redrawScrubber(event);
-                }
-            });
-        }
-    }
-
-    ngOnDestroy(): void {
-        if (this.multiChartScrubber && this.data[0].time_aggregation === 'yearly') {
-            this.multiChartScrubberInfoSubscription.unsubscribe();
-            this.multiChartScrubberHoverSubscription.unsubscribe();
-        }
-    }
-
     private filterData(): void {
         // Preserves parent data by fresh copying indicator data that will undergo processing
-        const clippedData = _.cloneDeep(_.find(this.data, obj =>
-                                             obj.indicator.name === this.indicator.name));
-        _.has(clippedData, 'data') ?
-            this.extractedData = clippedData['data'] : this.extractedData = [];
+        _.has(this.data[0], 'data') ?
+            this.extractedData = _.cloneDeep(this.data[0]['data']) : this.extractedData = [];
         // Remove empty day in non-leap years (affects only daily data)
         if (this.extractedData[365] && this.extractedData[365]['date'] == null) {
             this.extractedData.pop();
         }
-        this.timeFormat = clippedData.time_format;
+        this.timeFormat = this.data[0].time_format;
     }
 
     /* Will setup the chart basics */
     private setup(): void {
-        this.margin = { top: 20, right: 40, bottom: 40, left: 50 };
+        this.margin = { top: 10, right: 50, bottom: 30, left: 60 };
         this.width = $('.chart').width() - this.margin.left - this.margin.right;
-        this.height = 214 - this.margin.top - this.margin.bottom;
+        this.height = $('.line-graph').height() - this.margin.top - this.margin.bottom;
         this.xScale = D3.scaleTime().range([0, this.width]);
         this.yScale = D3.scaleLinear().range([this.height, 0]);
         this.id = this.indicator.name + (Math.round(Math.random() * 10000)).toString();
@@ -250,47 +212,6 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
         this.drawLine(data, 'line');
     }
 
-    private drawTrendLine(): void {
-        // Only draw if data and add trendline flag
-        if (this.trendline && this.extractedData.length) {
-            this.xData = D3.range(1, this.yData.length + 1);
-
-            // Calculate linear regression variables
-            const leastSquaresCoeff = this.leastSquares(this.xData, this.yData);
-
-            // Apply the results of the regression
-            const x1 = this.xRange[1];
-            const y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
-            const x2 = this.xRange[0];
-            const y2 = leastSquaresCoeff[0] * this.xData.length + leastSquaresCoeff[1];
-            const trendData = [{'date': x1, 'value': y2}, {'date': x2, 'value': y1}];
-            // Add trendline
-            this.drawLine(trendData, 'trendline');
-        }
-    }
-
-    // returns slope, intercept and r-square of the line
-    private leastSquares(xData: Array<number>, yData: Array<number>): Array<number> {
-        const reduceSumFunc = function(prev, cur) { return prev + cur; };
-
-        const xBar = xData.reduce(reduceSumFunc) * 1.0 / xData.length;
-        const yBar = yData.reduce(reduceSumFunc) * 1.0 / yData.length;
-        const ssXX = _.map(xData, d => Math.pow(d - xBar, 2))
-                    .reduce(reduceSumFunc);
-
-        const ssYY = _.map(yData, d => Math.pow(d - yBar, 2))
-                    .reduce(reduceSumFunc);
-
-        const ssXY = _.map(xData, (d, i) => (d - xBar) * (yData[i] - yBar))
-                    .reduce(reduceSumFunc);
-
-        const slope = ssXY / ssXX;
-        const intercept = yBar - (xBar * slope);
-        const rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
-
-        return [slope, intercept, rSquare];
-    }
-
     private drawMinMaxBand(): void {
         const area = D3.area()
             .x(d => this.xScale(d.date))
@@ -308,33 +229,6 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
           .attr('d', area);
     }
 
-    private drawThresholds(): void {
-        if (this.min || this.max) {
-            if (this.min) {
-                // Prepare data for bar graph
-                const minBars = _(this.extractedData)
-                              .map((datum) => ({ 'date': datum['date'] }))
-                              /* tslint:disable-next-line:no-unused-variable */
-                              .filter((bar, index) => this.minVal > this.yData[index])
-                              .value();
-
-                // Add bar graph
-                this.drawBands(minBars, 'min-bar');
-            }
-
-            if (this.max) {
-                // Prepare data for bar graph
-                const maxBars = _(this.extractedData)
-                              .map((datum) => ({ 'date': datum['date'] }))
-                              /* tslint:disable-next-line:no-unused-variable */
-                              .filter((bar, index) => this.maxVal < this.yData[index])
-                              .value();
-
-                // Add bar graph
-                this.drawBands(maxBars, 'max-bar');
-            }
-        }
-    }
 
     private drawScrubber(): void {
         // Vertical scrub line. Exists outside scrubber cluster because it moves independently
@@ -383,7 +277,7 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
 
         // Default round down position to existing time point
         // Note the +unary operator before dates. Converts dates to numbers to quell tslinter
-        const bisectDate = D3.bisector(function(d) { return d.date; }).left;
+        const bisectDate = D3.bisector(function(datum) { return datum.date; }).left;
         const x0 = this.xScale.invert(xPos),
             i = +bisectDate(this.extractedData, x0, 1),
             d0 = this.extractedData[i - 1],
@@ -404,7 +298,7 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
         this.svg.selectAll('.scrubline').attr('transform', 'translate(' + xPos + ',' + 0 + ')');
 
         // Update scrubber text
-        const labelText = yDatum.toFixed(2) + ' ' + this.data[0]['indicator']['default_units'];
+        const labelText = yDatum.toFixed(2) + ' ' + this.unit;
         const textSVG = D3.select('.scrubber-text.' + this.id).text(labelText);
 
         // Center text
@@ -422,21 +316,5 @@ export class LineGraphComponent implements OnInit, OnChanges, OnDestroy {
             .data([data])
             .attr('class', className)
             .attr('d', this.valueline);
-    }
-
-    private drawBands(data: Array<DataPoint>, className: string): void {
-        const xscale = D3.scaleBand()
-            .range([0, this.width])
-            .padding(0)
-            .domain(_.map(this.extractedData, d => d.date));
-
-        this.svg.selectAll('.' + className)
-            .data(data)
-            .enter().append('rect')
-            .attr('class', className)
-            .attr('x', d => xscale(d.date))
-            .attr('width', xscale.bandwidth())
-            .attr('y', 0)
-            .attr('height', this.height);
     }
 }

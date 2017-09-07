@@ -1,3 +1,5 @@
+import { IndicatorParameter } from './indicator-parameter.model';
+
 /* tslint:disable:variable-name */
 export class Indicator {
     name: string;
@@ -7,7 +9,7 @@ export class Indicator {
     variables: string[];
     available_units?: string[];
     default_units?: string;
-    parameters?: any[];
+    parameters?: IndicatorParameter[];
     valid_aggregations?: string[];
 }
 /* tslint:enable:variable-name */

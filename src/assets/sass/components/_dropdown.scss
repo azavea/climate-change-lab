@@ -17,6 +17,16 @@
   outline: 0;
 }
 
+.dropup,
+.navbar-fixed-bottom .dropdown {
+  // Different positioning for bottom up menu
+  .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 2px;
+  }
+}
+
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -24,7 +34,7 @@
   z-index: 1000;
   display: none;
   float: left;
-  min-width: 160px;
+  min-width: 100px;
   padding: 1rem 0;
   margin: 2px 0 0;
   list-style: none;
@@ -46,14 +56,22 @@
     overflow: hidden;
     background-color: #e5e5e5;
   }
+  & > li {
+    &:not(:last-child) {
+      a {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  }
   & > li > a {
     text-decoration: none;
     display: block;
-    padding: 0.5rem 2rem;
+    padding: 1rem 1rem;
     clear: both;
     font-weight: normal;
     color: #333333;
     white-space: nowrap;
+    cursor: pointer;
   }
   & > li > a {
     &:hover,
@@ -96,6 +114,7 @@
 
 .open > .dropdown-menu {
   display: block;
+  padding: 0;
 }
 
 .open > a {

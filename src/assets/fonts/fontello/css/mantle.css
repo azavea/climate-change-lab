@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'mantle';
-  src: url('../font/mantle.eot');
-  src: url('../font/mantle.eot') format('embedded-opentype'),
-       url('../font/mantle.woff2') format('woff2'),
-       url('../font/mantle.woff') format('woff'),
-       url('../font/mantle.ttf') format('truetype'),
-       url('../font/mantle.svg') format('svg');
+  src: url('../font/mantle.eot?49517206');
+  src: url('../font/mantle.eot?49517206#iefix') format('embedded-opentype'),
+       url('../font/mantle.woff2?49517206') format('woff2'),
+       url('../font/mantle.woff?49517206') format('woff'),
+       url('../font/mantle.ttf?49517206') format('truetype'),
+       url('../font/mantle.svg?49517206#mantle') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,47 +15,47 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'mantle';
-    src: url('../font/mantle.svg?52812087#mantle') format('svg');
+    src: url('../font/mantle.svg?49517206#mantle') format('svg');
   }
 }
 */
-
+ 
  [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: "mantle";
   font-style: normal;
   font-weight: normal;
   speak: none;
-
+ 
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
   margin-right: .2em;
   text-align: center;
   /* opacity: .8; */
-
+ 
   /* For safety - reset parent styles, that can break glyph codes*/
   font-variant: normal;
   text-transform: none;
-
+ 
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
-
+ 
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
   margin-left: .2em;
-
+ 
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
-
+ 
   /* Font smoothing. That was taken from TWBS */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+ 
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
-
-.icon-truck:before { content: '\e800'; } /* '' */
+ 
+.icon-clipboard:before { content: '\e800'; } /* '' */
 .icon-floppy:before { content: '\e801'; } /* '' */
 .icon-chart-bar:before { content: '\e802'; } /* '' */
 .icon-info-1:before { content: '\e803'; } /* '' */
@@ -220,8 +220,6 @@
 .icon-right:before { content: '\f178'; } /* '' */
 .icon-plus-squared-alt:before { content: '\f196'; } /* '' */
 .icon-mail-squared:before { content: '\f199'; } /* '' */
-.icon-cab:before { content: '\f1b9'; } /* '' */
-.icon-taxi:before { content: '\f1ba'; } /* '' */
 .icon-tree:before { content: '\f1bb'; } /* '' */
 .icon-database:before { content: '\f1c0'; } /* '' */
 .icon-sliders:before { content: '\f1de'; } /* '' */
@@ -237,11 +235,6 @@
 .icon-chart-area:before { content: '\f1fe'; } /* '' */
 .icon-chart-pie:before { content: '\f200'; } /* '' */
 .icon-chart-line:before { content: '\f201'; } /* '' */
-.icon-bicycle:before { content: '\f206'; } /* '' */
-.icon-bus:before { content: '\f207'; } /* '' */
-.icon-motorcycle:before { content: '\f21c'; } /* '' */
 .icon-street-view:before { content: '\f21d'; } /* '' */
 .icon-user-plus:before { content: '\f234'; } /* '' */
 .icon-user-times:before { content: '\f235'; } /* '' */
-.icon-train:before { content: '\f238'; } /* '' */
-.icon-subway:before { content: '\f239'; } /* '' */

@@ -1,4 +1,4 @@
-  <div class="app-fullscreen" *ngIf="this.project">
+  <div class="app-fullscreen" *ngIf="project">
 
     <ccl-navbar [projectID]="project.id"></ccl-navbar>
 
@@ -10,25 +10,42 @@
         <nav class="controls">
           <div class="nav-left">
             <!-- city selector -->
-            <ccl-city-dropdown [projectData]="project.project_data"></ccl-city-dropdown>
-
+            <div class="control-group">
+              <label>Location</label>
+              <ccl-city-dropdown [projectData]="project.project_data"></ccl-city-dropdown>
+            </div>
             <!-- scenario selector -->
-            <ccl-scenario-dropdown [projectData]="project.project_data"></ccl-scenario-dropdown>
-
+            <div class="control-group">
+              <label>Scenario</label>
+              <ccl-scenario-toggle [projectData]="project.project_data"></ccl-scenario-toggle>
+            </div>
             <!-- climate model selector -->
-            <ccl-model-modal [projectData]="project.project_data"></ccl-model-modal>
-
+            <div class="control-group">
+              <label>Models</label>
+              <ccl-model-modal [projectData]="project.project_data"></ccl-model-modal>
+            </div>
+            <!-- units selector, only show if indicator selected -->
+            <div class="control-group">
+              <label>Units</label>
+              <ccl-units-dropdown *ngIf="project.project_data.charts[0]"
+                                  [units]="project.project_data.charts[0].indicator.available_units"
+                                  [unit]="project.project_data.charts[0].unit"
+                                  (unitSelected)="onUnitSelected($event)">
+              </ccl-units-dropdown>
+            </div>
           </div>
           <div class="nav-right"></div>
         </nav>
-        <div class="charts scrollable">
-          <div class="chart" *ngFor="let chart of project.project_data.charts">
-            <ccl-chart [chart]="chart"
+        <div class="chart-container scrollable">
+          <div class="chart" *ngIf="project.project_data.charts[0]">
+            <ccl-chart [chart]="project.project_data.charts[0]"
                        [city]="project.project_data.city"
                        [models]="project.project_data.models"
                        [scenario]="project.project_data.scenario"
-                       [multiChartScrubber]="project.project_data.multiChartScrubber"
-                       (onRemoveChart)="removeChart($event)"></ccl-chart>
+                       [unit]="project.project_data.charts[0].unit"
+                       [extraParams]="project.project_data.extraParams"
+                       (onRemoveChart)="removeChart()"
+                       (onExtraParamsChanged)="saveExtraParams($event)"></ccl-chart>
           </div>
         </div>
       </div>

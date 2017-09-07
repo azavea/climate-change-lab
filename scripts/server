@@ -3,7 +3,7 @@ set -e
 
 function usage() {
     echo -n \
-    "Usage: $(basename "$0")
+    "Usage: $(basename "$0") [--vm]
     Start local development server."
 }
 
@@ -11,7 +11,10 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     if [ "${1:-}" = "--help" ]; then
         usage
     else
-        cd /vagrant
-        npm run serve:vm
+    	if [ "${1:-}" = "--vm" ]; then
+    		docker-compose run --rm --service-ports app run serve:vm
+	    else
+	        docker-compose run --rm --service-ports app run serve
+	    fi
     fi
 fi

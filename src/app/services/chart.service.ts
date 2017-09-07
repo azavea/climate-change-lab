@@ -15,30 +15,12 @@ import * as D3 from 'd3';
 @Injectable()
 export class ChartService {
 
-    /* tslint:disable:member-ordering */
-    private _multiChartScrubberInfo = new Subject();
-    private _multiChartScrubberHover = new Subject<Boolean>();
-
-    public multiChartScrubberInfoObservable = this._multiChartScrubberInfo.asObservable();
-    public multiChartScrubberHoverObservable = this._multiChartScrubberHover.asObservable();
-    /* tslint:enable:member-ordering */
-
     private timeOptions = {
           'yearly': '%Y',
-          'daily': '%Y-%m-%d',
           'monthly': '%Y-%m'
         };
 
     constructor() {}
-
-    // receive and ship mousemove event
-    updateMultiChartScrubberInfo(event) {
-        this._multiChartScrubberInfo.next(event);
-    }
-    // receive and ship overlay mouseover status
-    detectMultiChartHover(bool: Boolean) {
-        this._multiChartScrubberHover.next(bool);
-    }
 
     // return an array of date strings for each day in the given year
     getDaysInYear(year: number): string[] {
@@ -53,35 +35,40 @@ export class ChartService {
 
     // map array of IndicatorService.getData responses to date for each data point
     // and drop top-level year key
-    convertChartData(data: any): ChartData[] {
-        const indicators = [];
-        const chartData: ChartData[] = [];
+    convertChartData(data: any[]): ChartData[] {
 
-         // make array of [date, value] pairs with zip, then convert to keyed object
-        _.each(data, obj => {
+        // Convert list of indicator data responses to object keyed by indicator name
+        // If multiple requests for the same indicator are present, the data will
+        //  be combined
+        // Once combined, sort indicator data MultiDataPoints by date ascending
+        //  and return as array of ChartData objects
+        const indicators = data.reduce((i, obj) => {
             const indicatorData: MultiDataPoint[] = [];
             const indicator = obj.indicator;
             const timeFormat = this.timeOptions[obj.time_aggregation];
             const parseTime = D3.timeParse(timeFormat);
 
+            if (indicator && !i[indicator.name]) {
+                i[indicator.name] = {
+                    'indicator': indicator,
+                    'data': [],
+                    'time_aggregation': obj.time_aggregation,
+                    'time_format': timeFormat
+                }
+            }
+
             _.each(obj.data, (values, key) => {
-                indicatorData.push({
+                i[indicator.name].data.push({
                     'date': parseTime(key),
                     'values': values
                 } as MultiDataPoint);
             });
 
-            if (!_.includes(indicators, indicator)) {
-                indicators.push(indicator);
-                chartData.push({
-                    'indicator': indicator,
-                    'data': indicatorData,
-                    'time_aggregation': obj.time_aggregation,
-                    'time_format': timeFormat
-                } as ChartData);
-            }
-        });
+            return i;
+        }, {});
 
-        return chartData;
+        return _(indicators).values().each(chartData => {
+            _.sortBy(chartData.data, 'date');
+        });
     }
 }

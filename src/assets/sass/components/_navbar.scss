@@ -6,7 +6,7 @@ nav {
   background-color: $color-header;
   height: 100%;
   color: #fff;
-  height: $nav-height;
+  height: $nav-height-main;
 
   & > .nav-left {
     float: left;
@@ -20,22 +20,45 @@ nav {
 }
 
 .controls {
-  height: $nav-height;
+  height: $nav-height-secondary;
   color: #fff;
   border-bottom: 1px solid $gray-2;
-  background-color: #fff;
+  background-color: #F3F3F3;
+  padding: 1rem 0;
+  @include clearfix;
+
+  label {
+    text-transform: uppercase;
+    color: $body-font-color;
+    font-size: $font-size-h6;
+    margin-bottom: 2px;
+    display: block;
+  }
+
+  .control-group {
+    float: left;
+    margin-left: 6px;
+    &:first-child {
+      margin-left: 1.5rem;
+    }
+  }
+
   .dropdown {
     display: block;
-    float: left;
     height: 100%;
-    border-right: 1px solid $gray-2;
     & > .button {
-      height: 100%;
+      height: 4rem;
       border-radius: 0;
       border-width: 0;
-      background-color: transparent;
+      background-color: #fff;
       padding-left: 1.5rem;
       padding-right: 1.5rem;
+      border: 1px solid $gray-3;
+      border-radius: 3px;
+
+      &.active {
+        background-color: #E3E3E3;
+      }
     }
   }
 
@@ -52,9 +75,12 @@ nav {
   .dropdown-location {
     input {
       border-color: transparent;
-      background-color: transparent;
+      background-color: #fff;
       outline: none;
       color: inherit;
+      height: 4rem;
+      border: 1px solid $gray-3;
+      border-radius: 3px;
     }
   }
 }

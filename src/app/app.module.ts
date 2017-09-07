@@ -2,7 +2,7 @@
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 
 // 3rd party modules
@@ -13,6 +13,8 @@ import {
     PaginationModule,
     TooltipModule } from 'ngx-bootstrap';
 import { UiSwitchModule } from 'ngx-ui-switch/src';
+import { ClipboardModule } from 'ngx-clipboard';
+import { NouisliderModule } from 'ng2-nouislider';
 
 // App routing
 import { routing, appRoutingProviders } from './app.routing';
@@ -20,22 +22,32 @@ import { routing, appRoutingProviders } from './app.routing';
 // App Modules
 import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.module';
 
+// Lab Components
+import {
+  CityDropdownComponent,
+  LabComponent,
+  ModelModalComponent,
+  ScenarioToggleComponent,
+  UnitsDropdownComponent } from './lab';
+
 // App Components
 import { AppComponent } from './app.component';
 import { AddEditProjectComponent } from './project/add-edit-project.component';
+import { BasetempComponent } from './charts/extra-params-components/basetemp.component';
 import { ChartComponent } from './charts/chart.component';
-import { CityDropdownComponent } from './lab/dropdowns/city-dropdown.component';
+import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HistoricComponent } from './charts/extra-params-components/historic.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
-import { LabComponent } from './lab/lab.component';
 import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
-import { ModelModalComponent } from './lab/dropdowns/model-modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
-import { ScenarioDropdownComponent } from './lab/dropdowns/scenario-dropdown.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
+
+import { ThresholdComponent,
+         PercentileComponent } from './charts/extra-params-components/';
 
 // App services
 import { ApiHttp } from './auth/api-http.service';
@@ -43,9 +55,10 @@ import { apiHttpProvider } from './auth/api-http.provider';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ChartService } from './services/chart.service';
-import { CSVService } from './services/csv.service';
-import { SocialService } from './services/social.service';
+import { DataExportService } from './services/data-export.service';
+import { ImageExportService } from './services/image-export.service';
 import { ClimateModelService } from './services/climate-model.service';
+import { HistoricRangeService } from './services/historic-range.service';
 import { IndicatorService } from './services/indicator.service';
 import { ScenarioService } from './services/scenario.service';
 import { ProjectService } from './services/project.service';
@@ -60,7 +73,12 @@ const locationStrategyProvider = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
+    BasetempComponent,
     WaveComponent,
+    ThresholdComponent,
+    HistoricComponent,
+    CopyCurlComponent,
+    PercentileComponent,
     ChartComponent,
     DashboardComponent,
     IndicatorListComponent,
@@ -71,13 +89,15 @@ const locationStrategyProvider = {
     PageNotFoundComponent,
     LoginComponent,
     AddEditProjectComponent,
-    ScenarioDropdownComponent,
+    ScenarioToggleComponent,
     ModelModalComponent,
-    CityDropdownComponent
+    CityDropdownComponent,
+    UnitsDropdownComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     routing,
     CollapseModule.forRoot(),
@@ -86,7 +106,9 @@ const locationStrategyProvider = {
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
     Ng2AutoCompleteModule,
-    UiSwitchModule
+    UiSwitchModule,
+    ClipboardModule,
+    NouisliderModule
   ],
   providers: [
     appRoutingProviders,
@@ -95,9 +117,10 @@ const locationStrategyProvider = {
     AuthService,
     AuthGuard,
     ChartService,
-    CSVService,
-    SocialService,
+    DataExportService,
+    ImageExportService,
     ClimateModelService,
+    HistoricRangeService,
     IndicatorService,
     ScenarioService,
     ProjectService

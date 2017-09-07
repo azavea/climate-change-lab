@@ -1,0 +1,33 @@
+ @import "~nouislider/distribute/nouislider.min.css";
+
+ nouislider {
+    width: 100%;
+    padding-bottom: 10px;
+
+    .noUi-target.noUi-ltr.noUi-horizontal {
+      width: 100%;
+      height: 5px;
+
+        .noUi-handle {
+            width: 10px;
+            height: 20px;
+            left: -5px;
+            top: -9px;
+        }
+
+        .noUi-handle:before, .noUi-handle:after {
+            width: 0px;
+        }
+
+    }
+
+    .noUi-target.noUi-ltr.noUi-horizontal {
+        height: 2px;
+    }
+
+    .noUi-target {
+        background: #ccc;
+        border: 0;
+        box-shadow: none;
+    }
+  }

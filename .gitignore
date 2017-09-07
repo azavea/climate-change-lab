@@ -12,8 +12,12 @@ violations.xml
 
 # Vagrant
 .vagrant/
-ansible/*.retry
-ansible/roles/azavea.*
+deployment/ansible/*.retry
+deployment/ansible/roles/azavea.*
 
 .env
 
+deployment/terraform/.terraform
+*.tfvars
+*.tfplan
+*.tfstate*

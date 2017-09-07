@@ -1,21 +1,55 @@
 .chart {
-  background-color: #fff;
-  box-shadow: 2px 2px 10px rgba(0,0,0,.05);
-  margin-bottom: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.charts {
-  padding: 2rem 1.5rem;
+.chart-graphic {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 ccl-line-graph {
   position: relative;
   display: block;
+  box-shadow: 2px 2px 10px rgba(0,0,0,.05);
+  height: 0;
+}
+
+.line-graph {
+  flex: 1;
+  display: flex;
+}
+
+.chart-container {
+  height: 100%;
 }
 
 ccl-chart {
   width: 100%;
-  display:block;
+  display: block;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .noUi-pips-horizontal {
+    font-size: 12px;
+  }
+
+  .noUi-marker-horizontal.noUi-marker-large {
+    height: 10px;
+  }
+
+  .noUi-marker-horizontal.noUi-marker {
+    margin-top: -3px;
+    width: 1px;
+    margin-left: 0;
+  }
+
+  .noUi-connect {
+    background-color: #1e8cec;
+  }
 
   sk-wave[ng-reflect-is-running="true"] {
     padding: 6rem;
@@ -24,18 +58,60 @@ ccl-chart {
   }
 
   .chart-label {
-    font-size: $font-size-h5;
+    font-size: $font-size-h3;
     margin: 0;
-    flex: 1;
     font-weight: 800;
-    padding-top: 1.5rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .chart-legend {
+    padding: 2rem;
+    padding-top: 0;
+    color: #757575;
+    font-size: 12px;
+
+    .chart-legend-line {
+      color: $chart-line;
+    }
+
+    .chart-legend-icons {
+       padding-bottom: 0.5rem;
+       color: $color-header;
+       position: relative;
+       left: -3px;
+       margin-top: 16px;
+    }
+
+    .chart-legend-minmax {
+        background-color: darken($chart-minmax, 10%);
+        width: 1rem;
+        height: 1rem;
+        display: inline-block;
+        margin-left: 0.5rem;
+        margin-right: 2px;
+        position: relative;
+        top: 1px;
+    }
+  }
+
+
+
+  .chart-body {
+    flex: 1;
   }
 
   .chart-options {
-    border-top: 1px solid $gray-2;
     margin: 0;
-    padding: 2rem;
+    padding: 1rem 1.5rem;
     color: $heading-font-color;
+
+    &.buttons {
+      border-top: 1px solid $gray-2;
+    }
+
+    &.slider {
+      padding: 0rem 2rem 3rem;
+    }
 
     .chart-options-body {
       display: flex;
@@ -44,17 +120,90 @@ ccl-chart {
     .chart-options-group {
       display: flex;
       align-items: center;
-      padding-right: 2rem;
+      padding-right: 0.5rem;
+
+      &.threshold {
+        margin-top: -27px;
+      }
 
       span {
-        margin-left: 0.5rem;
         margin-right: 0.5rem;
+      }
+
+      .curl-popup {
+        width: 300px;
+        padding: 1rem;
+
+        h4 {
+          margin-top: 4px;
+          margin-bottom: 10px;
+        }
+      }
+
+      .input-group {
+        button {
+          height: 35px;
+          width: 35px;
+          position: relative;
+          left: -1px;
+          float: left;
+          background-color: #e0e0e0;
+          border: 1px solid #c1c1c1;
+        }
+
+        .curl-label {
+          font-weight: 700;
+        }
+      }
+
+      .dropdown-toggle {
+        background-color: #e0e0e0;
+        padding: 0.4rem 0.7rem 0.4rem 0.5rem;
+        border-color: #c1c1c1;
+      }
+
+      .optional-parameters-label {
+        line-height: 6.0rem;
+      }
+
+      button {
+        line-height: 3.0rem;
       }
 
       input {
         width: 60px;
         font-weight: $body-font-weight;
         font-family: $body-font-family;
+        line-height: 3.0rem;
+        height: 3rem;
+        border-radius: 3px;
+
+        &.curl-command {
+          width: 240px;
+          height: 35px;
+          float: left;
+        }
+      }
+
+      select {
+        font-weight: $body-font-weight;
+        font-family: $body-font-family;
+        height: 3rem;
+        line-height: 3.0rem;
+        margin-top: 1.5rem;
+        margin-right: 0.5rem;
+
+        min-width: 100px;
+        padding: 1rem 0;
+
+        font-size: 14px;
+        text-align: left;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+
+        box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
+        background-clip: padding-box;
       }
     }
   }
@@ -62,9 +211,7 @@ ccl-chart {
   .chart-heading {
     display: flex;
     align-items: flex-start;
-    border-bottom: 1px solid $gray-2;
     margin: 0;
-    padding: 0 0 0 2rem;
   }
 
   .chart-actions {
@@ -94,7 +241,7 @@ ccl-chart {
 
   .axis {
 
-    color: #757575;
+    color: $chart-axis;
     opacity: .5;
 
     path, line {
@@ -111,7 +258,7 @@ ccl-chart {
   .grid {
 
     line {
-      stroke: #E3E3E3;
+      stroke: $chart-grid;
       stroke-width: 1;
       opacity: 1;
       shape-rendering: crispEdges;
@@ -128,30 +275,30 @@ ccl-chart {
 
   .line {
     fill: none;
-    stroke: #1E8CEC;
+    stroke: $chart-line;
     stroke-width: 2px;
   }
 
   .trendline {
     fill: none;
-    stroke: #D44A34;
+    stroke: $chart-trendline;
     stroke-width: 1px;
     opacity: .7;
   }
 
   .area {
-    fill: #EFF4F7;
+    fill: $chart-minmax;
     opacity: .7;
     z-index: -1;
   }
 
   .min-bar{
-    fill: #41424D;
+    fill: $chart-min-bar;
     opacity: .3;
   }
 
   .max-bar{
-    fill: #F3B32F;
+    fill: $chart-max-bar;
     opacity: .3;
   }
 
@@ -179,7 +326,7 @@ ccl-chart {
   }
 
   .scrubline {
-    stroke: #757575;
+    stroke: $chart-scrubline;
   }
 
   .chart-controls {

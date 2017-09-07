@@ -1,5 +1,5 @@
 
-.icon-truck { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
+.icon-clipboard { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
 .icon-floppy { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe801;&nbsp;'); }
 .icon-chart-bar { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe802;&nbsp;'); }
 .icon-info-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe803;&nbsp;'); }
@@ -164,8 +164,6 @@
 .icon-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf178;&nbsp;'); }
 .icon-plus-squared-alt { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf196;&nbsp;'); }
 .icon-mail-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf199;&nbsp;'); }
-.icon-cab { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1b9;&nbsp;'); }
-.icon-taxi { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1ba;&nbsp;'); }
 .icon-tree { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1bb;&nbsp;'); }
 .icon-database { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c0;&nbsp;'); }
 .icon-sliders { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1de;&nbsp;'); }
@@ -181,11 +179,6 @@
 .icon-chart-area { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1fe;&nbsp;'); }
 .icon-chart-pie { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf200;&nbsp;'); }
 .icon-chart-line { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf201;&nbsp;'); }
-.icon-bicycle { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf206;&nbsp;'); }
-.icon-bus { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf207;&nbsp;'); }
-.icon-motorcycle { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf21c;&nbsp;'); }
 .icon-street-view { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf21d;&nbsp;'); }
 .icon-user-plus { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf234;&nbsp;'); }
 .icon-user-times { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf235;&nbsp;'); }
-.icon-train { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf238;&nbsp;'); }
-.icon-subway { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf239;&nbsp;'); }

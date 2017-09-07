@@ -14,6 +14,7 @@ import { ProjectService } from '../services/project.service';
 
 import { Chart } from '../models/chart.model';
 import { Indicator } from '../models/indicator.model';
+import { IndicatorQueryParams } from '../models/indicator-query-params.model';
 import { Project } from '../models/project.model';
 
 
@@ -25,6 +26,8 @@ import { Project } from '../models/project.model';
 export class LabComponent implements OnInit, OnDestroy {
 
     public project: Project;
+    public chart: Chart;
+    public indicator: Indicator;
     private routeParamsSubscription: Subscription;
 
     constructor(private projectService: ProjectService,
@@ -44,7 +47,12 @@ export class LabComponent implements OnInit, OnDestroy {
             const id: string = params['id'];
             if (id !== undefined) {
                 this.projectService.get(id).subscribe(
-                    data => this.project = data,
+                    data => {
+                        this.project = data;
+                        if (this.project.project_data.charts[0]) {
+                            this.indicator = this.project.project_data.charts[0].indicator;
+                        }
+                    },
                     error => this.router.navigate(['/']) // Reroute if error
                 );
             } else {
@@ -61,17 +69,40 @@ export class LabComponent implements OnInit, OnDestroy {
         }
     }
 
+    onUnitSelected(unit) {
+        this.project.project_data.charts[0].unit = unit;
+    }
+
     public saveChartSettings() {
         this.projectService.update(this.project).subscribe();
     }
 
-    public removeChart(chart: Chart) {
-        this.project.project_data.charts =
-            this.project.project_data.charts.filter(c => c !== chart);
+    public removeChart() {
+        this.project.project_data.charts = [];
+        this.indicator = null;
+    }
+
+    public saveExtraParams(params: IndicatorQueryParams) {
+        this.project.project_data.extraParams = params;
     }
 
     public indicatorSelected(indicator: Indicator) {
-        const chart = new Chart({indicator: indicator});
-        this.project.project_data.charts.unshift(chart);
+        // Must compare indicator names and not objects,
+        // or else will fail for first loaded indicator on page.
+        if (this.indicator && this.indicator.name === indicator.name) {
+            // do nothing if selected indicator is current indicator
+            return;
+        }
+        this.removeChart();
+        /*  Trigger lifecycle to truly destroy the chart component & its children
+            Reset defaults in fresh child components
+            Cleanly evaluate which children to have (e.g. extra params) */
+        setTimeout(() => {
+            this.indicator = indicator;
+            this.saveExtraParams({});
+            const chart = new Chart({indicator: indicator,
+                                     unit: indicator.default_units});
+            this.project.project_data.charts = [chart];
+        })
     }
 }

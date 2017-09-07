@@ -2,74 +2,108 @@
     <h2 class="chart-label">
     {{chart.indicator.label}}
     </h2>
-    <div class="chart-actions">
-        <button class="button button-link"
-                placement="top"
-                title=""
-                tooltip="Download chart image"
-                (click)="onDownloadImageClicked()"><i class="icon icon-download"></i>
-        </button>
-        <button class="button button-link"
-                placement="top"
-                title=""
-                tooltip="Export"
-                (click)="onExportClicked()"><i class="icon icon-export"></i>
-        </button>
-        <button class="button button-link"
-                placement="top"
-                title=""
-                tooltip="Options"
-                [ngClass]="{'active': chart.showSettings}"
-                (click)="onSettingsToggleClicked()"><i class="icon icon-cog"></i>
-        </button>
-        <button class="button button-link"
-                placement="top"
-                title=""
-                tooltip="Remove"
-                (click)="removeChart(chart)"><i class="icon icon-cancel"></i>
-        </button>
-    </div>
+</div>
+<div *ngIf="isThresholdIndicator(chart.indicator.name)" class="chart-options">
+    <ccl-threshold-parameters
+        [indicator]="chart.indicator"
+        [extraParams]="extraParams"
+        (thresholdParamSelected)="onExtraParamsSelected($event)">
+    </ccl-threshold-parameters>
+</div>
+<div *ngIf="isBasetempIndicator(chart.indicator.name)" class="chart-options">
+    <ccl-basetemp-parameters
+        [indicator]="chart.indicator"
+        [extraParams]="extraParams"
+        (basetempParamSelected)="onExtraParamsSelected($event)">
+    </ccl-basetemp-parameters>
+</div>
+<div *ngIf="isPercentileIndicator(chart.indicator.name)" class="chart-options">
+    <ccl-percentile-parameters
+        [indicator]="chart.indicator"
+        [extraParams]="extraParams"
+        (percentileParamSelected)="onExtraParamsSelected($event)">
+    </ccl-percentile-parameters>
+</div>
+<div *ngIf="isHistoricIndicator(chart.indicator.name)" class="chart-options">
+    <ccl-historic-parameters
+        [indicator]="chart.indicator"
+        [extraParams]="extraParams"
+        (historicParamSelected)="onExtraParamsSelected($event)">
+    </ccl-historic-parameters>
 </div>
 <div class="chart-body">
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
-    <ccl-line-graph
-        *ngIf="chartData && chartData.length"
-        [data]="chartData"
-        [indicator]="chart.indicator"
-        [trendline]="chart.showTrendline"
-        [min]="chart.showMinimum"
-        [max]="chart.showMaximum"
-        [minVal]="chart.minimumValue"
-        [maxVal]="chart.maximumValue"
-        [hover]="isHover"
-        [multiChartScrubber]="multiChartScrubber">
-    </ccl-line-graph>
-    <div class="chart-options" *ngIf="chart.showSettings">
-        <div class="chart-options-body">
-            <div class="chart-options-group">
-                <ui-switch [(ngModel)]="chart.showTrendline"
-                           size="small"></ui-switch>
-                <span>Show Trendline</span>
+    <div class="chart-graphic" *ngIf="chartData && chartData.length">
+        <div class="line-graph">
+            <ccl-line-graph
+                [data]="chartData"
+                [indicator]="chart.indicator"
+                [hover]="isHover"
+                [unit]="unit">
+            </ccl-line-graph>
+        </div>
+        <div class="chart-legend" *ngIf="chartData && chartData.length">
+            <div class="chart-legend-icons">
+                <span><span class="icon-minus chart-legend-line"></span> {{ unit }}</span>
+                <span><span class="chart-legend-minmax"></span> Range between min/max of selected models</span>
             </div>
-            <div class="chart-options-group">
-                <ui-switch [(ngModel)]="chart.showMinimum"
-                           size="small"></ui-switch>
-                <span>Show Min</span>
-                <input
-                    type="number"
-                    step="any"
-                    placeholder="0"
-                    [(ngModel)]="chart.minimumValue">
+            <div class="chart-legend-description">
+                {{ chartData[0].indicator.description }}
             </div>
-            <div class="chart-options-group">
-                <ui-switch [(ngModel)]="chart.showMaximum"
-                           size="small"></ui-switch>
-                <span>Show Max</span>
-                <input
-                    type="number"
-                    step="any"
-                    placeholder="0"
-                    [(ngModel)]="chart.maximumValue">
+        </div>
+        <div class="chart-options slider">
+            <div class="chart-options-body">
+                <nouislider class="chart-options-group"
+                            [config]="sliderConfig"
+                            [(ngModel)]="dateRange"
+                            (ngModelChange)="sliceChartData()">
+                </nouislider>
+            </div>
+        </div>
+        <div class="chart-legend">
+            <span>Derived from the NASA Earth Exchange Global Daily Downscaled Projections (NEX-GDDP) dataset.</span>
+        </div>
+        <div class="chart-options buttons">
+            <div class="chart-options-body">
+                <div dropdown [dropup]="true" class="chart-options-group btn-group">
+                    <button dropdownToggle class="button dropdown-toggle" type="button"
+                        id="exportDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="icon icon-download"></i>
+                        Download
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="exportDropUp">
+                        <li role="menuitem">
+                            <a class="drowdown-item" (click)="onExportClicked()">Download JSON</a>
+                        </li>
+                        <li role="menuitem">
+                            <a class="drowdown-item" (click)="onDownloadImageClicked()">Download Chart</a>
+                        </li>
+                    </ul>
+                </div>
+                <div dropdown [dropup]="true" class="chart-options-group btn-group">
+                    <button dropdownToggle class="button dropdown-toggle" type="button"
+                        id="apiCallDropUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="icon icon-code"></i> Get API Call
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu curl-popup" role="menu" aria-labelledby="apiCallDropUp">
+                        <li role="menuitem" (click)="$event.stopPropagation()">
+                            <div class="drowdown-item">
+                                <h4>Get API Call</h4>
+                                <p>Use our API to access these data regularly for your own research or application.</p>
+                                <ccl-copy-curl
+                                    [label]="'Future data'"
+                                    [placeholder]="'future curl command for API query'"
+                                    [curl]="curlCommandFuture">
+                                </ccl-copy-curl>
+                                <ccl-copy-curl
+                                    [label]="'Historical data'"
+                                    [placeholder]="'historical curl command for API query'"
+                                    [curl]="curlCommandHistorical">
+                                </ccl-copy-curl>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

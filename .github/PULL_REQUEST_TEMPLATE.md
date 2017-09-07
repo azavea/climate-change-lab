@@ -21,4 +21,9 @@ Optional. Ancillary topics, caveats, alternative strategies that didn't work out
  * Include any setup required, such as bundling scripts, restarting services, etc.
  * Include test case, and expected output
 
+## Checklist
+- [ ] `yarn run serve` clean?
+- [ ] `yarn run build:prod` clean?
+- [ ] `yarn run lint` clean?
+
 Closes|Fixes #XXX

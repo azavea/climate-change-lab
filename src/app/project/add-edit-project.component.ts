@@ -8,10 +8,11 @@ import { Scenario } from '../models/scenario.model';
 import { City } from '../models/city.model';
 import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
-import { CityDropdownComponent } from '../lab/dropdowns/city-dropdown.component';
-import { ScenarioDropdownComponent } from '../lab/dropdowns/scenario-dropdown.component';
-import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
-
+import {
+    CityDropdownComponent,
+    ModelModalComponent,
+    ScenarioToggleComponent,
+    UnitsDropdownComponent } from '../lab';
 
 /* Add/Edit Project Component
 */
@@ -20,6 +21,7 @@ import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
   selector: 'ccl-add-edit-project',
   templateUrl: './add-edit-project.component.html'
 })
+
 export class AddEditProjectComponent implements OnInit {
 
     public project: Project;
@@ -68,6 +70,10 @@ export class AddEditProjectComponent implements OnInit {
                 this.onSuccess();
             });
         }
+    }
+
+    onUnitSelected(unit) {
+        this.model.project.project_data.charts[0].unit = unit;
     }
 
     onSuccess() {

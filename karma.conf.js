@@ -28,6 +28,12 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['ChromeHeadless'],
-    singleRun: true
+    singleRun: true,
+    customLaunchers: {
+      ChromeHeadless: {
+        base: 'Chromium',
+        flags: ['--no-sandbox', '--disable-gpu', '--headless', '--remote-debugging-port=9222']
+      }
+    }
   });
 };

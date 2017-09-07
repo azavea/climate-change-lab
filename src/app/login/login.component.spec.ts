@@ -1,7 +1,7 @@
 import { async } from '@angular/core/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { apiHost } from '../constants';
 import { AuthService } from '../auth/auth.service';
@@ -9,30 +9,11 @@ import { LoginComponent } from './login.component';
 import { LoginForm } from './login-form';
 
 import { FormsModule } from '@angular/forms';
-import { Ng2AutoCompleteModule } from '../ng2-auto-complete/ng2AutoComplete.module';
-import { UiSwitchModule } from 'ngx-ui-switch/src';
 
-import {
-    CollapseModule,
-    BsDropdownModule,
-    ModalModule,
-    PaginationModule,
-    TooltipModule,
-    TypeaheadModule } from 'ngx-bootstrap';
+import { LabComponent } from '../lab';
 
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { LabComponent } from '../lab/lab.component';
-import { AddEditProjectComponent } from '../project/add-edit-project.component';
-import { PageNotFoundComponent } from '../http-status/page-not-found/page-not-found.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { CityDropdownComponent } from '../lab/dropdowns/city-dropdown.component';
-import { ScenarioDropdownComponent } from '../lab/dropdowns/scenario-dropdown.component';
-import { ModelModalComponent } from '../lab/dropdowns/model-modal.component';
-import { ChartComponent } from '../charts/chart.component';
-import { IndicatorListComponent } from '../sidebar/indicator-list.component';
-import { LineGraphComponent } from '../charts/line-graph.component';
-import { WaveComponent } from '../ng2-spin-kit/wave.component';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from '../app.component';
@@ -61,25 +42,16 @@ describe('LoginComponent', () => {
         };
 
         TestBed.configureTestingModule({
-            imports: [ FormsModule, Ng2AutoCompleteModule, UiSwitchModule, BrowserModule,
+            schemas: [ NO_ERRORS_SCHEMA ],
+            imports: [ FormsModule,
 
                 RouterTestingModule.withRoutes([{ path: 'login', component: LoginComponent },
                                                { path: '', component: AppComponent },
                                                { path: 'edit/', component: LoginComponent }]),
 
-                // bootstrap
-                CollapseModule.forRoot(),
-                BsDropdownModule.forRoot(),
-                ModalModule.forRoot(),
-                PaginationModule.forRoot(),
-                TooltipModule.forRoot(),
-                TypeaheadModule.forRoot() ],
-            declarations: [ LoginComponent, NavbarComponent, DashboardComponent, LabComponent,
-                AddEditProjectComponent, PageNotFoundComponent, SidebarComponent, AppComponent,
-                CityDropdownComponent, ScenarioDropdownComponent, ModelModalComponent,
-                ChartComponent, IndicatorListComponent, LineGraphComponent, WaveComponent ],
-            providers: [
-                        {provide: AuthService, useValue: authServiceStub}]
+                ],
+            declarations: [ LoginComponent, NavbarComponent, DashboardComponent, LabComponent, AppComponent ],
+            providers: [{provide: AuthService, useValue: authServiceStub}]
         });
     }));
 
