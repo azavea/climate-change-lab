@@ -22,8 +22,8 @@ Optional. Ancillary topics, caveats, alternative strategies that didn't work out
  * Include test case, and expected output
 
 ## Checklist
-- [ ] `npm run serve` clean?
-- [ ] `npm run build:prod` clean?
-- [ ] `npm run lint` clean?
+- [ ] `yarn run serve` clean?
+- [ ] `yarn run build:prod` clean?
+- [ ] `yarn run lint` clean?
 
 Closes|Fixes #XXX
