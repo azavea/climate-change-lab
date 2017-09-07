@@ -9,7 +9,6 @@ fi
 DIR="$(dirname "$0")"
 
 TERRAFORM_DIR="${DIR}/../deployment/terraform"
-CC_SITE_BUCKET="staging-us-east-1-climate-lab-site"
 
 function usage() {
     echo -n \
