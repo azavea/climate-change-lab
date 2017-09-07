@@ -18,7 +18,8 @@
     "test": "ng test",
     "lint": "ng lint --type-check",
     "lint:ci": "ng lint --type-check --format checkstyle > jenkins/violations.xml",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "npm rebuild node-sass"
   },
   "private": true,
   "dependencies": {
