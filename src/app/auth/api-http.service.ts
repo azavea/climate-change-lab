@@ -40,13 +40,18 @@ export class ApiHttp extends Http {
     }
 
     private appendAPIHeaders(options?: RequestOptionsArgs): RequestOptionsArgs {
+        const token = this.authService.getToken();
+        if (!token) {
+            this.authService.logout();
+            return;
+        }
         if (options == null) {
             options = new RequestOptions();
         }
         if (options.headers == null) {
             options.headers = new Headers();
         }
-        options.headers.set('Authorization', 'Token ' + this.authService.getToken());
+        options.headers.set('Authorization', 'Token ' + token);
         options.headers.set('Accept', 'application/json');
 
         if (options.search == null) {
