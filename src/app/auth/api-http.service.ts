@@ -20,7 +20,12 @@ export class ApiHttp extends Http {
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-        return super.request(url, this.appendAPIHeaders(options));
+        return super.request(url, this.appendAPIHeaders(options)).catch((error: Response) => {
+            if (error.status === 401 || error.status === 403) {
+                this.authService.logout();
+            }
+            return Observable.throw(error);
+        });
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
