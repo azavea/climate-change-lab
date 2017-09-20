@@ -33,13 +33,6 @@
                             <label for="project.models">Models</label>
                             <ccl-model-modal [projectData]="model.project.project_data"></ccl-model-modal>
                         </div>
-                        <div class="column-6 flex-column" *ngIf="model.project.project_data.charts[0]">
-                            <label for="project.chart.units">Units</label>
-                            <ccl-units-dropdown (unitSelected)="onUnitSelected($event)"
-                                                [units]="model.project.project_data.charts[0].indicator.available_units"
-                                                [unit]="model.project.project_data.charts[0].unit">
-                            </ccl-units-dropdown>
-                        </div>
                     </div>
                 </div>
                 <div class="row align-center">
