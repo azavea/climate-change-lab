@@ -25,11 +25,15 @@
                     <label for="project.city">Choose a city*</label>
                     <ccl-city-dropdown [projectData]="model.project.project_data" [showIcon]="false"></ccl-city-dropdown>
                     <div class="row">
-                        <div class="column-6 flex-column">
+                        <div class="column-4 flex-column">
                             <label for="project.scenario">Scenario*</label>
                             <ccl-scenario-toggle [projectData]="model.project.project_data"></ccl-scenario-toggle>
                         </div>
-                        <div class="column-6 flex-column">
+                        <div class="column-4 flex-column">
+                            <label for="project.scenario">Dataset*</label>
+                            <ccl-dataset-toggle [projectData]="model.project.project_data"></ccl-dataset-toggle>
+                        </div>
+                        <div class="column-4 flex-column">
                             <label for="project.models">Models</label>
                             <ccl-model-modal [projectData]="model.project.project_data"></ccl-model-modal>
                         </div>
