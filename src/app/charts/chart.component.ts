@@ -17,6 +17,7 @@ import { Chart } from '../models/chart.model';
 import { ChartData } from '../models/chart-data.model';
 import { City } from '../models/city.model';
 import { ClimateModel } from '../models/climate-model.model';
+import { Dataset } from '../models/dataset.model';
 import { IndicatorRequestOpts } from '../models/indicator-request-opts.model';
 import { IndicatorQueryParams } from '../models/indicator-query-params.model';
 import { Scenario } from '../models/scenario.model';
@@ -49,6 +50,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
     @Output() onExtraParamsChanged = new EventEmitter<IndicatorQueryParams>();
 
     @Input() chart: Chart;
+    @Input() dataset: Dataset;
     @Input() scenario: Scenario;
     @Input() models: ClimateModel[];
     @Input() city: City;
@@ -115,8 +117,8 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
     }
 
     ngOnChanges($event) {
-        if (!this.scenario || !this.city || !this.models) { return; }
         // happens if different chart selected
+        if (!this.scenario || !this.city || !this.models || !this.dataset) { return; }
         this.updateChart($event);
     }
 
@@ -130,7 +132,8 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.rawChartData = [];
 
         let params: IndicatorQueryParams = {
-            climateModels: this.models,
+            climateModels: _.filter(this.models, model => model.enabled),
+            dataset: this.dataset.name,
             unit: this.unit || this.chart.indicator.default_units,
             time_aggregation: TimeAggParam.Yearly
         }
@@ -184,6 +187,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         const fileName: string = [
             this.chart.indicator.name,
             this.city.properties.name,
+            this.dataset.name,
             this.scenario.name
         ].join('_');
 

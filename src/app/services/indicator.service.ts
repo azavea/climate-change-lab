@@ -81,6 +81,9 @@ export class IndicatorService {
         if (options.params.unit) {
             searchParams.append('units', options.params.unit);
         }
+        if (options.params.dataset) {
+            searchParams.append('dataset', options.params.dataset);
+        }
 
         const requestOptions = new RequestOptions({ search: searchParams });
         return this.apiHttp.get(url, requestOptions).map(resp => {

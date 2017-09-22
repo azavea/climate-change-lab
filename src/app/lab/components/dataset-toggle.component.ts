@@ -4,6 +4,8 @@ import { Dataset } from '../../models/dataset.model';
 import { ProjectData } from '../../models/project-data.model';
 import { DatasetService } from '../../services/dataset.service';
 
+import * as _ from 'lodash';
+
 /*  Dataset Toggle Component
 
     -- Requires project input
@@ -40,6 +42,10 @@ export class DatasetToggleComponent implements OnInit {
 
     public onDatasetClicked(dataset: Dataset, event?: Event) {
         this.projectData.dataset = dataset;
+        this.projectData.models.forEach(model => {
+            model.enabled = _.includes(dataset.models, model.name);
+        });
+
         if (event) {
             event.preventDefault();
         }
