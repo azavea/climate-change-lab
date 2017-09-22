@@ -1,10 +1,11 @@
 import { Feature, Point } from 'geojson';
 
 export interface CityProperties {
-    name: String;
-    admin: String;
-    population?: Number;
-    map_cell: Point;
+    name: string;
+    admin: string;
+    population?: number;
+    datasets: string[];
+    region: number;
 }
 
 export interface City {
