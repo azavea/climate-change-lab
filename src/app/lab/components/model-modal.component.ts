@@ -6,6 +6,8 @@ import { ClimateModel } from '../../models/climate-model.model';
 import { ProjectData } from '../../models/project-data.model';
 import { ClimateModelService } from '../../services/climate-model.service';
 
+import * as _ from 'lodash';
+
 /*  Model Modal Component
     -- Requires project input
     -- Emits selected model
@@ -37,6 +39,13 @@ export class ModelModalComponent implements OnInit {
         this.climateModels.forEach(model => model.selected = false);
     }
 
+    // disable models not valid for the project datset
+    public disableClimateModels() {
+        this.climateModels.forEach(model => {
+            model.enabled = _.includes(this.projectData.dataset.models, model.name);
+        });
+    }
+
     public isModalUpdateButtonDisabled() {
         return this.climateModels.filter(model => model.selected).length === 0;
     }
@@ -58,8 +67,8 @@ export class ModelModalComponent implements OnInit {
         this.updateProjectClimateModels();
     }
 
-    private filterSelectedClimateModels(isSelected: boolean = true) {
-        return this.climateModels.filter(model => model.selected === isSelected);
+    private filterSelectedClimateModels() {
+        return this.climateModels.filter(model => model.selected && model.enabled);
     }
 
     // subscribe to list of available models from API endpoint
@@ -70,7 +79,6 @@ export class ModelModalComponent implements OnInit {
             // Initialize 'selected' attributes with models in project
             if (this.projectData.models.length === 0) {
                 this.selectAllClimateModels();
-                this.updateProjectClimateModels();
             } else {
                 this.projectData.models.forEach(projectModel => {
                     this.climateModels.forEach(model => {
@@ -80,7 +88,9 @@ export class ModelModalComponent implements OnInit {
                     });
                 });
             }
-            this.updateButtonText();
+
+            this.disableClimateModels();
+            this.updateProjectClimateModels();
         });
     }
 

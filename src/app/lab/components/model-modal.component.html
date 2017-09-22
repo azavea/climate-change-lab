@@ -30,6 +30,7 @@
             <input type="checkbox"
                    name="modelCheckbox"
                    value="value"
+                   [disabled]="!climateModel.enabled"
                    [(ngModel)]="climateModel.selected">
             {{ climateModel.name }}
           </label>
