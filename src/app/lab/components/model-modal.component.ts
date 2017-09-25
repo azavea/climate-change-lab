@@ -55,6 +55,7 @@ export class ModelModalComponent implements OnInit {
     }
 
     public updateProjectClimateModels() {
+        this.disableClimateModels();
         this.projectData.models = this.filterSelectedClimateModels();
         this.updateButtonText();
     }
@@ -79,7 +80,8 @@ export class ModelModalComponent implements OnInit {
             // Initialize 'selected' attributes with models in project
             if (this.projectData.models.length === 0) {
                 this.selectAllClimateModels();
-            } else {
+            } else if (this.projectData.dataset) {
+                // dataset may be undefined for project if in form to create new project
                 this.projectData.models.forEach(projectModel => {
                     this.climateModels.forEach(model => {
                         if (projectModel.name === model.name) {
@@ -89,7 +91,6 @@ export class ModelModalComponent implements OnInit {
                 });
             }
 
-            this.disableClimateModels();
             this.updateProjectClimateModels();
         });
     }

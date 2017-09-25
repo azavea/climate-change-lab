@@ -54,6 +54,9 @@ export class DatasetToggleComponent implements OnInit {
 
     // helper that checks if a given dataset is available for the currently selected city
     public isValidDataset(dataset: Dataset): boolean {
+        if (!this.projectData.city.properties) {
+            return true; // city properties may be undefined in form to create new project
+        }
         return _.includes(this.projectData.city.properties.datasets, dataset.name);
     }
 
