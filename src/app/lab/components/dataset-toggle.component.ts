@@ -20,6 +20,7 @@ import * as _ from 'lodash';
     <div class="dropdown button-group">
         <button class="button"
                *ngFor="let s of datasets"
+               [disabled]="!isValidDataset(s)"
                [ngClass]="{'active': s.name === projectData.dataset.name}"
                (click)="onDatasetClicked(s, $event)">
             {{ s.name }}
@@ -49,6 +50,11 @@ export class DatasetToggleComponent implements OnInit {
         if (event) {
             event.preventDefault();
         }
+    }
+
+    // helper that checks if a given dataset is available for the currently selected city
+    public isValidDataset(dataset: Dataset): boolean {
+        return _.includes(this.projectData.city.properties.datasets, dataset.name);
     }
 
     private getDatasets() {
