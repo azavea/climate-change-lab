@@ -57,15 +57,11 @@ export class DatasetToggleComponent implements OnInit {
 
     // set to default, or first valid option for the selected city
     private selectDefaultDataset() {
-        let dataset = this.datasets.find((s) => {
-            return s.name === this.DEFAULT_DATASET_NAME;
-        });
+        let dataset = this.datasets.find(s => s.name === this.DEFAULT_DATASET_NAME);
 
         // if the standard default dataset is not valid, use first valid option
         if (!this.isValidDataset(dataset)) {
-            dataset = this.datasets.find((s) => {
-                return this.isValidDataset(s);
-            });
+            dataset = this.datasets.find(s => this.isValidDataset(s));
         }
 
         this.onDatasetSelected(dataset);

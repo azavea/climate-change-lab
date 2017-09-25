@@ -44,7 +44,8 @@
                 <div class="row align-center">
                     <button type="submit"
                             class="button button-primary"
-                            [disabled]="!projectForm.form.valid || !model.project.project_data.city.id || !model.project.project_data.scenario.name"
+                            [disabled]="!projectForm.form.valid || !model.project.project_data.city.id || !model.project.project_data.scenario.name ||
+                            !model.project.project_data.dataset.name"
                             *ngIf="!edit">Create Project</button>
                     <button type="submit"
                             class="button button-primary"
