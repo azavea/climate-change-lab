@@ -20,7 +20,7 @@ import * as _ from 'lodash';
     <div class="dropdown button-group">
         <button class="button"
                *ngFor="let s of datasets"
-               [disabled]="!isValidDataset(s)"
+               [disabled]="!checkValidDataset(s)"
                [ngClass]="{'active': s.name === projectData.dataset.name}"
                (click)="onDatasetSelected(s, $event)">
             {{ s.name }}
@@ -42,6 +42,9 @@ export class DatasetToggleComponent implements OnInit {
     }
 
     public onDatasetSelected(dataset: Dataset, event?: Event) {
+        if (!this.isValidDataset(dataset)) {
+            this.selectDefaultDataset();
+        }
         this.projectData.dataset = dataset;
         this.projectData.models.forEach(model => {
             model.enabled = _.includes(dataset.models, model.name);
@@ -50,6 +53,34 @@ export class DatasetToggleComponent implements OnInit {
         if (event) {
             event.preventDefault();
         }
+    }
+
+    // set to default, or first valid option for the selected city
+    private selectDefaultDataset() {
+        let dataset = this.datasets.find((s) => {
+            return s.name === this.DEFAULT_DATASET_NAME;
+        });
+
+        // if the standard default dataset is not valid, use first valid option
+        if (!this.isValidDataset(dataset)) {
+            dataset = this.datasets.find((s) => {
+                return this.isValidDataset(s);
+            });
+        }
+
+        this.onDatasetSelected(dataset);
+    }
+
+    // check if a given dataset is valid and change it if not and it is selected
+    public checkValidDataset(dataset: Dataset): boolean {
+        const isValid = this.isValidDataset(dataset);
+        if (!isValid && this.projectData.dataset &&
+            this.projectData.dataset.name === dataset.name) {
+            // If this dataset is selected but not valid, change to a valid dataset.
+            // Do so within a timeout to avoid change detection errors.
+            setTimeout(() => this.selectDefaultDataset());
+        }
+        return isValid;
     }
 
     // helper that checks if a given dataset is available for the currently selected city
@@ -66,9 +97,7 @@ export class DatasetToggleComponent implements OnInit {
 
             // Set a default for the project if none is set
             if (!this.projectData.dataset) {
-                this.onDatasetSelected(this.datasets.find((s) => {
-                    return s.name === this.DEFAULT_DATASET_NAME;
-                }));
+                this.selectDefaultDataset();
             }
         });
     }
