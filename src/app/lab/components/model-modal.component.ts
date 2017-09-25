@@ -41,6 +41,9 @@ export class ModelModalComponent implements OnInit {
 
     // disable models not valid for the project datset
     public disableClimateModels() {
+        if (!this.projectData.dataset) {
+            return;
+        }
         this.climateModels.forEach(model => {
             model.enabled = _.includes(this.projectData.dataset.models, model.name);
         });
@@ -58,6 +61,10 @@ export class ModelModalComponent implements OnInit {
         this.disableClimateModels();
         this.projectData.models = this.filterSelectedClimateModels();
         this.updateButtonText();
+    }
+
+    public modalShow() {
+        this.updateProjectClimateModels();
     }
 
     public modalHide() {

@@ -22,7 +22,7 @@ import * as _ from 'lodash';
                *ngFor="let s of datasets"
                [disabled]="!isValidDataset(s)"
                [ngClass]="{'active': s.name === projectData.dataset.name}"
-               (click)="onDatasetClicked(s, $event)">
+               (click)="onDatasetSelected(s, $event)">
             {{ s.name }}
         </button>
     </div>
@@ -41,7 +41,7 @@ export class DatasetToggleComponent implements OnInit {
         this.getDatasets();
     }
 
-    public onDatasetClicked(dataset: Dataset, event?: Event) {
+    public onDatasetSelected(dataset: Dataset, event?: Event) {
         this.projectData.dataset = dataset;
         this.projectData.models.forEach(model => {
             model.enabled = _.includes(dataset.models, model.name);
@@ -66,7 +66,7 @@ export class DatasetToggleComponent implements OnInit {
 
             // Set a default for the project if none is set
             if (!this.projectData.dataset) {
-                this.onDatasetClicked(this.datasets.find((s) => {
+                this.onDatasetSelected(this.datasets.find((s) => {
                     return s.name === this.DEFAULT_DATASET_NAME;
                 }));
             }
