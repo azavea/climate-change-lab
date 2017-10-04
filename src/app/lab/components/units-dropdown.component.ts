@@ -16,7 +16,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
               <button dropdownToggle class="button dropdown-toggle" type="button"
                 id="unitsDropdown" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true">
-                {{ unit }}
+                {{ unit || 'N/A' }}
                 <i class="caret"></i>
               </button>
               <ul *dropdownMenu class="dropdown-menu" aria-labelledby="unitsDropdown">
