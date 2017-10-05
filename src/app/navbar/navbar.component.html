@@ -11,7 +11,7 @@
          *ngIf="authService.isAuthenticated()"
          dropdown
          [(isOpen)]="isSettingsDropdownOpen">
-      <a class="button button-link" href="//{{ apiHost }}">API</a>
+      <a class="button button-link" href="{{ apiHost }}/accounts/api/">API</a>
       <a class="button button-link active" [routerLink]="['/']">Lab</a>
       <button id="settings-dropdown" type="button" class="button button-link" dropdownToggle>
         {{ authService.getEmail() }}
@@ -19,7 +19,7 @@
       </button>
       <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="settings-dropdown">
         <li role="menuitem">
-          <a class="dropdown-item" href="//{{ apiHost }}/accounts/profile/">Account</a>
+          <a class="dropdown-item" href="{{ apiHost }}/accounts/profile/">Account</a>
         </li>
         <li role="menuitem">
           <a class="dropdown-item" (click)="authService.logout()">Logout</a>
