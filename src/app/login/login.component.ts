@@ -12,7 +12,7 @@ import { AuthService } from '../auth/auth.service';
 export class LoginComponent {
 
     createAccountUrl = `${apiHost}/accounts/register/`;
-    resetPasswordUrl = `${apiHost}/accounts/password/change/`;
+    resetPasswordUrl = `${apiHost}/accounts/password/reset/`;
 
     model = new LoginForm('', '');
 
