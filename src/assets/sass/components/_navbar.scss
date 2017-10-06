@@ -16,6 +16,11 @@ nav {
   & > .nav-right {
     float: right;
     padding: 0.7rem 1.5rem 0;
+
+    .active {
+      border-bottom: 2px solid #fff;
+      font-weight: bold;
+    }
   }
 }
 
