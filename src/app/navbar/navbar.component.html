@@ -7,12 +7,12 @@
     </h1>
   </div>
   <div class="nav-right">
+    <a class="button button-link" href="{{ apiHost }}/accounts/api/">API</a>
+    <a class="button button-link active" [routerLink]="['/']">Lab</a>
     <div class="dropdown"
          *ngIf="authService.isAuthenticated()"
          dropdown
          [(isOpen)]="isSettingsDropdownOpen">
-      <a class="button button-link" href="{{ apiHost }}/accounts/api/">API</a>
-      <a class="button button-link active" [routerLink]="['/']">Lab</a>
       <button id="settings-dropdown" type="button" class="button button-link" dropdownToggle>
         {{ authService.getEmail() }}
         <i [ngClass]="{'icon-angle-down': !isSettingsDropdownOpen, 'icon-angle-up': isSettingsDropdownOpen}"></i>
