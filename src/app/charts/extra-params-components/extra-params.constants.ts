@@ -54,11 +54,6 @@ export function isThresholdIndicator(indicatorName: string): boolean {
     return thresholdIndicatorNames.indexOf(indicatorName) !== -1;
 }
 
-// TODO: use or remove this function
-export function hasExtraParams(indicatorName: string): boolean {
-    return extraParamsIndicatorNames.indexOf(indicatorName) !== -1;
-}
-
 export function isPercentileIndicator(indicatorName: string): boolean {
     return percentileIndicatorNames.indexOf(indicatorName) !== -1;
 }
