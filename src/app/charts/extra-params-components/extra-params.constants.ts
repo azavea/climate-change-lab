@@ -37,9 +37,9 @@ export const TemperatureUnits: any[] = [
  ];
 
 export const PrecipitationUnits: any[] = [
-    {'key': 'mm', 'label': 'millimeters'},
-    {'key': 'in', 'label': 'inches'},
-    {'key': 'kg/m^2', 'label': 'kg/m^2'}
+    {'key': 'mm/day', 'label': 'millimeters per day'},
+    {'key': 'in/day', 'label': 'inches per day'},
+    {'key': 'kg/m^2/s', 'label': 'kg/m^2/s'}
 ];
 
 export function isBasetempIndicator(indicatorName: string): boolean {

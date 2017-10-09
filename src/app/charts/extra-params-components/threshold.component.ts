@@ -37,7 +37,7 @@ export class ThresholdComponent implements AfterViewInit, OnInit {
     // default form values
     private defaultThreshold = 50;
     private defaultUnit = '';
-    private defaultPrecipitationUnit = 'mm';
+    private defaultPrecipitationUnit = 'mm/day';
     private defaultTemperatureUnit = 'F';
     private defaultComparator = 'lte';
 
