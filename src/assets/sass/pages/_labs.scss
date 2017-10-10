@@ -45,7 +45,7 @@ nav {
     border: 1px solid #cccccc;
     margin: 0 0 0 -1px;
     min-width: 160px;
-    
+
     li {
       border-bottom: none;
       margin-top: 0;
@@ -103,5 +103,31 @@ nav {
     height: 1.6rem;
     position: relative;
     top: 0.3rem;
+  }
+}
+
+.new-project {
+    align-self: flex-start;
+    padding-top: 4rem;
+}
+
+.image-folder {
+  width: 87px;
+}
+
+.lab-emptystate {
+  padding: 2rem 0;
+  text-align: center;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+
+  p {
+    margin: 1.8rem 0 2rem;
+  }
+
+  .btn-primary {
+    background-color: $brand-primary;
+    font-weight: 600;
   }
 }

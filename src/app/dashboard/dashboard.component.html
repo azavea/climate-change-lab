@@ -5,15 +5,22 @@
     <section class="lab" [ngClass]="showDashboard">
         <div class="container">
             <div *ngIf="!projects.length">
-                <i class="icon-cloud"></i>
-                <div>To explore climate change data, <a [routerLink]="['/new']">start a new project.</a></div>
+                <div class="lab-emptystate">
+                    <img src="/assets/img/climate-image-folder.png" class="image-folder" alt="">
+                    <h3>Start your first Lab project!</h3>
+                    <p>Begin exploring climate change data in the Climate Lab. A project will allow you to specify the location, models, and scenarios that interest you.</p>
+                    <p>
+                        <a class="btn btn-primary" [routerLink]="['/new']">New project</a>
+                    </p>
+                </div>
             </div>
             <div *ngIf="projects.length">
                 <div class="header-row row columns-center align-justify">
                     <div class="column column-6">
-                        <h2 class="title margin-no">Lab</h2>
+                        <h1 class="title margin-no">Lab</h1>
+                        <p class="h4 nobold">Project allow you to specify the location, models, and scenarios that interest you.</p>
                     </div>
-                    <div class="column column-6 text-right">
+                    <div class="column column-6 text-right new-project">
                         <a class="button button-primary" [routerLink]="['/new']">New Project</a>
                     </div>
                 </div>
@@ -37,20 +44,6 @@
                            (click)="setPage(currentPage + 1)">Next {{ itemsPerPage }}</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <section class="about">
-        <div class="container">
-            <div class="title">
-                <h2>API</h2>
-            </div>
-            <div class="about-body">
-                We created Azavea's Climate API in order to give you easy access to the <a href="https://aws.amazon.com/public-datasets/nasa-nex/" target="_blank">NASA NEX-GDDP</a> data without the hassle of having to download and wrangle a NetCDF dataset. With each query, you can choose from over 1,000 U.S. locations, either of the two most commonly used RCPs, 22 indicators of temperature and precipitation, and anytime 1950-2100.
-                <p>
-                <p>
-                To get started with the API, please review
-                <a href="https://docs.climate.azavea.com" target="_blank">the documentation</a>.
             </div>
         </div>
     </section>

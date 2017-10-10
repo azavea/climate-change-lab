@@ -31,7 +31,7 @@ $leaflet-control-attribution-on: false;
  * Colors
  *
  * * * */
-$brand-primary: #288DE9;
+$brand-primary: #3D57FF;
 $brand-secondary: $brand-primary;
 $brand-danger: #D3493A;
 $brand-warning: #E7A938;
@@ -46,7 +46,7 @@ $gray-3: #C7D1D7;
 $gray-4: #777f83;
 $gray-5: darken($gray-1, 80%);
 
-$color-header: #41424D;
+$color-header: #32323C;
 
 
 /* * * *
@@ -90,8 +90,8 @@ $body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Ari
 
 $monospace-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 
-$font-size-h1: $font-size-base * exponential($modular-scale, 5);
-$font-size-h2: $font-size-base * exponential($modular-scale, 4);
+$font-size-h1: 4.4rem;
+$font-size-h2: 3.2rem;
 $font-size-h3: 2.4rem;
 $font-size-h4: 1.8rem;
 $font-size-h5: 1.4rem;
