@@ -1,21 +1,50 @@
 nav {
   flex-shrink: 0;
+
+  .dropdown {
+    padding-left: 8px;
+  }
 }
 
 .nav-primary {
   background-color: $color-header;
-  height: 100%;
-  color: #fff;
-  height: $nav-height-main;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
 
   & > .nav-left {
-    float: left;
     padding: 0.6rem 1.5rem 0;
   }
 
   & > .nav-right {
-    float: right;
-    padding: 0.7rem 1.5rem 0;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+
+    > a {
+      color: #fff;
+      position: relative;
+      margin: 0 1.2rem;
+      padding: 1.5rem 0;
+
+      &.active {
+        font-weight: bold;
+      }
+
+      &.active:before {
+        content: "";
+        position: absolute;
+        height: 4px;
+        width: 100%;
+        background: white;
+        top: 0;
+        left: 0;
+      }
+
+      &:hover {
+        color: darken(white, 10%);
+      }
+    }
   }
 }
 
@@ -46,6 +75,7 @@ nav {
   .dropdown {
     display: block;
     height: 100%;
+
     & > .button {
       height: 4rem;
       border-radius: 0;
@@ -58,6 +88,10 @@ nav {
 
       &.active {
         background-color: #E3E3E3;
+      }
+
+      &:hover {
+        color: darken(white, 10%);
       }
     }
   }
@@ -88,9 +122,9 @@ nav {
 .logo {
   & > a {
     & > img {
-      width: 9.4rem;
+      height: 14px;
       position: relative;
-      top: 0.3rem;
+      top: 0.4rem;
     }
   }
 }

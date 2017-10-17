@@ -13,6 +13,7 @@
      aria-hidden="true"
      bsModal #smModal="bs-modal"
      [config]="{backdrop: 'static'}"
+     (onShow)="modalShow()"
      (onHide)="modalHide()">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
@@ -30,6 +31,7 @@
             <input type="checkbox"
                    name="modelCheckbox"
                    value="value"
+                   [disabled]="!climateModel.enabled"
                    [(ngModel)]="climateModel.selected">
             {{ climateModel.name }}
           </label>

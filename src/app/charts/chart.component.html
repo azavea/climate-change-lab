@@ -61,7 +61,8 @@
             </div>
         </div>
         <div class="chart-legend">
-            <span>Derived from the NASA Earth Exchange Global Daily Downscaled Projections (NEX-GDDP) dataset.</span>
+            <span *ngIf="dataset.name === 'NEX-GDDP'">Derived from the NASA Earth Exchange Global Daily Downscaled Projections (NEX-GDDP) dataset. Data available at <a href="https://nex.nasa.gov/nex/projects/1356/">https://nex.nasa.gov/nex/projects/1356/</a>.</span>
+            <span *ngIf="dataset.name === 'LOCA'">Downscaled from CMIP5, using the Localized Constructed Analogs (LOCA) statistical technique. Data available at <a href="http://loca.ucsd.edu">loca.ucsd.edu</a>.</span>
         </div>
         <div class="chart-options buttons">
             <div class="chart-options-body">

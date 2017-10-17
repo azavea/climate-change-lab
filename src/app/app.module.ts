@@ -27,6 +27,7 @@ import {
   CityDropdownComponent,
   LabComponent,
   ModelModalComponent,
+  DatasetToggleComponent,
   ScenarioToggleComponent,
   UnitsDropdownComponent } from './lab';
 
@@ -56,6 +57,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ChartService } from './services/chart.service';
 import { DataExportService } from './services/data-export.service';
+import { DatasetService } from './services/dataset.service';
 import { ImageExportService } from './services/image-export.service';
 import { ClimateModelService } from './services/climate-model.service';
 import { HistoricRangeService } from './services/historic-range.service';
@@ -89,6 +91,7 @@ const locationStrategyProvider = {
     PageNotFoundComponent,
     LoginComponent,
     AddEditProjectComponent,
+    DatasetToggleComponent,
     ScenarioToggleComponent,
     ModelModalComponent,
     CityDropdownComponent,
@@ -118,6 +121,7 @@ const locationStrategyProvider = {
     AuthGuard,
     ChartService,
     DataExportService,
+    DatasetService,
     ImageExportService,
     ClimateModelService,
     HistoricRangeService,

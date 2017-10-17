@@ -20,7 +20,12 @@ export class ApiHttp extends Http {
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-        return super.request(url, this.appendAPIHeaders(options));
+        return super.request(url, this.appendAPIHeaders(options)).catch((error: Response) => {
+            if (error.status === 401 || error.status === 403) {
+                this.authService.logout();
+            }
+            return Observable.throw(error);
+        });
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
@@ -40,13 +45,18 @@ export class ApiHttp extends Http {
     }
 
     private appendAPIHeaders(options?: RequestOptionsArgs): RequestOptionsArgs {
+        const token = this.authService.getToken();
+        if (!token) {
+            this.authService.logout();
+            return;
+        }
         if (options == null) {
             options = new RequestOptions();
         }
         if (options.headers == null) {
             options.headers = new Headers();
         }
-        options.headers.set('Authorization', 'Token ' + this.authService.getToken());
+        options.headers.set('Authorization', 'Token ' + token);
         options.headers.set('Accept', 'application/json');
 
         if (options.search == null) {

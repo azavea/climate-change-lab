@@ -35,6 +35,9 @@ ccl-chart {
 
   .noUi-pips-horizontal {
     font-size: 12px;
+    // Prevents this div from creating an area outside the pips that can't be clicked on
+    // Setting height to zero doesn't seem to affect any part of the visible page layout
+    height: 0;
   }
 
   .noUi-marker-horizontal.noUi-marker-large {
@@ -48,7 +51,7 @@ ccl-chart {
   }
 
   .noUi-connect {
-    background-color: #1e8cec;
+    background-color: darken($chart-line, 30%);
   }
 
   sk-wave[ng-reflect-is-running="true"] {
@@ -90,6 +93,7 @@ ccl-chart {
         margin-left: 0.5rem;
         margin-right: 2px;
         position: relative;
+        opacity: 0.2;
         top: 1px;
     }
   }
@@ -288,7 +292,7 @@ ccl-chart {
 
   .area {
     fill: $chart-minmax;
-    opacity: .7;
+    opacity: .2;
     z-index: -1;
   }
 
@@ -321,7 +325,7 @@ ccl-chart {
     .scrubber-text {
       fill: #fff;
       stroke: #fff;
-      font-weight: 400;
+      font-weight: 300;
     }
   }
 

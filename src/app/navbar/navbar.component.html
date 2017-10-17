@@ -7,20 +7,19 @@
     </h1>
   </div>
   <div class="nav-right">
+    <a class="button button-link" href="{{ apiHost }}/accounts/api/">API</a>
+    <a class="button button-link active" [routerLink]="['/']">Lab</a>
     <div class="dropdown"
          *ngIf="authService.isAuthenticated()"
          dropdown
          [(isOpen)]="isSettingsDropdownOpen">
       <button id="settings-dropdown" type="button" class="button button-link" dropdownToggle>
         {{ authService.getEmail() }}
-        <i [ngClass]="{'icon-angle-down': !isSettingsDropdownOpen, 'icon-angle-up': isSettingsDropdownOpen}"></i>
+        <span class="caret"></span>
       </button>
       <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="settings-dropdown">
         <li role="menuitem">
-          <a class="dropdown-item" [routerLink]="['/']">Go to Dashboard</a>
-        </li>
-        <li role="menuitem" *ngIf="projectID">
-          <a class="dropdown-item" [routerLink]="['/edit/', projectID]">Project Settings</a>
+          <a class="dropdown-item" href="{{ apiHost }}/accounts/profile/">Account</a>
         </li>
         <li role="menuitem">
           <a class="dropdown-item" (click)="authService.logout()">Logout</a>

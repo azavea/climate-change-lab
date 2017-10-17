@@ -19,6 +19,11 @@
               <label>Scenario</label>
               <ccl-scenario-toggle [projectData]="project.project_data"></ccl-scenario-toggle>
             </div>
+            <!-- dataset selector -->
+            <div class="control-group">
+              <label>Dataset</label>
+              <ccl-dataset-toggle [projectData]="project.project_data"></ccl-dataset-toggle>
+            </div>
             <!-- climate model selector -->
             <div class="control-group">
               <label>Models</label>
@@ -27,9 +32,10 @@
             <!-- units selector, only show if indicator selected -->
             <div class="control-group">
               <label>Units</label>
-              <ccl-units-dropdown *ngIf="project.project_data.charts[0]"
-                                  [units]="project.project_data.charts[0].indicator.available_units"
-                                  [unit]="project.project_data.charts[0].unit"
+              <ccl-units-dropdown [units]="project.project_data.charts[0] ?
+                                  project.project_data.charts[0].indicator.available_units: ['N/A']"
+                                  [unit]="project.project_data.charts[0] ?
+                                  project.project_data.charts[0].unit: ''"
                                   (unitSelected)="onUnitSelected($event)">
               </ccl-units-dropdown>
             </div>
@@ -41,6 +47,7 @@
             <ccl-chart [chart]="project.project_data.charts[0]"
                        [city]="project.project_data.city"
                        [models]="project.project_data.models"
+                       [dataset]="project.project_data.dataset"
                        [scenario]="project.project_data.scenario"
                        [unit]="project.project_data.charts[0].unit"
                        [extraParams]="project.project_data.extraParams"
