@@ -35,6 +35,9 @@ ccl-chart {
 
   .noUi-pips-horizontal {
     font-size: 12px;
+    // Prevents this div from creating an area outside the pips that can't be clicked on
+    // Setting height to zero doesn't seem to affect any part of the visible page layout
+    height: 0;
   }
 
   .noUi-marker-horizontal.noUi-marker-large {
