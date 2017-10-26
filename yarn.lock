@@ -880,6 +880,27 @@ cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
 
+climate-change-components@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/climate-change-components/-/climate-change-components-0.1.0.tgz#00c21b771f05d01313b2ef2f286f56bcb88aa7eb"
+  dependencies:
+    "@angular/animations" "^4.3.6"
+    "@angular/common" "^4.3.6"
+    "@angular/compiler" "^4.3.6"
+    "@angular/core" "^4.3.6"
+    "@angular/forms" "^4.3.6"
+    "@angular/http" "^4.3.6"
+    "@angular/platform-browser" "^4.3.6"
+    "@angular/platform-browser-dynamic" "^4.3.6"
+    "@angular/router" "^4.3.6"
+    "@types/geojson" "^1.0.3"
+    core-js "^2.5.0"
+    d3 "^4.10.0"
+    lodash "^4.17.4"
+    moment "^2.18.1"
+    rxjs "^5.4.3"
+    zone.js "^0.8.17"
+
 cliui@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cliui/-/cliui-2.1.0.tgz#4b475760ff80264c762c3a1719032e91c7fea0d1"
@@ -1428,11 +1449,7 @@ d3-time@1, d3-time@1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.0.7.tgz#94caf6edbb7879bb809d0d1f7572bc48482f7270"
 
-d3-timer@1:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/d3-timer/-/d3-timer-1.0.6.tgz#4044bf15d7025c06ce7d1149f73cd07b54dbd784"
-
-d3-timer@1.0.7:
+d3-timer@1, d3-timer@1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/d3-timer/-/d3-timer-1.0.7.tgz#df9650ca587f6c96607ff4e60cc38229e8dd8531"
 
@@ -5976,6 +5993,6 @@ yn@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
 
-zone.js@0.8.17, zone.js@^0.8.14:
+zone.js@0.8.17, zone.js@^0.8.14, zone.js@^0.8.17:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.17.tgz#4c5e5185a857da8da793daf3919371c5a36b2a0b"

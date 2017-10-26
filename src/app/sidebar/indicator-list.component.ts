@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Indicator } from '../models/indicator.model';
+import { Indicator } from 'climate-change-components';
 
 /*
  * IndicatorList Component

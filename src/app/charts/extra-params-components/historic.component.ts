@@ -1,10 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { HistoricRange } from '../../models/historic-range.model';
-import { HistoricIndicatorQueryParams } from '../../models/historic-indicator-query-params.model';
-import { HistoricRangeService } from '../../services/historic-range.service';
-import { Indicator } from '../../models/indicator.model';
+import { HistoricRange, HistoricIndicatorQueryParams, HistoricRangeService, Indicator } from 'climate-change-components';
 
 import * as _ from 'lodash';
 

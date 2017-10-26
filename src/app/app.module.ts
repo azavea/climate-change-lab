@@ -16,6 +16,9 @@ import { UiSwitchModule } from 'ngx-ui-switch/src';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NouisliderModule } from 'ng2-nouislider';
 
+// Shared modules
+import { ApiModule } from 'climate-change-components';
+
 // App routing
 import { routing, appRoutingProviders } from './app.routing';
 
@@ -51,19 +54,15 @@ import { ThresholdComponent,
          PercentileComponent } from './charts/extra-params-components/';
 
 // App services
-import { ApiHttp } from './auth/api-http.service';
 import { apiHttpProvider } from './auth/api-http.provider';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
-import { ChartService } from './services/chart.service';
+
 import { DataExportService } from './services/data-export.service';
-import { DatasetService } from './services/dataset.service';
 import { ImageExportService } from './services/image-export.service';
-import { ClimateModelService } from './services/climate-model.service';
-import { HistoricRangeService } from './services/historic-range.service';
-import { IndicatorService } from './services/indicator.service';
-import { ScenarioService } from './services/scenario.service';
 import { ProjectService } from './services/project.service';
+
+import { apiHost } from './constants';
 
 // Custom app providers
 const locationStrategyProvider = {
@@ -111,7 +110,11 @@ const locationStrategyProvider = {
     Ng2AutoCompleteModule,
     UiSwitchModule,
     ClipboardModule,
-    NouisliderModule
+    NouisliderModule,
+    ApiModule.forRoot({
+      apiHost: apiHost,
+      apiHttpInjectionToken: apiHttpProvider.provide
+    })
   ],
   providers: [
     appRoutingProviders,
@@ -119,14 +122,8 @@ const locationStrategyProvider = {
     apiHttpProvider,
     AuthService,
     AuthGuard,
-    ChartService,
     DataExportService,
-    DatasetService,
     ImageExportService,
-    ClimateModelService,
-    HistoricRangeService,
-    IndicatorService,
-    ScenarioService,
     ProjectService
   ]
 })

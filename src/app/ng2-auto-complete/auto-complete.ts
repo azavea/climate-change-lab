@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Response } from '@angular/http';
 import 'rxjs/Rx';
-import { ApiHttp } from '../auth/api-http.service';
+import { LabApiHttp } from '../auth/api-http.service';
 
 /**
  * provides auto-complete related utility functions
@@ -13,7 +13,7 @@ export class AutoComplete {
   public source: string;
   public pathToData: string;
 
-  constructor(private apiHttp: ApiHttp) {
+  constructor(private apiHttp: LabApiHttp) {
     // ...
   }
 

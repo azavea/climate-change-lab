@@ -1,8 +1,4 @@
-import { City } from './city.model';
-import { Chart } from './chart.model';
-import { ClimateModel } from './climate-model.model';
-import { Dataset } from './dataset.model';
-import { Scenario } from './scenario.model';
+import { City, Chart, ClimateModel, Dataset, Scenario } from 'climate-change-components';
 
 export class ProjectData {
     name: string;

@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Indicator } from '../../models/indicator.model';
-import { BasetempIndicatorQueryParams } from '../../models/basetemp-indicator-query-params.model';
-import { TemperatureUnits } from './extra-params.constants';
+import { BasetempIndicatorQueryParams, Indicator, TemperatureUnits } from 'climate-change-components';
 
 import * as _ from 'lodash';
 

@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Scenario } from '../../models/scenario.model';
+import { Scenario, ScenarioService } from 'climate-change-components';
 import { ProjectData } from '../../models/project-data.model';
-import { ScenarioService } from '../../services/scenario.service';
 
 /*  Scenario Toggle Component
 

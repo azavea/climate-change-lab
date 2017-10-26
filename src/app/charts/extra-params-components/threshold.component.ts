@@ -1,10 +1,9 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Indicator } from '../../models/indicator.model';
-import { ThresholdIndicatorQueryParams } from '../../models/threshold-indicator-query-params.model';
+import { Indicator, ThresholdIndicatorQueryParams } from 'climate-change-components';
 import { PrecipitationUnits,
-         TemperatureUnits } from './extra-params.constants';
+         TemperatureUnits } from 'climate-change-components';
 
 import * as _ from 'lodash';
 
