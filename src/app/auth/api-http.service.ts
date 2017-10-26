@@ -3,6 +3,8 @@ import { ConnectionBackend, Http, Headers, Request, RequestOptions, RequestOptio
          Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
+import { ApiHttp } from 'climate-change-components';
+
 import { AuthService } from './auth.service';
 
 
@@ -11,7 +13,7 @@ import { AuthService } from './auth.service';
  * and redirects unauthorized responses to login page.
  */
 @Injectable()
-export class ApiHttp extends Http {
+export class LabApiHttp extends Http implements ApiHttp {
 
     constructor(protected _backend: ConnectionBackend,
                 protected _defaultOptions: RequestOptions,

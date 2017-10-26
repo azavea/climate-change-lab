@@ -8,14 +8,12 @@ import {
     AfterContentInit
 } from '@angular/core';
 
-import { ChartData } from '../models/chart-data.model';
-import { DataPoint } from '../models/data-point.model';
-import { Indicator } from '../models/indicator.model';
+import { ChartData, DataPoint, Indicator } from 'climate-change-components';
 import * as D3 from 'd3';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
 
-import { ChartService } from '../services/chart.service';
+import { ChartService } from 'climate-change-components';
 
 /*
  * Line graph component

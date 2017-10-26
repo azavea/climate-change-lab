@@ -13,26 +13,19 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Chart } from '../models/chart.model';
-import { ChartData } from '../models/chart-data.model';
-import { City } from '../models/city.model';
-import { ClimateModel } from '../models/climate-model.model';
-import { Dataset } from '../models/dataset.model';
-import { IndicatorRequestOpts } from '../models/indicator-request-opts.model';
-import { IndicatorQueryParams } from '../models/indicator-query-params.model';
-import { Scenario } from '../models/scenario.model';
-import { TimeAggParam } from '../models/time-agg-param.enum';
+import { Chart, ChartData, City, ClimateModel, Dataset, IndicatorRequestOpts,
+         IndicatorQueryParams, Scenario, TimeAggParam } from 'climate-change-components';
+
+import { ChartService, IndicatorService } from 'climate-change-components';
 
 import { AuthService } from '../auth/auth.service';
-import { ChartService } from '../services/chart.service';
-import { IndicatorService } from '../services/indicator.service';
 import { DataExportService } from '../services/data-export.service';
 import { ImageExportService } from '../services/image-export.service';
 
 import { isBasetempIndicator,
          isHistoricIndicator,
          isPercentileIndicator,
-         isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
+         isThresholdIndicator } from 'climate-change-components';
 
 import * as _ from 'lodash';
 

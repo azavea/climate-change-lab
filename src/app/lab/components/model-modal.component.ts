@@ -2,9 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import {} from ''
 
-import { ClimateModel } from '../../models/climate-model.model';
+import { ClimateModel, ClimateModelService } from 'climate-change-components';
 import { ProjectData } from '../../models/project-data.model';
-import { ClimateModelService } from '../../services/climate-model.service';
 
 import * as _ from 'lodash';
 

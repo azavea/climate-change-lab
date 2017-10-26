@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { Project } from '../models/project.model';
 import { ProjectData } from '../models/project-data.model';
-import { ApiHttp } from '../auth/api-http.service';
+import { LabApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
 
 import * as _ from 'lodash';
@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 @Injectable()
 export class ProjectService {
 
-    constructor(private apiHttp: ApiHttp) {}
+    constructor(private apiHttp: LabApiHttp) {}
 
     add(project: Project): Observable<Project> {
         const url = `${apiHost}/api/project/`;

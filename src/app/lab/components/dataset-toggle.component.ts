@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Dataset } from '../../models/dataset.model';
+import { Dataset, DatasetService } from 'climate-change-components';
 import { ProjectData } from '../../models/project-data.model';
-import { DatasetService } from '../../services/dataset.service';
 
 import * as _ from 'lodash';
 

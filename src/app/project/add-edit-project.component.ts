@@ -2,10 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
+import { Scenario, City } from 'climate-change-components';
+
 import { Project } from '../models/project.model';
 import { ProjectData } from '../models/project-data.model';
-import { Scenario } from '../models/scenario.model';
-import { City } from '../models/city.model';
 import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
 import {

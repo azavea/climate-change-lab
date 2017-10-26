@@ -10,11 +10,10 @@ import { Component,
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
+import { Chart, Indicator, IndicatorQueryParams } from 'climate-change-components';
+
 import { ProjectService } from '../services/project.service';
 
-import { Chart } from '../models/chart.model';
-import { Indicator } from '../models/indicator.model';
-import { IndicatorQueryParams } from '../models/indicator-query-params.model';
 import { Project } from '../models/project.model';
 
 
