@@ -79,4 +79,8 @@ export class AddEditProjectComponent implements OnInit {
     onSuccess() {
         this.router.navigate(['/lab', this.model.project.id]);
     }
+
+    scenarioSelected(scenario: Scenario) {
+        this.model.project.project_data.scenario = scenario;
+    }
 }

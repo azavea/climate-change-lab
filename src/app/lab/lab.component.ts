@@ -10,7 +10,7 @@ import { Component,
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Chart, Indicator, IndicatorQueryParams } from 'climate-change-components';
+import { Chart, Indicator, IndicatorQueryParams, Scenario } from 'climate-change-components';
 
 import { ProjectService } from '../services/project.service';
 
@@ -103,5 +103,9 @@ export class LabComponent implements OnInit, OnDestroy {
                                      unit: indicator.default_units});
             this.project.project_data.charts = [chart];
         })
+    }
+
+    public scenarioSelected(scenario: Scenario) {
+        this.project.project_data.scenario = scenario;
     }
 }

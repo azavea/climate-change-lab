@@ -17,7 +17,10 @@
             <!-- scenario selector -->
             <div class="control-group">
               <label>Scenario</label>
-              <ccl-scenario-toggle [projectData]="project.project_data"></ccl-scenario-toggle>
+              <ccl-scenario-toggle
+                [scenario]="project.project_data.scenario"
+                (onScenarioSelected)="scenarioSelected($event)">
+              </ccl-scenario-toggle>
             </div>
             <!-- dataset selector -->
             <div class="control-group">
