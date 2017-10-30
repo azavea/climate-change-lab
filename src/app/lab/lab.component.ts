@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import {
     Chart,
+    ClimateModel,
     Dataset,
     Indicator,
     IndicatorQueryParams,
@@ -113,6 +114,10 @@ export class LabComponent implements OnInit, OnDestroy {
                                      unit: indicator.default_units});
             this.project.project_data.charts = [chart];
         })
+    }
+
+    public modelsChanged(models: ClimateModel[]) {
+        this.project.project_data.models = models;
     }
 
     public scenarioSelected(scenario: Scenario) {

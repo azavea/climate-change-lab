@@ -1,18 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import {} from ''
 
-import { ClimateModel, ClimateModelService } from 'climate-change-components';
-import { ProjectData } from '../../models/project-data.model';
+import { ClimateModel, ClimateModelService, Dataset } from 'climate-change-components';
 
 import * as _ from 'lodash';
 
 /*  Model Modal Component
-    -- Requires project input
+    -- Requires input for selected dataset and models
     -- Emits selected model
     Expected use:
         <ccl-model-modal
-            [projectData]="your_project.project_data">
+            [dataset]="yourDataset"
+            [models]="yourSelectedModels"
+            (onModelsChanged)="modelsChanged($event)">
 */
 
 @Component({
@@ -21,7 +22,9 @@ import * as _ from 'lodash';
 })
 export class ModelModalComponent implements OnInit {
 
-    @Input() projectData: ProjectData;
+    @Input() dataset: Dataset;
+    @Input() models: ClimateModel[];
+    @Output() onModelsChanged = new EventEmitter<ClimateModel[]>();
 
     public buttonText: string;
     public climateModels: ClimateModel[] = [];
@@ -40,11 +43,11 @@ export class ModelModalComponent implements OnInit {
 
     // disable models not valid for the project datset
     public disableClimateModels() {
-        if (!this.projectData.dataset) {
+        if (!this.dataset) {
             return;
         }
         this.climateModels.forEach(model => {
-            model.enabled = _.includes(this.projectData.dataset.models, model.name);
+            model.enabled = _.includes(this.dataset.models, model.name);
         });
     }
 
@@ -56,14 +59,15 @@ export class ModelModalComponent implements OnInit {
         this.climateModels.forEach(model => model.selected = true);
     }
 
-    public updateProjectClimateModels() {
+    public updateClimateModels() {
         this.disableClimateModels();
-        this.projectData.models = this.filterSelectedClimateModels();
+        this.models = this.filterSelectedClimateModels();
+        this.onModelsChanged.emit(this.models);
         this.updateButtonText();
     }
 
     public modalShow() {
-        this.updateProjectClimateModels();
+        this.updateClimateModels();
     }
 
     public modalHide() {
@@ -71,7 +75,7 @@ export class ModelModalComponent implements OnInit {
         if (models.length < 1) {
           this.selectAllClimateModels();
         }
-        this.updateProjectClimateModels();
+        this.updateClimateModels();
     }
 
     private filterSelectedClimateModels() {
@@ -84,11 +88,11 @@ export class ModelModalComponent implements OnInit {
             this.climateModels = data;
 
             // Initialize 'selected' attributes with models in project
-            if (this.projectData.models.length === 0) {
+            if (this.models.length === 0) {
                 this.selectAllClimateModels();
-            } else if (this.projectData.dataset) {
+            } else if (this.dataset) {
                 // dataset may be undefined for project if in form to create new project
-                this.projectData.models.forEach(projectModel => {
+                this.models.forEach(projectModel => {
                     this.climateModels.forEach(model => {
                         if (projectModel.name === model.name) {
                            model.selected = projectModel.selected;
@@ -97,12 +101,12 @@ export class ModelModalComponent implements OnInit {
                 });
             }
 
-            this.updateProjectClimateModels();
+            this.updateClimateModels();
         });
     }
 
     private updateButtonText() {
-        this.buttonText = this.projectData.models.length ===
-            this.projectData.dataset.models.length ? 'All available models' : 'Subset of models';
+        this.buttonText = this.models.length ===
+            this.dataset.models.length ? 'All available models' : 'Subset of models';
     }
 }

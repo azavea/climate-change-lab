@@ -43,7 +43,10 @@
                         </div>
                         <div class="column-4 flex-column">
                             <label for="project.models">Models</label>
-                            <ccl-model-modal [projectData]="model.project.project_data"></ccl-model-modal>
+                            <ccl-model-modal [dataset]="model.project.project_data.dataset"
+                                             [models]="model.project.project_data.models"
+                                             (onModelsChanged)="modelsChanged($event)">
+                            </ccl-model-modal>
                         </div>
                     </div>
                 </div>
