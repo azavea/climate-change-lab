@@ -17,7 +17,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { NouisliderModule } from 'ng2-nouislider';
 
 // Shared modules
-import { ApiModule } from 'climate-change-components';
+import { ApiModule, ChartsModule } from 'climate-change-components';
 
 // App routing
 import { routing, appRoutingProviders } from './app.routing';
@@ -43,7 +43,6 @@ import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HistoricComponent } from './charts/extra-params-components/historic.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
-import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
@@ -84,7 +83,6 @@ const locationStrategyProvider = {
     DashboardComponent,
     IndicatorListComponent,
     LabComponent,
-    LineGraphComponent,
     NavbarComponent,
     SidebarComponent,
     PageNotFoundComponent,
@@ -114,7 +112,8 @@ const locationStrategyProvider = {
     ApiModule.forRoot({
       apiHost: apiHost,
       apiHttpInjectionToken: apiHttpProvider.provide
-    })
+    }),
+    ChartsModule
   ],
   providers: [
     appRoutingProviders,
