@@ -5,8 +5,6 @@ import { Indicator, ThresholdIndicatorQueryParams } from 'climate-change-compone
 import { PrecipitationUnits,
          TemperatureUnits } from 'climate-change-components';
 
-import * as _ from 'lodash';
-
 /*
  * Threshold params component
  * Multi-field form to allow user to specify threshold params

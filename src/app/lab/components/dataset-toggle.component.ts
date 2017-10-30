@@ -2,8 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { City, ClimateModel, Dataset, DatasetService } from 'climate-change-components';
 
-import * as _ from 'lodash';
-
 /*  Dataset Toggle Component
 
     -- Requires project input
@@ -40,7 +38,7 @@ export class DatasetToggleComponent implements OnInit {
         }
         this.dataset = dataset;
         this.models.forEach(model => {
-            model.enabled = _.includes(dataset.models, model.name);
+            model.enabled = dataset.models.includes(model.name);
         });
 
         if (event) {
@@ -78,7 +76,7 @@ export class DatasetToggleComponent implements OnInit {
         if (!this.city.properties) {
             return true; // city properties may be undefined in form to create new project
         }
-        return _.includes(this.city.properties.datasets, dataset.name);
+        return this.city.properties.datasets.includes(dataset.name);
     }
 
     private getDatasets() {

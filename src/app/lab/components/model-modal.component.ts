@@ -4,8 +4,6 @@ import {} from ''
 
 import { ClimateModel, ClimateModelService, Dataset } from 'climate-change-components';
 
-import * as _ from 'lodash';
-
 /*  Model Modal Component
     -- Requires input for selected dataset and models
     -- Emits selected model
@@ -47,7 +45,7 @@ export class ModelModalComponent implements OnInit {
             return;
         }
         this.climateModels.forEach(model => {
-            model.enabled = _.includes(this.dataset.models, model.name);
+            model.enabled = this.dataset.models.includes(model.name);
         });
     }
 

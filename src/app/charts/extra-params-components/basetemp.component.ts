@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { BasetempIndicatorQueryParams, Indicator, TemperatureUnits } from 'climate-change-components';
 
-import * as _ from 'lodash';
-
 /*
  * Basetemp params component
  * Multi-field form to allow user to specify the basetemp params

@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { HistoricRange, HistoricIndicatorQueryParams, HistoricRangeService, Indicator } from 'climate-change-components';
 
-import * as _ from 'lodash';
-
 /*
  * Historic range params component
  * Form to allow user to specify the historic range base year param
@@ -56,7 +54,7 @@ export class HistoricComponent implements AfterViewInit, OnInit {
 
     getHistoricRanges() {
         this.historicRangeService.list().subscribe(data => {
-            this.historicRangeOptions = _.map(data, 'start_year');
+            this.historicRangeOptions = data.map(h => h.start_year);
             // add empty option, as this is not a required parameter
             this.historicRangeOptions.unshift('');
         });

@@ -7,8 +7,6 @@ import { ProjectData } from '../models/project-data.model';
 import { LabApiHttp } from '../auth/api-http.service';
 import { apiHost } from '../constants';
 
-import * as _ from 'lodash';
-
 @Injectable()
 export class ProjectService {
 
