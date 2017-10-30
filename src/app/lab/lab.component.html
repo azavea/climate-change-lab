@@ -25,7 +25,11 @@
             <!-- dataset selector -->
             <div class="control-group">
               <label>Dataset</label>
-              <ccl-dataset-toggle [projectData]="project.project_data"></ccl-dataset-toggle>
+              <ccl-dataset-toggle [city]="project.project_data.city"
+                                  [dataset]="project.project_data.dataset"
+                                  [models]="project.project_data.models"
+                                  (onDatasetSelected)="datasetSelected($event)">
+              </ccl-dataset-toggle>
             </div>
             <!-- climate model selector -->
             <div class="control-group">

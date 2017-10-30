@@ -10,7 +10,13 @@ import { Component,
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Chart, Indicator, IndicatorQueryParams, Scenario } from 'climate-change-components';
+import {
+    Chart,
+    Dataset,
+    Indicator,
+    IndicatorQueryParams,
+    Scenario
+} from 'climate-change-components';
 
 import { ProjectService } from '../services/project.service';
 
@@ -83,6 +89,10 @@ export class LabComponent implements OnInit, OnDestroy {
 
     public saveExtraParams(params: IndicatorQueryParams) {
         this.project.project_data.extraParams = params;
+    }
+
+    public datasetSelected(dataset: Dataset) {
+        this.project.project_data.dataset = dataset;
     }
 
     public indicatorSelected(indicator: Indicator) {

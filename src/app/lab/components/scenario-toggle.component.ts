@@ -7,7 +7,7 @@ import { Scenario, ScenarioService } from 'climate-change-components';
     -- Requires project input
     Expected use:
         <ccl-scenario-toggle
-            [projectData]="your_project.project_data">
+            [scenario]="yourScenario">
 */
 
 @Component({
