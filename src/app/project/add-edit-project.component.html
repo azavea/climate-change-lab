@@ -34,12 +34,12 @@
                         </div>
                         <div class="column-4 flex-column">
                             <label for="project.scenario">Dataset*</label>
-                            <ccl-dataset-toggle
+                            <ccc-dataset-toggle
                                 [city]="model.project.project_data.city"
                                 [dataset]="model.project.project_data.dataset"
                                 [models]="model.project.project_data.models"
                                 (onDatasetSelected)="datasetSelected($event)">
-                            </ccl-dataset-toggle>
+                            </ccc-dataset-toggle>
                         </div>
                         <div class="column-4 flex-column">
                             <label for="project.models">Models</label>

@@ -30,7 +30,6 @@ import {
   CityDropdownComponent,
   LabComponent,
   ModelModalComponent,
-  DatasetToggleComponent,
   ScenarioToggleComponent,
   UnitsDropdownComponent } from './lab';
 
@@ -88,7 +87,6 @@ const locationStrategyProvider = {
     PageNotFoundComponent,
     LoginComponent,
     AddEditProjectComponent,
-    DatasetToggleComponent,
     ScenarioToggleComponent,
     ModelModalComponent,
     CityDropdownComponent,
