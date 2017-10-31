@@ -131,3 +131,28 @@ nav {
     font-weight: 600;
   }
 }
+
+.tooltip-right > div {
+  animation-name: delayFadeIn;
+  animation-duration: 0.4s;
+  transform: translate(-20px, 0);
+
+  &.tooltip-arrow {
+    border-right-color: #23232a;
+  }
+  &.tooltip-inner {
+    background-color: #23232a;
+  }
+}
+
+@keyframes delayFadeIn {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

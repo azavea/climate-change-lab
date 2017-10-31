@@ -19,22 +19,25 @@
     <div class="modal-content">
       <div class="modal-body">
         <h4 class="modal-title">Select Models</h4>
-        <button class="button" type="button" (click)="selectAllClimateModels()">
-          Use all models
-        </button>
-        <button class="button" type="button" (click)="clearClimateModels()">
-          Clear all models
-        </button>
-        <hr />
-        <div *ngFor="let climateModel of climateModels">
-          <label>
-            <input type="checkbox"
-                   name="modelCheckbox"
-                   value="value"
-                   [disabled]="!climateModel.enabled"
-                   [(ngModel)]="climateModel.selected">
-            {{ climateModel.name }}
-          </label>
+        <div class="modal-actions">
+          <button class="button" type="button" (click)="selectAllClimateModels()">
+            Use all models
+          </button>
+          <button class="button" type="button" (click)="clearClimateModels()">
+            Clear all models
+          </button>
+        </div>
+        <div class="models">
+          <div *ngFor="let climateModel of climateModels">
+            <label>
+              <input type="checkbox"
+                     name="modelCheckbox"
+                     value="value"
+                     [disabled]="!climateModel.enabled"
+                     [(ngModel)]="climateModel.selected">
+              {{ climateModel.name }}
+            </label>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

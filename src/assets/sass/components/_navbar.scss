@@ -6,6 +6,13 @@ nav {
   }
 }
 
+.controls {
+  .dropdown {
+    padding-left: 0;
+    margin-right: 4px;
+  }
+}
+
 .nav-primary {
   background-color: $color-header;
   height: 50px;
@@ -39,10 +46,6 @@ nav {
         background: white;
         top: 0;
         left: 0;
-      }
-
-      &:hover {
-        color: darken(white, 10%);
       }
     }
   }
@@ -81,8 +84,8 @@ nav {
       border-radius: 0;
       border-width: 0;
       background-color: #fff;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
       border: 1px solid $gray-3;
       border-radius: 3px;
 
@@ -90,8 +93,10 @@ nav {
         background-color: #E3E3E3;
       }
 
-      &:hover {
-        color: darken(white, 10%);
+      &:not(.active) {
+        &:hover {
+          background-color: #f6f6f6;
+        }
       }
     }
   }
@@ -115,6 +120,8 @@ nav {
       height: 4rem;
       border: 1px solid $gray-3;
       border-radius: 3px;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
 }
