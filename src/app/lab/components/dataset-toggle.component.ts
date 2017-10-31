@@ -1,36 +1,28 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { Dataset, DatasetService } from 'climate-change-components';
-import { ProjectData } from '../../models/project-data.model';
-
-import * as _ from 'lodash';
+import { City, ClimateModel, Dataset, DatasetService } from 'climate-change-components';
 
 /*  Dataset Toggle Component
 
     -- Requires project input
     Expected use:
         <ccl-dataset-toggle
-            [projectData]="your_project.project_data">
+            [city]="selectedCity"
+            [dataset]="yourDataset"
+            [models]="selectedModels"
+            (onDatasetSelected)="datasetSelected($event)">
 */
 
 @Component({
   selector: 'ccl-dataset-toggle',
-  template: `
-    <div class="dropdown button-group">
-        <button class="button"
-               *ngFor="let s of datasets"
-               [disabled]="!checkValidDataset(s)"
-               [ngClass]="{'active': s.name === projectData.dataset.name}"
-               (click)="onDatasetSelected(s, $event)">
-            {{ s.name }}
-        </button>
-    </div>
-  `
-
+  templateUrl: './dataset-toggle.component.html'
 })
 export class DatasetToggleComponent implements OnInit {
 
-    @Input() projectData: ProjectData;
+    @Input() city: City;
+    @Input() dataset: Dataset;
+    @Input() models: ClimateModel[];
+    @Output() onDatasetSelected = new EventEmitter<Dataset>();
     public datasets: Dataset[] = [];
     private DEFAULT_DATASET_NAME = 'NEX-GDDP';
 
@@ -40,18 +32,19 @@ export class DatasetToggleComponent implements OnInit {
         this.getDatasets();
     }
 
-    public onDatasetSelected(dataset: Dataset, event?: Event) {
+    public onDatasetClicked(dataset: Dataset, event?: Event) {
         if (!this.isValidDataset(dataset)) {
             this.selectDefaultDataset();
         }
-        this.projectData.dataset = dataset;
-        this.projectData.models.forEach(model => {
-            model.enabled = _.includes(dataset.models, model.name);
+        this.dataset = dataset;
+        this.models.forEach(model => {
+            model.enabled = dataset.models.includes(model.name);
         });
 
         if (event) {
             event.preventDefault();
         }
+        this.onDatasetSelected.emit(dataset);
     }
 
     // set to default, or first valid option for the selected city
@@ -63,14 +56,14 @@ export class DatasetToggleComponent implements OnInit {
             dataset = this.datasets.find(s => this.isValidDataset(s));
         }
 
-        this.onDatasetSelected(dataset);
+        this.onDatasetClicked(dataset);
     }
 
     // check if a given dataset is valid and change it if not and it is selected
     public checkValidDataset(dataset: Dataset): boolean {
         const isValid = this.isValidDataset(dataset);
-        if (!isValid && this.projectData.dataset &&
-            this.projectData.dataset.name === dataset.name) {
+        if (!isValid && this.dataset &&
+            this.dataset.name === dataset.name) {
             // If this dataset is selected but not valid, change to a valid dataset.
             // Do so within a timeout to avoid change detection errors.
             setTimeout(() => this.selectDefaultDataset());
@@ -80,10 +73,10 @@ export class DatasetToggleComponent implements OnInit {
 
     // helper that checks if a given dataset is available for the currently selected city
     public isValidDataset(dataset: Dataset): boolean {
-        if (!this.projectData.city.properties) {
+        if (!this.city.properties) {
             return true; // city properties may be undefined in form to create new project
         }
-        return _.includes(this.projectData.city.properties.datasets, dataset.name);
+        return this.city.properties.datasets.includes(dataset.name);
     }
 
     private getDatasets() {
@@ -91,7 +84,7 @@ export class DatasetToggleComponent implements OnInit {
             this.datasets = data;
 
             // Set a default for the project if none is set
-            if (!this.projectData.dataset) {
+            if (!this.dataset) {
                 this.selectDefaultDataset();
             }
         });

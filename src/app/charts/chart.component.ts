@@ -27,7 +27,7 @@ import { isBasetempIndicator,
          isPercentileIndicator,
          isThresholdIndicator } from 'climate-change-components';
 
-import * as _ from 'lodash';
+import * as cloneDeep from 'lodash.clonedeep';
 
 /*
  * Chart component
@@ -124,14 +124,14 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.chartData = [];
         this.rawChartData = [];
 
-        let params: IndicatorQueryParams = {
-            climateModels: _.filter(this.models, model => model.enabled),
+        const params: IndicatorQueryParams = {
+            climateModels: this.models.filter(model => model.enabled),
             dataset: this.dataset.name,
             unit: this.unit || this.chart.indicator.default_units,
             time_aggregation: TimeAggParam.Yearly
         }
 
-        params = _.extend(params, this.extraParams);
+        Object.assign(params, this.extraParams);
 
         const queryOpts: IndicatorRequestOpts = {
             indicator: this.chart.indicator,
@@ -153,7 +153,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
             delete data[1].url; // apart from URL, returned data is raw query response
             this.rawChartData = data[1];
             this.processedData = this.chartService.convertChartData(data);
-            this.chartData = _.cloneDeep(this.processedData);
+            this.chartData = cloneDeep(this.processedData);
 
             this.curlCommandHistorical = `curl -i "${chartQueryHistorical}" -H "Authorization: Token ` +
                                `${this.authService.getToken()}"`;
@@ -163,12 +163,12 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
     }
 
     sliceChartData() {
-        this.chartData = _.cloneDeep(this.processedData); // to trigger change detection
+        this.chartData = cloneDeep(this.processedData); // to trigger change detection
         const startYear = this.dateRange[0];
         const endYear = this.dateRange[1];
-        this.chartData[0]['data'] = (this.chartData[0]['data']).filter(obj => {
-            const year = obj['date'].getFullYear()
-            return year >= startYear && year <= endYear
+        this.chartData[0]['data'] = this.chartData[0]['data'].filter(obj => {
+            const year = obj['date'].getFullYear();
+            return year >= startYear && year <= endYear;
         });
     }
 

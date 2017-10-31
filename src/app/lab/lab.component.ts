@@ -10,7 +10,14 @@ import { Component,
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Chart, Indicator, IndicatorQueryParams } from 'climate-change-components';
+import {
+    Chart,
+    ClimateModel,
+    Dataset,
+    Indicator,
+    IndicatorQueryParams,
+    Scenario
+} from 'climate-change-components';
 
 import { ProjectService } from '../services/project.service';
 
@@ -85,6 +92,10 @@ export class LabComponent implements OnInit, OnDestroy {
         this.project.project_data.extraParams = params;
     }
 
+    public datasetSelected(dataset: Dataset) {
+        this.project.project_data.dataset = dataset;
+    }
+
     public indicatorSelected(indicator: Indicator) {
         // Must compare indicator names and not objects,
         // or else will fail for first loaded indicator on page.
@@ -103,5 +114,13 @@ export class LabComponent implements OnInit, OnDestroy {
                                      unit: indicator.default_units});
             this.project.project_data.charts = [chart];
         })
+    }
+
+    public modelsChanged(models: ClimateModel[]) {
+        this.project.project_data.models = models;
+    }
+
+    public scenarioSelected(scenario: Scenario) {
+        this.project.project_data.scenario = scenario;
     }
 }

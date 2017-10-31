@@ -17,17 +17,27 @@
             <!-- scenario selector -->
             <div class="control-group">
               <label>Scenario</label>
-              <ccl-scenario-toggle [projectData]="project.project_data"></ccl-scenario-toggle>
+              <ccl-scenario-toggle
+                [scenario]="project.project_data.scenario"
+                (onScenarioSelected)="scenarioSelected($event)">
+              </ccl-scenario-toggle>
             </div>
             <!-- dataset selector -->
             <div class="control-group">
               <label>Dataset</label>
-              <ccl-dataset-toggle [projectData]="project.project_data"></ccl-dataset-toggle>
+              <ccl-dataset-toggle [city]="project.project_data.city"
+                                  [dataset]="project.project_data.dataset"
+                                  [models]="project.project_data.models"
+                                  (onDatasetSelected)="datasetSelected($event)">
+              </ccl-dataset-toggle>
             </div>
             <!-- climate model selector -->
             <div class="control-group">
               <label>Models</label>
-              <ccl-model-modal [projectData]="project.project_data"></ccl-model-modal>
+              <ccl-model-modal [dataset]="project.project_data.dataset"
+                               [models]="project.project_data.models"
+                               (onModelsChanged)="modelsChanged($event)">
+              </ccl-model-modal>
             </div>
             <!-- units selector, only show if indicator selected -->
             <div class="control-group">

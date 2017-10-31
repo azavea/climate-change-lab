@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Scenario, City } from 'climate-change-components';
+import { City, ClimateModel, Dataset, Scenario } from 'climate-change-components';
 
 import { Project } from '../models/project.model';
 import { ProjectData } from '../models/project-data.model';
@@ -78,5 +78,17 @@ export class AddEditProjectComponent implements OnInit {
 
     onSuccess() {
         this.router.navigate(['/lab', this.model.project.id]);
+    }
+
+    datasetSelected(dataset: Dataset) {
+        this.model.project.project_data.dataset = dataset;
+    }
+
+    modelsChanged(models: ClimateModel[]) {
+        this.model.project.project_data.models = models;
+    }
+
+    scenarioSelected(scenario: Scenario) {
+        this.model.project.project_data.scenario = scenario;
     }
 }

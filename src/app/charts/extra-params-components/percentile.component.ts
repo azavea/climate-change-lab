@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Indicator, PercentileIndicatorQueryParams } from 'climate-change-components';
 
-import * as _ from 'lodash';
-
 /*
  * Percentile params component
  * Uni-field form to allow user to specify the percentile params

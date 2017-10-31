@@ -1,33 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import { Scenario, ScenarioService } from 'climate-change-components';
-import { ProjectData } from '../../models/project-data.model';
 
 /*  Scenario Toggle Component
 
     -- Requires project input
     Expected use:
         <ccl-scenario-toggle
-            [projectData]="your_project.project_data">
+            [scenario]="yourScenario">
 */
 
 @Component({
   selector: 'ccl-scenario-toggle',
-  template: `
-    <div class="dropdown button-group">
-        <button class="button"
-               *ngFor="let s of scenarios"
-               [ngClass]="{'active': s.name === projectData.scenario.name}"
-               (click)="onScenarioClicked(s, $event)">
-            {{ s.label }}
-        </button>
-    </div>
-  `
-
+  templateUrl: './scenario-toggle.component.html'
 })
 export class ScenarioToggleComponent implements OnInit {
 
-    @Input() projectData: ProjectData;
+    @Input() scenario: Scenario;
+    @Output() onScenarioSelected = new EventEmitter<Scenario>();
     public scenarios: Scenario[] = [];
     private DEFAULT_SCENARIO_NAME = 'RCP85';
     private VALID_SCENARIOS = ['RCP85', 'RCP45'];
@@ -39,10 +29,11 @@ export class ScenarioToggleComponent implements OnInit {
     }
 
     public onScenarioClicked(scenario: Scenario, event?: Event) {
-        this.projectData.scenario = scenario;
+        this.scenario = scenario;
         if (event) {
             event.preventDefault();
         }
+        this.onScenarioSelected.emit(scenario);
     }
 
     private getScenarios() {
@@ -50,7 +41,7 @@ export class ScenarioToggleComponent implements OnInit {
             this.scenarios = data.filter(s => this.VALID_SCENARIOS.includes(s.name));
 
             // Set a default for the project if none is set
-            if (!this.projectData.scenario.label) {
+            if (!this.scenario.label) {
                 this.onScenarioClicked(this.scenarios.find((s) => {
                     return s.name === this.DEFAULT_SCENARIO_NAME;
                 }));
