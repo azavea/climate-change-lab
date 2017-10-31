@@ -34,14 +34,6 @@ ccl-sidebar {
   &:hover {
     color: $brand-primary;
     cursor: pointer;
-    &:before {
-      content: "\e85e";
-      position: absolute;
-      font-family: mantle;
-      right: 1rem;
-      font-size: 1.1rem;
-      top: 1rem;
-    }
   }
 }
 
