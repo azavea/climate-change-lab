@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import {} from ''
-
 import { ClimateModel, ClimateModelService, Dataset } from 'climate-change-components';
 
 /*  Model Modal Component
