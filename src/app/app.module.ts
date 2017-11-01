@@ -25,10 +25,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.module';
 
 // Lab Components
-import {
-  CityDropdownComponent,
-  LabComponent,
-  UnitsDropdownComponent } from './lab';
+import { CityDropdownComponent, LabComponent } from './lab';
 
 // App Components
 import { AppComponent } from './app.component';
@@ -84,8 +81,7 @@ const locationStrategyProvider = {
     PageNotFoundComponent,
     LoginComponent,
     AddEditProjectComponent,
-    CityDropdownComponent,
-    UnitsDropdownComponent
+    CityDropdownComponent
   ],
   imports: [
     BrowserModule,
