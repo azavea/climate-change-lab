@@ -11,7 +11,6 @@ import {
     BsDropdownModule,
     PaginationModule,
     TooltipModule } from 'ngx-bootstrap';
-import { UiSwitchModule } from 'ngx-ui-switch/src';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NouisliderModule } from 'ng2-nouislider';
 
@@ -85,7 +84,6 @@ const locationStrategyProvider = {
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
     Ng2AutoCompleteModule,
-    UiSwitchModule,
     ClipboardModule,
     NouisliderModule,
     ApiModule.forRoot({
