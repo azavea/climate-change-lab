@@ -7,7 +7,6 @@ import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 
 // 3rd party modules
 import {
-    CollapseModule,
     BsDropdownModule,
     PaginationModule,
     TooltipModule } from 'ngx-bootstrap';
@@ -78,7 +77,6 @@ const locationStrategyProvider = {
     FormsModule,
     HttpModule,
     routing,
-    CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
