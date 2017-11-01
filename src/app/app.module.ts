@@ -30,20 +30,15 @@ import { CityDropdownComponent, LabComponent } from './lab';
 // App Components
 import { AppComponent } from './app.component';
 import { AddEditProjectComponent } from './project/add-edit-project.component';
-import { BasetempComponent } from './charts/extra-params-components/basetemp.component';
 import { ChartComponent } from './charts/chart.component';
 import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HistoricComponent } from './charts/extra-params-components/historic.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
-
-import { ThresholdComponent,
-         PercentileComponent } from './charts/extra-params-components/';
 
 // App services
 import { apiHttpProvider } from './auth/api-http.provider';
@@ -66,12 +61,8 @@ const locationStrategyProvider = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-    BasetempComponent,
     WaveComponent,
-    ThresholdComponent,
-    HistoricComponent,
     CopyCurlComponent,
-    PercentileComponent,
     ChartComponent,
     DashboardComponent,
     IndicatorListComponent,
