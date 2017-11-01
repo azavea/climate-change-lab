@@ -9,7 +9,6 @@ import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import {
     CollapseModule,
     BsDropdownModule,
-    ModalModule,
     PaginationModule,
     TooltipModule } from 'ngx-bootstrap';
 import { UiSwitchModule } from 'ngx-ui-switch/src';
@@ -29,7 +28,6 @@ import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.modul
 import {
   CityDropdownComponent,
   LabComponent,
-  ModelModalComponent,
   ScenarioToggleComponent,
   UnitsDropdownComponent } from './lab';
 
@@ -88,7 +86,6 @@ const locationStrategyProvider = {
     LoginComponent,
     AddEditProjectComponent,
     ScenarioToggleComponent,
-    ModelModalComponent,
     CityDropdownComponent,
     UnitsDropdownComponent
   ],
@@ -100,7 +97,6 @@ const locationStrategyProvider = {
     routing,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
     Ng2AutoCompleteModule,

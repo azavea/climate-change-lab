@@ -34,10 +34,10 @@
             <!-- climate model selector -->
             <div class="control-group">
               <label>Models</label>
-              <ccl-model-modal [dataset]="project.project_data.dataset"
+              <ccc-model-modal [dataset]="project.project_data.dataset"
                                [models]="project.project_data.models"
                                (onModelsChanged)="modelsChanged($event)">
-              </ccl-model-modal>
+              </ccc-model-modal>
             </div>
             <!-- units selector, only show if indicator selected -->
             <div class="control-group">

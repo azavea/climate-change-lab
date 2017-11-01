@@ -10,7 +10,6 @@ import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
 import {
     CityDropdownComponent,
-    ModelModalComponent,
     ScenarioToggleComponent,
     UnitsDropdownComponent } from '../lab';
 
