@@ -28,7 +28,6 @@ import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.modul
 import {
   CityDropdownComponent,
   LabComponent,
-  ScenarioToggleComponent,
   UnitsDropdownComponent } from './lab';
 
 // App Components
@@ -85,7 +84,6 @@ const locationStrategyProvider = {
     PageNotFoundComponent,
     LoginComponent,
     AddEditProjectComponent,
-    ScenarioToggleComponent,
     CityDropdownComponent,
     UnitsDropdownComponent
   ],
