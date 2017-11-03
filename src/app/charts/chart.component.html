@@ -17,14 +17,25 @@
         (basetempParamSelected)="onExtraParamsSelected($event)">
     </ccc-basetemp-parameters>
 </div>
-<div *ngIf="isPercentileIndicator(chart.indicator.name)" class="chart-options">
+<!-- both percentile and historic extra parameters -->
+<div *ngIf="isPercentileIndicator(chart.indicator.name) &&
+            isHistoricIndicator(chart.indicator.name)" class="chart-options">
+    <ccc-percentile-historic-parameters
+        [indicator]="chart.indicator"
+        [extraParams]="extraParams"
+        (percentileHistoricParamSelected)="onExtraParamsSelected($event)">
+    </ccc-percentile-historic-parameters>
+</div>
+<div *ngIf="isPercentileIndicator(chart.indicator.name) &&
+            !isHistoricIndicator(chart.indicator.name)" class="chart-options">
     <ccc-percentile-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
         (percentileParamSelected)="onExtraParamsSelected($event)">
     </ccc-percentile-parameters>
 </div>
-<div *ngIf="isHistoricIndicator(chart.indicator.name)" class="chart-options">
+<div *ngIf="isHistoricIndicator(chart.indicator.name) &&
+            !isPercentileIndicator(chart.indicator.name)" class="chart-options">
     <ccc-historic-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
