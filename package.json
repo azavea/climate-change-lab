@@ -34,7 +34,7 @@
     "@angular/router": "^4.3.6",
     "@types/geojson": "^1.0.3",
     "bootstrap-sass": "^3.3.7",
-    "climate-change-components": "^0.1.0",
+    "climate-change-components": "^0.2.0",
     "core-js": "^2.5.0",
     "d3": "^4.10.0",
     "d3-tip": "^0.7.1",
