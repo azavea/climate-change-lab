@@ -4,43 +4,43 @@
     </h2>
 </div>
 <div *ngIf="isThresholdIndicator(chart.indicator.name)" class="chart-options">
-    <ccl-threshold-parameters
+    <ccc-threshold-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
         (thresholdParamSelected)="onExtraParamsSelected($event)">
-    </ccl-threshold-parameters>
+    </ccc-threshold-parameters>
 </div>
 <div *ngIf="isBasetempIndicator(chart.indicator.name)" class="chart-options">
-    <ccl-basetemp-parameters
+    <ccc-basetemp-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
         (basetempParamSelected)="onExtraParamsSelected($event)">
-    </ccl-basetemp-parameters>
+    </ccc-basetemp-parameters>
 </div>
 <div *ngIf="isPercentileIndicator(chart.indicator.name)" class="chart-options">
-    <ccl-percentile-parameters
+    <ccc-percentile-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
         (percentileParamSelected)="onExtraParamsSelected($event)">
-    </ccl-percentile-parameters>
+    </ccc-percentile-parameters>
 </div>
 <div *ngIf="isHistoricIndicator(chart.indicator.name)" class="chart-options">
-    <ccl-historic-parameters
+    <ccc-historic-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
         (historicParamSelected)="onExtraParamsSelected($event)">
-    </ccl-historic-parameters>
+    </ccc-historic-parameters>
 </div>
 <div class="chart-body">
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
     <div class="chart-graphic" *ngIf="chartData && chartData.length">
         <div class="line-graph">
-            <ccl-line-graph
+            <ccc-line-graph
                 [data]="chartData"
                 [indicator]="chart.indicator"
                 [hover]="isHover"
                 [unit]="unit">
-            </ccl-line-graph>
+            </ccc-line-graph>
         </div>
         <div class="chart-legend" *ngIf="chartData && chartData.length">
             <div class="chart-legend-icons">

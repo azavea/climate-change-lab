@@ -2,22 +2,18 @@
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 
 // 3rd party modules
 import {
-    CollapseModule,
     BsDropdownModule,
-    ModalModule,
-    PaginationModule,
     TooltipModule } from 'ngx-bootstrap';
-import { UiSwitchModule } from 'ngx-ui-switch/src';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NouisliderModule } from 'ng2-nouislider';
 
 // Shared modules
-import { ApiModule } from 'climate-change-components';
+import { ApiModule, ChartsModule } from 'climate-change-components';
 
 // App routing
 import { routing, appRoutingProviders } from './app.routing';
@@ -26,32 +22,20 @@ import { routing, appRoutingProviders } from './app.routing';
 import { Ng2AutoCompleteModule } from './ng2-auto-complete/ng2AutoComplete.module';
 
 // Lab Components
-import {
-  CityDropdownComponent,
-  LabComponent,
-  ModelModalComponent,
-  DatasetToggleComponent,
-  ScenarioToggleComponent,
-  UnitsDropdownComponent } from './lab';
+import { CityDropdownComponent, LabComponent } from './lab';
 
 // App Components
 import { AppComponent } from './app.component';
 import { AddEditProjectComponent } from './project/add-edit-project.component';
-import { BasetempComponent } from './charts/extra-params-components/basetemp.component';
 import { ChartComponent } from './charts/chart.component';
 import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HistoricComponent } from './charts/extra-params-components/historic.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
-import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
-
-import { ThresholdComponent,
-         PercentileComponent } from './charts/extra-params-components/';
 
 // App services
 import { apiHttpProvider } from './auth/api-http.provider';
@@ -74,47 +58,34 @@ const locationStrategyProvider = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-    BasetempComponent,
     WaveComponent,
-    ThresholdComponent,
-    HistoricComponent,
     CopyCurlComponent,
-    PercentileComponent,
     ChartComponent,
     DashboardComponent,
     IndicatorListComponent,
     LabComponent,
-    LineGraphComponent,
     NavbarComponent,
     SidebarComponent,
     PageNotFoundComponent,
     LoginComponent,
     AddEditProjectComponent,
-    DatasetToggleComponent,
-    ScenarioToggleComponent,
-    ModelModalComponent,
-    CityDropdownComponent,
-    UnitsDropdownComponent
+    CityDropdownComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpModule,
     routing,
-    CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    PaginationModule.forRoot(),
     TooltipModule.forRoot(),
     Ng2AutoCompleteModule,
-    UiSwitchModule,
     ClipboardModule,
     NouisliderModule,
     ApiModule.forRoot({
       apiHost: apiHost,
       apiHttpInjectionToken: apiHttpProvider.provide
-    })
+    }),
+    ChartsModule
   ],
   providers: [
     appRoutingProviders,

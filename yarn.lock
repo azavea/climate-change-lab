@@ -880,9 +880,9 @@ cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
 
-climate-change-components@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/climate-change-components/-/climate-change-components-0.1.0.tgz#00c21b771f05d01313b2ef2f286f56bcb88aa7eb"
+climate-change-components@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/climate-change-components/-/climate-change-components-0.2.0.tgz#ba2534e1e36d320d9524db47a70a4e26a73dde70"
   dependencies:
     "@angular/animations" "^4.3.6"
     "@angular/common" "^4.3.6"
@@ -896,8 +896,10 @@ climate-change-components@^0.1.0:
     "@types/geojson" "^1.0.3"
     core-js "^2.5.0"
     d3 "^4.10.0"
+    jquery "^3.2.1"
     lodash "^4.17.4"
     moment "^2.18.1"
+    ngx-bootstrap "^1.9.3"
     rxjs "^5.4.3"
     zone.js "^0.8.17"
 
@@ -3569,15 +3571,15 @@ ngx-bootstrap@^1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.9.1.tgz#09ed06d908f5f3bb23f821a0fb452e9a17d7665b"
 
+ngx-bootstrap@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.9.3.tgz#28e75d14fb1beaee609383d7694de4eb3ba03b26"
+
 ngx-clipboard@^8.0.4:
   version "8.0.4"
   resolved "https://registry.yarnpkg.com/ngx-clipboard/-/ngx-clipboard-8.0.4.tgz#97cda30d788e7dc1d280e36a7728f86600c455fd"
   dependencies:
     ngx-window-token "0.0.2"
-
-ngx-ui-switch@^1.3.9:
-  version "1.3.9"
-  resolved "https://registry.yarnpkg.com/ngx-ui-switch/-/ngx-ui-switch-1.3.9.tgz#ca0dc6900a2b8f1a74e5d69906e5f81357a605d8"
 
 ngx-window-token@0.0.2:
   version "0.0.2"

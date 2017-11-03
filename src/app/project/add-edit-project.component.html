@@ -27,26 +27,26 @@
                     <div class="row">
                         <div class="column-4 flex-column">
                             <label for="project.scenario">Scenario*</label>
-                            <ccl-scenario-toggle
+                            <ccc-scenario-toggle
                                 [scenario]="model.project.project_data.scenario"
                                 (onScenarioSelected)="scenarioSelected($event)">
-                            </ccl-scenario-toggle>
+                            </ccc-scenario-toggle>
                         </div>
                         <div class="column-4 flex-column">
                             <label for="project.scenario">Dataset*</label>
-                            <ccl-dataset-toggle
+                            <ccc-dataset-toggle
                                 [city]="model.project.project_data.city"
                                 [dataset]="model.project.project_data.dataset"
                                 [models]="model.project.project_data.models"
                                 (onDatasetSelected)="datasetSelected($event)">
-                            </ccl-dataset-toggle>
+                            </ccc-dataset-toggle>
                         </div>
                         <div class="column-4 flex-column">
                             <label for="project.models">Models</label>
-                            <ccl-model-modal [dataset]="model.project.project_data.dataset"
+                            <ccc-model-modal [dataset]="model.project.project_data.dataset"
                                              [models]="model.project.project_data.models"
                                              (onModelsChanged)="modelsChanged($event)">
-                            </ccl-model-modal>
+                            </ccc-model-modal>
                         </div>
                     </div>
                 </div>

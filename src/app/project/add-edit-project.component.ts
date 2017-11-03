@@ -8,11 +8,7 @@ import { Project } from '../models/project.model';
 import { ProjectData } from '../models/project-data.model';
 import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
-import {
-    CityDropdownComponent,
-    ModelModalComponent,
-    ScenarioToggleComponent,
-    UnitsDropdownComponent } from '../lab';
+import { CityDropdownComponent } from '../lab';
 
 /* Add/Edit Project Component
 */
