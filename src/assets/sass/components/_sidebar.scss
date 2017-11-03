@@ -49,6 +49,10 @@ ccl-indicator-list {
   margin: 0 1.5rem;
   font-weight: 800;
   padding-bottom: 1rem;
+  &:hover {
+    color: $brand-primary;
+    cursor: pointer;
+  }
 }
 
 .sidebar-title {

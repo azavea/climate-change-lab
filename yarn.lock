@@ -3567,10 +3567,6 @@ ng2-nouislider@^1.6.2:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/ng2-nouislider/-/ng2-nouislider-1.6.2.tgz#cacf2983afda6fd3dcdc94493cd1ddddfffa2cc5"
 
-ngx-bootstrap@^1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.9.1.tgz#09ed06d908f5f3bb23f821a0fb452e9a17d7665b"
-
 ngx-bootstrap@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.9.3.tgz#28e75d14fb1beaee609383d7694de4eb3ba03b26"

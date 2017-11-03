@@ -21,6 +21,8 @@ export class SidebarComponent implements OnInit {
 
     public tempIndicators: Indicator[];
     public precipIndicators: Indicator[];
+    public isTempCollapsed = false;
+    public isPrecipCollapsed = false;
 
     constructor(private indicatorService: IndicatorService) {}
 
