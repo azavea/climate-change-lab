@@ -23,15 +23,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^4.3.6",
-    "@angular/common": "^4.3.6",
-    "@angular/compiler": "^4.3.6",
-    "@angular/core": "^4.3.6",
-    "@angular/forms": "^4.3.6",
-    "@angular/http": "^4.3.6",
-    "@angular/platform-browser": "^4.3.6",
-    "@angular/platform-browser-dynamic": "^4.3.6",
-    "@angular/router": "^4.3.6",
+    "@angular/animations": "^4.4.6",
+    "@angular/common": "^4.4.6",
+    "@angular/compiler": "^4.4.6",
+    "@angular/core": "^4.4.6",
+    "@angular/forms": "^4.4.6",
+    "@angular/http": "^4.4.6",
+    "@angular/platform-browser": "^4.4.6",
+    "@angular/platform-browser-dynamic": "^4.4.6",
+    "@angular/router": "^4.4.6",
     "@types/geojson": "^1.0.3",
     "bootstrap-sass": "^3.3.7",
     "climate-change-components": "^0.2.0",
@@ -53,8 +53,8 @@
   },
   "devDependencies": {
     "@angular/cli": "1.3.2",
-    "@angular/compiler-cli": "^4.3.6",
-    "@angular/language-service": "^4.3.6",
+    "@angular/compiler-cli": "^4.4.6",
+    "@angular/language-service": "^4.4.6",
     "@types/jasmine": "2.5.54",
     "@types/jquery": "^3.2.12",
     "@types/node": "~8.0.26",
@@ -71,6 +71,6 @@
     "ts-node": "~3.3.0",
     "tslint": "~5.7.0",
     "typescript": "~2.6.1",
-    "webpack": "^3.5.5"
+    "webpack": "^3.8.1"
   }
 }
