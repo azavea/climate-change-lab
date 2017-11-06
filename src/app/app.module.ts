@@ -8,6 +8,7 @@ import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 // 3rd party modules
 import {
     BsDropdownModule,
+    CollapseModule,
     TooltipModule } from 'ngx-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NouisliderModule } from 'ng2-nouislider';
@@ -77,6 +78,7 @@ const locationStrategyProvider = {
     HttpModule,
     routing,
     BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
     TooltipModule.forRoot(),
     Ng2AutoCompleteModule,
     ClipboardModule,
