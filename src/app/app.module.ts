@@ -32,7 +32,6 @@ import { ChartComponent } from './charts/chart.component';
 import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
-import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageNotFoundComponent } from './http-status/page-not-found/page-not-found.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -68,7 +67,6 @@ const locationStrategyProvider = {
     NavbarComponent,
     SidebarComponent,
     PageNotFoundComponent,
-    LoginComponent,
     AddEditProjectComponent,
     CityDropdownComponent
   ],

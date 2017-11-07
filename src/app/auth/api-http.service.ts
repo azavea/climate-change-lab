@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 
 /**
  * Wrapper for Http that appends authorization headers for requests to the API backend,
- * and redirects unauthorized responses to login page.
+ * and redirects unauthorized responses to the API login page.
  */
 @Injectable()
 export class LabApiHttp extends Http implements ApiHttp {
