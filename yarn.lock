@@ -896,9 +896,9 @@ cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
 
-climate-change-components@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/climate-change-components/-/climate-change-components-0.2.0.tgz#ba2534e1e36d320d9524db47a70a4e26a73dde70"
+climate-change-components@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/climate-change-components/-/climate-change-components-0.2.1.tgz#6538d68af9dd176805469f327f4a565eb394b6ef"
   dependencies:
     "@angular/animations" "^4.3.6"
     "@angular/common" "^4.3.6"
