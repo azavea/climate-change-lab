@@ -11,7 +11,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "ng": "ng",
-    "serve": "ng serve",
+    "serve": "ng serve --host 0.0.0.0 --disable-host-check",
     "serve:vm": "ng serve --host 0.0.0.0 --poll 1000",
     "build": "ng build",
     "build:prod": "ng build -prod --aot --extract-css",
