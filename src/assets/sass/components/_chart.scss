@@ -1,13 +1,19 @@
 .chart {
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 
 .chart-graphic {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 
 ccc-line-graph {
@@ -24,6 +30,8 @@ ccc-line-graph {
 
 .chart-container {
   height: 100%;
+  flex: 1;
+  position: relative;
 }
 
 ccl-chart {
@@ -99,7 +107,9 @@ ccl-chart {
   }
 
   .chart-body {
-    flex: 1;
+    flex: 1 0  auto;
+    width: 100%;
+    position: relative;
   }
 
   .chart-options {
