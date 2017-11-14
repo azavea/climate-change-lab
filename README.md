@@ -66,11 +66,13 @@ Before publishing, ensure the correct `apiHost` is set for the target environmen
 Push changes to the staging site with docker-compose:
 
 ```bash
-$ export CC_SETTINGS_BUCKET=staging-us-east-1-climate-lab-site
-$ export CC_SITE_BUCKET=staging-us-east-1-climate-lab-config
+# staging
+$ export CC_SETTINGS_BUCKET=staging-us-east-1-climate-lab-config
+$ export CC_SITE_BUCKET=staging-us-east-1-climate-lab-site
+# OR production
+$ export CC_SETTINGS_BUCKET=production-us-east-1-climate-lab-config
+$ export CC_SITE_BUCKET=production-us-east-1-climate-lab-site
+# Plan and push changes
 $ docker-compose -f docker-compose.ci.yml run --rm terraform scripts/infra plan
 $ docker-compose -f docker-compose.ci.yml run --rm terraform scripts/infra apply
 ```
-
-To push changes to the production site, set `CC_SETTINGS_BUCKET=production-us-east-1-climate-lab-site`
-and `CC_SITE_BUCKET=production-us-east-1-climate-lab-site`
