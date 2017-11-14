@@ -58,12 +58,13 @@
 .project-row {
     margin-left: 0;
     margin-right: 0;
+    background-color: #eee;
+    padding: 0 1rem;
 
     .delete {
         text-align: right;
     }
     .column {
-        border-bottom: 1px solid $gray-3;
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
     }

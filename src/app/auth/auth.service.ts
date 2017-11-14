@@ -24,31 +24,36 @@ export class AuthService {
         return window.localStorage.getItem(this.LOCALSTORAGE_EMAIL_KEY) || defaultEmail;
     }
 
-    isAuthenticated(): boolean {
-        return !!this.getToken();
+    isAuthenticated(): Observable<boolean> {
+        return this.acquireTokenFromApi().map(response => {
+            return !!this.getToken();
+        });
     }
 
-    login(email: string, password: string): Observable<any> {
-        const body = JSON.stringify({
-            'email': email,
-            'password': password
-        });
+    acquireTokenFromApi(): Observable<any> {
+        // Attempts to request a token from the API, relying on the user having
+        // already logged in and able to use cookie based authentication
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({ headers: headers });
-        const url = `${apiHost}/api-token-auth/`;
-        return this.http.post(url, body, options).map(response => {
+        const options = new RequestOptions({ headers: headers, withCredentials: true });
+        const url = `${apiHost}/api-token/`;
+        return this.http.get(url, options).map(response => {
             const token = response.json().token;
-            this.setEmail(email);
+            const email = response.json().email;
             this.setToken(token);
+            this.setEmail(email);
+        }).catch((error: Response) => {
+            if (error.status === 401 || error.status === 403) {
+                this.setToken(null);
+                this.setEmail(null);
+            }
+            return Observable.of(null);
         });
     }
 
-    logout(redirectTo: string = '/login') {
+    logout() {
         this.setToken(null);
         this.setEmail(null);
-        if (redirectTo) {
-            this.router.navigate([redirectTo]);
-        }
+        window.location.assign(`${apiHost}/accounts/logout/`);
     }
 
     private setToken(token: string | null) {

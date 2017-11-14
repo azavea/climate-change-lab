@@ -1,16 +1,22 @@
 .chart {
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 
 .chart-graphic {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 
-ccl-line-graph {
+ccc-line-graph {
   position: relative;
   display: block;
   box-shadow: 2px 2px 10px rgba(0,0,0,.05);
@@ -24,6 +30,8 @@ ccl-line-graph {
 
 .chart-container {
   height: 100%;
+  flex: 1;
+  position: relative;
 }
 
 ccl-chart {
@@ -98,16 +106,20 @@ ccl-chart {
     }
   }
 
-
-
   .chart-body {
-    flex: 1;
+    flex: 1 0  auto;
+    width: 100%;
+    position: relative;
   }
 
   .chart-options {
     margin: 0;
     padding: 1rem 1.5rem;
     color: $heading-font-color;
+
+    & + .chart-options {
+      margin-top: -20px;
+    }
 
     &.buttons {
       border-top: 1px solid $gray-2;
@@ -119,6 +131,10 @@ ccl-chart {
 
     .chart-options-body {
       display: flex;
+
+      &.form-group {
+        margin: -1rem 0 2rem;
+      }
     }
 
     .chart-options-group {
@@ -127,7 +143,6 @@ ccl-chart {
       padding-right: 0.5rem;
 
       &.threshold {
-        margin-top: -27px;
       }
 
       span {
@@ -167,7 +182,7 @@ ccl-chart {
       }
 
       .optional-parameters-label {
-        line-height: 6.0rem;
+        line-height: 3rem;
       }
 
       button {
@@ -192,13 +207,9 @@ ccl-chart {
       select {
         font-weight: $body-font-weight;
         font-family: $body-font-family;
-        height: 3rem;
-        line-height: 3.0rem;
-        margin-top: 1.5rem;
         margin-right: 0.5rem;
-
         min-width: 100px;
-        padding: 1rem 0;
+        padding: 0;
 
         font-size: 14px;
         text-align: left;

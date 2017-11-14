@@ -17,27 +17,37 @@
             <!-- scenario selector -->
             <div class="control-group">
               <label>Scenario</label>
-              <ccl-scenario-toggle [projectData]="project.project_data"></ccl-scenario-toggle>
+              <ccc-scenario-toggle
+                [scenario]="project.project_data.scenario"
+                (onScenarioSelected)="scenarioSelected($event)">
+              </ccc-scenario-toggle>
             </div>
             <!-- dataset selector -->
             <div class="control-group">
               <label>Dataset</label>
-              <ccl-dataset-toggle [projectData]="project.project_data"></ccl-dataset-toggle>
+              <ccc-dataset-toggle [city]="project.project_data.city"
+                                  [dataset]="project.project_data.dataset"
+                                  [models]="project.project_data.models"
+                                  (onDatasetSelected)="datasetSelected($event)">
+              </ccc-dataset-toggle>
             </div>
             <!-- climate model selector -->
             <div class="control-group">
               <label>Models</label>
-              <ccl-model-modal [projectData]="project.project_data"></ccl-model-modal>
+              <ccc-model-modal [dataset]="project.project_data.dataset"
+                               [models]="project.project_data.models"
+                               (onModelsChanged)="modelsChanged($event)">
+              </ccc-model-modal>
             </div>
             <!-- units selector, only show if indicator selected -->
             <div class="control-group">
               <label>Units</label>
-              <ccl-units-dropdown [units]="project.project_data.charts[0] ?
+              <ccc-units-dropdown [units]="project.project_data.charts[0] ?
                                   project.project_data.charts[0].indicator.available_units: ['N/A']"
                                   [unit]="project.project_data.charts[0] ?
                                   project.project_data.charts[0].unit: ''"
                                   (unitSelected)="onUnitSelected($event)">
-              </ccl-units-dropdown>
+              </ccc-units-dropdown>
             </div>
           </div>
           <div class="nav-right"></div>

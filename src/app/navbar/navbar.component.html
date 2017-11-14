@@ -10,7 +10,6 @@
     <a class="button button-link" href="{{ apiHost }}/accounts/api/">API</a>
     <a class="button button-link active" [routerLink]="['/']">Lab</a>
     <div class="dropdown"
-         *ngIf="authService.isAuthenticated()"
          dropdown
          [(isOpen)]="isSettingsDropdownOpen">
       <button id="settings-dropdown" type="button" class="button button-link" dropdownToggle>

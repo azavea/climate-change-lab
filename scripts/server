@@ -11,10 +11,10 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     if [ "${1:-}" = "--help" ]; then
         usage
     else
-    	if [ "${1:-}" = "--vm" ]; then
-    		docker-compose run --rm --service-ports app run serve:vm
-	    else
-	        docker-compose run --rm --service-ports app run serve
-	    fi
+        if [ "${1:-}" = "--vm" ]; then
+            docker-compose run --rm --service-ports app run serve:vm
+        else
+            docker-compose run --rm --service-ports app run serve
+        fi
     fi
 fi

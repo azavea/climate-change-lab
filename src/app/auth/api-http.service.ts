@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ConnectionBackend, Http, Headers, Request, RequestOptions, RequestOptionsArgs,
          Response, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+
+import { ApiHttp } from 'climate-change-components';
 
 import { AuthService } from './auth.service';
 
 
 /**
  * Wrapper for Http that appends authorization headers for requests to the API backend,
- * and redirects unauthorized responses to login page.
+ * and redirects unauthorized responses to the API login page.
  */
 @Injectable()
-export class ApiHttp extends Http {
+export class LabApiHttp extends Http implements ApiHttp {
 
     constructor(protected _backend: ConnectionBackend,
                 protected _defaultOptions: RequestOptions,

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, ViewEncapsulation, OnInit, Output } from '@angular/core';
 
-import { IndicatorService } from '../services/indicator.service';
-import { Indicator } from '../models/indicator.model';
+import { IndicatorService } from 'climate-change-components';
+import { Indicator } from 'climate-change-components';
 
-import { isThresholdIndicator } from '../charts/extra-params-components/extra-params.constants';
+import { isThresholdIndicator } from 'climate-change-components';
 
 /*
  * Sidebar Component
@@ -21,6 +21,8 @@ export class SidebarComponent implements OnInit {
 
     public tempIndicators: Indicator[];
     public precipIndicators: Indicator[];
+    public isTempCollapsed = false;
+    public isPrecipCollapsed = false;
 
     constructor(private indicatorService: IndicatorService) {}
 

@@ -2,17 +2,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
+import { City, ClimateModel, Dataset, Scenario } from 'climate-change-components';
+
 import { Project } from '../models/project.model';
 import { ProjectData } from '../models/project-data.model';
-import { Scenario } from '../models/scenario.model';
-import { City } from '../models/city.model';
 import { ProjectService } from '../services/project.service';
 import { ProjectForm } from './project-form';
-import {
-    CityDropdownComponent,
-    ModelModalComponent,
-    ScenarioToggleComponent,
-    UnitsDropdownComponent } from '../lab';
+import { CityDropdownComponent } from '../lab';
 
 /* Add/Edit Project Component
 */
@@ -78,5 +74,17 @@ export class AddEditProjectComponent implements OnInit {
 
     onSuccess() {
         this.router.navigate(['/lab', this.model.project.id]);
+    }
+
+    datasetSelected(dataset: Dataset) {
+        this.model.project.project_data.dataset = dataset;
+    }
+
+    modelsChanged(models: ClimateModel[]) {
+        this.model.project.project_data.models = models;
+    }
+
+    scenarioSelected(scenario: Scenario) {
+        this.model.project.project_data.scenario = scenario;
     }
 }

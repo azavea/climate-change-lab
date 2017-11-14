@@ -4,43 +4,54 @@
     </h2>
 </div>
 <div *ngIf="isThresholdIndicator(chart.indicator.name)" class="chart-options">
-    <ccl-threshold-parameters
+    <ccc-threshold-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
         (thresholdParamSelected)="onExtraParamsSelected($event)">
-    </ccl-threshold-parameters>
+    </ccc-threshold-parameters>
 </div>
 <div *ngIf="isBasetempIndicator(chart.indicator.name)" class="chart-options">
-    <ccl-basetemp-parameters
+    <ccc-basetemp-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
         (basetempParamSelected)="onExtraParamsSelected($event)">
-    </ccl-basetemp-parameters>
+    </ccc-basetemp-parameters>
 </div>
-<div *ngIf="isPercentileIndicator(chart.indicator.name)" class="chart-options">
-    <ccl-percentile-parameters
+<!-- both percentile and historic extra parameters -->
+<div *ngIf="isPercentileIndicator(chart.indicator.name) &&
+            isHistoricIndicator(chart.indicator.name)" class="chart-options">
+    <ccc-percentile-historic-parameters
+        [indicator]="chart.indicator"
+        [extraParams]="extraParams"
+        (percentileHistoricParamSelected)="onExtraParamsSelected($event)">
+    </ccc-percentile-historic-parameters>
+</div>
+<div *ngIf="isPercentileIndicator(chart.indicator.name) &&
+            !isHistoricIndicator(chart.indicator.name)" class="chart-options">
+    <ccc-percentile-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
         (percentileParamSelected)="onExtraParamsSelected($event)">
-    </ccl-percentile-parameters>
+    </ccc-percentile-parameters>
 </div>
-<div *ngIf="isHistoricIndicator(chart.indicator.name)" class="chart-options">
-    <ccl-historic-parameters
+<div *ngIf="isHistoricIndicator(chart.indicator.name) &&
+            !isPercentileIndicator(chart.indicator.name)" class="chart-options">
+    <ccc-historic-parameters
         [indicator]="chart.indicator"
         [extraParams]="extraParams"
         (historicParamSelected)="onExtraParamsSelected($event)">
-    </ccl-historic-parameters>
+    </ccc-historic-parameters>
 </div>
 <div class="chart-body">
     <sk-wave [isRunning]="!chartData || ! chartData.length"></sk-wave>
     <div class="chart-graphic" *ngIf="chartData && chartData.length">
         <div class="line-graph">
-            <ccl-line-graph
+            <ccc-line-graph
                 [data]="chartData"
                 [indicator]="chart.indicator"
                 [hover]="isHover"
                 [unit]="unit">
-            </ccl-line-graph>
+            </ccc-line-graph>
         </div>
         <div class="chart-legend" *ngIf="chartData && chartData.length">
             <div class="chart-legend-icons">
@@ -61,8 +72,8 @@
             </div>
         </div>
         <div class="chart-legend">
-            <span *ngIf="dataset.name === 'NEX-GDDP'">Derived from the NASA Earth Exchange Global Daily Downscaled Projections (NEX-GDDP) dataset. Data available at <a href="https://nex.nasa.gov/nex/projects/1356/">https://nex.nasa.gov/nex/projects/1356/</a>.</span>
-            <span *ngIf="dataset.name === 'LOCA'">Downscaled from CMIP5, using the Localized Constructed Analogs (LOCA) statistical technique. Data available at <a href="http://loca.ucsd.edu">loca.ucsd.edu</a>.</span>
+            <span *ngIf="dataset.name === 'NEX-GDDP'">Derived from the NASA Earth Exchange Global Daily Downscaled Projections (NEX-GDDP) dataset. Data available at <a target="_blank" href="https://nex.nasa.gov/nex/projects/1356/">https://nex.nasa.gov/nex/projects/1356/<i class="icon-link-ext-alt"></i></a>.</span>
+            <span *ngIf="dataset.name === 'LOCA'">Downscaled from CMIP5, using the Localized Constructed Analogs (LOCA) statistical technique. Data available at <a target="_blank" href="http://loca.ucsd.edu">loca.ucsd.edu<i class="icon-link-ext-alt"></i></a>.</span>
         </div>
         <div class="chart-options buttons">
             <div class="chart-options-body">
