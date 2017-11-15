@@ -1,25 +1,26 @@
 .flex-container {
   display: flex;
-  -webkit-justify-content: space-around;
-  flex-grow: 1;
-  flex-shrink: 1;
   position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 auto;
+  justify-content: space-around;
+  overflow: hidden;
 }
 
 .flex-expand {
   color: #fff;
-  flex: 1;
   display: flex;
+  flex: 1;
   flex-direction: column;
   overflow: hidden;
-  flex: 1;
 }
 
 .app-fullscreen {
   display: flex;
   flex-direction: column;
-  height: 100%;
   flex: 1;
+  height: 100%;
   position: absolute;
   top: 0;
   bottom: 0;
