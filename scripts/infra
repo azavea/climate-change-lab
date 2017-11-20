@@ -23,6 +23,9 @@ then
     then
         usage
     else
+        echo "Attempting to deploy application version [${GIT_COMMIT}]..."
+        echo "-----------------------------------------------------"
+        echo
         if [[ -n "${CC_SETTINGS_BUCKET}" ]] && [[ -n "${CC_SITE_BUCKET}" ]];
         then
             pushd "${TERRAFORM_DIR}"
