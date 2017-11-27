@@ -150,8 +150,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         ).subscribe(data => {
             const chartQueryHistorical = data[0].url;
             const chartQueryFuture = data[1].url;
-            delete data[1].url; // apart from URL, returned data is raw query response
-            this.rawChartData = data[1];
+            this.rawChartData = data;
             this.processedData = this.chartService.convertChartData(data);
             this.chartData = cloneDeep(this.processedData);
 
@@ -173,7 +172,12 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
     }
 
     onExportClicked() {
-        this.dataExportService.downloadAsJSON(this.rawChartData);
+        const historicalData = this.rawChartData[0];
+        const historicalFilename = `historical-${historicalData.indicator.name}.json`;
+        this.dataExportService.downloadAsJSON(historicalFilename, historicalData);
+        const futureData = this.rawChartData[1];
+        const futureFilename = `future-${futureData.indicator.name}.json`;
+        this.dataExportService.downloadAsJSON(futureFilename, futureData);
     }
 
     onDownloadImageClicked() {
