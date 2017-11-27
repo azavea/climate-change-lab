@@ -104,7 +104,8 @@
       "check-branch",
       "check-decl",
       "check-operator",
-      "check-separator",
+      // Removed to work around https://github.com/palantir/tslint/issues/3251
+      // "check-separator",
       "check-type"
     ],
     "directive-selector": [
