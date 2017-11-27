@@ -10,11 +10,11 @@ export class ImageExportService {
 
     // options to pass when converting SVG to PNG
     private chartOptions = {
-            backgroundColor: 'white',
-            selectorRemap: function(selector) {
-                // find CSS selectors mapped to parent chart
-                return selector.replace('ccl-chart', '');
-            }
+        backgroundColor: 'white',
+        selectorRemap: function(selector) {
+            // find CSS selectors mapped to parent chart
+            return selector.replace('ccl-chart', '');
+        }
     };
 
     /**
