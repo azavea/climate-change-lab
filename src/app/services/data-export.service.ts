@@ -8,8 +8,7 @@ import * as FileSaver from 'file-saver';
 @Injectable()
 export class DataExportService {
 
-    public downloadAsJSON(data): void {
-        const filename = data.indicator.name + '.json';
+    public downloadAsJSON(filename: string, data: any): void {
         this.downloadFile(JSON.stringify(data), filename, 'application/json');
     }
 

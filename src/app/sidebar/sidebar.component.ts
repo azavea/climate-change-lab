@@ -1,4 +1,11 @@
-import { Component, EventEmitter, ViewEncapsulation, OnInit, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewEncapsulation
+} from '@angular/core';
 
 import { IndicatorService } from 'climate-change-components';
 import { Indicator } from 'climate-change-components';
@@ -17,6 +24,7 @@ import { isThresholdIndicator } from 'climate-change-components';
 })
 export class SidebarComponent implements OnInit {
 
+    @Input() indicator: Indicator;
     @Output() onIndicatorSelected = new EventEmitter<Indicator>();
 
     public tempIndicators: Indicator[];

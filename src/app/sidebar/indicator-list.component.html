@@ -1,4 +1,6 @@
-<button class="indicator" *ngFor="let indicator of indicators"
-    (click)="onIndicatorClicked(indicator)"
-    tooltip="{{ indicator.description }}"
-    placement="right">{{indicator.label}}</button>
+<button class="indicator"
+    *ngFor="let i of indicators"
+    [ngClass]="{'active': indicator?.name === i.name}"
+    (click)="onIndicatorClicked(i)"
+    tooltip="{{ i.description }}"
+    placement="right">{{i.label}}</button>

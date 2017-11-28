@@ -13,6 +13,7 @@ import { Indicator } from 'climate-change-components';
 })
 export class IndicatorListComponent {
 
+    @Input() indicator: Indicator;
     @Input() indicators: Indicator[];
     @Output() indicatorClicked = new EventEmitter<Indicator>();
 
