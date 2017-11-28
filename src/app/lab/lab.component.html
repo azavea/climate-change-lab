@@ -4,7 +4,10 @@
 
     <div class="flex-container">
 
-      <ccl-sidebar class="sidebar-content scrollable" (onIndicatorSelected)="indicatorSelected($event)"></ccl-sidebar>
+      <ccl-sidebar
+        class="sidebar-content scrollable"
+        [indicator]="indicator"
+        (onIndicatorSelected)="indicatorSelected($event)"></ccl-sidebar>
 
       <div class="flex-expand">
         <nav class="controls">

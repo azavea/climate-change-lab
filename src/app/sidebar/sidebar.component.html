@@ -2,12 +2,14 @@
     <h3 class="sidebar-category" (click)="isTempCollapsed = !isTempCollapsed">Temperature</h3>
     <ccl-indicator-list
         [collapse]="isTempCollapsed"
+        [indicator]="indicator"
         [indicators]="tempIndicators"
         (indicatorClicked)="onIndicatorClicked($event)">
     </ccl-indicator-list>
     <h3 class="sidebar-category" (click)="isPrecipCollapsed = !isPrecipCollapsed">Precipitation</h3>
     <ccl-indicator-list
         [collapse]="isPrecipCollapsed"
+        [indicator]="indicator"
         [indicators]="precipIndicators"
         (indicatorClicked)="onIndicatorClicked($event)">
     </ccl-indicator-list>
