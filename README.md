@@ -67,9 +67,11 @@ Push changes to the staging site with docker-compose:
 
 ```bash
 # staging
+$ export GIT_COMMIT="$(git rev-parse --short HEAD)"
 $ export CC_SETTINGS_BUCKET=staging-us-east-1-climate-lab-config
 $ export CC_SITE_BUCKET=staging-us-east-1-climate-lab-site
 # OR production
+$ export GIT_COMMIT="$(git rev-parse --short HEAD)"
 $ export CC_SETTINGS_BUCKET=production-us-east-1-climate-lab-config
 $ export CC_SITE_BUCKET=production-us-east-1-climate-lab-site
 # Plan and push changes

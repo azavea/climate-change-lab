@@ -41,6 +41,7 @@ then
 
                     terraform plan \
                               -var-file="${CC_SETTINGS_BUCKET}.tfvars" \
+                              -var="git_commit=\"${GIT_COMMIT}\"" \
                               -out="${CC_SETTINGS_BUCKET}.tfplan"
                     aws s3 sync --dryrun --delete ../../dist/_site "s3://${CC_SITE_BUCKET}/"
                     ;;
