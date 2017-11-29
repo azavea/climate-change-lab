@@ -20,8 +20,8 @@ export class ImageExportService {
     /**
      * Converts chart SVG to PNG and downloads it.
      *
-     * @param indicatorName {string} Name of indicator; used for SVG selector
-     * @param fileName {string} File name for download; will be suffixed with extension
+     * @param indicatorName - Name of indicator, used for SVG selector
+     * @param fileName - File name for download, will be suffixed with extension
      */
     public downloadAsPNG(indicatorName: string, fileName: string): void {
         const filename: string = fileName + '.png';
