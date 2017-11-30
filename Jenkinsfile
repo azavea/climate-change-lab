@@ -6,6 +6,8 @@ node {
       checkout scm
     }
 
+    env.GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+
     env.AWS_PROFILE = 'climate'
     env.CC_SETTINGS_BUCKET = 'staging-us-east-1-climate-lab-config'
     env.CC_SITE_BUCKET = 'staging-us-east-1-climate-lab-site'

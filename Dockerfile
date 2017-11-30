@@ -9,3 +9,10 @@ RUN set -ex \
 		chromium \
 	' \
 	&& apt-get install -y ${karmaDeps}
+
+WORKDIR /opt/app
+
+COPY package.json .
+COPY yarn.lock .
+
+RUN yarn install --pure-lockfile
