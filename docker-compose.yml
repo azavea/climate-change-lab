@@ -5,7 +5,7 @@ services:
       context: ./
       dockerfile: Dockerfile
       args:
-        NODE_VERSION: "7.10-slim"
+        NODE_VERSION: "6-slim"
     working_dir: /opt/app
     environment:
       - CHROME_BIN=/usr/bin/chromium
