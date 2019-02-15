@@ -25,14 +25,14 @@
                     <label for="project.city">Choose a city*</label>
                     <ccl-city-dropdown [projectData]="model.project.project_data" [showIcon]="false"></ccl-city-dropdown>
                     <div class="row">
-                        <div class="column-4 flex-column">
+                        <div class="column-5 flex-column">
                             <label for="project.scenario">Scenario*</label>
                             <ccc-scenario-toggle
                                 [scenario]="model.project.project_data.scenario"
                                 (onScenarioSelected)="scenarioSelected($event)">
                             </ccc-scenario-toggle>
                         </div>
-                        <div class="column-4 flex-column">
+                        <div class="column-3 flex-column">
                             <label for="project.scenario">Dataset*</label>
                             <ccc-dataset-toggle
                                 [city]="model.project.project_data.city"
