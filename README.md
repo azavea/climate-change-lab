@@ -14,7 +14,7 @@ If your development host machine meets the requirements above, simply:
 
   - Clone this repo and run `yarn install`
   - `cp example/constants.ts.example src/app/constants.ts`
-  - Edit `constants.ts` to set the API server name and API key
+  - Edit `constants.ts` to set the API server name
   - `yarn run serve`
 
 The site will then be available at [http://localhost:4200](http://localhost:4200) on your host machine.
