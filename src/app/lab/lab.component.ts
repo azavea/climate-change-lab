@@ -15,7 +15,7 @@ import {
     ClimateModel,
     Dataset,
     Indicator,
-    IndicatorQueryParams,
+    IndicatorDistanceQueryParams,
     Scenario
 } from 'climate-change-components';
 
@@ -88,7 +88,7 @@ export class LabComponent implements OnInit, OnDestroy {
         this.indicator = null;
     }
 
-    public saveExtraParams(params: IndicatorQueryParams) {
+    public saveExtraParams(params: IndicatorDistanceQueryParams) {
         this.project.project_data.extraParams = params;
     }
 
