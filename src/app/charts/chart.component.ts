@@ -10,24 +10,34 @@ import {
     Output
 } from '@angular/core';
 
+import * as cloneDeep from 'lodash.clonedeep';
+
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Chart, ChartData, City, ClimateModel, Dataset, IndicatorRequestOpts,
-         IndicatorQueryParams, Scenario, TimeAggParam } from 'climate-change-components';
-
-import { ChartService, IndicatorService } from 'climate-change-components';
+import {
+  Chart,
+  ChartData,
+  ChartService,
+  City,
+  ClimateModel,
+  Dataset,
+  IndicatorDistanceRequestOpts,
+  IndicatorDistanceQueryParams,
+  IndicatorService,
+  Scenario,
+  TimeAggParam,
+  isBasetempIndicator,
+  isHistoricIndicator,
+  isPercentileIndicator,
+  isThresholdIndicator,
+} from 'climate-change-components';
 
 import { AuthService } from '../auth/auth.service';
 import { DataExportService } from '../services/data-export.service';
 import { ImageExportService } from '../services/image-export.service';
 
-import { isBasetempIndicator,
-         isHistoricIndicator,
-         isPercentileIndicator,
-         isThresholdIndicator } from 'climate-change-components';
-
-import * as cloneDeep from 'lodash.clonedeep';
+import { environment } from '../../environments/environment';
 
 /*
  * Chart component
@@ -40,7 +50,7 @@ import * as cloneDeep from 'lodash.clonedeep';
 export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
 
     @Output() onRemoveChart = new EventEmitter<Chart>();
-    @Output() onExtraParamsChanged = new EventEmitter<IndicatorQueryParams>();
+    @Output() onExtraParamsChanged = new EventEmitter<IndicatorDistanceQueryParams>();
 
     @Input() chart: Chart;
     @Input() dataset: Dataset;
@@ -48,7 +58,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
     @Input() models: ClimateModel[];
     @Input() city: City;
     @Input() unit: string;
-    @Input() extraParams: IndicatorQueryParams;
+    @Input() extraParams: IndicatorDistanceQueryParams;
 
     private processedData: ChartData[];
     public chartData: ChartData[];
@@ -119,31 +129,37 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.cancelDataRequest();
     }
 
-    updateChart(extraParams: IndicatorQueryParams) {
+    updateChart(extraParams: IndicatorDistanceQueryParams) {
         this.cancelDataRequest();
         this.chartData = [];
         this.rawChartData = [];
 
-        const params: IndicatorQueryParams = {
+        const params: IndicatorDistanceQueryParams = {
             climateModels: this.models.filter(model => model.enabled),
             dataset: this.dataset.name,
             unit: this.unit || this.chart.indicator.default_units,
-            time_aggregation: TimeAggParam.Yearly
+            time_aggregation: TimeAggParam.Yearly,
+            distance: environment.distance
         }
 
         Object.assign(params, this.extraParams);
 
-        const queryOpts: IndicatorRequestOpts = {
+        const queryOpts: IndicatorDistanceRequestOpts = {
             indicator: this.chart.indicator,
             scenario: this.scenario,
-            city: this.city,
             params: params
         };
 
         this.dateRange = [this.firstYear, this.lastYear]; // reset time slider range
-        const future = this.indicatorService.getData(queryOpts);
+        const future = this.indicatorService.getDataForLatLon(
+          this.city.geometry,
+          queryOpts,
+        );
         queryOpts.scenario = this.historicalScenario;
-        const historical = this.indicatorService.getData(queryOpts);
+        const historical = this.indicatorService.getDataForLatLon(
+          this.city.geometry,
+          queryOpts,
+        );
         this.dataSubscription = Observable.forkJoin(
             historical,
             future
@@ -191,7 +207,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
     }
 
-    public onExtraParamsSelected(params: IndicatorQueryParams) {
+    public onExtraParamsSelected(params: IndicatorDistanceQueryParams) {
         this.extraParams = params;
         this.onExtraParamsChanged.emit(this.extraParams);
         this.updateChart(this.extraParams);

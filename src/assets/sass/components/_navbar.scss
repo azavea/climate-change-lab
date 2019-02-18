@@ -56,7 +56,7 @@ nav {
   color: #fff;
   border-bottom: 1px solid $gray-2;
   background-color: #F3F3F3;
-  padding: 1rem 0;
+  padding: 1rem 1rem .5rem 1.5rem;
   @include clearfix;
 
   label {
@@ -70,9 +70,7 @@ nav {
   .control-group {
     float: left;
     margin-left: 6px;
-    &:first-child {
-      margin-left: 1.5rem;
-    }
+    margin-bottom: 6px;
   }
 
   .dropdown {
