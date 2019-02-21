@@ -128,3 +128,12 @@
   border-left-color: #ffffff;
   bottom: -$popover-arrow;
 }
+
+.popover.error-popover {
+  background: #FA2D3A;
+  color: #ffffff;
+
+  > .arrow:after {
+    border-top-color: #FA2D3A;
+  }
+}

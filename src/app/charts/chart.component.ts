@@ -121,7 +121,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
 
     ngOnChanges($event) {
         // happens if different chart selected
-        if (!this.scenario || !this.city || !this.models || !this.dataset) { return; }
+        if (!this.scenario || !this.city || !this.city.properties || !this.models || !this.dataset) { return; }
         this.updateChart($event);
     }
 
