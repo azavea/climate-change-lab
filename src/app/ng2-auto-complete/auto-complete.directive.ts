@@ -9,7 +9,6 @@ import {
   ComponentFactoryResolver,
   SimpleChanges
 } from '@angular/core';
-import 'rxjs/Rx';
 
 import { AutoCompleteComponent } from './auto-complete.component';
 
