@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/Rx';
 import * as FileSaver from 'file-saver';
 
 /*
