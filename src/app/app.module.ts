@@ -49,8 +49,7 @@ import { ImageExportService } from './services/image-export.service';
 import { MapCellService } from './services/map-cell.service';
 import { ProjectService } from './services/project.service';
 
-import { apiHost } from './constants';
-import { environment } from '../environments/environment';
+import { apiHost, googleApiKey } from './constants';
 
 // Custom app providers
 const locationStrategyProvider = {
@@ -60,7 +59,7 @@ const locationStrategyProvider = {
 
 // Google maps config
 const AGM_CONFIG = {
-  apiKey: environment.googleMapsApiKey,
+  apiKey: googleApiKey,
   libraries: ['places']
 };
 

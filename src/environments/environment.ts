@@ -6,5 +6,4 @@
 export const environment = {
   production: false,
   distance: 32000,
-  googleMapsApiKey: 'AIzaSyCUvxTzvJ9kGEu2S7U641D7QGt5Xym0DjM',
 };

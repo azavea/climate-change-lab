@@ -29,10 +29,7 @@ node {
 
     stage('test') {
       wrap([$class: 'AnsiColorBuildWrapper']) {
-        writeFile file: 'src/app/constants.ts', text: """
-            export const defaultCity = {\'id\': 7, \'properties\': {\'name\': \'Philadelphia\', \'admin\': \'PA\'}};
-            export const apiHost = \'${env.API_HOST}\';
-            export const defaultScenario = \'RCP85\';\n"""
+        sh "aws s3 cp 's3://${env.CC_SETTINGS_BUCKET}/angular/constants.ts' 'src/app/constants.ts'"
 
         sh './scripts/test --jenkins'
 
