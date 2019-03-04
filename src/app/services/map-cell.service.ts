@@ -15,8 +15,8 @@ export class MapCellService {
     nearest(point: Point, distance: number): Observable<MapCell[]> {
         const url = `${apiHost}/api/map-cell/${point.coordinates[1]}/${point.coordinates[0]}?distance=${distance}/`;
         return this.apiHttp.get(url)
-        .map((resp) => {
-            return resp.json() || [] as MapCell[];
-        });
+            .map((resp) => {
+                return resp.json() || [] as MapCell[];
+            });
     }
 }
