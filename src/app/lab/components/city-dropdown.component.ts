@@ -72,6 +72,7 @@ export class CityDropdownComponent implements OnInit, ControlValueAccessor, Vali
 
     writeValue(city: any) {
         if (city && city.properties) {
+            this.errors = null;
             this.input.nativeElement.value = `${city.properties.name}, ${city.properties.admin}`;
         }
     }

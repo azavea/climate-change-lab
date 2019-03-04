@@ -15,7 +15,7 @@
             <!-- city selector -->
             <div class="control-group">
               <label>Location</label>
-              <ccl-city-dropdown [(ngModel)]="project.project_data.city"></ccl-city-dropdown>
+              <ccl-city-dropdown [(ngModel)]="project.project_data.city" (ngModelChange)="saveLastCity($event)"></ccl-city-dropdown>
             </div>
             <!-- scenario selector -->
             <div class="control-group">
