@@ -6,9 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 
 // 3rd party modules
+import { AgmCoreModule } from '@agm/core';
 import {
     BsDropdownModule,
     CollapseModule,
+    PopoverModule,
     TooltipModule } from 'ngx-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NouisliderModule } from 'ng2-nouislider';
@@ -44,14 +46,21 @@ import { AuthGuard } from './auth/auth.guard';
 
 import { DataExportService } from './services/data-export.service';
 import { ImageExportService } from './services/image-export.service';
+import { MapCellService } from './services/map-cell.service';
 import { ProjectService } from './services/project.service';
 
-import { apiHost } from './constants';
+import { apiHost, googleApiKey } from './constants';
 
 // Custom app providers
 const locationStrategyProvider = {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
+};
+
+// Google maps config
+const AGM_CONFIG = {
+  apiKey: googleApiKey,
+  libraries: ['places']
 };
 
 @NgModule({
@@ -75,9 +84,11 @@ const locationStrategyProvider = {
     FormsModule,
     HttpModule,
     routing,
+    AgmCoreModule.forRoot(AGM_CONFIG),
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
+    PopoverModule.forRoot(),
     Ng2AutoCompleteModule,
     ClipboardModule,
     NouisliderModule,
@@ -95,6 +106,7 @@ const locationStrategyProvider = {
     AuthGuard,
     DataExportService,
     ImageExportService,
+    MapCellService,
     ProjectService
   ]
 })

@@ -4,3 +4,4 @@
  */
 
 export const apiHost = 'https://app.climate.azavea.com';
+export const googleApiKey = 'Add API key here';

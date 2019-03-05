@@ -13,11 +13,17 @@ Alternatively, you can bring up the vagrant VM that has the dependencies install
 If your development host machine meets the requirements above, simply:
 
   - Clone this repo and run `yarn install`
-  - `cp example/constants.ts.example src/app/constants.ts`
-  - Edit `constants.ts` to set the API server name
+  - Copy the "Climate lab dev config" from LastPass to `src/app/constants.ts` (See below if you do not have access to this resource)
   - `yarn run serve`
 
 The site will then be available at [http://localhost:4200](http://localhost:4200) on your host machine.
+
+#### Setting up constants.ts
+
+For users who don't have access to our internal configuration file, you can create your own with the following steps:
+  - Enable the "Maps JavaScript API" and "Places API" from the [Google API library](https://console.cloud.google.com/apis/library), then create a new [Google API key](https://console.cloud.google.com/apis/credentials/). You can restrict it to the "Maps JavaScript API" and "Places API" with referrers set to `http://localhost:4200/*`
+  - `cp example/constants.ts.example src/app/constants.ts`
+  - Edit `constants.ts` to set the API server name and Google API key
 
 ### Setup via Vagrant VM
 

@@ -14,6 +14,7 @@
                        class="form-control"
                        id="project.name"
                        name="project.name"
+                       required
                        [(ngModel)]="model.project.project_data.name">
                 <label for="project.description">Description</label>
                 <textarea type="text"
@@ -23,7 +24,7 @@
                         [(ngModel)]="model.project.project_data.description"></textarea>
                 <div *ngIf="!edit" class="project-options">
                     <label for="project.city">Choose a city*</label>
-                    <ccl-city-dropdown [projectData]="model.project.project_data" [showIcon]="false"></ccl-city-dropdown>
+                    <ccl-city-dropdown [(ngModel)]="model.project.project_data.city" name="project.city" #city="ngModel"></ccl-city-dropdown>
                     <div class="row">
                         <div class="column-5 flex-column">
                             <label for="project.scenario">Scenario*</label>
@@ -53,7 +54,7 @@
                 <div class="row align-center">
                     <button type="submit"
                             class="button button-primary"
-                            [disabled]="!projectForm.form.valid || !model.project.project_data.city.id || !model.project.project_data.scenario.name ||
+                            [disabled]="!projectForm.form.valid || !model.project.project_data.city.geometry || !model.project.project_data.scenario.name ||
                             !model.project.project_data.dataset.name"
                             *ngIf="!edit">Create Project</button>
                     <button type="submit"

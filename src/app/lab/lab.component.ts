@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import {
     Chart,
+    City,
     ClimateModel,
     Dataset,
     Indicator,
@@ -35,6 +36,7 @@ export class LabComponent implements OnInit, OnDestroy {
     public chart: Chart;
     public indicator: Indicator;
     private routeParamsSubscription: Subscription;
+    private lastCity: City;
 
     constructor(private projectService: ProjectService,
                 private route: ActivatedRoute,
@@ -58,6 +60,7 @@ export class LabComponent implements OnInit, OnDestroy {
                         if (this.project.project_data.charts[0]) {
                             this.indicator = this.project.project_data.charts[0].indicator;
                         }
+                        this.saveLastCity(this.project.project_data.city);
                     },
                     error => this.router.navigate(['/']) // Reroute if error
                 );
@@ -106,14 +109,22 @@ export class LabComponent implements OnInit, OnDestroy {
         this.removeChart();
         /*  Trigger lifecycle to truly destroy the chart component & its children
             Reset defaults in fresh child components
+            Restore to last valid city in case the current one is invalid
             Cleanly evaluate which children to have (e.g. extra params) */
         setTimeout(() => {
             this.indicator = indicator;
             this.saveExtraParams({});
             const chart = new Chart({indicator: indicator,
                                      unit: indicator.default_units});
+            this.project.project_data.city = this.lastCity;
             this.project.project_data.charts = [chart];
         })
+    }
+
+    public saveLastCity(city: City) {
+        if (city && city.properties) {
+            this.lastCity = city;
+        }
     }
 
     public modelsChanged(models: ClimateModel[]) {

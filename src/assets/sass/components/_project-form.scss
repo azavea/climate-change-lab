@@ -31,12 +31,8 @@ ccl-add-edit-project {
 
         }
 
-        .ng2-auto-complete {
+        .autocomplete {
             width: 100%;
-
-            input {
-                width: 100%;
-            }
         }
     }
 
@@ -57,4 +53,8 @@ input, textarea {
     color: $color-header;
     border: 1px solid #ccc;
     padding: 6px;
+}
+
+input.error {
+    border-color: #FA2D3A !important;
 }
