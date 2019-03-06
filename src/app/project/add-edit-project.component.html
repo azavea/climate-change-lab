@@ -46,7 +46,8 @@
                             <label for="project.models">Models</label>
                             <ccc-model-modal [dataset]="model.project.project_data.dataset"
                                              [models]="model.project.project_data.models"
-                                             (onModelsChanged)="modelsChanged($event)">
+                                             (onModelsChanged)="modelsChanged($event)"
+                                             *ngIf="model.project.project_data.dataset">
                             </ccc-model-modal>
                         </div>
                     </div>
