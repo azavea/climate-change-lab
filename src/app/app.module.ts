@@ -44,8 +44,6 @@ import { apiHttpProvider } from './auth/api-http.provider';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 
-import { DataExportService } from './services/data-export.service';
-import { ImageExportService } from './services/image-export.service';
 import { MapCellService } from './services/map-cell.service';
 import { ProjectService } from './services/project.service';
 
@@ -104,8 +102,6 @@ const AGM_CONFIG = {
     apiHttpProvider,
     AuthService,
     AuthGuard,
-    DataExportService,
-    ImageExportService,
     MapCellService,
     ProjectService
   ]

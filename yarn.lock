@@ -908,15 +908,18 @@ cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
 
-climate-change-components@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/climate-change-components/-/climate-change-components-0.3.1.tgz#445cbd7de892293612d020ea148776ab4bb12137"
+climate-change-components@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/climate-change-components/-/climate-change-components-0.4.0.tgz#d4aac7f8c117df5d9193fc4529ffb90b011a032a"
+  integrity sha512-YNzKapAXplwdJomUBrXV50SjmCamlF/W3zYS0nFZwo+KYIK02RZ75+mHkv5uVV/7vBH1ikNQZK62XrzkOdE41g==
   dependencies:
     "@types/geojson" "^1.0.3"
     d3 "^4.10.0"
+    file-saver "^1.3.8"
     jquery "^3.2.1"
     lodash "^4.17.4"
     moment "^2.18.1"
+    save-svg-as-png "^1.4.12"
 
 cliui@^2.1.0:
   version "2.1.0"
@@ -4920,9 +4923,9 @@ saucelabs@^1.5.0:
   dependencies:
     https-proxy-agent "^2.2.1"
 
-save-svg-as-png@^1.4.9:
-  version "1.4.9"
-  resolved "https://registry.yarnpkg.com/save-svg-as-png/-/save-svg-as-png-1.4.9.tgz#0ac8e037de150e202dd80cc63061a2fe3e15199e"
+save-svg-as-png@^1.4.12:
+  version "1.4.12"
+  resolved "https://registry.yarnpkg.com/save-svg-as-png/-/save-svg-as-png-1.4.12.tgz#6acaa3b542d0236d6e96ff38c1da40a6b18bc15e"
 
 sax@0.5.x:
   version "0.5.8"
