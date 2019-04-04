@@ -13,6 +13,7 @@ import {
 import * as cloneDeep from 'lodash.clonedeep';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
 import { Subscription } from 'rxjs/Subscription';
 
 import {
@@ -31,11 +32,11 @@ import {
   isHistoricIndicator,
   isPercentileIndicator,
   isThresholdIndicator,
+  DataExportService,
+  ImageExportService
 } from 'climate-change-components';
 
 import { AuthService } from '../auth/auth.service';
-import { DataExportService } from '../services/data-export.service';
-import { ImageExportService } from '../services/image-export.service';
 
 import { environment } from '../../environments/environment';
 
@@ -45,7 +46,11 @@ import { environment } from '../../environments/environment';
  */
 @Component({
   selector: 'ccl-chart', // if this selector is renamed, image export service must also be updated
-  templateUrl: './chart.component.html'
+  templateUrl: './chart.component.html',
+  providers: [
+    DataExportService,
+    ImageExportService
+  ]
 })
 export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
 
@@ -203,8 +208,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
             this.dataset.name,
             this.scenario.name
         ].join('_');
-
-        this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName);
+        this.imageExportService.downloadAsPNG(this.chart.indicator.name, fileName, 'ccl-chart');
     }
 
     public onExtraParamsSelected(params: IndicatorDistanceQueryParams) {

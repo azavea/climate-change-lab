@@ -5,6 +5,7 @@ import { MapsAPILoader } from '@agm/core';
 import { City } from 'climate-change-components';
 import { Point } from 'geojson';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
 
 import { MapCell } from '../../models/map-cell.model';
 import { MapCellService } from '../../services/map-cell.service';
